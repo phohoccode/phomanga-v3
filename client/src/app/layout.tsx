@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/store/StoreProvieder";
+import NextTopLoader from "nextjs-toploader";
+import NavBar from "@/components/NavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Trang chủ phomanga-v3",
+  title: "Trang chủ",
   description: "Website đọc truyện tranh online miễn phí",
 };
 
@@ -25,11 +27,16 @@ export default function RootLayout({
 }>) {
   return (
     <StoreProvider>
-      <html lang="vi">
+      <html lang="vi" suppressHydrationWarning>
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          {children}
+          <NextTopLoader color="#13c2c2" showSpinner={false} height={2}/>
+
+          <NavBar />
+          <div className="flex gap-8">
+            <div className="max-w-[1280px]">{children}</div>
+          </div>
         </body>
       </html>
     </StoreProvider>
