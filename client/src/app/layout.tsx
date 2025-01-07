@@ -4,6 +4,7 @@ import "./globals.css";
 import { StoreProvider } from "@/store/StoreProvieder";
 import NextTopLoader from "nextjs-toploader";
 import NavBar from "@/components/NavBar";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,10 +34,12 @@ export default function RootLayout({
         >
           <NextTopLoader color="#13c2c2" showSpinner={false} height={2}/>
 
-          <NavBar />
-          <div className="flex gap-8">
-            <div className="max-w-[1280px]">{children}</div>
-          </div>
+         <SessionProvider>
+            <NavBar />
+            <div className="flex gap-8">
+              <div className="max-w-[1280px]">{children}</div>
+            </div>
+         </SessionProvider>
         </body>
       </html>
     </StoreProvider>

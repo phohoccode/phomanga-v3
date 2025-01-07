@@ -3,21 +3,12 @@ import Credentials from "next-auth/providers/credentials";
 import { signInSchema } from "./lib/zod";
 import { ZodError } from "zod";
 import GoogleProvider from "next-auth/providers/google";
-
-// export class InvalidLoginError extends AuthError {
-//   code = "invalid_credentials"; // lỗi mặc định
-//   constructor(public message: string) {
-//     super(message);
-//     this.code = message;
-//   }
-// }
+import axios from "@/config/axios";
+import { codeErrorLogin } from "./lib/types";
 
 export class InvalidLoginError extends AuthError {
-  constructor(public code: string, public details?: string) {
-    // kế thừa từ AuthError
-    super(details || "Đăng nhập thất bại!");
-
-    // gán đè
+  constructor(public code: codeErrorLogin, public details?: string) {
+    super(details);
     this.code = code;
   }
 }
@@ -32,22 +23,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        console.log(">>> credentials", credentials);
-
         try {
           const { email, password } = await signInSchema.parseAsync(
             credentials
           );
 
-          const user = null;
+          const user: any = await axios.post("/auth/login", {
+            email,
+            password,
+          });
 
           console.log(">>> user-login", user);
 
-          if (!user) {
-            throw new InvalidLoginError(
-              "invalid_credentials",
-              "Thông tin đăng nhập không hợp lệ!!"
-            );
+          if (user?.status === "error") {
+            throw new InvalidLoginError(user?.error_code, user?.message);
           }
 
           return user;
@@ -74,8 +63,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token, user, account, profile }: any) {
-      console.log(">>> jwt", token);
-      // const dataUser: any = await fetchUser(token.email);
+      const dataUser: any = await axios.post("/user/get-user", {
+        email: token?.email,
+      });
+
+      console.log(">>> token-before", token);
+      console.log(">>> dataUser-jwt", dataUser);
 
       if (profile && account) {
         token.id = profile.sub;
@@ -84,19 +77,35 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.picture = profile.picture;
       }
 
-      // token.role = dataUser?.data?.role ?? "guest";
+      if (dataUser.status === "success") {
+        token.role = dataUser?.user?.role_id === 1 ? "guest" : "admin";
+      } else {
+        token.role = "guest";
+      }
 
-      console.log(">>> jwt-token", token);
+      console.log(">>> token-after", token);
       return token;
     },
     async session({ session, token }: any) {
-      // const user: any = await fetchUser(token.email);
+      const dataUser: any = await axios.post("/user/get-user", {
+        email: token?.email,
+      });
+
+      console.log(">>> session-before", session);
+      console.log(">>> dataUser-session", dataUser);
 
       session.user.id = token.id;
-      // session.user.role = user?.data?.role;
       session.user.name = token.name;
       session.user.email = token.email;
       session.user.image = token.picture;
+
+      if (dataUser.status === "success") {
+        session.user.role = dataUser?.user?.role_id === 1 ? "guest" : "admin";
+      } else {
+        session.user.role = "guest";
+      }
+
+      console.log(">>> session-after", session);
       return session;
     },
   },

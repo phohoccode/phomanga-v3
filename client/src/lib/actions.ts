@@ -1,14 +1,40 @@
-import connection from "./db";
+"use server"
 
-export const fetchAllUsers = async () => {
+import { signIn } from "@/auth";
+
+// =============================== AUTH.JS ===============================
+export async function authenticate(
+  email: string,
+  password: string
+): Promise<any> {
   try {
-    const sql_select = "SELECT * FROM users";
-    const [rows, fields] = await connection.promise().query(sql_select);
+    console.log(">>> email", email);
+    console.log(">>> password", password)
 
-    console.log("Dữ liệu từ database:", rows);
-    return rows;
-  } catch (err) {
-    console.error("Lỗi khi lấy dữ liệu:", err);
-    throw err;
+    const response = await signIn("credentials", {
+      email: email,
+      password: password,
+      redirect: false,
+      callbackUrl: "/",
+    });
+
+    return {
+      status: "success",
+      message: "Đăng nhập thành công!",
+    };
+  } catch (error: any) {
+    console.log(">>> actions-error", error);
+
+    switch (error?.code) {
+      case "invalid_credentials":
+        return { status: "error", message: error?.details };
+      case "zod_error":
+        return { status: "error", message: error?.details };
+      default:
+        return {
+          status: "error",
+          message: "Đã có lỗi xảy ra, vui lòng thử lại!!!",
+        };
+    }
   }
-};
+}

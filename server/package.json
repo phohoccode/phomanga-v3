@@ -17,6 +17,7 @@
     "@types/cors": "^2.8.17",
     "@types/nodemailer": "^6.4.17",
     "@types/validator": "^13.12.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "handlebars": "^4.7.8",
