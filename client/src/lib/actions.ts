@@ -1,6 +1,8 @@
-"use server"
+"use server";
 
 import { signIn } from "@/auth";
+import type { registerAccount, resetPassword } from "./types";
+import axios from "@/config/axios";
 
 // =============================== AUTH.JS ===============================
 export async function authenticate(
@@ -8,10 +10,7 @@ export async function authenticate(
   password: string
 ): Promise<any> {
   try {
-    console.log(">>> email", email);
-    console.log(">>> password", password)
-
-    const response = await signIn("credentials", {
+    await signIn("credentials", {
       email: email,
       password: password,
       redirect: false,
@@ -33,8 +32,71 @@ export async function authenticate(
       default:
         return {
           status: "error",
-          message: "Đã có lỗi xảy ra, vui lòng thử lại!!!",
+          message: "Đã có lỗi xảy ra, vui lòng thử lại!",
         };
     }
+  }
+}
+
+export async function sendOTP(email: string, type: string): Promise<any> {
+  try {
+    const response: any = await axios.post("/auth/send-otp", {
+      email,
+      type,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Đã có lỗi xảy ra, vui lòng thử lại!",
+    };
+  }
+}
+
+export async function register({
+  email,
+  password,
+  name,
+  otp,
+}: registerAccount): Promise<any> {
+  try {
+    const response: any = await axios.post("/auth/register", {
+      email,
+      password,
+      name,
+      otp,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Đã có lỗi xảy ra, vui lòng thử lại!",
+    };
+  }
+}
+
+export async function resetPassword({
+  email,
+  password,
+  otp,
+}: resetPassword): Promise<any> {
+  try {
+    const response: any = await axios.post("/auth/reset-password", {
+      email,
+      password,
+      otp,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Đã có lỗi xảy ra, vui lòng thử lại!",
+    };
   }
 }

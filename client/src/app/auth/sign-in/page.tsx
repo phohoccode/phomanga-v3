@@ -19,29 +19,29 @@ type FieldType = {
   password: string;
 };
 
-const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
-  const res = await authenticate(values.email, values.password);
-
-  if (res?.status === "error") {
-    message.error(res?.message);
-  } else {
-    message.success(res?.message);
-    setTimeout(() => {
-      window.location.href = "/";
-    }, 1000);
-  }
-};
-
-const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-  console.log("Failed:", errorInfo);
-};
-
 const Page = () => {
-  const { data: session } = useSession();
+  const [loading, setLoading] = React.useState<boolean>(false);
 
-  if (session) {
-    window.location.href = "/";
-  }
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    setLoading(true);
+    const res = await authenticate(values.email, values.password);
+    setLoading(false);
+
+    if (res?.status === "error") {
+      message.error(res?.message);
+    } else {
+      message.success(res?.message);
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 1000);
+    }
+  };
+
+  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+    errorInfo
+  ) => {
+    console.log("Failed:", errorInfo);
+  };
 
   return (
     <Form
@@ -94,6 +94,7 @@ const Page = () => {
       </Form.Item>
       <Form.Item>
         <Button
+          loading={loading}
           size="large"
           color="cyan"
           variant="solid"

@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import type { FormProps } from "antd";
-import { Button, Divider, Flex, Form, Input, Typography } from "antd";
+import { Button, Divider, Flex, Form, Input, message, Typography } from "antd";
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
@@ -10,29 +10,80 @@ import {
   LockOutlined,
   MailOutlined,
   NumberOutlined,
+  UserOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
+import { register, sendOTP } from "@/lib/actions";
+import { useRouter } from "next/navigation";
 
 type FieldType = {
-  email?: string;
-  password?: string;
-  confirmPassword?: string;
-  code?: string;
-};
-
-const onFinish: FormProps<FieldType>["onFinish"] = (values) => {
-  console.log("Success:", values);
-};
-
-const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (errorInfo) => {
-  console.log("Failed:", errorInfo);
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  code: string;
 };
 
 const Page = () => {
+  const [form] = Form.useForm();
+  const [loadingSendOTP, setLoadingSendOTP] = useState<boolean>(false);
+  const [loadingRegister, setLoadingRegister] = useState<boolean>(false);
+
+  const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
+    if (values.password !== values.confirmPassword) {
+      message.error("Mật khẩu không khớp!");
+      return;
+    }
+
+    setLoadingRegister(true);
+    const response = await register({
+      email: values.email,
+      password: values.password,
+      name: values.name,
+      otp: values.code,
+    });
+    setLoadingRegister(false);
+
+    if (response?.status === "error") {
+      message.error(response?.message);
+    } else {
+      message.success(response?.message);
+      setTimeout(() => {
+        window.location.href = "/auth/sign-in";
+      }, 1000);
+    }
+  };
+
+  const onFinishFailed: FormProps<FieldType>["onFinishFailed"] = (
+    errorInfo
+  ) => {
+    console.log("Failed:", errorInfo);
+  };
+
+  const handleSendOTP = async () => {
+    const email = form.getFieldValue("email");
+
+    if (!email) {
+      message.error("Vui lòng nhập email!");
+      return;
+    }
+
+    setLoadingSendOTP(true);
+    const response = await sendOTP(email, "register_account");
+    setLoadingSendOTP(false);
+
+    if (response.status === "error") {
+      message.error(response.message);
+    } else {
+      message.success("Mã xác thực đã được gửi!");
+    }
+  };
+
   return (
     <Form
+      form={form}
       initialValues={{
-        username: "",
+        name: "",
         password: "",
         confirmPassword: "",
         code: "",
@@ -54,6 +105,16 @@ const Page = () => {
           Một tài khoản PHOMANGA-V3 là tất cả những gì bạn cần để truy cập vào
           tất cả các dịch vụ của chúng tôi.
         </Typography.Text>
+      </Form.Item>
+      <Form.Item
+        name="name"
+        rules={[{ required: true, message: "Vui lòng nhập tên đăng nhập." }]}
+      >
+        <Input
+          size="large"
+          placeholder="Tên người dùng"
+          prefix={<UserOutlined />}
+        />
       </Form.Item>
       <Form.Item
         name="email"
@@ -114,7 +175,14 @@ const Page = () => {
             placeholder="Nhập mã xác thực"
             maxLength={6}
           />
-          <Button size="large" color="cyan" variant="outlined">
+          <Button
+            loading={loadingSendOTP}
+            onClick={() => handleSendOTP()}
+            size="large"
+            color="cyan"
+            variant="outlined"
+            htmlType="button"
+          >
             Gửi mã
           </Button>
         </Flex>
@@ -122,6 +190,7 @@ const Page = () => {
 
       <Form.Item style={{ marginBottom: 0 }}>
         <Button
+          loading={loadingRegister}
           size="large"
           color="cyan"
           variant="solid"

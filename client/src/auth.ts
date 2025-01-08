@@ -33,7 +33,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             password,
           });
 
-          console.log(">>> user-login", user);
+          console.log(">>> user", user);
 
           if (user?.status === "error") {
             throw new InvalidLoginError(user?.error_code, user?.message);
@@ -49,7 +49,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
               error?.issues?.[0]?.message
             );
           }
-          throw error; // Ném lại nếu là InvalidLoginError
+          throw error;
         }
       },
     }),
@@ -62,50 +62,27 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/auth/login",
   },
   callbacks: {
-    async jwt({ token, user, account, profile }: any) {
-      const dataUser: any = await axios.post("/user/get-user", {
+    async jwt({ token, profile }: any) {
+      const response: any = await axios.post("/user/get-user", {
         email: token?.email,
       });
 
-      console.log(">>> token-before", token);
-      console.log(">>> dataUser-jwt", dataUser);
-
-      if (profile && account) {
-        token.id = profile.sub;
-        token.name = profile.name;
-        token.email = profile.email;
-        token.picture = profile.picture;
-      }
-
-      if (dataUser.status === "success") {
-        token.role = dataUser?.user?.role_id === 1 ? "guest" : "admin";
-      } else {
+      if (profile && response?.status === "error") {
         token.role = "guest";
+      } else if (response?.status === "success" && !profile) {
+        token.role = response?.user?.role_name;
       }
 
-      console.log(">>> token-after", token);
       return token;
     },
+    // nhận token từ jwt callback và trả về session
     async session({ session, token }: any) {
-      const dataUser: any = await axios.post("/user/get-user", {
-        email: token?.email,
-      });
-
-      console.log(">>> session-before", session);
-      console.log(">>> dataUser-session", dataUser);
-
-      session.user.id = token.id;
+      session.user.id = token?.id ?? token?.sub;
       session.user.name = token.name;
       session.user.email = token.email;
       session.user.image = token.picture;
+      session.user.role = token.role;
 
-      if (dataUser.status === "success") {
-        session.user.role = dataUser?.user?.role_id === 1 ? "guest" : "admin";
-      } else {
-        session.user.role = "guest";
-      }
-
-      console.log(">>> session-after", session);
       return session;
     },
   },
