@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import RootModal from "./RootModal";
 
 const ModalSearch = ({
   isModalOpen,
@@ -8,23 +8,13 @@ const ModalSearch = ({
   onCancel: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }) => {
   return (
-    <Modal
-      centered
+    <RootModal
       title="Tìm kiếm truyện tranh"
-      open={isModalOpen}
+      isModalOpen={isModalOpen}
       onCancel={onCancel}
-      footer={null}
-      width={{
-        xs: "90%",
-        sm: "80%",
-        md: "70%",
-        lg: "60%",
-        xl: "50%",
-        xxl: "40%",
-      }}
     >
-      <p>Modal Search</p>
-    </Modal>
+      <p>Tìm kiếm truyện tranh</p>
+    </RootModal>
   );
 };
 

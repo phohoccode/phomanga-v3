@@ -100,3 +100,27 @@ export async function resetPassword({
     };
   }
 }
+
+export async function fetchComicSlide() {
+  try {
+    // const response = await fetch(process.env.NEXT_PUBLIC_OTRUYEN_HOME as string, {
+    //   method: "GET",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    // return response.json();
+    
+    const data = await axios.get(process.env.NEXT_PUBLIC_OTRUYEN_HOME as string, {
+      timeout: 10000,
+    });
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return {
+      status: "error",
+      message: "Đã có lỗi xảy ra, vui lòng thử lại!",
+    };
+  }
+}

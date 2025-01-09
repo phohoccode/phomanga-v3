@@ -3,8 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { StoreProvider } from "@/store/StoreProvieder";
 import NextTopLoader from "nextjs-toploader";
-import NavBar from "@/components/NavBar";
 import { SessionProvider } from "next-auth/react";
+import NavBar from "@/components/layout/header/NavBar";
+import NavBarMobile from "@/components/layout/header/NavBarMobile";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,14 +33,13 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <NextTopLoader color="#13c2c2" showSpinner={false} height={2}/>
+          <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
 
-         <SessionProvider>
+          <SessionProvider>
             <NavBar />
-            <div className="flex gap-8">
-              <div className="max-w-[1280px]">{children}</div>
-            </div>
-         </SessionProvider>
+            {children}
+            <NavBarMobile />
+          </SessionProvider>
         </body>
       </html>
     </StoreProvider>
