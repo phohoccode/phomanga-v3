@@ -6,25 +6,25 @@ import "@/assets/styles/swiper.css";
 import { EffectCoverflow } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchComicSlide } from "@/store/asyncThunk/comic";
-import Link from "next/link";
 import SlideItem from "./SlideItem";
+import { Skeleton } from "antd";
+import SkeletonSlideList from "./skeleton/SkeletonSlideList";
 
 const SlideList = () => {
-  const comicSlide = useSelector((state: RootState) => state.comic.conmicSlide);
+  const { items, loading } = useSelector(
+    (state: RootState) => state.comic.conmicSlide
+  );
   const dispatch: AppDispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const handleFetchComicSlide = async () => {
-      setIsLoading(true);
-      await dispatch(fetchComicSlide());
-      setIsLoading(false);
-    };
-
-    handleFetchComicSlide();
+    dispatch(fetchComicSlide());
   }, []);
+
+  if (loading) {
+    return <SkeletonSlideList />;
+  }
 
   return (
     <Swiper
@@ -32,7 +32,7 @@ const SlideList = () => {
       effect="coverflow"
       grabCursor={true}
       centeredSlides={true}
-      initialSlide={2}
+      initialSlide={12}
       speed={600}
       preventClicks={true}
       slidesPerView={"auto"}
@@ -41,11 +41,11 @@ const SlideList = () => {
         stretch: 80,
         depth: 200,
         modifier: 1,
-        slideShadows: false,
+        slideShadows: true,
       }}
       className="mySwiper"
     >
-      {comicSlide?.map((slide: any, index: number) => (
+      {items?.map((slide: any, index: number) => (
         <SwiperSlide key={index}>
           <SlideItem slide={slide} />
         </SwiperSlide>

@@ -1,7 +1,13 @@
 import type { RootModal } from "@/lib/types";
 import { Modal } from "antd";
 
-const RootModal = ({ title, isModalOpen, children, onCancel }: RootModal) => {
+const RootModal = ({
+  title,
+  isModalOpen,
+  children,
+  closeIcon,
+  onCancel,
+}: RootModal) => {
   return (
     <Modal
       centered
@@ -9,6 +15,7 @@ const RootModal = ({ title, isModalOpen, children, onCancel }: RootModal) => {
       title={title}
       open={isModalOpen}
       onCancel={onCancel}
+      closeIcon={closeIcon}
       footer={null}
       width={{
         xs: "90%",

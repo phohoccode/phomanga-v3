@@ -2,18 +2,10 @@
 
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { Button } from "antd";
-import {
-  AppstoreOutlined,
-  BellOutlined,
-  BookOutlined,
-  HomeOutlined,
-  LoginOutlined,
-  SearchOutlined,
-  SunOutlined,
-} from "@ant-design/icons";
-import { useEffect, useState } from "react";
+import { BellOutlined, SearchOutlined, SunOutlined } from "@ant-design/icons";
+import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import ModalSearch from "@/components/modals/ModalSearch";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,18 +16,17 @@ import {
   setWidth,
 } from "@/store/slices/systemSlice";
 import DrawerUser from "./DrawerUser";
-
 import AvartarUser from "./AvartarUser";
 import ModalCategorys from "@/components/modals/ModalCategorys";
+import ButtonLink from "@/components/common/ButtonLink";
 
 const links = [
-  { href: "/", label: "Trang chủ", icon: <HomeOutlined /> },
+  { href: "/", label: "Trang chủ" },
   {
     href: "/chi-tiet/danh-sach/truyen-moi",
     label: "Truyện mới",
-    icon: <BookOutlined />,
   },
-  { href: "#", label: "Thể loại", icon: <AppstoreOutlined /> },
+  { href: "#", label: "Thể loại" },
 ];
 
 export const pathHideNavBar = [
@@ -46,7 +37,6 @@ export const pathHideNavBar = [
 
 const NavBar = () => {
   const pathname = usePathname();
-  const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const { data: session } = useSession();
   const width = useSelector((state: RootState) => state.system.width);
@@ -80,19 +70,19 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="sticky top-0 left-0 z-[999] right-0 xl:p-6 p-2 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
+      <div className="sticky top-0 left-0 z-[999] right-0 p-6 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
         <div className="flex items-center">
           <div className="flex gap-4 items-center">
             <Link
               href="/"
-              className="text-[#13c2c2] font-bold mr-[32px] xl:text-base text-sm"
+              className="text-[#13c2c2] font-bold mr-[24px] xl:text-lg text-base"
             >
-              PHOFLIX-V3
+              PHOMANGA-V3
             </Link>
           </div>
           {width > 1024 && (
             <ul className="flex space-x-4 items-center">
-              {links.map(({ href, label, icon }) => {
+              {links.map(({ href, label }, index) => {
                 return (
                   <li
                     key={href}
@@ -104,9 +94,12 @@ const NavBar = () => {
                   >
                     <Link
                       href={href}
-                      className={`p-2 h-[40px] rounded-md
-                         hover:bg-slate-100 gap-1 text-sm flex items-center 
-                         ${pathname === href && "text-[#13c2c2]"}`}
+                      className={`p-2 h-[50px]
+                         hover:bg-slate-100 gap-1 text-base flex items-center 
+                         ${
+                           pathname === href &&
+                           "text-[#13c2c2] border-b-2 border-[#13c2c2]"
+                         }`}
                     >
                       <span>{label}</span>
                     </Link>
@@ -117,27 +110,26 @@ const NavBar = () => {
           )}
         </div>
         <div className="flex items-center space-x-4">
-          <Button
-            onClick={() => dispatch(setShowModalSearch(true))}
-            icon={<SearchOutlined />}
-          >
-            {width > 1024 && "Tìm kiếm truyện tranh"}
-          </Button>
+          {width > 1024 && (
+            <Button
+              onClick={() => dispatch(setShowModalSearch(true))}
+              icon={<SearchOutlined />}
+            >
+              Tìm kiếm truyện tranh
+            </Button>
+          )}
 
           <ThemeModeSwitch />
 
-          <Button icon={<BellOutlined />} />
+          {width > 1024 && <Button icon={<BellOutlined />} />}
 
           {!session ? (
-            <Button
-              type="link"
-              onClick={() => router.push("/auth/sign-in")}
+            <ButtonLink
+              href="/auth/sign-in"
+              text="Đăng nhập"
               color="cyan"
               variant="solid"
-              icon={<LoginOutlined />}
-            >
-              Đăng nhập
-            </Button>
+            />
           ) : (
             <AvartarUser />
           )}

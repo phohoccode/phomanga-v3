@@ -1,11 +1,15 @@
 "use client";
 
-import { setShowModalCategorys } from "@/store/slices/systemSlice";
+import {
+  setShowModalCategorys,
+  setShowModalSearch,
+} from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import {
   AppstoreOutlined,
-  BookOutlined,
+  BellOutlined,
   HomeOutlined,
+  SearchOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -20,6 +24,16 @@ const links = [
     href: "/chi-tiet/danh-sach/truyen-moi",
     label: "Truyện mới",
     icon: <ComicIcon width="24" height="24" />,
+  },
+  {
+    href: "#",
+    label: "Tìm kiếm",
+    icon: <SearchOutlined />,
+  },
+  {
+    href: "#",
+    label: "Thông báo",
+    icon: <BellOutlined />,
   },
   {
     href: "#",
@@ -45,6 +59,15 @@ const NavBarMobile = () => {
     }
   }, []);
 
+  const handleChangeTab = (index: number) => {
+    setCurrentIndex(index);
+    if (index === 2) {
+      dispatch(setShowModalSearch(true));
+    } else if (index === 4) {
+      dispatch(setShowModalCategorys(true));
+    }
+  };
+
   if (width > 1024) return null;
   if (pathHideNavBar.includes(pathname)) return null;
 
@@ -53,12 +76,7 @@ const NavBarMobile = () => {
       <ul className="flex space-x-4 max-w-3xl mx-auto w-[768px]">
         {links?.map(({ href, label, icon }, index) => (
           <li
-            onClick={() => {
-              setCurrentIndex(index);
-              if (href === "#") {
-                dispatch(setShowModalCategorys(true));
-              }
-            }}
+            onClick={() => handleChangeTab(index)}
             className="flex-auto "
             key={index}
           >
