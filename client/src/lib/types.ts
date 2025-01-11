@@ -79,4 +79,6 @@ export type ButtonLink = {
     | "dashed"
     | "filled"
     | undefined;
+  styleLink?: React.CSSProperties;
+  styleButton?: React.CSSProperties;
 };

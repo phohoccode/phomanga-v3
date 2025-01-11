@@ -10,7 +10,7 @@ const ComicTitle = ({
   loading?: boolean;
 }) => {
   return (
-    <Divider style={{ marginBottom: "32px" }} orientation={orientation}>
+    <Divider orientation={orientation}>
       {loading ? (
         <Skeleton.Input style={{ width: "100%" }} size="small" />
       ) : (

@@ -39,6 +39,7 @@ export interface ComicState {
     breadCrumb: any[];
     params: any;
     titlePage: string;
+    loading: boolean;
   };
   searchComic: {
     items: any[];
@@ -46,7 +47,11 @@ export interface ComicState {
     params: any;
     titlePage: string;
   };
-  comicInfo: any;
+  comicInfo: {
+    items: any;
+    breadCrumb: any[];
+    loading: boolean;
+  };
   isLoading: boolean;
 }
 
@@ -77,8 +82,13 @@ const initialState: ComicState = {
     breadCrumb: [],
     params: {},
     titlePage: "",
+    loading: false,
   },
-  comicInfo: {},
+  comicInfo: {
+    items: {},
+    breadCrumb: [],
+    loading: false,
+  },
   searchComic: {
     items: [],
     breadCrumb: [],
@@ -163,29 +173,30 @@ export const comicSlice = createSlice({
 
       // Dữ liệu chi tiết truyện
       .addCase(fetchComicDetail.pending, (state) => {
-        state.isLoading = true;
+        state.comicDetail.loading = true;
       })
       .addCase(fetchComicDetail.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.comicDetail.loading = false;
         state.comicDetail.items = action.payload?.data?.items;
         state.comicDetail.breadCrumb = action.payload?.data?.breadCrumb;
         state.comicDetail.params = action.payload?.data?.params;
         state.comicDetail.titlePage = action.payload?.data?.titlePage;
       })
       .addCase(fetchComicDetail.rejected, (state) => {
-        state.isLoading = false;
+        state.comicDetail.loading = false;
       })
 
       // Dữ liệu thông tin truyện
       .addCase(fetchComicInfo.pending, (state) => {
-        state.isLoading = true;
+        state.comicInfo.loading = true;
       })
       .addCase(fetchComicInfo.fulfilled, (state, action) => {
-        state.isLoading = false;
-        state.comicInfo = action.payload?.data;
+        state.comicInfo.loading = false;
+        state.comicInfo.items = action.payload?.data?.item;
+        state.comicInfo.breadCrumb = action.payload?.data?.breadCrumb;
       })
       .addCase(fetchComicInfo.rejected, (state) => {
-        state.isLoading = false;
+        state.comicInfo.loading = false;
       })
 
       // Dữ liệu tìm kiếm truyện

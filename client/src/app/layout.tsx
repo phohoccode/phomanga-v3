@@ -37,7 +37,7 @@ export default function RootLayout({
 
           <SessionProvider>
             <NavBar />
-            {children}
+            <div className="mb-16">{children}</div>
             <NavBarMobile />
           </SessionProvider>
         </body>

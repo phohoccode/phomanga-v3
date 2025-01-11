@@ -90,3 +90,4 @@ export const fetchSearchComic = createAsyncThunk(
     return response.json();
   }
 );
+

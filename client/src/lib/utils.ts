@@ -13,4 +13,6 @@ export const isPositiveInteger = (value: string) => {
   return /^[1-9]\d*$/.test(value);
 };
 
-
+export const removeHTMLTags = (str: string) => {
+  return str.replace(/<[^>]*>?/gm, "");
+}

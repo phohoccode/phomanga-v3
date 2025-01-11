@@ -13,7 +13,7 @@ const SkeletonSlideList = () => {
       effect="coverflow"
       grabCursor={true}
       centeredSlides={true}
-      initialSlide={6}
+      initialSlide={12}
       speed={600}
       preventClicks={true}
       slidesPerView={"auto"}

@@ -5,7 +5,8 @@ import ComicTitle from "@/components/ComicTitle";
 import { isPositiveInteger } from "@/lib/utils";
 import { fetchComicDetail } from "@/store/asyncThunk/comic";
 import { AppDispatch, RootState } from "@/store/store";
-import { Pagination } from "antd";
+import { Breadcrumb, Pagination, Skeleton } from "antd";
+import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,15 +16,20 @@ const Page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch: AppDispatch = useDispatch();
-  const { items, titlePage, params } = useSelector(
+  const { items, titlePage, params, breadCrumb, loading } = useSelector(
     (state: RootState) => state.comic.comicDetail
   );
-  const isLoading = useSelector((state: RootState) => state.comic.isLoading);
   const currentPage = isPositiveInteger(searchParams.get("page") as string)
     ? searchParams.get("page")
     : "1";
   const totalItems = params?.pagination?.totalItems;
   const itemsPerPage = params?.pagination?.totalItemsPerPage;
+  const breadcrumbItems = [
+    { title: <Link href="/">Trang chủ</Link> },
+    { title: "Danh sách truyện tranh" },
+    { title: breadCrumb?.[0]?.name ?? "Không xác định" },
+    { title: `Trang ${currentPage}` },
+  ];
 
   useEffect(() => {
     dispatch(
@@ -43,8 +49,15 @@ const Page = () => {
 
   return (
     <div className="p-6 flex flex-col">
-      <ComicTitle title={titlePage} orientation="center" loading={isLoading} />
-      <ComicList data={items} loading={isLoading} title={titlePage} />
+      {loading ? (
+        <Skeleton.Input size="small" style={{ width: "40%" }} />
+      ) : (
+        <Breadcrumb items={breadcrumbItems} />
+      )}
+
+      <ComicTitle title={titlePage} orientation="center" loading={loading} />
+
+      <ComicList data={items} loading={loading} title={titlePage} />
 
       <Pagination
         style={{ marginTop: "48px" }}

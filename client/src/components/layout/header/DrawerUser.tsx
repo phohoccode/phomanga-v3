@@ -20,6 +20,7 @@ const DrawerUser = () => {
     (state: RootState) => state.system.showDrawerUser
   );
   const pathname = usePathname();
+  const width = useSelector((state: RootState) => state.system.width);
 
   const links = [
     {
@@ -45,7 +46,7 @@ const DrawerUser = () => {
 
   return (
     <Drawer
-      placement="right"
+      placement={width > 1024 ? "right" : "bottom"}
       keyboard={true}
       closeIcon={true}
       title={<DrawerTitle />}

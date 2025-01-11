@@ -1,7 +1,7 @@
 import { EyeOutlined } from "@ant-design/icons";
-import { Button, Typography } from "antd";
+import { Button, Tag, Typography } from "antd";
 import Link from "next/link";
-import ButtonLink from "./common/ButtonLink";
+import ComicIcon from "./icons/ComicIcon";
 
 const ComicItem = ({ data }: any) => {
   return (
@@ -19,6 +19,22 @@ const ComicItem = ({ data }: any) => {
           {data?.name ?? "Không xác định"}
         </Typography.Text>
       </Link>
+      <div className="absolute top-1 left-1">
+        <Tag
+          icon={<ComicIcon />}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "6px",
+          }}
+          bordered={true}
+          color="magenta"
+          className="mr-0 text-center truncate"
+        >
+          Chương {data?.chaptersLatest?.[0]?.chapter_name ?? "lỗi"}
+        </Tag>
+      </div>
       <div className="absolute top-[100%] flex justify-center left-[12px] right-[12px] opacity-0 group-hover:opacity-100 rounded-xl transition-all group-hover:top-[70%]">
         <Link href={`/dang-doc/${data?.slug}/${data?._id}`} className="w-full">
           <Button

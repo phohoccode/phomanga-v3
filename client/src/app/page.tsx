@@ -12,8 +12,6 @@ import {
 } from "@/store/asyncThunk/comic";
 import { AppDispatch, RootState } from "@/store/store";
 import { ArrowRightOutlined } from "@ant-design/icons";
-import { Button } from "antd";
-import Link from "next/link";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -32,6 +30,37 @@ export default function Home() {
     (state: RootState) => state.comic.completedComic
   );
 
+  const sessions = [
+    {
+      id: 1,
+      name: "Truyện mới",
+      href: "/chi-tiet/danh-sach/moi-ra-mat",
+      data: newComic,
+      loading: newComicLoading,
+    },
+    {
+      id: 2,
+      name: "Truyện đang phát hành",
+      href: "/chi-tiet/danh-sach/dang-phat-hanh",
+      data: publishedComic,
+      loading: publishedComicLoading,
+    },
+    {
+      id: 3,
+      name: "Truyện đã hoàn thành",
+      href: "/chi-tiet/danh-sach/da-hoan-thanh",
+      data: completedComic,
+      loading: completedComicLoading,
+    },
+    {
+      id: 4,
+      name: "Truyện sắp ra mắt",
+      href: "/chi-tiet/danh-sach/sap-ra-mat",
+      data: upComingComic,
+      loading: upComingComicLoading,
+    },
+  ];
+
   useEffect(() => {
     dispatch(fetchNewComic());
     dispatch(fetchPublishedComic());
@@ -43,65 +72,26 @@ export default function Home() {
     <div className="p-6 flex flex-col gap-6">
       <SlideList />
 
-      <ComicTitle
-        title="Truyện sắp ra mắt"
-        orientation="center"
-        loading={upComingComicLoading}
-      />
-      <ComicList data={upComingComic} loading={upComingComicLoading} />
-      <ButtonLink
-        href={`/chi-tiet/danh-sach/sap-ra-mat`}
-        text="Xem thêm"
-        showIcon={true}
-        positionIcon="end"
-        positionItem="end"
-        icon={<ArrowRightOutlined />}
-      />
-
-      <ComicTitle
-        title="Truyện mới ra mắt"
-        orientation="center"
-        loading={newComicLoading}
-      />
-      <ComicList data={newComic} loading={newComicLoading} />
-      <ButtonLink
-        href={`/chi-tiet/danh-sach/moi-ra-mat`}
-        text="Xem thêm"
-        showIcon={true}
-        positionIcon="end"
-        positionItem="end"
-        icon={<ArrowRightOutlined />}
-      />
-
-      <ComicTitle
-        title="Truyện đang phát hành"
-        orientation="center"
-        loading={publishedComicLoading}
-      />
-      <ComicList data={publishedComic} loading={publishedComicLoading} />
-      <ButtonLink
-        href={`/chi-tiet/danh-sach/dang-phat-hanh`}
-        text="Xem thêm"
-        showIcon={true}
-        positionIcon="end"
-        positionItem="end"
-        icon={<ArrowRightOutlined />}
-      />
-
-      <ComicTitle
-        title="Truyện đã hoàn thành"
-        orientation="center"
-        loading={completedComicLoading}
-      />
-      <ComicList data={completedComic} loading={completedComicLoading} />
-      <ButtonLink
-        href={`/chi-tiet/danh-sach/da-hoan-thanh`}
-        text="Xem thêm"
-        showIcon={true}
-        positionIcon="end"
-        positionItem="end"
-        icon={<ArrowRightOutlined />}
-      />
+      <div className="flex flex-col gap-6">
+        {sessions.map((session) => (
+          <div key={session.id} className="flex flex-col gap-6">
+            <ComicTitle
+              title={session.name}
+              orientation="center"
+              loading={session.loading}
+            />
+            <ComicList data={session.data} loading={session.loading} />
+            <ButtonLink
+              href={session.href}
+              text="Xem thêm"
+              showIcon={true}
+              positionIcon="end"
+              positionItem="end"
+              icon={<ArrowRightOutlined />}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

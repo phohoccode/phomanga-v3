@@ -1,7 +1,7 @@
 import { formatDate } from "@/lib/utils";
-import { EyeOutlined } from "@ant-design/icons";
-import { Button, Tag } from "antd";
+import { Tag } from "antd";
 import Link from "next/link";
+import ComicIcon from "./icons/ComicIcon";
 
 const SlideItem = ({ slide }: any) => {
   return (
@@ -13,13 +13,31 @@ const SlideItem = ({ slide }: any) => {
           alt={slide?.slug}
         />
       </Link>
-      <Tag
-        bordered={true}
-        color="blue"
-        className="absolute top-[4px] right-[4px] mr-0 rounded-lg"
-      >
-        {formatDate(slide?.updatedAt) ?? "Không xác định"}
-      </Tag>
+      <div className="absolute top-1 right-1 flex flex-col gap-2">
+        <Tag
+          bordered={true}
+          color="blue"
+          className=" rounded-lg mr-0 text-center"
+        >
+          {formatDate(slide?.updatedAt) ?? "Không xác định"}
+        </Tag>
+        {slide?.chaptersLatest[0]?.chapter_name && (
+          <Tag
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "6px",
+            }}
+            icon={<ComicIcon />}
+            bordered={true}
+            color="magenta"
+            className=" rounded-lg mr-0 text-center"
+          >
+            Chương {slide?.chaptersLatest[0]?.chapter_name}
+          </Tag>
+        )}
+      </div>
       <Tag
         style={{ marginRight: "0px" }}
         color="magenta"
