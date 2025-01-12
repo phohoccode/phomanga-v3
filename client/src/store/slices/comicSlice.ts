@@ -5,6 +5,7 @@ import {
   fetchComicInfo,
   fetchComicSlide,
   fetchCompletedComic,
+  fetchImageComic,
   fetchNewComic,
   fetchPublishedComic,
   fetchSearchComic,
@@ -46,13 +47,17 @@ export interface ComicState {
     breadCrumb: any[];
     params: any;
     titlePage: string;
+    loading: boolean;
   };
   comicInfo: {
     items: any;
     breadCrumb: any[];
     loading: boolean;
   };
-  isLoading: boolean;
+  imagesComic: {
+    item: any;
+    loading: boolean;
+  };
 }
 
 const initialState: ComicState = {
@@ -94,8 +99,12 @@ const initialState: ComicState = {
     breadCrumb: [],
     params: {},
     titlePage: "",
+    loading: false,
   },
-  isLoading: false,
+  imagesComic: {
+    item: {},
+    loading: true,
+  },
 };
 
 export const comicSlice = createSlice({
@@ -176,6 +185,7 @@ export const comicSlice = createSlice({
         state.comicDetail.loading = true;
       })
       .addCase(fetchComicDetail.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.comicDetail.loading = false;
         state.comicDetail.items = action.payload?.data?.items;
         state.comicDetail.breadCrumb = action.payload?.data?.breadCrumb;
@@ -201,17 +211,29 @@ export const comicSlice = createSlice({
 
       // Dữ liệu tìm kiếm truyện
       .addCase(fetchSearchComic.pending, (state) => {
-        state.isLoading = true;
+        state.searchComic.loading = true;
       })
       .addCase(fetchSearchComic.fulfilled, (state, action) => {
-        state.isLoading = false;
+        state.searchComic.loading = false;
         state.searchComic.items = action.payload?.data?.items;
         state.searchComic.breadCrumb = action.payload?.data?.breadCrumb;
         state.searchComic.params = action.payload?.data?.params;
         state.searchComic.titlePage = action.payload?.data?.titlePage;
       })
       .addCase(fetchSearchComic.rejected, (state) => {
-        state.isLoading = false;
+        state.searchComic.loading = false;
+      })
+
+      // Dữ liệu ảnh truyện
+      .addCase(fetchImageComic.pending, (state) => {
+        state.imagesComic.loading = true;
+      })
+      .addCase(fetchImageComic.fulfilled, (state, action) => {
+        state.imagesComic.loading = false;
+        state.imagesComic.item = action.payload.data?.item;
+      })
+      .addCase(fetchImageComic.rejected, (state) => {
+        state.imagesComic.loading = false;
       });
   },
 });

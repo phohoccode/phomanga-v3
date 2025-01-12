@@ -22,8 +22,8 @@ const RootModal = ({
         sm: "80%",
         md: "70%",
         lg: "60%",
-        xl: "50%",
-        xxl: "40%",
+        xl: "60%",
+        xxl: "50%",
       }}
     >
       {children}

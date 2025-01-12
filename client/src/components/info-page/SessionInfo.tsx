@@ -11,7 +11,7 @@ export const SessionInfo = ({ data }: any) => {
   const categories = data?.category?.map((item: any) => {
     return (
       <Link key={item?.id} href={`/chi-tiet/the-loai/${item?.slug}`}>
-        <Tag color="purple"> {item?.name ?? "Không xác định"}</Tag>
+        <Tag color="blue"> {item?.name ?? "Không xác định"}</Tag>
       </Link>
     );
   });
@@ -30,7 +30,7 @@ export const SessionInfo = ({ data }: any) => {
     {
       key: "3",
       label: "Thể loại",
-      children: <div className="flex gap-1 flex-wrap">{categories}</div>,
+      children: <div className="flex gap-y-2 flex-wrap">{categories}</div>,
     },
     {
       key: "4",
@@ -43,6 +43,10 @@ export const SessionInfo = ({ data }: any) => {
     <div className="flex flex-col lg:flex-row gap-8">
       <div className="flex flex-col items-center lg:items-start gap-4">
         <Image
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = "/error-img.png";
+          }}
           style={{ borderRadius: "8px", border: "1px solid #f0f0f0" }}
           src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${data?.thumb_url}`}
           alt={data?.name ?? "Không xác định"}
@@ -51,12 +55,10 @@ export const SessionInfo = ({ data }: any) => {
         />
         <div className="flex gap-2 w-full justify-center">
           <ButtonLink
-            href={`/dang-doc/${data?.slug}/${
+            href={`/dang-xem/${data?.slug}/${
               data?.chapters?.[0]?.server_data?.[0]?.chapter_api_data
                 ?.split("/")
-                .pop() ?? ""
-            }?chuong=${
-              data?.chapters?.[0]?.server_data?.[0]?.chapter_name ?? ""
+                .pop() ?? "?status=404"
             }`}
             text="Đọc truyện"
             showIcon={true}
@@ -68,7 +70,11 @@ export const SessionInfo = ({ data }: any) => {
         </div>
       </div>
 
-      <Descriptions title={data?.name} items={items} />
+      <Descriptions
+        column={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 2 }}
+        title={data?.name}
+        items={items}
+      />
     </div>
   );
 };

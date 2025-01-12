@@ -1,14 +1,15 @@
 import { Col, Divider, Row, Skeleton } from "antd";
 import ComicItem from "./ComicItem";
 import SkeletonComicList from "./skeleton/SkeletonComicList";
+import EmptyData from "./common/EmptyData";
 
 const ComicList = ({ data, loading }: any) => {
   if (loading) {
-    return (
-      <div className="p-6">
-        <SkeletonComicList quantity={24} />
-      </div>
-    );
+    return <SkeletonComicList quantity={24} />;
+  }
+
+  if (!data && !loading) {
+    return <EmptyData description="Không có dữ liệu" />;
   }
 
   return (

@@ -13,7 +13,7 @@ const SkeletonSlideList = () => {
       effect="coverflow"
       grabCursor={true}
       centeredSlides={true}
-      initialSlide={12}
+      initialSlide={6}
       speed={600}
       preventClicks={true}
       slidesPerView={"auto"}
@@ -26,7 +26,7 @@ const SkeletonSlideList = () => {
       }}
       className="mySwiper"
     >
-      {[...Array(24)].map((_, index) => (
+      {[...Array(13)].map((_, index) => (
         <SwiperSlide key={index}>
           <Skeleton.Node style={{ width: 280, height: 360 }} />
         </SwiperSlide>

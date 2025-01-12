@@ -6,6 +6,7 @@ import NextTopLoader from "nextjs-toploader";
 import { SessionProvider } from "next-auth/react";
 import NavBar from "@/components/layout/header/NavBar";
 import NavBarMobile from "@/components/layout/header/NavBarMobile";
+import Footer from "@/components/layout/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,8 +38,9 @@ export default function RootLayout({
 
           <SessionProvider>
             <NavBar />
-            <div className="mb-16">{children}</div>
+            {children}
             <NavBarMobile />
+            <Footer />
           </SessionProvider>
         </body>
       </html>

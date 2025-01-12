@@ -6,7 +6,7 @@ import EmptyData from "@/components/common/EmptyData";
 import { isPositiveInteger } from "@/lib/utils";
 import { fetchSearchComic } from "@/store/asyncThunk/comic";
 import { AppDispatch, RootState } from "@/store/store";
-import { Pagination } from "antd";
+import { Breadcrumb, Pagination, Skeleton } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -15,10 +15,14 @@ const Page = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch: AppDispatch = useDispatch();
-  const { items, titlePage, params } = useSelector(
+  const { items, titlePage, params, loading } = useSelector(
     (state: RootState) => state.comic.searchComic
   );
-  const isLoading = useSelector((state: RootState) => state.comic.isLoading);
+  const breadCrumb = [
+    { title: "Trang chủ", href: "/" },
+    { title: "Tìm kiếm" },
+    { title: titlePage },
+  ];
   const keyword = searchParams.get("keyword") ?? "abc";
   const currentPage = isPositiveInteger(searchParams.get("page") as string)
     ? searchParams.get("page")
@@ -42,14 +46,20 @@ const Page = () => {
     router.push(`?${params.toString()}`);
   };
 
-  if (items.length === 0 && !isLoading) {
+  if (items.length === 0 && !loading) {
     return <EmptyData description="Không tìm thấy truyện phù hợp!" />;
   }
 
   return (
-    <div className="p-6 flex flex-col">
-      <ComicTitle title={titlePage} orientation="center" loading={isLoading} />
-      <ComicList data={items} loading={isLoading} title={titlePage} />
+    <div className="p-6 flex flex-col gap-2">
+      {loading ? (
+        <Skeleton.Input size="small" style={{ width: "260px" }} />
+      ) : (
+        <Breadcrumb items={breadCrumb} />
+      )}
+
+      <ComicTitle title={titlePage} orientation="center" loading={loading} />
+      <ComicList data={items} loading={loading} title={titlePage} />
       <Pagination
         style={{ marginTop: "48px" }}
         align="center"

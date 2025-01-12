@@ -4,7 +4,7 @@ import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "antd";
-import { BellOutlined, SearchOutlined, SunOutlined } from "@ant-design/icons";
+import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
 import ModalSearch from "@/components/modals/ModalSearch";
@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
 import {
   setShowModalCategorys,
+  setShowModalNotification,
   setShowModalSearch,
   setWidth,
 } from "@/store/slices/systemSlice";
@@ -19,6 +20,8 @@ import DrawerUser from "./DrawerUser";
 import AvartarUser from "./AvartarUser";
 import ModalCategorys from "@/components/modals/ModalCategorys";
 import ButtonLink from "@/components/common/ButtonLink";
+import { ThemeModeSwitch } from "./ThemeModeSwitch";
+import ModalNotifycation from "@/components/modals/ModalNotifycation";
 
 const links = [
   { href: "/", label: "Trang chủ" },
@@ -46,6 +49,9 @@ const NavBar = () => {
   const showModalSearch = useSelector(
     (state: RootState) => state.system.showModalSearch
   );
+  const showModalNotification = useSelector(
+    (state: RootState) => state.system.showModalNotification
+  );
 
   useEffect(() => {
     dispatch(setWidth(window.innerWidth));
@@ -70,7 +76,7 @@ const NavBar = () => {
 
   return (
     <>
-      <div className="sticky top-0 left-0 z-[999] right-0 p-6 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
+      <header className="sticky top-0 left-0 z-[999] right-0 p-6 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
         <div className="flex items-center">
           <div className="flex gap-4 items-center">
             <Link
@@ -80,34 +86,36 @@ const NavBar = () => {
               PHOMANGA-V3
             </Link>
           </div>
-          {width > 1024 && (
-            <ul className="flex space-x-4 items-center">
-              {links.map(({ href, label }, index) => {
-                return (
-                  <li
-                    key={href}
-                    onClick={() => {
-                      if (href === "#") {
-                        dispatch(setShowModalCategorys(true));
-                      }
-                    }}
-                  >
-                    <Link
-                      href={href}
-                      className={`p-2 h-[50px]
-                         hover:bg-slate-100 gap-1 text-base flex items-center 
-                         ${
-                           pathname === href &&
-                           "text-[#13c2c2] border-b-2 border-[#13c2c2]"
-                         }`}
+          <nav>
+            {width > 1024 && (
+              <ul className="flex space-x-4 items-center">
+                {links.map(({ href, label }, index) => {
+                  return (
+                    <li
+                      key={href}
+                      onClick={() => {
+                        if (href === "#") {
+                          dispatch(setShowModalCategorys(true));
+                        }
+                      }}
                     >
-                      <span>{label}</span>
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
-          )}
+                      <Link
+                        href={href}
+                        className={`p-2 h-[50px]
+                           hover:bg-slate-100 gap-1 text-base flex items-center 
+                           ${
+                             pathname === href &&
+                             "text-[#13c2c2] border-b-2 border-[#13c2c2]"
+                           }`}
+                      >
+                        <span>{label}</span>
+                      </Link>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </nav>
         </div>
         <div className="flex items-center space-x-4">
           {width > 1024 && (
@@ -121,7 +129,12 @@ const NavBar = () => {
 
           <ThemeModeSwitch />
 
-          {width > 1024 && <Button icon={<BellOutlined />} />}
+          {width > 1024 && (
+            <Button
+              onClick={() => dispatch(setShowModalNotification(true))}
+              icon={<BellOutlined />}
+            />
+          )}
 
           {!session ? (
             <ButtonLink
@@ -134,9 +147,10 @@ const NavBar = () => {
             <AvartarUser />
           )}
         </div>
-      </div>
+      </header>
 
       <DrawerUser />
+
       <ModalSearch
         isModalOpen={showModalSearch}
         onCancel={handleCloseModalSearch}
@@ -145,12 +159,13 @@ const NavBar = () => {
         isModalOpen={showModalCategorys}
         onCancel={handleCloseModalCategorys}
       />
+
+      <ModalNotifycation
+        isModalOpen={showModalNotification}
+        onCancel={() => dispatch(setShowModalNotification(false))}
+      />
     </>
   );
 };
 
 export default NavBar;
-
-const ThemeModeSwitch = () => {
-  return <Button icon={<SunOutlined />} />;
-};

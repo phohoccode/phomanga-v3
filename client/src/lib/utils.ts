@@ -15,4 +15,8 @@ export const isPositiveInteger = (value: string) => {
 
 export const removeHTMLTags = (str: string) => {
   return str.replace(/<[^>]*>?/gm, "");
-}
+};
+
+export const randomItemFromArray = (arr: any[]) => {
+  return arr[Math.floor(Math.random() * arr.length)];
+};

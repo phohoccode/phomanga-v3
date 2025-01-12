@@ -10,16 +10,17 @@ import { Breadcrumb, Col, Row } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
   const params = useParams();
   const dispatch: AppDispatch = useDispatch();
   const { items, breadCrumb, loading } = useSelector(
-    (state: RootState) => state.comic.comicInfo
+    (state: RootState) => state.comic.comicInfo,
+    shallowEqual
   );
   const menuItems = [
-    ...breadCrumb.slice(0, -1).map((item: any, index: number) => {
+    ...breadCrumb?.slice(0, -1).map((item: any, index: number) => {
       return {
         key: ++index,
         label: <Link href={`/chi-tiet${item?.slug}`}>{item?.name}</Link>,
@@ -37,9 +38,6 @@ const Page = () => {
     dispatch(fetchComicInfo({ slug: params?.slug as string }));
   }, [params?.slug]);
 
-  console.log(items);
-  console.log(breadCrumb);
-
   if (loading) {
     return <SkeletonInfoPage />;
   }
@@ -54,7 +52,7 @@ const Page = () => {
           <SessionChapter data={items} />
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>
-          <ComicSuggesion slug={breadCrumb[0]?.slug}/>
+          <ComicSuggesion />
         </Col>
       </Row>
     </div>

@@ -32,7 +32,7 @@ const SlideList = () => {
       effect="coverflow"
       grabCursor={true}
       centeredSlides={true}
-      initialSlide={12}
+      initialSlide={6}
       speed={600}
       preventClicks={true}
       slidesPerView={"auto"}
@@ -45,7 +45,7 @@ const SlideList = () => {
       }}
       className="mySwiper"
     >
-      {items?.map((slide: any, index: number) => (
+      {items?.slice(0, 13)?.map((slide: any, index: number) => (
         <SwiperSlide key={index}>
           <SlideItem slide={slide} />
         </SwiperSlide>

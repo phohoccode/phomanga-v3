@@ -91,3 +91,12 @@ export const fetchSearchComic = createAsyncThunk(
   }
 );
 
+export const fetchImageComic = createAsyncThunk(
+  "users/fetchReadComic",
+  async ({ id }: { id: string }) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_OTRUYEN_CHAPTER}/${id}`
+    );
+    return response.json();
+  }
+);

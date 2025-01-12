@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 export interface SystemState {
   width: number;
   showDrawerUser: boolean;
   showModalSearch: boolean;
   showModalCategorys: boolean;
+  showModalNotification: boolean;
 }
 
 const initialState: SystemState = {
@@ -13,6 +13,7 @@ const initialState: SystemState = {
   showDrawerUser: false,
   showModalSearch: false,
   showModalCategorys: false,
+  showModalNotification: false,
 };
 
 export const systemSlice = createSlice({
@@ -31,6 +32,9 @@ export const systemSlice = createSlice({
     setShowModalCategorys: (state, action) => {
       state.showModalCategorys = action.payload;
     },
+    setShowModalNotification: (state, action) => {
+      state.showModalNotification = action.payload;
+    },
   },
 });
 
@@ -40,6 +44,7 @@ export const {
   setShowDrawerUser,
   setShowModalCategorys,
   setShowModalSearch,
+  setShowModalNotification,
 } = systemSlice.actions;
 
 export default systemSlice.reducer;

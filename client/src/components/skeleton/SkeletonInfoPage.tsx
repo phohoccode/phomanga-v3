@@ -20,7 +20,7 @@ const SkeletonInfoPage = () => {
           </div>
 
           <div className="flex flex-col gap-4 mt-8">
-            <Divider orientation="left">
+            <Divider orientation="center">
               <Skeleton.Input style={{ width: "120px" }} size="small" />
             </Divider>
 
@@ -41,7 +41,7 @@ const SkeletonInfoPage = () => {
         <Col lg={24} xl={6}>
           <div className="flex flex-col gap-2">
             <Divider style={{ marginTop: 0 }} orientation="center">
-              Truyện cùng thể loại
+              Gợi ý truyện khác
             </Divider>
             <div className="flex flex-col gap-4">
               {[...Array(4)].map((item: any, index: number) => (

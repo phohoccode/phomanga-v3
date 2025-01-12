@@ -2,6 +2,7 @@
 
 import {
   setShowModalCategorys,
+  setShowModalNotification,
   setShowModalSearch,
 } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
@@ -63,6 +64,8 @@ const NavBarMobile = () => {
     setCurrentIndex(index);
     if (index === 2) {
       dispatch(setShowModalSearch(true));
+    } else if (index === 3) {
+      dispatch(setShowModalNotification(true));
     } else if (index === 4) {
       dispatch(setShowModalCategorys(true));
     }
@@ -72,7 +75,7 @@ const NavBarMobile = () => {
   if (pathHideNavBar.includes(pathname)) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 p-6 flex items-center justify-between bg-white border-t border-[#f2f2f2] h-[60px]">
+    <div className="z-50 fixed bottom-0 left-0 right-0 p-6 flex items-center justify-between bg-white border-t border-[#f2f2f2] h-[60px]">
       <ul className="flex space-x-4 max-w-3xl mx-auto w-[768px]">
         {links?.map(({ href, label, icon }, index) => (
           <li
@@ -87,7 +90,7 @@ const NavBarMobile = () => {
               }`}
             >
               {icon}
-              <span className="text-xs">{label}</span>
+              <span className="text-xs truncate w-full">{label}</span>
             </Link>
           </li>
         ))}

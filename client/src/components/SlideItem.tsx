@@ -1,50 +1,43 @@
-import { formatDate } from "@/lib/utils";
-import { Tag } from "antd";
+import { Button, Typography } from "antd";
 import Link from "next/link";
-import ComicIcon from "./icons/ComicIcon";
+import { EyeOutlined } from "@ant-design/icons";
 
 const SlideItem = ({ slide }: any) => {
   return (
-    <div className="relative h-[360px]">
+    <div className="relative h-[360px] group">
       <Link href={`/thong-tin-truyen/${slide?.slug}`} className="relative">
         <img
+          onError={({ currentTarget }) => {
+            currentTarget.onerror = null;
+            currentTarget.src = "/error-img.png";
+          }}
           loading="lazy"
           src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${slide?.thumb_url}`}
-          alt={slide?.slug}
+          alt={slide?.slug ?? "Không xác định"}
         />
       </Link>
-      <div className="absolute top-1 right-1 flex flex-col gap-2">
-        <Tag
-          bordered={true}
-          color="blue"
-          className=" rounded-lg mr-0 text-center"
+      <div className="absolute top-[100%] flex flex-col justify-center left-[12px] right-[12px] opacity-0 group-hover:opacity-100 rounded-xl transition-all group-hover:top-[77%]">
+        <Typography.Text className="font-bold block mb-2 truncate text-gray-50 transition-all">
+          {slide?.name ?? "Không xác định"}
+        </Typography.Text>
+        <Link
+          href={`/dang-xem/${slide?.slug}/${
+            slide?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
+            "?status=404"
+          }`}
+          className="w-full"
         >
-          {formatDate(slide?.updatedAt) ?? "Không xác định"}
-        </Tag>
-        {slide?.chaptersLatest[0]?.chapter_name && (
-          <Tag
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: "6px",
-            }}
-            icon={<ComicIcon />}
-            bordered={true}
-            color="magenta"
-            className=" rounded-lg mr-0 text-center"
+          <Button
+            className="w-full"
+            type="link"
+            color="cyan"
+            variant="solid"
+            icon={<EyeOutlined />}
           >
-            Chương {slide?.chaptersLatest[0]?.chapter_name}
-          </Tag>
-        )}
+            Xem ngay
+          </Button>
+        </Link>
       </div>
-      <Tag
-        style={{ marginRight: "0px" }}
-        color="magenta"
-        className="absolute bottom-[10px] rounded-xl text-base left-[10px] right-[10px] truncate text-center"
-      >
-        {slide?.name ?? "Không xác định"}
-      </Tag>
     </div>
   );
 };
