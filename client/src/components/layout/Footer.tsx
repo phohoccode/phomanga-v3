@@ -1,6 +1,20 @@
-import { Col, Row, Typography } from "antd";
+"use client";
+import { Col, Row } from "antd";
+import { usePathname } from "next/navigation";
+
+export const pathHideNavBar = [
+  "/auth/sign-in",
+  "/auth/sign-up",
+  "/auth/forgot-password",
+];
 
 const Footer = () => {
+  const pathname = usePathname();
+
+  if (pathHideNavBar.includes(pathname)) {
+    return null;
+  }
+
   return (
     <footer className="mt-8 lg:mb-0 mb-16 p-6 bg-gray-100">
       <Row gutter={[16, 16]}>

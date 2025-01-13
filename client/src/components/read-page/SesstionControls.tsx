@@ -3,7 +3,11 @@ import { Button, Select, Typography } from "antd";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
 
-const SessionHeader = ({ dataInfoComic, dataChapterComic }: any) => {
+const SessionControls = ({
+  dataInfoComic,
+  dataChapterComic,
+  location,
+}: any) => {
   const params = useParams();
   const router = useRouter();
   const [currentId, setCurrentId] = useState(params?.id as string);
@@ -52,11 +56,17 @@ const SessionHeader = ({ dataInfoComic, dataChapterComic }: any) => {
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center justify-center mt-8 rounded-lg bg-gray-100 p-4">
-      <Typography.Title level={4} style={{ color: "#13c2c2" }}>
-        {dataInfoComic?.name ?? "không xác định"} -{" Chương "}
-        {dataChapterComic?.chapter_name ?? "không xác định"}
-      </Typography.Title>
+    <div
+      className={`flex items-center justify-center mt-8 ${
+        location === "top" && "flex-col gap-2  rounded-lg bg-gray-100 p-4"
+      }`}
+    >
+      {location === "top" && (
+        <Typography.Title level={4} style={{ color: "#13c2c2" }}>
+          {dataInfoComic?.name ?? "không xác định"} -{" Chương "}
+          {dataChapterComic?.chapter_name ?? "không xác định"}
+        </Typography.Title>
+      )}
 
       <div className="flex gap-2 flex-col md:flex-row items-center justify-center">
         <Button
@@ -87,7 +97,6 @@ const SessionHeader = ({ dataInfoComic, dataChapterComic }: any) => {
         </Button>
         <Select
           value={params?.id as string}
-          style={{ width: 120 }}
           onChange={handleChangeChapter}
           options={optionsSelect}
         />
@@ -96,4 +105,4 @@ const SessionHeader = ({ dataInfoComic, dataChapterComic }: any) => {
   );
 };
 
-export default SessionHeader;
+export default SessionControls;

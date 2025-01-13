@@ -1,12 +1,14 @@
 "use client";
 
 import EmptyData from "@/components/common/EmptyData";
+import Layout from "@/components/layout/Layout";
 import SessionImage from "@/components/read-page/SessionImages";
-import SessionHeader from "@/components/read-page/SesstionHeader";
+import SesstionControls from "@/components/read-page/SesstionControls";
 import SkeletonReadPage from "@/components/skeleton/SkeletonReadPage";
 import { fetchComicInfo, fetchImageComic } from "@/store/asyncThunk/comic";
 import { AppDispatch, RootState } from "@/store/store";
-import { Breadcrumb } from "antd";
+import { ToTopOutlined } from "@ant-design/icons";
+import { Breadcrumb, FloatButton, Tooltip } from "antd";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -43,13 +45,39 @@ const Page = () => {
   }
 
   return (
-    <div className="p-6 flex flex-col gap-2">
-      <Breadcrumb items={breadCrumb} />
+    <Layout>
+      <div className="flex flex-col gap-2">
+        <Breadcrumb items={breadCrumb} />
 
-      <SessionHeader dataInfoComic={items} dataChapterComic={item} />
+        <SesstionControls
+          location="top"
+          dataInfoComic={items}
+          dataChapterComic={item}
+        />
 
-      <SessionImage item={item} />
-    </div>
+        <SessionImage item={item} />
+
+        {!loading && (
+          <SesstionControls
+            location="bottom"
+            dataInfoComic={items}
+            dataChapterComic={item}
+          />
+        )}
+
+        <Tooltip title="Lên đầu trang">
+          <FloatButton.BackTop
+            shape="circle"
+            type="primary"
+            style={{
+              insetInlineEnd: "32px",
+              insetBlockEnd: width > 768 ? "32px" : "96px",
+            }}
+            icon={<ToTopOutlined />}
+          />
+        </Tooltip>
+      </div>
+    </Layout>
   );
 };
 

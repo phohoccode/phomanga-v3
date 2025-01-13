@@ -75,7 +75,7 @@ const NavBarMobile = () => {
   if (pathHideNavBar.includes(pathname)) return null;
 
   return (
-    <div className="z-50 fixed bottom-0 left-0 right-0 p-6 flex items-center justify-between bg-white border-t border-[#f2f2f2] h-[60px]">
+    <div className="z-50 fixed bottom-0 left-0 right-0 md:p-6 p-3 flex items-center justify-between bg-white border-t border-[#f2f2f2] h-[60px]">
       <ul className="flex space-x-4 max-w-3xl mx-auto w-[768px]">
         {links?.map(({ href, label, icon }, index) => (
           <li
@@ -90,7 +90,7 @@ const NavBarMobile = () => {
               }`}
             >
               {icon}
-              <span className="text-xs truncate w-full">{label}</span>
+              <span className="text-xs truncate">{label}</span>
             </Link>
           </li>
         ))}

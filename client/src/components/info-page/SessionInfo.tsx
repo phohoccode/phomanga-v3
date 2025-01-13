@@ -5,16 +5,19 @@ import { Descriptions } from "antd";
 import type { DescriptionsProps } from "antd";
 import { formatDate, removeHTMLTags } from "@/lib/utils";
 import Link from "next/link";
+import ShowMoreText from "../common/ShowMoreText";
 
 export const SessionInfo = ({ data }: any) => {
+  const chapters = data?.chapters?.[0]?.server_data ?? [];
   const authors = data?.author?.map((item: any) => item);
   const categories = data?.category?.map((item: any) => {
     return (
       <Link key={item?.id} href={`/chi-tiet/the-loai/${item?.slug}`}>
-        <Tag color="blue"> {item?.name ?? "Không xác định"}</Tag>
+        <Tag color="purple"> {item?.name ?? "Không xác định"}</Tag>
       </Link>
     );
   });
+  console.log(data);
 
   const items: DescriptionsProps["items"] = [
     {
@@ -24,18 +27,38 @@ export const SessionInfo = ({ data }: any) => {
     },
     {
       key: "2",
-      label: "Thời gian cập nhật",
+      label: "Cập nhật lần cuối",
       children: formatDate(data?.updatedAt),
     },
     {
       key: "3",
+      label: "Lượt xem",
+      children: 32,
+    },
+    {
+      key: "4",
       label: "Thể loại",
       children: <div className="flex gap-y-2 flex-wrap">{categories}</div>,
     },
     {
-      key: "4",
+      key: "5",
+      label: "Chương mới nhất",
+      children:
+        chapters?.length > 0
+          ? `${
+              chapters?.[chapters?.length - 1]?.chapter_name ?? "Không xác định"
+            }`
+          : "Truyện đang lỗi",
+    },
+    {
+      key: "6",
       label: "Nội dung truyện",
-      children: removeHTMLTags(data?.content ?? ""),
+      children: (
+        <ShowMoreText
+          text={removeHTMLTags(data?.content ?? "")}
+          maxLength={200}
+        />
+      ),
     },
   ];
 

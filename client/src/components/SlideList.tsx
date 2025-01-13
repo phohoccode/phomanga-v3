@@ -9,7 +9,6 @@ import { AppDispatch, RootState } from "@/store/store";
 import { useEffect } from "react";
 import { fetchComicSlide } from "@/store/asyncThunk/comic";
 import SlideItem from "./SlideItem";
-import { Skeleton } from "antd";
 import SkeletonSlideList from "./skeleton/SkeletonSlideList";
 
 const SlideList = () => {

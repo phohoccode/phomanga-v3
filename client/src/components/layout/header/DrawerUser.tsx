@@ -65,7 +65,7 @@ const DrawerUser = () => {
               <div className="w-[32px] h-[32px] flex items-center justify-center">
                 {icon}
               </div>
-              <span>{label}</span>
+              <span className="text-center">{label}</span>
             </Link>
           </li>
         ))}

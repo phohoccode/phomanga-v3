@@ -3,11 +3,11 @@
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "antd";
+import { Badge, Button } from "antd";
 import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import ModalSearch from "@/components/modals/ModalSearch";
+import ModalSearch from "@/components/modals/modal-search/ModalSearch";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState, AppDispatch } from "@/store/store";
 import {
@@ -76,12 +76,12 @@ const NavBar = () => {
 
   return (
     <>
-      <header className="sticky top-0 left-0 z-[999] right-0 p-6 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
+      <header className="sticky top-0 left-0 z-[999] right-0 md:p-6 p-3 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
         <div className="flex items-center">
           <div className="flex gap-4 items-center">
             <Link
               href="/"
-              className="text-[#13c2c2] font-bold mr-[24px] xl:text-lg text-base"
+              className="text-[#13c2c2] mr-[24px] xl:text-lg text-base"
             >
               PHOMANGA-V3
             </Link>
@@ -101,12 +101,13 @@ const NavBar = () => {
                     >
                       <Link
                         href={href}
-                        className={`p-2 h-[50px]
-                           hover:bg-slate-100 gap-1 text-base flex items-center 
+                        className={`px-3 py-2 h-[36px] rounded-full gap-1 text-base flex items-center 
                            ${
-                             pathname === href &&
-                             "text-[#13c2c2] border-b-2 border-[#13c2c2]"
-                           }`}
+                             pathname !== href
+                               ? "hover:bg-gray-100"
+                               : "bg-[#13c2c2] text-gray-50"
+                           } 
+                          `}
                       >
                         <span>{label}</span>
                       </Link>
@@ -117,7 +118,7 @@ const NavBar = () => {
             )}
           </nav>
         </div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center gap-4">
           {width > 1024 && (
             <Button
               onClick={() => dispatch(setShowModalSearch(true))}
@@ -130,19 +131,31 @@ const NavBar = () => {
           <ThemeModeSwitch />
 
           {width > 1024 && (
-            <Button
-              onClick={() => dispatch(setShowModalNotification(true))}
-              icon={<BellOutlined />}
-            />
+            <Badge count={111} color="cyan" size="small" overflowCount={99}>
+              <Button
+                onClick={() => dispatch(setShowModalNotification(true))}
+                icon={<BellOutlined />}
+              />
+            </Badge>
           )}
 
           {!session ? (
-            <ButtonLink
-              href="/auth/sign-in"
-              text="Đăng nhập"
-              color="cyan"
-              variant="solid"
-            />
+            <div className="flex gap-4 items-center ml-2">
+              <ButtonLink
+                href="/auth/sign-in"
+                text="Đăng nhập"
+                color="cyan"
+                variant="solid"
+              />
+              {width > 1200 && (
+                <ButtonLink
+                  href="/auth/sign-up"
+                  text="Đăng ký"
+                  color="cyan"
+                  variant="outlined"
+                />
+              )}
+            </div>
           ) : (
             <AvartarUser />
           )}

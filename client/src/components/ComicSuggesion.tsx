@@ -24,7 +24,6 @@ const ComicSuggesion = () => {
   const handleGenarateComicSuggestions = () => {
     if (catetorys?.length > 0) {
       const itemRandom = randomItemFromArray(catetorys);
-      console.log(itemRandom);
       dispatch(
         fetchComicDetail({
           description: "the-loai",
@@ -41,7 +40,7 @@ const ComicSuggesion = () => {
         Gợi ý truyện khác
       </Divider>
       <div className="flex flex-col gap-4">
-        {items?.map((item: any, index: number) => (
+        {items.slice(0, 12)?.map((item: any, index: number) => (
           <Link
             href={`/thong-tin-truyen/${item?.slug}`}
             key={index}
@@ -51,7 +50,7 @@ const ComicSuggesion = () => {
               <img
                 onError={({ currentTarget }) => {
                   currentTarget.onerror = null;
-                  currentTarget.src = "/error-image.png";
+                  currentTarget.src = "/error-img.png";
                 }}
                 className="w-full h-full object-cover"
                 src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${item?.thumb_url}`}
@@ -61,6 +60,11 @@ const ComicSuggesion = () => {
             <div className="flex flex-col gap-1 flex-1">
               <span className="group-hover:text-[#13c2c2] transition-all">
                 {item?.name ?? "Không xác định"}
+              </span>
+              <span className="text-xs">
+                {item?.chaptersLatest?.[0]?.chapter_name
+                  ? `Chương mới nhất ${item?.chaptersLatest?.[0]?.chapter_name}`
+                  : "Truyện đang lỗi"}
               </span>
               <span className="text-slate-500 text-xs">
                 Cập nhật {formatDate(item?.updatedAt ?? "lỗi")}

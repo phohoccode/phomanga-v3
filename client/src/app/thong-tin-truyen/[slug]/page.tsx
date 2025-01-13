@@ -3,6 +3,7 @@
 import ComicSuggesion from "@/components/ComicSuggesion";
 import SessionChapter from "@/components/info-page/SessionChapter";
 import { SessionInfo } from "@/components/info-page/SessionInfo";
+import Layout from "@/components/layout/Layout";
 import SkeletonInfoPage from "@/components/skeleton/SkeletonInfoPage";
 import { fetchComicInfo } from "@/store/asyncThunk/comic";
 import { AppDispatch, RootState } from "@/store/store";
@@ -19,18 +20,10 @@ const Page = () => {
     (state: RootState) => state.comic.comicInfo,
     shallowEqual
   );
-  const menuItems = [
-    ...breadCrumb?.slice(0, -1).map((item: any, index: number) => {
-      return {
-        key: ++index,
-        label: <Link href={`/chi-tiet${item?.slug}`}>{item?.name}</Link>,
-      };
-    }),
-  ];
+
   const breadcrumbItems = [
     { title: <Link href="/">Trang chủ</Link> },
     { title: "Thông tin truyện" },
-    { title: "Thể loại", menu: { items: menuItems } },
     { title: breadCrumb?.[breadCrumb.length - 1]?.name ?? "Không xác định" },
   ];
 
@@ -43,7 +36,8 @@ const Page = () => {
   }
 
   return (
-    <div className="p-6">
+    <Layout>
+      
       <Breadcrumb items={breadcrumbItems} />
 
       <Row gutter={[32, 32]} style={{ marginTop: "32px" }}>
@@ -55,7 +49,7 @@ const Page = () => {
           <ComicSuggesion />
         </Col>
       </Row>
-    </div>
+    </Layout>
   );
 };
 

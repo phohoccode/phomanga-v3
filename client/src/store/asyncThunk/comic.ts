@@ -91,6 +91,16 @@ export const fetchSearchComic = createAsyncThunk(
   }
 );
 
+export const fetchSearchComicPreview = createAsyncThunk(
+  "users/fetchSearchComicPreview",
+  async ({ keyword }: { keyword: string }) => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_OTRUYEN_TIMKIEM}/?keyword=${keyword}`
+    );
+    return response.json();
+  }
+);
+
 export const fetchImageComic = createAsyncThunk(
   "users/fetchReadComic",
   async ({ id }: { id: string }) => {

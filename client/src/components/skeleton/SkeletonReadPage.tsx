@@ -5,9 +5,9 @@ const SkeletonReadPage = ({ width }: { width: number }) => {
     <div className="p-6 flex flex-col gap-2">
       <Skeleton.Input size="small" style={{ width: "50%" }} />
       <div className="flex flex-col gap-2 items-center justify-center mt-8 rounded-lg bg-gray-100 p-4">
-        <Skeleton.Input size="small" style={{ width: "320px" }} />
+        <Skeleton.Input size="small" style={{ width: "220px" }} />
 
-        <div className="flex gap-2">
+        <div className="flex gap-2 flex-col md:flex-row items-center justify-center">
           <Skeleton.Button size="small" style={{ width: "120px" }} />
           <Skeleton.Button size="small" style={{ width: "120px" }} />
           <Skeleton.Button size="small" style={{ width: "120px" }} />

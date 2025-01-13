@@ -3,6 +3,7 @@
 import ComicList from "@/components/ComicList";
 import ComicTitle from "@/components/ComicTitle";
 import ButtonLink from "@/components/common/ButtonLink";
+import Layout from "@/components/layout/Layout";
 import SlideList from "@/components/SlideList";
 import {
   fetchCompletedComic,
@@ -69,29 +70,31 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="p-6 flex flex-col gap-6">
-      <SlideList />
-
+    <Layout>
       <div className="flex flex-col gap-6">
-        {sessions.map((session) => (
-          <div key={session.id} className="flex flex-col gap-6">
-            <ComicTitle
-              title={session.name}
-              orientation="center"
-              loading={session.loading}
-            />
-            <ComicList data={session.data} loading={session.loading} />
-            <ButtonLink
-              href={session.href}
-              text="Xem thêm"
-              showIcon={true}
-              positionIcon="end"
-              positionItem="end"
-              icon={<ArrowRightOutlined />}
-            />
-          </div>
-        ))}
+        <SlideList />
+
+        <div className="flex flex-col gap-6">
+          {sessions.map((session) => (
+            <div key={session.id} className="flex flex-col gap-6">
+              <ComicTitle
+                title={session.name}
+                orientation="center"
+                loading={session.loading}
+              />
+              <ComicList data={session.data} loading={session.loading} />
+              <ButtonLink
+                href={session.href}
+                text="Xem thêm"
+                showIcon={true}
+                positionIcon="end"
+                positionItem="end"
+                icon={<ArrowRightOutlined />}
+              />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
+    </Layout>
   );
 }

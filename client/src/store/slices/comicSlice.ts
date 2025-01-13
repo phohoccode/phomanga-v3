@@ -9,6 +9,7 @@ import {
   fetchNewComic,
   fetchPublishedComic,
   fetchSearchComic,
+  fetchSearchComicPreview,
   fetchUpComingComic,
 } from "../asyncThunk/comic";
 import { comicCategory } from "@/lib/types";
@@ -47,6 +48,10 @@ export interface ComicState {
     breadCrumb: any[];
     params: any;
     titlePage: string;
+    loading: boolean;
+  };
+  searchComicPreview: {
+    items: any[];
     loading: boolean;
   };
   comicInfo: {
@@ -100,6 +105,10 @@ const initialState: ComicState = {
     params: {},
     titlePage: "",
     loading: false,
+  },
+  searchComicPreview: {
+    items: [],
+    loading: true,
   },
   imagesComic: {
     item: {},
@@ -185,7 +194,6 @@ export const comicSlice = createSlice({
         state.comicDetail.loading = true;
       })
       .addCase(fetchComicDetail.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.comicDetail.loading = false;
         state.comicDetail.items = action.payload?.data?.items;
         state.comicDetail.breadCrumb = action.payload?.data?.breadCrumb;
@@ -222,6 +230,19 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchSearchComic.rejected, (state) => {
         state.searchComic.loading = false;
+      })
+
+      // Dữ liệu tìm kiếm truyện preview
+      .addCase(fetchSearchComicPreview.pending, (state) => {
+        state.searchComicPreview.items = [];
+        state.searchComicPreview.loading = true;
+      })
+      .addCase(fetchSearchComicPreview.fulfilled, (state, action) => {
+        state.searchComicPreview.loading = false;
+        state.searchComicPreview.items = action.payload?.data?.items;
+      })
+      .addCase(fetchSearchComicPreview.rejected, (state) => {
+        state.searchComicPreview.loading = false;
       })
 
       // Dữ liệu ảnh truyện

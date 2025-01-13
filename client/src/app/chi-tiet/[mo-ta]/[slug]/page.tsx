@@ -2,6 +2,7 @@
 
 import ComicList from "@/components/ComicList";
 import ComicTitle from "@/components/ComicTitle";
+import Layout from "@/components/layout/Layout";
 import { isPositiveInteger } from "@/lib/utils";
 import { fetchComicDetail } from "@/store/asyncThunk/comic";
 import { AppDispatch, RootState } from "@/store/store";
@@ -48,28 +49,30 @@ const Page = () => {
   };
 
   return (
-    <div className="p-6 flex flex-col">
-      {loading ? (
-        <Skeleton.Input size="small" style={{ width: "40%" }} />
-      ) : (
-        <Breadcrumb items={breadcrumbItems} />
-      )}
+    <Layout>
+      <div className="flex flex-col">
+        {loading ? (
+          <Skeleton.Input size="small" style={{ width: "40%" }} />
+        ) : (
+          <Breadcrumb items={breadcrumbItems} />
+        )}
 
-      <ComicTitle title={titlePage} orientation="center" loading={loading} />
+        <ComicTitle title={titlePage} orientation="center" loading={loading} />
 
-      <ComicList data={items} loading={loading} title={titlePage} />
+        <ComicList data={items} loading={loading} title={titlePage} />
 
-      <Pagination
-        style={{ marginTop: "48px" }}
-        align="center"
-        onChange={handleChangePage}
-        showTitle={true}
-        showSizeChanger={false}
-        current={Number(currentPage)}
-        total={totalItems}
-        pageSize={itemsPerPage}
-      />
-    </div>
+        <Pagination
+          style={{ marginTop: "48px" }}
+          align="center"
+          onChange={handleChangePage}
+          showTitle={true}
+          showSizeChanger={false}
+          current={Number(currentPage)}
+          total={totalItems}
+          pageSize={itemsPerPage}
+        />
+      </div>
+    </Layout>
   );
 };
 

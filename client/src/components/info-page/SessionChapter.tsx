@@ -39,21 +39,25 @@ const SessionChapter = ({ data }: any) => {
             allowClear
             placeholder="Tìm kiếm chương ..."
           />
-          <Row gutter={[8, 8]}>
-            {chapters?.map((item: any, index: number) => (
-              <Col key={index} xs={8} sm={6} md={4} lg={3} xxl={2}>
-                <Link
-                  className="block w-full rounded-md hover:bg-gray-100 p-2 hover:text-[#13c2c2]"
-                  href={`/dang-xem/${data?.slug}/${item?.chapter_api_data
-                    ?.split("/")
-                    .pop()}`}
-                >
-                  Chương {item?.chapter_name}
-                </Link>
-              </Col>
-            ))}
-          </Row>
-          {chaptersData?.length > quantity && (
+          {chapters?.length === 0 ? (
+            <Empty description="Không có dữ liệu" />
+          ) : (
+            <Row gutter={[8, 8]}>
+              {chapters?.map((item: any, index: number) => (
+                <Col key={index} xs={8} sm={6} md={4} lg={3} xxl={2}>
+                  <Link
+                    className="block w-full rounded-md hover:bg-gray-100 p-2 hover:text-[#13c2c2]"
+                    href={`/dang-xem/${data?.slug}/${item?.chapter_api_data
+                      ?.split("/")
+                      .pop()}`}
+                  >
+                    Chương {item?.chapter_name}
+                  </Link>
+                </Col>
+              ))}
+            </Row>
+          )}
+          {chaptersData?.length > quantity && chapters?.length > 0 && (
             <Pagination
               style={{ marginTop: "16px" }}
               onChange={(page) => handlePagination(page)}
