@@ -9,6 +9,7 @@ import { fetchComicInfo, fetchImageComic } from "@/store/asyncThunk/comic";
 import { AppDispatch, RootState } from "@/store/store";
 import { ToTopOutlined } from "@ant-design/icons";
 import { Breadcrumb, FloatButton, Tooltip } from "antd";
+import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,7 +23,7 @@ const Page = () => {
   const { items } = useSelector((state: RootState) => state.comic.comicInfo);
   const width = useSelector((state: RootState) => state.system.width);
   const breadCrumb = [
-    { title: "Trang chủ", href: "/" },
+    { title: <Link href="/">Trang chủ</Link> },
     { title: "Đang xem" },
     { title: `${items?.name}` },
     { title: `Chương ${item?.chapter_name}` },
@@ -70,8 +71,8 @@ const Page = () => {
             shape="circle"
             type="primary"
             style={{
-              insetInlineEnd: "32px",
-              insetBlockEnd: width > 768 ? "32px" : "96px",
+              insetInlineEnd: width > 1024 ? "32px" : "16px",
+              insetBlockEnd: width > 1024 ? "32px" : "96px",
             }}
             icon={<ToTopOutlined />}
           />

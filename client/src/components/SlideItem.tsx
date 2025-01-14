@@ -20,23 +20,25 @@ const SlideItem = ({ slide }: any) => {
         <Typography.Text className="font-bold block mb-2 truncate text-gray-50 transition-all">
           {slide?.name ?? "Không xác định"}
         </Typography.Text>
-        <Link
-          href={`/dang-xem/${slide?.slug}/${
-            slide?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
-            "?status=404"
-          }`}
-          className="w-full"
-        >
-          <Button
+        {slide?.chaptersLatest && (
+          <Link
+            href={`/dang-xem/${slide?.slug}/${
+              slide?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
+              "?status=404"
+            }`}
             className="w-full"
-            type="link"
-            color="cyan"
-            variant="solid"
-            icon={<EyeOutlined />}
           >
-            Xem ngay
-          </Button>
-        </Link>
+            <Button
+              className="w-full"
+              type="link"
+              color="cyan"
+              variant="solid"
+              icon={<EyeOutlined />}
+            >
+              Đọc ngay
+            </Button>
+          </Link>
+        )}
       </div>
     </div>
   );

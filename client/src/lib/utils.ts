@@ -20,3 +20,14 @@ export const removeHTMLTags = (str: string) => {
 export const randomItemFromArray = (arr: any[]) => {
   return arr[Math.floor(Math.random() * arr.length)];
 };
+
+export const scrollToBottom = (
+  ref: React.RefObject<HTMLUListElement> | null
+): void => {
+  if (ref?.current) {
+    const lastItem = ref?.current.lastElementChild;
+    if (lastItem) {
+      lastItem.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+};

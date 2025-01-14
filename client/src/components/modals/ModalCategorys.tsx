@@ -38,7 +38,7 @@ const ModalCategorys = ({
       onCancel={onCancel}
     >
       {isLoading && <Skeleton style={{ marginTop: "12px" }} />}
-      <Row gutter={[8, 8]} className="mt-4">
+      <Row gutter={[8, 8]} className="mt-4 max-h-[80vh] overflow-y-auto">
         {categorys?.map((category: any, index: number) => (
           <Col
             key={index}
@@ -57,22 +57,6 @@ const ModalCategorys = ({
           </Col>
         ))}
       </Row>
-      {/* <ul className="flex flex-wrap gap-2 mt-4">
-        {categorys?.map((category, index) => (
-          <li
-            key={index}
-            className="flex-auto"
-            onClick={() => dispatch(setShowModalCategorys(false))}
-          >
-            <Link
-              href={`/chi-tiet/the-loai/${category?.slug}`}
-              className="p-2 rounded-md hover:bg-slate-100 text-base hover:text-[#13c2c2] cursor-pointer"
-            >
-              {category?.name}
-            </Link>
-          </li>
-        ))}
-      </ul> */}
     </RootModal>
   );
 };

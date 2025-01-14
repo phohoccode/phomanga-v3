@@ -6,14 +6,14 @@ import "@/assets/styles/swiper.css";
 import { EffectCoverflow } from "swiper/modules";
 import { Skeleton } from "antd";
 
-const SkeletonSlideList = () => {
+const SkeletonSlideList = ({ width }: { width: number }) => {
   return (
     <Swiper
       modules={[EffectCoverflow]}
       effect="coverflow"
       grabCursor={true}
       centeredSlides={true}
-      initialSlide={6}
+      initialSlide={width > 1024 ? 13 : 6}
       speed={600}
       preventClicks={true}
       slidesPerView={"auto"}
@@ -26,7 +26,7 @@ const SkeletonSlideList = () => {
       }}
       className="mySwiper"
     >
-      {[...Array(13)].map((_, index) => (
+      {[...Array(width > 1024 ? 24 : 13)].map((_, index) => (
         <SwiperSlide key={index}>
           <Skeleton.Node style={{ width: 280, height: 360 }} />
         </SwiperSlide>

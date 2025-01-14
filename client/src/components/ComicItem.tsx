@@ -6,9 +6,9 @@ const ComicItem = ({ data }: any) => {
   return (
     <Badge.Ribbon
       placement="start"
-      color="cyan"
+      color={data?.chaptersLatest ? "cyan" : "red"}
       text={
-        data?.chaptersLatest?.[0]?.chapter_name
+        data?.chaptersLatest
           ? `Chương ${data?.chaptersLatest?.[0]?.chapter_name}`
           : "Truyện đang lỗi"
       }
@@ -34,25 +34,27 @@ const ComicItem = ({ data }: any) => {
             {data?.name ?? "Không xác định"}
           </Typography.Text>
         </Link>
-        <div className="absolute top-[100%] flex justify-center left-[12px] right-[12px] opacity-0 group-hover:opacity-100 rounded-xl transition-all group-hover:top-[70%]">
-          <Link
-            href={`/dang-xem/${data?.slug}/${
-              data?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
-              "?status=404"
-            }`}
-            className="w-full"
-          >
-            <Button
+        {data?.chaptersLatest && (
+          <div className="absolute top-[100%] flex justify-center left-[12px] right-[12px] opacity-0 group-hover:opacity-100 rounded-xl transition-all group-hover:top-[70%]">
+            <Link
+              href={`/dang-xem/${data?.slug}/${
+                data?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
+                "?status=404"
+              }`}
               className="w-full"
-              type="link"
-              color="cyan"
-              variant="solid"
-              icon={<EyeOutlined />}
             >
-              Xem ngay
-            </Button>
-          </Link>
-        </div>
+              <Button
+                className="w-full"
+                type="link"
+                color="cyan"
+                variant="solid"
+                icon={<EyeOutlined />}
+              >
+                Đọc ngay
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </Badge.Ribbon>
   );

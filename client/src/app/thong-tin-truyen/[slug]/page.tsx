@@ -1,6 +1,8 @@
 "use client";
 
 import ComicSuggesion from "@/components/ComicSuggesion";
+import CommentBox from "@/components/comment/CommentBox";
+import EmptyData from "@/components/common/EmptyData";
 import SessionChapter from "@/components/info-page/SessionChapter";
 import { SessionInfo } from "@/components/info-page/SessionInfo";
 import Layout from "@/components/layout/Layout";
@@ -35,15 +37,19 @@ const Page = () => {
     return <SkeletonInfoPage />;
   }
 
+  if (!items) {
+    return <EmptyData description="Không tìm thấy thông tin truyện" />;
+  }
+
   return (
     <Layout>
-      
       <Breadcrumb items={breadcrumbItems} />
 
       <Row gutter={[32, 32]} style={{ marginTop: "32px" }}>
         <Col lg={24} xl={18} md={24} sm={24} xs={24}>
           <SessionInfo data={items} />
           <SessionChapter data={items} />
+          <CommentBox />
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>
           <ComicSuggesion />

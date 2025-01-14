@@ -13,11 +13,10 @@ export const SessionInfo = ({ data }: any) => {
   const categories = data?.category?.map((item: any) => {
     return (
       <Link key={item?.id} href={`/chi-tiet/the-loai/${item?.slug}`}>
-        <Tag color="purple"> {item?.name ?? "Không xác định"}</Tag>
+        <Tag color="blue"> {item?.name ?? "Không xác định"}</Tag>
       </Link>
     );
   });
-  console.log(data);
 
   const items: DescriptionsProps["items"] = [
     {
@@ -76,21 +75,33 @@ export const SessionInfo = ({ data }: any) => {
           width={200}
           height={260}
         />
-        <div className="flex gap-2 w-full justify-center">
-          <ButtonLink
-            href={`/dang-xem/${data?.slug}/${
-              data?.chapters?.[0]?.server_data?.[0]?.chapter_api_data
-                ?.split("/")
-                .pop() ?? "?status=404"
-            }`}
-            text="Đọc truyện"
-            showIcon={true}
-            icon={<EyeOutlined />}
-          />
-          <Tooltip placement="top" title="Lưu truyện">
-            <Button icon={<BookOutlined />} variant="filled" color="primary" />
-          </Tooltip>
-        </div>
+        {data?.chapters?.length > 0 && (
+          <div className="flex gap-2 w-full justify-center">
+            <Link
+              href={`/dang-xem/${data?.slug}/${
+                data?.chapters?.[0]?.server_data?.[0]?.chapter_api_data
+                  ?.split("/")
+                  .pop() ?? "?status=404"
+              }`}
+            >
+              <Button
+                color="cyan"
+                variant="solid"
+                icon={<EyeOutlined />}
+                iconPosition="start"
+              >
+                Đọc ngay
+              </Button>
+            </Link>
+            <Tooltip placement="top" title="Lưu truyện">
+              <Button
+                icon={<BookOutlined />}
+                variant="filled"
+                color="primary"
+              />
+            </Tooltip>
+          </div>
+        )}
       </div>
 
       <Descriptions

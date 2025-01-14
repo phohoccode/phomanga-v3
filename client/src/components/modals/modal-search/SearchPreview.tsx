@@ -15,7 +15,6 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
     (state: RootState) => state.comic.searchComicPreview
   );
   const dispatch: AppDispatch = useDispatch();
-  console.log("items", items);
 
   if (keyword.trim() === "") return null;
 

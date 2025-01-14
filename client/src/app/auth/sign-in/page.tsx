@@ -12,7 +12,7 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { authenticate } from "@/lib/actions";
-import { signIn, useSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 type FieldType = {
   email: string;

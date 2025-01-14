@@ -21,6 +21,9 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Trang chủ",
   description: "Website đọc truyện tranh online miễn phí",
+  icons: {
+    icon: "/logo.ico",
+  }
 };
 
 export default function RootLayout({
@@ -34,6 +37,8 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
+
+
           <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
 
           <SessionProvider>

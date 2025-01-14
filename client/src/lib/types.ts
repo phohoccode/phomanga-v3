@@ -82,3 +82,5 @@ export type ButtonLink = {
   styleLink?: React.CSSProperties;
   styleButton?: React.CSSProperties;
 };
+
+export type FilterComment = "recent" | "oldest";

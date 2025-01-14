@@ -3,7 +3,7 @@
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Badge, Button } from "antd";
+import { Button } from "antd";
 import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -101,7 +101,7 @@ const NavBar = () => {
                     >
                       <Link
                         href={href}
-                        className={`px-3 py-2 h-[36px] rounded-full gap-1 text-base flex items-center 
+                        className={`px-3 py-2 h-[32px] rounded-md gap-1 text-base flex items-center 
                            ${
                              pathname !== href
                                ? "hover:bg-gray-100"
@@ -131,16 +131,14 @@ const NavBar = () => {
           <ThemeModeSwitch />
 
           {width > 1024 && (
-            <Badge count={111} color="cyan" size="small" overflowCount={99}>
-              <Button
-                onClick={() => dispatch(setShowModalNotification(true))}
-                icon={<BellOutlined />}
-              />
-            </Badge>
+            <Button
+              onClick={() => dispatch(setShowModalNotification(true))}
+              icon={<BellOutlined />}
+            />
           )}
 
           {!session ? (
-            <div className="flex gap-4 items-center ml-2">
+            <div className="flex gap-4 items-center ">
               <ButtonLink
                 href="/auth/sign-in"
                 text="Đăng nhập"

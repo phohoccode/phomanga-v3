@@ -16,13 +16,14 @@ const SlideList = () => {
     (state: RootState) => state.comic.conmicSlide
   );
   const dispatch: AppDispatch = useDispatch();
+  const width = useSelector((state: RootState) => state.system.width);
 
   useEffect(() => {
     dispatch(fetchComicSlide());
   }, []);
 
   if (loading) {
-    return <SkeletonSlideList />;
+    return <SkeletonSlideList width={width}/>;
   }
 
   return (
@@ -31,7 +32,7 @@ const SlideList = () => {
       effect="coverflow"
       grabCursor={true}
       centeredSlides={true}
-      initialSlide={6}
+      initialSlide={width > 1024 ? 13 : 6}
       speed={600}
       preventClicks={true}
       slidesPerView={"auto"}
@@ -44,11 +45,13 @@ const SlideList = () => {
       }}
       className="mySwiper"
     >
-      {items?.slice(0, 13)?.map((slide: any, index: number) => (
-        <SwiperSlide key={index}>
-          <SlideItem slide={slide} />
-        </SwiperSlide>
-      ))}
+      {items
+        ?.slice(0, width > 1024 ? 24 : 12)
+        ?.map((slide: any, index: number) => (
+          <SwiperSlide key={index}>
+            <SlideItem slide={slide} />
+          </SwiperSlide>
+        ))}
     </Swiper>
   );
 };
