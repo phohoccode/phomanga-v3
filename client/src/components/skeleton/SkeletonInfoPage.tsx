@@ -10,7 +10,7 @@ const SkeletonInfoPage = () => {
           <div className="flex flex-col lg:flex-row gap-8 w-full mb-8">
             <div className="flex flex-col items-center lg:items-start gap-4">
               <Skeleton.Node style={{ width: "200px", height: "260px" }} />
-              <div className="flex gap-3 w-full justify-center">
+              <div className="flex gap-2 w-full justify-center">
                 <Skeleton.Button style={{ width: "120px" }} />
                 <Skeleton.Button />
               </div>

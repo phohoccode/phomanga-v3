@@ -11,7 +11,7 @@ import {
   fetchNewComic,
   fetchPublishedComic,
   fetchUpComingComic,
-} from "@/store/asyncThunk/comic";
+} from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect } from "react";

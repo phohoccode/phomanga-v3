@@ -1,5 +1,16 @@
-import { DislikeOutlined, LikeOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { DashOutlined, DislikeOutlined, LikeOutlined } from "@ant-design/icons";
+import { Button, Dropdown, MenuProps } from "antd";
+
+const items: MenuProps["items"] = [
+  {
+    label: "Xoá bình luận",
+    key: "0",
+  },
+  {
+    label: "Sửa bình luận",
+    key: "1",
+  },
+];
 
 const CommentActions = () => {
   return (
@@ -10,6 +21,9 @@ const CommentActions = () => {
       <Button type="text" size="small" icon={<DislikeOutlined />}>
         3
       </Button>
+      <Dropdown menu={{ items }} trigger={["click"]}>
+        <Button type="text" size="small" icon={<DashOutlined />} />
+      </Dropdown>
     </div>
   );
 };

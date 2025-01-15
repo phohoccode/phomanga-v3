@@ -7,7 +7,7 @@ import { EffectCoverflow } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { useEffect } from "react";
-import { fetchComicSlide } from "@/store/asyncThunk/comic";
+import { fetchComicSlide } from "@/store/asyncThunk/comicAsyncThunk";
 import SlideItem from "./SlideItem";
 import SkeletonSlideList from "./skeleton/SkeletonSlideList";
 
@@ -23,7 +23,7 @@ const SlideList = () => {
   }, []);
 
   if (loading) {
-    return <SkeletonSlideList width={width}/>;
+    return <SkeletonSlideList width={width} />;
   }
 
   return (

@@ -7,7 +7,7 @@ import SessionChapter from "@/components/info-page/SessionChapter";
 import { SessionInfo } from "@/components/info-page/SessionInfo";
 import Layout from "@/components/layout/Layout";
 import SkeletonInfoPage from "@/components/skeleton/SkeletonInfoPage";
-import { fetchComicInfo } from "@/store/asyncThunk/comic";
+import { fetchComicInfo } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { Breadcrumb, Col, Row } from "antd";
 import Link from "next/link";

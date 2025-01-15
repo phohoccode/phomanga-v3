@@ -5,7 +5,7 @@ import ComicTitle from "@/components/ComicTitle";
 import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
 import { isPositiveInteger } from "@/lib/utils";
-import { fetchSearchComic } from "@/store/asyncThunk/comic";
+import { fetchSearchComic } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { Breadcrumb, Pagination, Skeleton } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";

@@ -11,7 +11,7 @@ import {
   fetchSearchComic,
   fetchSearchComicPreview,
   fetchUpComingComic,
-} from "../asyncThunk/comic";
+} from "../asyncThunk/comicAsyncThunk";
 import { comicCategory } from "@/lib/types";
 
 export interface ComicState {

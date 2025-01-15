@@ -12,10 +12,10 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
   if (err) {
-    console.error("Kết nối database thất bại!", err);
+    console.error("Kết nối mysql thất bại!", err);
     return;
   }
-  console.log("Kết nối database thành công!");
+  console.log("Kết nối mysql thành công!");
 });
 
 export default connection;

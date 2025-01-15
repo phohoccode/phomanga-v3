@@ -1,4 +1,4 @@
-import connection from "../database/mysql/connectDB";
+import connection from "../database/mysql";
 import type {
   rawDataLogin,
   rawDataRegister,

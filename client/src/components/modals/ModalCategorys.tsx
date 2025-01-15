@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { fetchCategorys } from "@/store/asyncThunk/comic";
+import { fetchCategorys } from "@/store/asyncThunk/comicAsyncThunk";
 import { Col, Row, Skeleton } from "antd";
 import { setShowModalCategorys } from "@/store/slices/systemSlice";
 

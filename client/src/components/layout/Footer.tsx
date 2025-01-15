@@ -16,7 +16,7 @@ const Footer = () => {
   }
 
   return (
-    <footer className="mt-8 lg:mb-0 mb-16 p-6 bg-gray-100">
+    <footer className="mt-8 lg:mb-0 mb-16 md:px-6 px-3 py-12 bg-gray-100">
       <Row gutter={[16, 16]}>
         <Col
           xxl={8}

@@ -1,9 +1,10 @@
 "use client";
 
 import { formatDate, randomItemFromArray } from "@/lib/utils";
-import { fetchComicDetail } from "@/store/asyncThunk/comic";
+import { fetchComicDetail } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { Divider } from "antd";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -12,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 // load 2 lần do loading ở trang thông tin truyện
 
 const ComicSuggesion = () => {
+  const { data: session } = useSession();
   const catetorys = useSelector((state: RootState) => state.comic.catetorys);
   const { items } = useSelector((state: RootState) => state.comic.comicDetail);
   const dispatch: AppDispatch = useDispatch();
@@ -19,7 +21,7 @@ const ComicSuggesion = () => {
 
   useEffect(() => {
     handleGenarateComicSuggestions();
-  }, [params?.slug]);
+  }, [params?.slug, session?.user?.id]);
 
   const handleGenarateComicSuggestions = () => {
     if (catetorys?.length > 0) {

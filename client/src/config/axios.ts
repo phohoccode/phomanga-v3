@@ -1,13 +1,13 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: process.env.BACKEND_URL,
-  withCredentials: true
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  withCredentials: true,
 });
 
 instance.interceptors.response.use(
   (response) => {
-    return response.data; 
+    return response.data;
   },
   (error) => {
     // Xử lý lỗi toàn cục
@@ -15,5 +15,4 @@ instance.interceptors.response.use(
   }
 );
 
-
-export default instance
+export default instance;

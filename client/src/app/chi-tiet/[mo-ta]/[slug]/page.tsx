@@ -4,7 +4,7 @@ import ComicList from "@/components/ComicList";
 import ComicTitle from "@/components/ComicTitle";
 import Layout from "@/components/layout/Layout";
 import { isPositiveInteger } from "@/lib/utils";
-import { fetchComicDetail } from "@/store/asyncThunk/comic";
+import { fetchComicDetail } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { Breadcrumb, Pagination, Skeleton } from "antd";
 import Link from "next/link";

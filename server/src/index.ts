@@ -3,12 +3,15 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
 import authRouter from "./routes/authRouter";
-import userRouter from './routes/userRouter'
+import userRouter from "./routes/userRouter";
+import comicRouter from "./routes/comicRouter";
+import connectMongoDB from "./database/mongodb";
 
 const app: Express = express();
 const port = process.env.PORT || 8080;
 
-// connect databse
+// check connect database
+connectMongoDB();
 
 // config .env
 dotenv.config();
@@ -19,6 +22,7 @@ app.use(
   cors({
     origin: process.env.CORS_ORIGIN,
     optionsSuccessStatus: 200,
+    credentials: true,
   })
 );
 
@@ -28,7 +32,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // defind routes
 app.use("/auth", authRouter);
-app.use("/user", userRouter)
+app.use("/user", userRouter);
+app.use("/comic", comicRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

@@ -26,17 +26,14 @@ const DrawerUser = () => {
     {
       href: `/trang-ca-nhan/${session?.user?.id}`,
       label: "Trang cá nhân",
-      icon: <PersonIcon width="22" height="22" />,
     },
     {
       href: "/kho-luu-tru",
       label: "Kho lưu trữ",
-      icon: <ArchiveIcon width="18" height="18" />,
     },
     {
       href: "/lich-su-da-xem",
       label: "Lịch sử đã xem",
-      icon: <HistoryIcon width="18" height="18" />,
     },
   ];
 
@@ -54,17 +51,14 @@ const DrawerUser = () => {
       open={showDrawerUser}
     >
       <ul>
-        {links.map(({ href, label, icon }) => (
+        {links.map(({ href, label }) => (
           <li key={href} onClick={() => dispatch(setShowDrawerUser(false))}>
             <Link
-              className={`p-2 flex gap-2 h-[36px] items-center text-base hover:text-[#13c2c2] hover:bg-slate-100 rounded-md transition-all ${
-                pathname === href ? "text-[#13c2c2]" : "text-gray-800"
+              className={`p-2 flex gap-2 h-[36px] items-center text-base hover:bg-slate-100 rounded-md transition-all ${
+                pathname === href ? "text-[#13c2c2] hover:text-[#13c2c2]" : "text-gray-700 hover:text-gray-700"
               }`}
               href={href}
             >
-              <div className="w-[32px] h-[32px] flex items-center justify-center">
-                {icon}
-              </div>
               <span className="text-center">{label}</span>
             </Link>
           </li>
@@ -72,11 +66,8 @@ const DrawerUser = () => {
         <Divider style={{ margin: "12px 0" }} />
         <li
           onClick={() => signOut({ callbackUrl: "/" })}
-          className="cursor-pointer p-2 flex gap-2 h-[36px] items-center text-base hover:text-[#13c2c2] hover:bg-slate-100 rounded-md transition-all"
+          className="cursor-pointer p-2 flex gap-2 h-[36px] items-center text-base hover:bg-slate-100 rounded-md transition-all"
         >
-          <div className="w-[32px] h-[32px] flex items-center justify-center">
-            <SignOutIcon width="18" height="18" />
-          </div>
           <span>Đăng xuất</span>
         </li>
       </ul>

@@ -5,7 +5,10 @@ import Layout from "@/components/layout/Layout";
 import SessionImage from "@/components/read-page/SessionImages";
 import SesstionControls from "@/components/read-page/SesstionControls";
 import SkeletonReadPage from "@/components/skeleton/SkeletonReadPage";
-import { fetchComicInfo, fetchImageComic } from "@/store/asyncThunk/comic";
+import {
+  fetchComicInfo,
+  fetchImageComic,
+} from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { ToTopOutlined } from "@ant-design/icons";
 import { Breadcrumb, FloatButton, Tooltip } from "antd";

@@ -13,7 +13,7 @@ import SearchPreview from "./SearchPreview";
 import {
   fetchSearchComic,
   fetchSearchComicPreview,
-} from "@/store/asyncThunk/comic";
+} from "@/store/asyncThunk/comicAsyncThunk";
 import debounce from "debounce";
 import SearchRecent from "./SearchRecent";
 

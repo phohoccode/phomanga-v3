@@ -1,4 +1,4 @@
-import connection from "../database/mysql/connectDB";
+import connection from "../database/mysql";
 
 const handleGetUserByEmail = async (email: string) => {
   try {

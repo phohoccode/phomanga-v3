@@ -1,11 +1,11 @@
 import { Button, Image, Tag, Tooltip } from "antd";
-import ButtonLink from "../common/ButtonLink";
 import { BookOutlined, EyeOutlined } from "@ant-design/icons";
 import { Descriptions } from "antd";
 import type { DescriptionsProps } from "antd";
 import { formatDate, removeHTMLTags } from "@/lib/utils";
 import Link from "next/link";
 import ShowMoreText from "../common/ShowMoreText";
+import ActionSaveComic from "./ActionSaveComic";
 
 export const SessionInfo = ({ data }: any) => {
   const chapters = data?.chapters?.[0]?.server_data ?? [];
@@ -93,13 +93,7 @@ export const SessionInfo = ({ data }: any) => {
                 Đọc ngay
               </Button>
             </Link>
-            <Tooltip placement="top" title="Lưu truyện">
-              <Button
-                icon={<BookOutlined />}
-                variant="filled"
-                color="primary"
-              />
-            </Tooltip>
+            <ActionSaveComic />
           </div>
         )}
       </div>
