@@ -2,7 +2,7 @@
 
 import ComicList from "@/components/ComicList";
 import ComicTitle from "@/components/ComicTitle";
-import ButtonLink from "@/components/common/ButtonLink";
+import ButtonLink from "@/components/ui/ButtonLink";
 import CaterogiesAnimate from "@/components/CategoriesAnimate";
 import Layout from "@/components/layout/Layout";
 import SlideList from "@/components/SlideList";

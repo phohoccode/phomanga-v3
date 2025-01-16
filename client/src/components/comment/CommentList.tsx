@@ -6,7 +6,7 @@ import SkeletonComment from "../skeleton/SkeletonComment";
 import { Pagination } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 import { isPositiveInteger } from "@/lib/utils";
-import EmptyData from "../common/EmptyData";
+import EmptyData from "../ui/EmptyData";
 
 const CommentList = () => {
   const [comments, setComments] = useState<any[]>([]);

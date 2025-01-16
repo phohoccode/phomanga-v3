@@ -1,6 +1,6 @@
 "use client";
 
-import EmptyData from "@/components/common/EmptyData";
+import EmptyData from "@/components/ui/EmptyData";
 import Layout from "@/components/layout/Layout";
 import SessionImage from "@/components/read-page/SessionImages";
 import SesstionControls from "@/components/read-page/SesstionControls";
@@ -16,6 +16,8 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { saveComic } from "@/store/asyncThunk/userAsyncThunk";
+import { useSession } from "next-auth/react";
 
 const Page = () => {
   const params = useParams();
@@ -23,6 +25,7 @@ const Page = () => {
   const { item, loading } = useSelector(
     (state: RootState) => state.comic.imagesComic
   );
+  const { data: session } = useSession();
   const { items } = useSelector((state: RootState) => state.comic.comicInfo);
   const width = useSelector((state: RootState) => state.system.width);
   const breadCrumb = [
@@ -32,6 +35,9 @@ const Page = () => {
     { title: `Chương ${item?.chapter_name}` },
   ];
 
+  console.log(">>> item", item);
+  console.log(">>> items", items);
+
   useEffect(() => {
     dispatch(fetchComicInfo({ slug: params?.slug as string }));
   }, [params?.slug]);
@@ -39,6 +45,22 @@ const Page = () => {
   useEffect(() => {
     dispatch(fetchImageComic({ id: params?.id as string }));
   }, [params?.id]);
+
+  useEffect(() => {
+    if (items && item?._id || session?.user?.id) {
+      dispatch(
+        saveComic({
+          userId: session?.user?.id as string,
+          dataComic: {
+            ...item,
+            slug: items?.slug,
+            thumb_url: items?.thumb_url,
+          },
+          type: "VIEWED_COMIC",
+        })
+      );
+    }
+  }, []);
 
   if (loading) {
     return <SkeletonReadPage width={width} />;

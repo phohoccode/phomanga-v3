@@ -5,7 +5,7 @@ import RootModal from "./RootModal";
 import { Button, Divider } from "antd";
 import { CheckCircleFilled } from "@ant-design/icons";
 import SkeletonNotifycation from "../skeleton/SkeletonNotifycation";
-import EmptyData from "../common/EmptyData";
+import EmptyData from "../ui/EmptyData";
 
 const ModalNotifycation = ({
   isModalOpen,
@@ -20,7 +20,6 @@ const ModalNotifycation = ({
   const [page, setPage] = useState<number>(1);
   const notifyRef = useRef<any>(null);
 
-  
   const fetchNotifycation = async (page: number) => {
     setLoading(true);
     try {

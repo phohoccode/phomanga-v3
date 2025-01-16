@@ -3,6 +3,7 @@
 import { signIn } from "@/auth";
 import type { registerAccount, resetPassword } from "./types";
 import axios from "@/config/axios";
+import { revalidatePath } from "next/cache";
 
 // =============================== AUTH.JS ===============================
 export async function authenticate(
@@ -98,5 +99,39 @@ export async function resetPassword({
       status: "error",
       message: "Đã có lỗi xảy ra, vui lòng thử lại!",
     };
+  }
+}
+
+// =============================== USER.JS ===============================
+export async function fetchDataSavedComics(
+  userId: string,
+  page: number | string,
+  type: string
+) {
+  try {
+    const response: any = await axios.post("/comic/get-all-comic", {
+      userId,
+      page,
+      type,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteSavedComic(comicSlug: string, userId: string) {
+  try {
+    const response: any = await axios.post("/comic/delete-saved-comic", {
+      comicSlug,
+      userId,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    revalidatePath("/kho-luu-tru");
   }
 }

@@ -1,6 +1,8 @@
+"use client"
+
 import { Col, Row, Skeleton } from "antd";
 
-const SkeletonComicList = ({ quantity }: { quantity: number }) => {
+const SkeletonComicList = ({ quantity = 24}: { quantity?: number }) => {
   return (
     <Row gutter={[16, 16]}>
       {[...Array(quantity)].map((_, index) => (

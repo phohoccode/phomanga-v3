@@ -18,7 +18,7 @@ const AvartarUser = () => {
       {session?.user?.image ? (
         <Avatar src={<img src={session?.user?.image} alt="avatar" />} />
       ) : (
-        <Avatar size="default" shape="square" icon={<UserOutlined />} />
+        <Avatar size="default" shape="circle" icon={<UserOutlined />} />
       )}
     </div>
   );

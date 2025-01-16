@@ -59,7 +59,7 @@ const Page = () => {
 
         <ComicTitle title={titlePage} orientation="center" loading={loading} />
 
-        <ComicList data={items} loading={loading} title={titlePage} />
+        <ComicList data={items} loading={loading} />
 
         <Pagination
           style={{ marginTop: "48px" }}

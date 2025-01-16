@@ -7,7 +7,7 @@ import { Typography } from "antd";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import SkeletonSearchComicPreview from "../../skeleton/SkeletonSearchComicPreview";
-import EmptyData from "../../common/EmptyData";
+import EmptyData from "../../ui/EmptyData";
 import { setShowModalSearch } from "@/store/slices/systemSlice";
 
 const SearchPreview = ({ keyword }: { keyword: string }) => {

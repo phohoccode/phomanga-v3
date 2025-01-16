@@ -84,3 +84,33 @@ export type ButtonLink = {
 };
 
 export type FilterComment = "recent" | "oldest";
+
+export type ComicItem = {
+  data: any;
+  onClickDelete?: (slug?: string, id?: string) => void;
+  loading?: boolean;
+};
+
+export type ComicList = {
+  data: any;
+  loading?: boolean;
+};
+
+export type PaginationCT = {
+  total: number;
+  pageSize: number;
+  currentPage: number | string;
+};
+
+export type SavedComic = {
+  userId: string;
+  dataComic: any[];
+  type: string;
+};
+
+export type DeleteComic = {
+  userId: string;
+  comicSlug?: string;
+  comicId?: string;
+  type: string;
+};

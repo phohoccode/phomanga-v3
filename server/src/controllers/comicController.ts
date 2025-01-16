@@ -1,26 +1,26 @@
 import { Request, Response } from "express";
-import { handleDeleteComic, handleGetAllSavedComic, handleSaveComic } from "../services/comicService";
+import {
+  handleDeleteComic,
+  handleGetAllComic,
+  handleSaveComic,
+} from "../services/comicService";
 
-const getAllSavedComic = async (req: Request, res: Response): Promise<any> => {
+const getAllComic = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { userId } = req.body;
-
-    if (!userId) {
+    if (!req.body?.userId) {
       return res.status(500).json({
         message: "userId là bắt buộc",
       });
     }
 
-    console.log(">>> userId", userId);
-
-    const response = await handleGetAllSavedComic(userId);
+    const response = await handleGetAllComic(req.body);
 
     return res.status(200).json(response);
   } catch (error) {
     console.log(">>> error-getAllSavedComic", error);
     return res.status(500).json({ message: "Internal Server Error", error });
   }
-}
+};
 
 const saveComic = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -60,4 +60,4 @@ const deleteComic = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-export { saveComic, deleteComic, getAllSavedComic };
+export { saveComic, deleteComic, getAllComic };

@@ -2,7 +2,7 @@
 
 import {
   deleteComic,
-  getAllSavedComic,
+  getAllComic,
   saveComic,
 } from "@/store/asyncThunk/userAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
@@ -30,8 +30,9 @@ const ActionSaveComic = () => {
     const getDataSavedComic = () => {
       if (session?.user?.id) {
         dispatch(
-          getAllSavedComic({
+          getAllComic({
             userId: session.user.id,
+            type: "GET_ALL_SAVED_COMIC",
           })
         );
       }
@@ -52,21 +53,31 @@ const ActionSaveComic = () => {
       message.error("Bạn phải đăng nhập để lưu truyện!");
       return;
     }
+    console.log(items);
 
-    if (items?.length >= 10) {
-      message.error("Bạn chỉ có thể lưu tối đa 10 truyện!");
+    if (items?.length >= 24) {
+      message.error("Bạn chỉ có thể lưu tối đa 24 truyện!");
       return;
     }
 
     setIsLoading(true);
-    const res = await dispatch(
-      saveComic({ userId: session?.user?.id, dataComic: comicInfo })
+    const res: any = await dispatch(
+      saveComic({
+        userId: session?.user?.id,
+        dataComic: comicInfo,
+        type: "SAVED_COMIC",
+      })
     );
     setIsLoading(false);
 
-    if (res) {
+    if (res?.payload?.status === "success") {
       message.success("Lưu truyện thành công!");
-      await dispatch(getAllSavedComic({ userId: session?.user?.id }));
+      await dispatch(
+        getAllComic({
+          userId: session?.user?.id,
+          type: "GET_ALL_SAVED_COMIC",
+        })
+      );
       setIsSave(true);
     } else {
       message.error("Lưu truyện thất bại!");
@@ -80,14 +91,23 @@ const ActionSaveComic = () => {
     }
 
     setIsLoading(true);
-    const res = await dispatch(
-      deleteComic({ userId: session?.user?.id, comicSlug: params?.slug })
+    const res: any = await dispatch(
+      deleteComic({
+        userId: session?.user?.id,
+        comicSlug: params?.slug as string,
+        type: "SAVED_COMIC",
+      })
     );
     setIsLoading(false);
 
-    if (res) {
+    if (res?.payload?.status === "success") {
       message.success("Bỏ lưu truyện thành công!");
-      await dispatch(getAllSavedComic({ userId: session?.user?.id }));
+      await dispatch(
+        getAllComic({
+          userId: session?.user?.id,
+          type: "GET_ALL_SAVED_COMIC",
+        })
+      );
       setIsSave(false);
     } else {
       message.error("Bỏ lưu truyện thất bại!");

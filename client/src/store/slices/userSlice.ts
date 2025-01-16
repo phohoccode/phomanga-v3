@@ -1,9 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  deleteComic,
-  getAllSavedComic,
-  saveComic,
-} from "../asyncThunk/userAsyncThunk";
+import { getAllComic } from "../asyncThunk/userAsyncThunk";
 
 type UserSlice = {
   savedComics: {
@@ -25,16 +21,18 @@ export const userSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getAllSavedComic.pending, (state) => {
+      .addCase(getAllComic.pending, (state) => {
         state.savedComics.loading = true;
       })
 
-      .addCase(getAllSavedComic.fulfilled, (state, action) => {
+      .addCase(getAllComic.fulfilled, (state, action) => {
         state.savedComics.loading = false;
-        state.savedComics.items = action.payload.data?.[0]?.comics;
+        if (action.payload.data?.type === "GET_ALL_SAVED_COMIC") {
+          state.savedComics.items = action.payload.data?.items;
+        }
       })
 
-      .addCase(getAllSavedComic.rejected, (state) => {
+      .addCase(getAllComic.rejected, (state) => {
         state.savedComics.loading = false;
       });
   },

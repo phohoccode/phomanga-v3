@@ -1,12 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "@/config/axios";
+import type { DeleteComic, SavedComic } from "@/lib/types";
 
 const saveComic = createAsyncThunk(
   "user/saveComic",
-  async ({ userId, dataComic }: any) => {
+  async ({ userId, dataComic, type }: SavedComic) => {
     const response = await axios.post(`/comic/save-comic`, {
       userId,
       dataComic,
+      type,
     });
 
     return response;
@@ -15,25 +17,28 @@ const saveComic = createAsyncThunk(
 
 const deleteComic = createAsyncThunk(
   "user/deleteComic",
-  async ({ userId, comicSlug }: any) => {
-    const response = await axios.post(`/comic/delete-save-comic`, {
+  async ({ userId, comicSlug, comicId, type }: DeleteComic) => {
+    const response = await axios.post(`/comic/delele-comic`, {
       userId,
       comicSlug,
+      comicId,
+      type,
     });
 
     return response;
   }
 );
 
-const getAllSavedComic = createAsyncThunk(
-  "user/getAllSavedComic",
-  async ({ userId }: any) => {
-    const response = await axios.post(`/comic/get-all-saved-comic`, {
+const getAllComic = createAsyncThunk(
+  "user/getAllComic",
+  async ({ userId, type }: { userId: string; type: string }) => {
+    const response = await axios.post(`/comic/get-all-comic`, {
       userId,
+      type,
     });
 
     return response;
   }
 );
 
-export { saveComic, deleteComic, getAllSavedComic };
+export { saveComic, deleteComic, getAllComic };

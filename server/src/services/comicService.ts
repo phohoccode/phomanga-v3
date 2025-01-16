@@ -1,35 +1,75 @@
 import { error_server } from "../lib/define";
+import {
+  rawDataDeleteComic,
+  rawDataGetComic,
+  rawDataSaveComic,
+} from "../lib/types";
 import SavedComic from "../models/SavedComic";
 import ViewedComic from "../models/ViewedHistory";
 
-const handleGetAllSavedComic = async (userId: string) => {
+const handleGetAllComic = async (rawData: rawDataGetComic) => {
   try {
-    const data = await SavedComic.find({ userId });
+    const { page, userId, type } = rawData;
+
+    const itemsPerPage = 24;
+
+    const skip = ((isNaN(Number(page)) ? 1 : Number(page)) - 1) * itemsPerPage;
+
+    const data: any =
+      type === "GET_ALL_SAVED_COMIC"
+        ? await SavedComic.find({ userId })
+        : await ViewedComic.find({ userId });
+
+    const items = data?.[0]?.comics
+      ?.slice(skip, skip + itemsPerPage)
+      ?.reverse();
+
+    const totalItems = data?.[0]?.comics?.length;
 
     return {
-      status: "sussess",
-      message: "Lấy danh sách truyện đã lưu thành công",
-      data,
+      status: "success",
+      message: "Lấy danh sách truyện thành công",
+      data: {
+        items,
+        totalItems,
+        type,
+      },
     };
   } catch (error) {
-    console.log(">>> error-getAllSavedComic", error);
+    console.log(">>> error", error);
     return error_server;
   }
 };
 
-const handleSaveComic = async (rawData: any) => {
+const handleSaveComic = async (rawData: rawDataSaveComic) => {
   try {
-    const { dataComic, userId } = rawData;
+    const { dataComic, userId, type } = rawData;
 
-    let res = await SavedComic.findOne({ userId });
+    let res =
+      type === "SAVED_COMIC"
+        ? await SavedComic.findOne({ userId })
+        : await ViewedComic.findOne({ userId });
 
     if (!res) {
-      res = new SavedComic({ userId, comics: [] });
+      res =
+        type === "SAVED_COMIC"
+          ? new SavedComic({ userId, comics: [] })
+          : new ViewedComic({ userId, comics: [] });
     }
 
-    const isExist = res?.comics?.some(
-      (comic) => comic?.slug === dataComic?.slug
-    );
+    let isExist = false;
+
+    if (type === "SAVED_COMIC") {
+      isExist = res?.comics?.some(
+        (comic: any) => comic.slug === dataComic?.slug
+      );
+    } else {
+      isExist = res?.comics?.some((comic: any) => {
+        if (comic._id && dataComic?._id) {
+          return comic._id.toString() === dataComic?._id?.toString();
+        }
+      });
+    }
 
     if (!isExist) {
       res?.comics?.push(dataComic);
@@ -44,7 +84,7 @@ const handleSaveComic = async (rawData: any) => {
       }
 
       return {
-        status: "sussess",
+        status: "success",
         message: "Lưu truyện thành công",
       };
     }
@@ -54,13 +94,25 @@ const handleSaveComic = async (rawData: any) => {
   }
 };
 
-const handleDeleteComic = async (rawData: any) => {
+const handleDeleteComic = async (rawData: rawDataDeleteComic) => {
   try {
-    const { comicSlug, userId } = rawData;
+    const { comicSlug, comicId, userId, type } = rawData;
 
-    const data: any = await SavedComic.findOne({ userId });
+    let data: any =
+      type === "SAVED_COMIC"
+        ? await SavedComic.findOne({ userId })
+        : await ViewedComic.findOne({ userId });
 
-    data.comics = data?.comics.filter((comic: any) => comic.slug !== comicSlug);
+    console.log(">>> data", data);
+
+    if (type === "SAVED_COMIC") {
+      data.comics = data?.comics.filter(
+        (comic: any) => comic.slug !== comicSlug
+      );
+    } else {
+      data.comics = data?.comics.filter((comic: any) => comic._id !== comicId);
+    }
+
     await data.save();
 
     if (!data) {
@@ -72,7 +124,7 @@ const handleDeleteComic = async (rawData: any) => {
     }
 
     return {
-      status: "sussess",
+      status: "success",
       message: "Xóa truyện thành công",
     };
   } catch (error) {
@@ -81,4 +133,4 @@ const handleDeleteComic = async (rawData: any) => {
   }
 };
 
-export { handleSaveComic, handleDeleteComic, handleGetAllSavedComic };
+export { handleSaveComic, handleDeleteComic, handleGetAllComic };
