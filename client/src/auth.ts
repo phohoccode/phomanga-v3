@@ -67,8 +67,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         email: token?.email,
       });
 
-      console.log(">>> response", response);
-
       if (profile && response?.status === "error") {
         token.role = "guest";
       } else if (response?.status === "success" && !profile) {
@@ -79,8 +77,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     // nhận token từ jwt callback và trả về session
     async session({ session, token }: any) {
-      console.log(">>> token", token);
-
       session.user.id = token?.id ?? token?.sub;
       session.user.name = token.name;
       session.user.email = token.email;

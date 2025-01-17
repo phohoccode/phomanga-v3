@@ -35,32 +35,50 @@ const Page = () => {
     { title: `Chương ${item?.chapter_name}` },
   ];
 
-  console.log(">>> item", item);
-  console.log(">>> items", items);
-
   useEffect(() => {
-    dispatch(fetchComicInfo({ slug: params?.slug as string }));
-  }, [params?.slug]);
+    const handleInit = async () => {
+      const [resInfo, resImages] = await Promise.all([
+        dispatch(fetchComicInfo({ slug: params?.slug as string })),
+        dispatch(fetchImageComic({ id: params?.id as string })),
+      ]);
 
-  useEffect(() => {
-    dispatch(fetchImageComic({ id: params?.id as string }));
-  }, [params?.id]);
+      if (
+        resInfo?.payload?.status === "success" &&
+        resImages?.payload?.status === "success"
+      ) {
+        const dataComicInfo = resInfo?.payload?.data?.item;
+        const dataChapterComic = resImages?.payload?.data?.item;
 
-  useEffect(() => {
-    if (items && item?._id || session?.user?.id) {
-      dispatch(
-        saveComic({
-          userId: session?.user?.id as string,
-          dataComic: {
-            ...item,
-            slug: items?.slug,
-            thumb_url: items?.thumb_url,
-          },
-          type: "VIEWED_COMIC",
-        })
-      );
-    }
-  }, []);
+        const { slug, name, thumb_url } = dataComicInfo;
+        const { chapter_name, _id } = dataChapterComic;
+
+        if (
+          slug &&
+          name &&
+          thumb_url &&
+          chapter_name &&
+          _id &&
+          session?.user?.id
+        ) {
+          dispatch(
+            saveComic({
+              userId: session?.user?.id as string,
+              dataComic: {
+                id: _id,
+                chapter_name: chapter_name,
+                name: name,
+                slug: slug,
+                thumb_url: thumb_url,
+              },
+              type: "VIEWED_COMIC",
+            })
+          );
+        }
+      }
+    };
+
+    handleInit();
+  }, [params?.slug, params?.id]);
 
   if (loading) {
     return <SkeletonReadPage width={width} />;

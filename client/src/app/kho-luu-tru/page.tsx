@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { fetchDataSavedComics } from "@/lib/actions";
 import { Suspense } from "react";
 import Layout from "@/components/layout/Layout";
-import ComicList from "@/components/ComicList";
+import ComicList from "@/components/comic/ComicList";
 import Loading from "./loading";
 import PaginationCT from "@/components/PaginationCT";
 

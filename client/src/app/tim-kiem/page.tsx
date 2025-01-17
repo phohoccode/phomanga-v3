@@ -1,7 +1,7 @@
 "use client";
 
-import ComicList from "@/components/ComicList";
-import ComicTitle from "@/components/ComicTitle";
+import ComicList from "@/components/comic/ComicList";
+import ComicTitle from "@/components/comic/ComicTitle";
 import EmptyData from "@/components/ui/EmptyData";
 import Layout from "@/components/layout/Layout";
 import { isPositiveInteger } from "@/lib/utils";

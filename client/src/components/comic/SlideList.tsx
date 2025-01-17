@@ -9,7 +9,7 @@ import { AppDispatch, RootState } from "@/store/store";
 import { useEffect } from "react";
 import { fetchComicSlide } from "@/store/asyncThunk/comicAsyncThunk";
 import SlideItem from "./SlideItem";
-import SkeletonSlideList from "./skeleton/SkeletonSlideList";
+import SkeletonSlideList from "../skeleton/SkeletonSlideList";
 
 const SlideList = () => {
   const { items, loading } = useSelector(

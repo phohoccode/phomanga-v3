@@ -1,6 +1,6 @@
 "use client";
 
-import ComicSuggesion from "@/components/ComicSuggesion";
+import ComicSuggesion from "@/components/comic/ComicSuggesion";
 import CommentBox from "@/components/comment/CommentBox";
 import EmptyData from "@/components/ui/EmptyData";
 import SessionChapter from "@/components/info-page/SessionChapter";

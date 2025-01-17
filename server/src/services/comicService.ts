@@ -63,12 +63,16 @@ const handleSaveComic = async (rawData: rawDataSaveComic) => {
       isExist = res?.comics?.some(
         (comic: any) => comic.slug === dataComic?.slug
       );
-    } else {
-      isExist = res?.comics?.some((comic: any) => {
-        if (comic._id && dataComic?._id) {
-          return comic._id.toString() === dataComic?._id?.toString();
-        }
-      });
+    } else if (type === "VIEWED_COMIC") {
+      isExist = res?.comics?.some((comic: any) => comic.id === dataComic?.id);
+    }
+
+    if (isExist) {
+      return {
+        status: "error",
+        error_code: "error-exist-comic",
+        message: "Truyện đã tồn tại trong hệ thống!",
+      };
     }
 
     if (!isExist) {
@@ -103,14 +107,12 @@ const handleDeleteComic = async (rawData: rawDataDeleteComic) => {
         ? await SavedComic.findOne({ userId })
         : await ViewedComic.findOne({ userId });
 
-    console.log(">>> data", data);
-
     if (type === "SAVED_COMIC") {
       data.comics = data?.comics.filter(
         (comic: any) => comic.slug !== comicSlug
       );
-    } else {
-      data.comics = data?.comics.filter((comic: any) => comic._id !== comicId);
+    } else if (type === "VIEWED_COMIC") {
+      data.comics = data?.comics.filter((comic: any) => comic.id !== comicId);
     }
 
     await data.save();

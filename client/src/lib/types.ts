@@ -104,7 +104,7 @@ export type PaginationCT = {
 
 export type SavedComic = {
   userId: string;
-  dataComic: any[];
+  dataComic: any;
   type: string;
 };
 

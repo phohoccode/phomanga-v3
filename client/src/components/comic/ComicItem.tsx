@@ -70,7 +70,7 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
           <div className="absolute top-2 right-2">
             <Button
               loading={loading}
-              onClick={() => handleDeleteComic(data?.slug, data?._id)}
+              onClick={() => handleDeleteComic(data?.slug, data?.id)}
               icon={<DeleteOutlined />}
               color="red"
               variant="solid"
