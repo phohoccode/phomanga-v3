@@ -2,7 +2,7 @@
 
 import ComicSuggesion from "@/components/comic/ComicSuggesion";
 import CommentBox from "@/components/comment/CommentBox";
-import EmptyData from "@/components/ui/EmptyData";
+import EmptyData from "@/components/common/EmptyData";
 import SessionChapter from "@/components/info-page/SessionChapter";
 import { SessionInfo } from "@/components/info-page/SessionInfo";
 import Layout from "@/components/layout/Layout";

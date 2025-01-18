@@ -32,11 +32,16 @@ export type rawDataSaveComic = {
   userId: string;
   dataComic: any;
   type: string;
-}
+};
 
 export type rawDataDeleteComic = {
   userId: string;
   comicSlug: string;
   comicId: string;
   type: string;
-}
+};
+
+export type rawDataDeleteAllComic = {
+  userId: string;
+  type: string;
+};

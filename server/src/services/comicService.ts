@@ -1,5 +1,6 @@
 import { error_server } from "../lib/define";
 import {
+  rawDataDeleteAllComic,
   rawDataDeleteComic,
   rawDataGetComic,
   rawDataSaveComic,
@@ -15,16 +16,24 @@ const handleGetAllComic = async (rawData: rawDataGetComic) => {
 
     const skip = ((isNaN(Number(page)) ? 1 : Number(page)) - 1) * itemsPerPage;
 
-    const data: any =
+    let data: any =
       type === "GET_ALL_SAVED_COMIC"
         ? await SavedComic.find({ userId })
         : await ViewedComic.find({ userId });
 
-    const items = data?.[0]?.comics
-      ?.slice(skip, skip + itemsPerPage)
-      ?.reverse();
+    console.log(">>> data-before", data?.[0]?.comics);
 
+    data?.[0]?.comics?.sort(
+      (a: any, b: any) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+    console.log(">>> data-after", data?.[0]?.comics);
+
+    const items = data?.[0]?.comics?.slice(skip, skip + itemsPerPage);
     const totalItems = data?.[0]?.comics?.length;
+
+    console.log(">>> items", items);
 
     return {
       status: "success",
@@ -135,4 +144,30 @@ const handleDeleteComic = async (rawData: rawDataDeleteComic) => {
   }
 };
 
-export { handleSaveComic, handleDeleteComic, handleGetAllComic };
+const handleDeleteAllComic = async (rawData: rawDataDeleteAllComic) => {
+  try {
+    const { userId, type } = rawData;
+
+    type === "SAVED_COMIC"
+      ? await SavedComic.deleteOne({ userId })
+      : await ViewedComic.deleteOne({ userId });
+
+    return {
+      status: "success",
+      message:
+        type === "SAVED_COMIC"
+          ? "Đã xóa tất cả truyện lưu"
+          : "Đã xoá lịch sử đã xem",
+    };
+  } catch (error) {
+    console.log(">>> error-deleteComic", error);
+    return error_server;
+  }
+};
+
+export {
+  handleSaveComic,
+  handleDeleteComic,
+  handleGetAllComic,
+  handleDeleteAllComic,
+};

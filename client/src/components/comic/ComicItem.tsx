@@ -9,28 +9,20 @@ import { useEffect, useState } from "react";
 
 const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
   const [textRibbon, setTextRibbon] = useState<string>("");
+  const [link, setLink] = useState<string>("");
   const pathname = usePathname();
 
   useEffect(() => {
     if (data) {
-      const chapters = data?.chaptersLatest ?? data?.chapters?.[0]?.server_data;
+      const chapterName =
+        data?.chaptersLatest?.[0]?.chapter_name ?? data?.chapter_name;
+      const chapterId =
+        data?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
+        data?.id ??
+        "?status=comic-error";
 
-      if (pathname === "/kho-luu-tru") {
-        setTextRibbon(
-          chapters
-            ? `Chương ${chapters?.[chapters?.length - 1]?.chapter_name}`
-            : "Lỗi"
-        );
-      } else if (pathname === "/lich-su-da-xem") {
-        console.log(">>> data", data);
-        setTextRibbon(data ? `Chương ${data?.chapter_name}` : "Lỗi");
-      } else {
-        setTextRibbon(
-          data?.chaptersLatest
-            ? `Chương ${data?.chaptersLatest?.[0]?.chapter_name}`
-            : "Lỗi"
-        );
-      }
+      setTextRibbon(chapterName ? `Chương ${chapterName}` : "Lỗi");
+      setLink(`/dang-xem/${data?.slug}/${chapterId}`);
     }
   }, [pathname, data]);
 
@@ -43,7 +35,11 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
   return (
     <Badge.Ribbon
       placement="start"
-      color={data?.chaptersLatest || data?.chapters || data ? "cyan" : "red"}
+      color={
+        data?.chaptersLatest || data?.chapters || data?.chapter_name
+          ? "cyan"
+          : "red"
+      }
       text={textRibbon}
     >
       <div className="relative group overflow-hidden w-full">
@@ -79,13 +75,7 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
         )}
 
         <div className="absolute top-[100%] flex justify-center gap-2 left-[12px] right-[12px] opacity-0 group-hover:opacity-100 rounded-xl transition-all group-hover:top-[70%]">
-          <Link
-            href={`/dang-xem/${data?.slug}/${
-              data?.chaptersLatest?.[0]?.chapter_api_data?.split("/").pop() ??
-              "?status=404"
-            }`}
-            className="w-full"
-          >
+          <Link href={link} className="w-full">
             <Button
               className="w-full"
               type="link"

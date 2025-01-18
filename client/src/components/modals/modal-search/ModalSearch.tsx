@@ -6,16 +6,14 @@ import { useRouter } from "next/navigation";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { setShowModalSearch } from "@/store/slices/systemSlice";
-import { message, Typography } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { message } from "antd";
 import { useEffect, useState } from "react";
 import SearchPreview from "./SearchPreview";
-import {
-  fetchSearchComic,
-  fetchSearchComicPreview,
-} from "@/store/asyncThunk/comicAsyncThunk";
+import { fetchSearchComicPreview } from "@/store/asyncThunk/comicAsyncThunk";
 import debounce from "debounce";
-import SearchRecent from "./SearchRecent";
+import SearchRecent from "./SearchHistory";
+import { addSearchHistory } from "@/store/asyncThunk/userAsyncThunk";
+import { useSession } from "next-auth/react";
 
 const ModalSearch = ({
   isModalOpen,
@@ -27,6 +25,7 @@ const ModalSearch = ({
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const [keyword, setKeyword] = useState<string>("");
+  const { data: session } = useSession();
 
   useEffect(() => {
     const handleShowSearchPreview = async () => {
@@ -48,13 +47,17 @@ const ModalSearch = ({
     };
   }, [keyword]);
 
-  const onSearch = async (value: string) => {
+  const onSearch = (value: string) => {
     if (value?.trim() === "") {
       message.info("Bạn mmuốn tìm kiếm gì?");
       return;
     }
     router.push(`/tim-kiem?keyword=${value}&page=1`);
     dispatch(setShowModalSearch(false));
+
+    if (session?.user?.id) {
+      dispatch(addSearchHistory({ userId: session?.user?.id, keyword: value }));
+    }
   };
 
   return (

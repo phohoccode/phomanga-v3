@@ -53,18 +53,31 @@ const ActionSaveComic = () => {
       message.error("Bạn phải đăng nhập để lưu truyện!");
       return;
     }
-    console.log(items);
 
     if (items?.length >= 24) {
       message.error("Bạn chỉ có thể lưu tối đa 24 truyện!");
       return;
     }
 
+    const chaprerLasted = comicInfo?.chapters?.[0]?.server_data;
+
+    console.log(comicInfo);
+
     setIsLoading(true);
     const res: any = await dispatch(
       saveComic({
         userId: session?.user?.id,
-        dataComic: comicInfo,
+        dataComic: {
+          id: chaprerLasted?.[chaprerLasted?.length - 1]?.chapter_api_data
+            ?.split("/")
+            .pop(),
+          chapter_name:
+            chaprerLasted?.[chaprerLasted?.length - 1]?.chapter_name,
+          slug: comicInfo?.slug,
+          name: comicInfo?.name,
+          thumb_url: comicInfo?.thumb_url,
+          createdAt: new Date().toISOString(),
+        },
         type: "SAVED_COMIC",
       })
     );

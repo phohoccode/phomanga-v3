@@ -20,7 +20,7 @@ const PaginationCT = ({ total, pageSize, currentPage }: PaginationCT) => {
 
   return (
     <Pagination
-      style={{ marginTop: "16px" }}
+      style={{ marginTop: "32px" }}
       onChange={(page) => handleChangePage(page)}
       align="center"
       current={Number(currentPage)}

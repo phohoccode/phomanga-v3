@@ -2,7 +2,7 @@
 
 import { Col, message, Row } from "antd";
 import SkeletonComicList from "@/components/skeleton/SkeletonComicList";
-import EmptyData from "@/components/ui/EmptyData";
+import EmptyData from "@/components/common/EmptyData";
 import type { ComicList } from "@/lib/types";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";

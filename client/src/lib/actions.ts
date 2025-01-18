@@ -135,3 +135,18 @@ export async function deleteSavedComic(comicSlug: string, userId: string) {
     revalidatePath("/kho-luu-tru");
   }
 }
+
+export async function deleteAllComic(userId: string, type: string) {
+  try {
+    const response: any = await axios.post("/comic/delete-all-comic", {
+      userId,
+      type,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  } finally {
+    revalidatePath(type === "SAVED_COMIC" ? "/kho-luu-tru" : "/lich-su-da-xem");
+  }
+}

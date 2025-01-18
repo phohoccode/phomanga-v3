@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import {
+  handleDeleteAllComic,
   handleDeleteComic,
   handleGetAllComic,
   handleSaveComic,
@@ -60,4 +61,23 @@ const deleteComic = async (req: Request, res: Response): Promise<any> => {
   }
 };
 
-export { saveComic, deleteComic, getAllComic };
+const deleteAllComic = async (req: Request, res: Response): Promise<any> => {
+  try {
+    const { userId, type } = req.body;
+
+    if (!userId || !type) {
+      return res.status(500).json({
+        message: "userId và type là bắt buộc",
+      });
+    }
+
+    const response = await handleDeleteAllComic(req.body);
+
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(">>> error-deleteComic", error);
+    return res.status(500).json({ message: "Internal Server Error", error });
+  }
+};
+
+export { saveComic, deleteComic, getAllComic, deleteAllComic };

@@ -5,6 +5,7 @@ import cors from "cors";
 import authRouter from "./routes/authRouter";
 import userRouter from "./routes/userRouter";
 import comicRouter from "./routes/comicRouter";
+import searchRouter from "./routes/searchRouter"; 
 import connectMongoDB from "./database/mongodb";
 
 const app: Express = express();
@@ -34,6 +35,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/comic", comicRouter);
+app.use("/search", searchRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

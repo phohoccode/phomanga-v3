@@ -19,7 +19,7 @@ import {
 import DrawerUser from "./DrawerUser";
 import AvartarUser from "./AvartarUser";
 import ModalCategorys from "@/components/modals/ModalCategorys";
-import ButtonLink from "@/components/ui/ButtonLink";
+import ButtonLink from "@/components/common/ButtonLink";
 import { ThemeModeSwitch } from "./ThemeModeSwitch";
 import ModalNotifycation from "@/components/modals/ModalNotifycation";
 
@@ -76,7 +76,7 @@ const NavBar = () => {
 
   return (
     <>
-      <header className="sticky top-0 left-0 z-[999] right-0 md:p-6 p-3 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
+      <header className="header sticky top-0 left-0 z-[999] right-0 md:p-6 p-3 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
         <div className="flex items-center">
           <div className="flex gap-4 items-center">
             <Link
@@ -104,7 +104,7 @@ const NavBar = () => {
                         className={`px-3 py-2 h-[32px] rounded-md gap-1 text-base flex items-center 
                            ${
                              pathname !== href
-                               ? "hover:bg-gray-100"
+                               ? ""
                                : "bg-[#13c2c2] text-gray-50"
                            } 
                           `}

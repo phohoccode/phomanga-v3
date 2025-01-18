@@ -7,14 +7,23 @@ import { Typography } from "antd";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import SkeletonSearchComicPreview from "../../skeleton/SkeletonSearchComicPreview";
-import EmptyData from "../../ui/EmptyData";
+import EmptyData from "../../common/EmptyData";
 import { setShowModalSearch } from "@/store/slices/systemSlice";
+import { addSearchHistory } from "@/store/asyncThunk/userAsyncThunk";
+import { useSession } from "next-auth/react";
 
 const SearchPreview = ({ keyword }: { keyword: string }) => {
   const { items, loading } = useSelector(
     (state: RootState) => state.comic.searchComicPreview
   );
   const dispatch: AppDispatch = useDispatch();
+  const { data: session } = useSession();
+
+  const handleClickItemPreview = () => {
+    if (session?.user?.id) {
+      dispatch(addSearchHistory({ userId: session?.user?.id, keyword }));
+    }
+  };
 
   if (keyword.trim() === "") return null;
 
@@ -39,6 +48,7 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
         {items?.map((item: any, index: number) => (
           <li key={index} onClick={() => dispatch(setShowModalSearch(false))}>
             <Link
+              onClick={handleClickItemPreview}
               href={`/thong-tin-truyen/${item?.slug}`}
               key={index}
               className="flex gap-2 group rounded-lg hover:bg-slate-100 hover:text-slate-700 p-2 border border-gray-200 transition-all"

@@ -1,0 +1,53 @@
+"use client";
+
+import { deleteAllComic } from "@/lib/actions";
+import { DeleteOutlined, ExclamationCircleFilled } from "@ant-design/icons";
+import { Button, message, Modal } from "antd";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
+
+const { confirm } = Modal;
+
+const ButtonDeleteAllComic = ({ type }: { type: string }) => {
+  const { data: session } = useSession();
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const handleDeleteAllComic = async () => {
+    setLoading(true);
+    const res: any = await deleteAllComic(session?.user?.id as string, type);
+    setLoading(false);
+
+    if (res?.status === "success") {
+      message.success(res?.message ?? "Đã xoá tất cả truyện");
+    }
+  };
+
+  const showConfirm = () => {
+    confirm({
+      title: "Bạn có chắc chắn muốn xoá tất cả?",
+      content: "Hành động này không thể hoàn tác",
+      icon: <ExclamationCircleFilled />,
+      okText: "Xoá",
+      okType: "danger",
+      cancelText: "Hủy",
+      onOk() {
+        handleDeleteAllComic();
+      },
+      onCancel() {},
+    });
+  };
+
+  return (
+    <Button
+      icon={<DeleteOutlined />}
+      loading={loading}
+      onClick={showConfirm}
+      type="primary"
+      danger
+    >
+      Xoá tất cả
+    </Button>
+  );
+};
+
+export default ButtonDeleteAllComic;

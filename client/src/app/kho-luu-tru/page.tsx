@@ -7,6 +7,7 @@ import Layout from "@/components/layout/Layout";
 import ComicList from "@/components/comic/ComicList";
 import Loading from "./loading";
 import PaginationCT from "@/components/PaginationCT";
+import ButtonDeleteAllComic from "@/components/ButtonDeleteAllComic";
 
 const Page = async ({
   searchParams,
@@ -34,6 +35,12 @@ const Page = async ({
       <Breadcrumb items={breakCrumbs} />
 
       <Divider orientation="center">Kho lưu trữ</Divider>
+
+      {items?.length > 0 && (
+        <div className="flex justify-end mt-8">
+          <ButtonDeleteAllComic type="SAVED_COMIC" />
+        </div>
+      )}
 
       <Alert
         type="info"

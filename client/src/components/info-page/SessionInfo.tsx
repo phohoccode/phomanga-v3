@@ -4,7 +4,7 @@ import { Descriptions } from "antd";
 import type { DescriptionsProps } from "antd";
 import { formatDate, removeHTMLTags } from "@/lib/utils";
 import Link from "next/link";
-import ShowMoreText from "../ui/ShowMoreText";
+import ShowMoreText from "../common/ShowMoreText";
 import ActionSaveComic from "./ActionSaveComic";
 
 export const SessionInfo = ({ data }: any) => {

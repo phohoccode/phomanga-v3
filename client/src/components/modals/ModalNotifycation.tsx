@@ -5,7 +5,7 @@ import RootModal from "./RootModal";
 import { Button, Divider } from "antd";
 import { CheckCircleFilled } from "@ant-design/icons";
 import SkeletonNotifycation from "../skeleton/SkeletonNotifycation";
-import EmptyData from "../ui/EmptyData";
+import EmptyData from "../common/EmptyData";
 
 const ModalNotifycation = ({
   isModalOpen,

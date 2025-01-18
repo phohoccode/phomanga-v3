@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import NavBar from "@/components/layout/header/NavBar";
 import NavBarMobile from "@/components/layout/header/NavBarMobile";
 import Footer from "@/components/layout/Footer";
+import AntdConfigProvider from "@/providers/AntdConfigProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +24,7 @@ export const metadata: Metadata = {
   description: "Website đọc truyện tranh online miễn phí",
   icons: {
     icon: "/logo.ico",
-  }
+  },
 };
 
 export default function RootLayout({
@@ -37,15 +38,14 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-
-
           <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
-
           <SessionProvider>
-            <NavBar />
-            {children}
-            <NavBarMobile />
-            <Footer />
+            <AntdConfigProvider>
+              <NavBar />
+              {children}
+              <NavBarMobile />
+              <Footer />
+            </AntdConfigProvider>
           </SessionProvider>
         </body>
       </html>

@@ -7,6 +7,8 @@ import Layout from "@/components/layout/Layout";
 import ComicList from "@/components/comic/ComicList";
 import Loading from "./loading";
 import PaginationCT from "@/components/PaginationCT";
+import ButtonDeleteAllComic from "@/components/ButtonDeleteAllComic";
+import ButtonPauseSavingHistory from "@/components/viewed-page/ButtonPauseSavingHistory";
 
 const Page = async ({
   searchParams,
@@ -35,7 +37,12 @@ const Page = async ({
 
       <Divider orientation="center">Lịch sử đã xem</Divider>
 
-      {items?.length === 0 && <Empty description="Lịch sữ xem đang trống" />}
+      <div className="flex gap-2 justify-end my-8 flex-wrap">
+        <ButtonPauseSavingHistory />
+        {items?.length > 0 && <ButtonDeleteAllComic type="VIEWED_COMIC" />}
+      </div>
+
+      {items?.length === 0 && <Empty description="Lịch sử xem đang trống" />}
 
       <Suspense key={page} fallback={<Loading />}>
         <ComicList data={items} />

@@ -2,7 +2,7 @@
 
 import ComicList from "@/components/comic/ComicList";
 import ComicTitle from "@/components/comic/ComicTitle";
-import EmptyData from "@/components/ui/EmptyData";
+import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
 import { isPositiveInteger } from "@/lib/utils";
 import { fetchSearchComic } from "@/store/asyncThunk/comicAsyncThunk";

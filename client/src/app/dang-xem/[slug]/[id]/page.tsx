@@ -1,6 +1,6 @@
 "use client";
 
-import EmptyData from "@/components/ui/EmptyData";
+import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
 import SessionImage from "@/components/read-page/SessionImages";
 import SesstionControls from "@/components/read-page/SesstionControls";
@@ -25,6 +25,7 @@ const Page = () => {
   const { item, loading } = useSelector(
     (state: RootState) => state.comic.imagesComic
   );
+  const { savingHistory } = useSelector((state: RootState) => state.system);
   const { data: session } = useSession();
   const { items } = useSelector((state: RootState) => state.comic.comicInfo);
   const width = useSelector((state: RootState) => state.system.width);
@@ -44,7 +45,8 @@ const Page = () => {
 
       if (
         resInfo?.payload?.status === "success" &&
-        resImages?.payload?.status === "success"
+        resImages?.payload?.status === "success" &&
+        savingHistory
       ) {
         const dataComicInfo = resInfo?.payload?.data?.item;
         const dataChapterComic = resImages?.payload?.data?.item;
@@ -69,6 +71,7 @@ const Page = () => {
                 name: name,
                 slug: slug,
                 thumb_url: thumb_url,
+                createdAt: new Date().toISOString(),
               },
               type: "VIEWED_COMIC",
             })

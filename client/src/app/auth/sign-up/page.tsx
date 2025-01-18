@@ -2,11 +2,10 @@
 
 import React, { useState } from "react";
 import type { FormProps } from "antd";
-import { Button, Divider, Flex, Form, Input, message, Typography } from "antd";
+import { Button, Flex, Form, Input, message, Typography } from "antd";
 import {
   EyeInvisibleOutlined,
   EyeTwoTone,
-  GoogleOutlined,
   LockOutlined,
   MailOutlined,
   NumberOutlined,
@@ -14,7 +13,6 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { register, sendOTP } from "@/lib/actions";
-import { useRouter } from "next/navigation";
 
 type FieldType = {
   name: string;

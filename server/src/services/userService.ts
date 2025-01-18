@@ -1,6 +1,6 @@
 import connection from "../database/mysql";
 
-const handleGetUserByEmail = async (email: string) => {
+export const handleGetUserByEmail = async (email: string) => {
   try {
     const sql_select = `
       Select 
@@ -36,5 +36,3 @@ const handleGetUserByEmail = async (email: string) => {
     };
   }
 };
-
-export { handleGetUserByEmail };

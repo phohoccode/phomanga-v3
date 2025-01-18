@@ -3,8 +3,6 @@ import { handleGetUserByEmail } from "../services/userService";
 
 const getUserByEmail = async (req: Request, res: Response): Promise<any> => {
   try {
-    console.log(">> req.body", req.body);
-
     const email = req.body?.email;
 
     if (!email) {
