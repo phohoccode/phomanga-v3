@@ -11,7 +11,7 @@ import {
 } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { ToTopOutlined } from "@ant-design/icons";
-import { Breadcrumb, FloatButton, Tooltip } from "antd";
+import { Breadcrumb, FloatButton } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -104,7 +104,7 @@ const Page = () => {
 
         <SessionImage item={item} />
 
-        {!loading && (
+        {width < 1024 && (
           <SesstionControls
             location="bottom"
             dataInfoComic={items}
@@ -112,17 +112,14 @@ const Page = () => {
           />
         )}
 
-        <Tooltip title="Lên đầu trang">
-          <FloatButton.BackTop
-            shape="circle"
-            type="primary"
-            style={{
-              insetInlineEnd: width > 1024 ? "32px" : "16px",
-              insetBlockEnd: width > 1024 ? "32px" : "96px",
-            }}
-            icon={<ToTopOutlined />}
-          />
-        </Tooltip>
+        <FloatButton.BackTop
+          shape="circle"
+          style={{
+            insetInlineEnd: width > 1024 ? "32px" : "16px",
+            insetBlockEnd: width > 1024 ? "32px" : "96px",
+          }}
+          icon={<ToTopOutlined />}
+        />
       </div>
     </Layout>
   );

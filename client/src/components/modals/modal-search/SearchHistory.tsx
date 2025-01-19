@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 const SearchHistory = ({ keyword }: { keyword: string }) => {
   const dispatch: AppDispatch = useDispatch();
   const { items, loading } = useSelector(
-    (state: RootState) => state.user.searchRecent
+    (state: RootState) => state.user.searchHistory
   );
   const { data: session } = useSession();
 

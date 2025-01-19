@@ -5,7 +5,7 @@ import {
   setShowModalNotification,
   setShowModalSearch,
 } from "@/store/slices/systemSlice";
-import { AppDispatch, RootState } from "@/store/store";
+import { AppDispatch } from "@/store/store";
 import {
   AppstoreOutlined,
   BellOutlined,
@@ -14,7 +14,7 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { pathHideNavBar } from "./NavBar";
 import { usePathname } from "next/navigation";
 import ComicIcon from "@/components/icons/ComicIcon";

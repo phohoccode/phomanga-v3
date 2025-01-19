@@ -46,7 +46,7 @@ const SessionChapter = ({ data }: any) => {
               {chapters?.map((item: any, index: number) => (
                 <Col key={index} xs={8} sm={6} md={4} lg={3} xxl={2}>
                   <Link
-                    className="block w-full rounded-md hover:bg-gray-100 p-2 hover:text-[#13c2c2]"
+                    className="block w-full rounded-md hover:bg-gray-100 p-2 hover:text-gray-800 text-gray-900"
                     href={`/dang-xem/${data?.slug}/${item?.chapter_api_data
                       ?.split("/")
                       .pop()}`}

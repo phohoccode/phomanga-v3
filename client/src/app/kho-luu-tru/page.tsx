@@ -45,7 +45,7 @@ const Page = async ({
       <Alert
         type="info"
         showIcon={true}
-        message="Bạn chỉ có thể lưu tối đa 24 truyện"
+        message="Tài khoản hiện tại của bạn lưu được tối đa 24 truyện. Nâng cấp tài khoản để lưu nhiều hơn." 
         style={{ margin: "32px 0" }}
         closeIcon
       />

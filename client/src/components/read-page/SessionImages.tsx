@@ -14,7 +14,7 @@ const SessionImage = ({ item }: any) => {
             key={index}
             style={{
               width: width > 1024 ? "720px" : "100%",
-              border: "1px solid #f2f2f2",
+              minHeight: "320px",
             }}
             src={`https://sv1.otruyencdn.com/${item?.chapter_path}/${image?.image_file}`}
             alt={item?.chapter_name ?? "không xác định"}

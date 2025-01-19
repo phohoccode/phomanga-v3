@@ -51,9 +51,9 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
               onClick={handleClickItemPreview}
               href={`/thong-tin-truyen/${item?.slug}`}
               key={index}
-              className="flex gap-2 group rounded-lg hover:bg-slate-100 hover:text-slate-700 p-2 border border-gray-200 transition-all"
+              className="flex gap-2 group rounded-lg hover:bg-slate-100 hover:text-slate-700 p-2 border border-gray-100 transition-all"
             >
-              <figure className="w-24 h-32 rounded-md overflow-hidden border border-gray-200">
+              <figure className="w-24 h-32 rounded-md overflow-hidden border border-gray-100">
                 <img
                   onError={({ currentTarget }) => {
                     currentTarget.onerror = null;

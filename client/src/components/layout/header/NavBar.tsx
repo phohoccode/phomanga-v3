@@ -3,7 +3,7 @@
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button } from "antd";
+import { Button, Divider } from "antd";
 import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -20,17 +20,7 @@ import DrawerUser from "./DrawerUser";
 import AvartarUser from "./AvartarUser";
 import ModalCategorys from "@/components/modals/ModalCategorys";
 import ButtonLink from "@/components/common/ButtonLink";
-import { ThemeModeSwitch } from "./ThemeModeSwitch";
 import ModalNotifycation from "@/components/modals/ModalNotifycation";
-
-const links = [
-  { href: "/", label: "Trang chủ" },
-  {
-    href: "/chi-tiet/danh-sach/truyen-moi",
-    label: "Truyện mới",
-  },
-  { href: "#", label: "Thể loại" },
-];
 
 export const pathHideNavBar = [
   "/auth/sign-in",
@@ -76,7 +66,7 @@ const NavBar = () => {
 
   return (
     <>
-      <header className="header sticky top-0 left-0 z-[999] right-0 md:p-6 p-3 flex items-center justify-between bg-white border-b border-[#f2f2f2] h-[50px]">
+      <header className="header sticky top-0 left-0 z-[999] right-0 md:p-6 p-3 flex items-center justify-between bg-[#fffc] backdrop-blur border-b border-[#f2f2f2] h-[48px]">
         <div className="flex items-center">
           <div className="flex gap-4 items-center">
             <Link
@@ -86,55 +76,26 @@ const NavBar = () => {
               PHOMANGA-V3
             </Link>
           </div>
-          <nav>
-            {width > 1024 && (
-              <ul className="flex space-x-4 items-center">
-                {links.map(({ href, label }, index) => {
-                  return (
-                    <li
-                      key={href}
-                      onClick={() => {
-                        if (href === "#") {
-                          dispatch(setShowModalCategorys(true));
-                        }
-                      }}
-                    >
-                      <Link
-                        href={href}
-                        className={`px-3 py-2 h-[32px] rounded-md gap-1 text-base flex items-center 
-                           ${
-                             pathname !== href
-                               ? ""
-                               : "bg-[#13c2c2] text-gray-50"
-                           } 
-                          `}
-                      >
-                        <span>{label}</span>
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            )}
-          </nav>
         </div>
+
         <div className="flex items-center gap-4">
           {width > 1024 && (
             <Button
+              style={{ backgroundColor: "transparent" }}
               onClick={() => dispatch(setShowModalSearch(true))}
               icon={<SearchOutlined />}
             >
-              Tìm kiếm truyện tranh
+              Tìm kiếm truyện tranh ...
             </Button>
           )}
 
-          <ThemeModeSwitch />
-
           {width > 1024 && (
-            <Button
-              onClick={() => dispatch(setShowModalNotification(true))}
-              icon={<BellOutlined />}
-            />
+            <>
+              <Button
+                onClick={() => dispatch(setShowModalNotification(true))}
+                icon={<BellOutlined />}
+              />
+            </>
           )}
 
           {!session ? (
@@ -145,14 +106,13 @@ const NavBar = () => {
                 color="cyan"
                 variant="solid"
               />
-              {width > 1200 && (
-                <ButtonLink
-                  href="/auth/sign-up"
-                  text="Đăng ký"
-                  color="cyan"
-                  variant="outlined"
-                />
-              )}
+
+              <ButtonLink
+                href="/auth/sign-up"
+                text="Đăng ký"
+                color="cyan"
+                variant="outlined"
+              />
             </div>
           ) : (
             <AvartarUser />
@@ -166,6 +126,7 @@ const NavBar = () => {
         isModalOpen={showModalSearch}
         onCancel={handleCloseModalSearch}
       />
+
       <ModalCategorys
         isModalOpen={showModalCategorys}
         onCancel={handleCloseModalCategorys}

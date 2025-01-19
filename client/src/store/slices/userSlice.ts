@@ -6,7 +6,7 @@ type UserSlice = {
     items: any[];
     loading: boolean;
   };
-  searchRecent: {
+  searchHistory: {
     items: any[];
     loading: boolean;
   };
@@ -17,7 +17,7 @@ const initialState: UserSlice = {
     items: [],
     loading: false,
   },
-  searchRecent: {
+  searchHistory: {
     items: [],
     loading: false,
   },
@@ -45,16 +45,16 @@ export const userSlice = createSlice({
       })
 
       .addCase(getSearchHisory.pending, (state) => {
-        state.searchRecent.loading = true;
+        state.searchHistory.loading = true;
       })
 
       .addCase(getSearchHisory.fulfilled, (state, action) => {
-        state.searchRecent.loading = false;
-        state.searchRecent.items = action.payload?.search;
+        state.searchHistory.loading = false;
+        state.searchHistory.items = action.payload.data?.items;
       })
 
       .addCase(getSearchHisory.rejected, (state) => {
-        state.searchRecent.loading = false;
+        state.searchHistory.loading = false;
       });
   },
 });

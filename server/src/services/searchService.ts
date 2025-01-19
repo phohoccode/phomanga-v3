@@ -9,12 +9,17 @@ export const handleGetSearchHistory = async (userId: string) => {
       where user_id = '${userId}'
       order by created_at desc
     `;
+
     const [rows]: any = await connection.promise().query(sql_select);
+
+    console.log(">>> rows", rows);
 
     return {
       status: "success",
       message: "Lấy thông tin tìm kiếm thành công!",
-      search: rows,
+      data: {
+        items: rows,
+      },
     };
   } catch (error) {
     console.log(">>> error-get-search-recent", error);

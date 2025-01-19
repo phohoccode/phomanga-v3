@@ -3,7 +3,7 @@ import { Skeleton } from "antd";
 const SkeletonReadPage = ({ width }: { width: number }) => {
   return (
     <div className="p-6 flex flex-col gap-2">
-      <Skeleton.Input size="small" style={{ width: "50%" }} />
+      <Skeleton.Input size="small" style={{ width: "30%" }} />
       <div className="flex flex-col gap-2 items-center justify-center mt-8 rounded-lg bg-gray-100 p-4">
         <Skeleton.Input size="small" style={{ width: "220px" }} />
 

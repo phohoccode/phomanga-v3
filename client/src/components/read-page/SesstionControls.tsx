@@ -57,8 +57,8 @@ const SessionControls = ({
 
   return (
     <div
-      className={`flex items-center justify-center mt-8 ${
-        location === "top" && "flex-col gap-2  rounded-lg bg-gray-100 p-4"
+      className={`flex items-center justify-center mt-8 lg:sticky lg:top-0 lg:z-50 ${
+        location === "top" && "flex-col gap-2 rounded-lg bg-gray-100 p-4"
       }`}
     >
       {location === "top" && (

@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 import SearchPreview from "./SearchPreview";
 import { fetchSearchComicPreview } from "@/store/asyncThunk/comicAsyncThunk";
 import debounce from "debounce";
-import SearchRecent from "./SearchHistory";
+import SearchHistory from "./SearchHistory";
 import { addSearchHistory } from "@/store/asyncThunk/userAsyncThunk";
 import { useSession } from "next-auth/react";
 
@@ -80,7 +80,7 @@ const ModalSearch = ({
       closeIcon={null}
     >
       <SearchPreview keyword={keyword} />
-      <SearchRecent keyword={keyword} />
+      <SearchHistory keyword={keyword} />
     </RootModal>
   );
 };

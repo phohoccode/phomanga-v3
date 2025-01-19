@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface SystemState {
   width: number;
-  themeMode: "light" | "dark";
   showDrawerUser: boolean;
   showModalSearch: boolean;
   showModalCategorys: boolean;
@@ -12,8 +11,6 @@ export interface SystemState {
 
 const initialState: SystemState = {
   width: 0,
-  themeMode:
-    (localStorage.getItem("theme-mode") as "light" | "dark") || "light",
   showDrawerUser: false,
   showModalSearch: false,
   showModalCategorys: false,
@@ -27,10 +24,6 @@ export const systemSlice = createSlice({
   reducers: {
     setWidth: (state, action) => {
       state.width = action.payload;
-    },
-    setThemeMode: (state, action) => {
-      state.themeMode = action.payload;
-      localStorage.setItem("theme-mode", action.payload);
     },
     setShowDrawerUser: (state, action) => {
       state.showDrawerUser = action.payload;
@@ -59,7 +52,6 @@ export const {
   setShowModalSearch,
   setShowModalNotification,
   setSavingHistory,
-  setThemeMode,
 } = systemSlice.actions;
 
 export default systemSlice.reducer;

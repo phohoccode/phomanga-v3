@@ -16,7 +16,13 @@ const Footer = () => {
   }
 
   return (
-    <footer className="footer mt-8 lg:mb-0 mb-16 md:px-6 px-3 py-12 bg-gray-100">
+    <footer
+      style={{
+        background:
+          "linear-gradient(to right, rgba(161, 196, 253, 0.59) 0%, rgba(194, 233, 251, 0.71) 100%)",
+      }}
+      className="footer mt-8 lg:mb-0 mb-16 md:px-6 px-3 py-12 "
+    >
       <Row gutter={[16, 16]}>
         <Col
           xxl={8}
@@ -27,7 +33,7 @@ const Footer = () => {
           xs={24}
           className="flex flex-col gap-2"
         >
-          <h1 className="text-lg text-[#13c2c2] font-semibold">Giới thiệu</h1>
+          <h1 className="text-lg font-bold">Giới thiệu</h1>
           <p className="text-base">
             Dự án này được xây dựng với mục tiêu mang đến một nền tảng đọc
             truyện trực tuyến phong phú, tiện lợi và thân thiện với người dùng.
@@ -44,7 +50,7 @@ const Footer = () => {
           xs={24}
           className="flex flex-col gap-2"
         >
-          <h1 className="text-lg text-[#13c2c2] font-semibold">Bản quyền</h1>
+          <h1 className="text-lg font-bold">Bản quyền</h1>
           <p className="text-base">
             Tất cả nội dung của trang web này đều được tìm kiếm và thu thập trực
             tiếp trên Internet. Nếu quyền lợi của bạn bị vi phạm, hãy liên hệ
@@ -61,9 +67,7 @@ const Footer = () => {
           xs={24}
           className="flex flex-col gap-2"
         >
-          <h1 className="text-lg text-[#13c2c2] font-semibold">
-            Liên hệ với tôi
-          </h1>
+          <h1 className="text-lg font-bold">Liên hệ với tôi</h1>
           <div className="flex flex-col gap-2 text-base">
             <a
               className="hover:text-[#13c2c2] transition-all"
