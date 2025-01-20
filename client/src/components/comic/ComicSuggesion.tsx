@@ -60,9 +60,7 @@ const ComicSuggesion = () => {
               />
             </figure>
             <div className="flex flex-col gap-1 flex-1">
-              <span className="group-hover:text-[#13c2c2] transition-all">
-                {item?.name ?? "Không xác định"}
-              </span>
+              <span>{item?.name ?? "Không xác định"}</span>
               <span className="text-xs">
                 {item?.chaptersLatest?.[0]?.chapter_name
                   ? `Chương mới nhất ${item?.chaptersLatest?.[0]?.chapter_name}`

@@ -4,11 +4,17 @@ import { setSavingHistory } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { PauseOutlined, PlayCircleOutlined } from "@ant-design/icons";
 import { Button, message } from "antd";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const ButtonPauseSavingHistory = () => {
   const { savingHistory } = useSelector((state: RootState) => state.system);
   const dispatch: AppDispatch = useDispatch();
+
+  useEffect(() => {
+    const isSave = localStorage.getItem("savingHistory") ?? false;
+    dispatch(setSavingHistory(isSave));
+  }, []);
 
   const handleSavingHistory = () => {
     message.info(

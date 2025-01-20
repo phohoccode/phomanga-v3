@@ -2,12 +2,14 @@ import { configureStore } from "@reduxjs/toolkit";
 import systemReducer from "@/store/slices/systemSlice";
 import comicReducer from "@/store/slices/comicSlice";
 import userReducer from "@/store/slices/userSlice";
+import commentReducer from "@/store/slices/commentSlice";
 
 export const store = configureStore({
   reducer: {
     system: systemReducer,
     comic: comicReducer,
     user: userReducer,
+    comment: commentReducer,
   },
 });
 

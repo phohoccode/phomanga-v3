@@ -114,3 +114,10 @@ export type DeleteComic = {
   comicId?: string;
   type: string;
 };
+
+export type GetComments = {
+  comicSlug: string;
+  page: string;
+  limit: number;
+  sort: "asc" | "desc";
+}

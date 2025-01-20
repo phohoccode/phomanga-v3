@@ -45,3 +45,21 @@ export type rawDataDeleteAllComic = {
   userId: string;
   type: string;
 };
+
+export type rawDataCreateComment = {
+  userId: string;
+  content: string;
+  comicSlug: string;
+};
+
+export type rawDataUpdateComment = {
+  commentId: string;
+  content: string;
+};
+
+export type rawDataGetComments = {
+  comicSlug: string;
+  limit: string;
+  page: string;
+  sort: "asc" | "desc";
+};

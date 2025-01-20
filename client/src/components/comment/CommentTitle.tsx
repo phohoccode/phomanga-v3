@@ -1,16 +1,22 @@
-import { Tag, Typography } from "antd";
+"use client";
+
+import { Tag } from "antd";
 import CommentFilter from "./CommentFilter";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const CommentTitle = () => {
+  const { totalItems } = useSelector((state: RootState) => state.comment);
+
   return (
-    <div className="flex justify-between gap-2 items-center mt-4 rounded-md p-4">
-      <Typography.Title level={5} style={{ margin: 0 }}>
+    <div className="flex justify-between flex-wrap gap-2 items-center mt-4 rounded-md p-4 bg-gray-100">
+      <span className="text-base font-medium">
         Lượt bình luận{" "}
-        <Tag color="blue" style={{ marginLeft: "8px" }}>
-          123
+        <Tag color="cyan-inverse" style={{ marginLeft: "8px" }}>
+          {totalItems}
         </Tag>
-      </Typography.Title>
-      <CommentFilter />
+      </span>
+      {totalItems >= 2 && <CommentFilter />}
     </div>
   );
 };

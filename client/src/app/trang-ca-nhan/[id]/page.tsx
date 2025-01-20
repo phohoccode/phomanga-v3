@@ -1,7 +1,11 @@
+import Layout from "@/components/layout/Layout";
+
 const Page = () => {
-  return ( 
-    <div>Trang cá nhân</div>
-   );
-}
- 
+  return (
+    <Layout>
+      <div>Trang cá nhân</div>
+    </Layout>
+  );
+};
+
 export default Page;

@@ -2,14 +2,27 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
+import http from "http";
 import authRouter from "./routes/authRouter";
 import userRouter from "./routes/userRouter";
 import comicRouter from "./routes/comicRouter";
 import searchRouter from "./routes/searchRouter"; 
+import commentRouter from "./routes/commentRouter";
 import connectMongoDB from "./database/mongodb";
+import initSocketIO from "./lib/socket";
 
 const app: Express = express();
 const port = process.env.PORT || 8080;
+
+
+const server = http.createServer(app);
+const io = require("socket.io")(server, {
+  cors: {
+    origin: process.env.CORS_ORIGIN,
+    methods: ["GET", "POST"],
+  },
+});
+
 
 // check connect database
 connectMongoDB();
@@ -36,11 +49,14 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/comic", comicRouter);
 app.use("/search", searchRouter);
+app.use("/comment", commentRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");
 });
 
-app.listen(port, () => {
+initSocketIO(io);
+
+server.listen(port, () => {
   console.log(`[server]: Server đang hoạt động tại: http://localhost:${port}`);
 });

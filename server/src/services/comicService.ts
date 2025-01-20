@@ -21,19 +21,13 @@ const handleGetAllComic = async (rawData: rawDataGetComic) => {
         ? await SavedComic.find({ userId })
         : await ViewedComic.find({ userId });
 
-    console.log(">>> data-before", data?.[0]?.comics);
-
     data?.[0]?.comics?.sort(
       (a: any, b: any) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
 
-    console.log(">>> data-after", data?.[0]?.comics);
-
     const items = data?.[0]?.comics?.slice(skip, skip + itemsPerPage);
     const totalItems = data?.[0]?.comics?.length;
-
-    console.log(">>> items", items);
 
     return {
       status: "success",

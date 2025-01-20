@@ -2,32 +2,28 @@
 
 import { socket } from "@/lib/socket";
 import {
-  createComment,
   getComments,
+  updateComment,
 } from "@/store/asyncThunk/commentAsyncThunk";
+import { setCommentIdEdit } from "@/store/slices/commentSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { Button, Input, message } from "antd";
-import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
 
-const CommentInput = () => {
-  const [value, setValue] = useState("");
+const CommentEditBox = ({ comment }: any) => {
+  const [value, setValue] = useState(comment?.content);
   const dispatch: AppDispatch = useDispatch();
+  const { currentPage, sort } = useSelector(
+    (state: RootState) => state.comment
+  );
   const params = useParams();
-  const { data: sesstion } = useSession();
   const [loading, setLoading] = useState(false);
-  const { sort } = useSelector((state: RootState) => state.comment);
 
-  const handleComment = async () => {
-    if (!sesstion?.user) {
-      message.info("Bạn cần đăng nhập để bình luận nhé!");
-      return;
-    }
-
+  const handleSaveEditComment = async () => {
     if (value.trim() === "") {
       message.info("Bạn muốn bình luận gì thì viết đi nào!");
       return;
@@ -35,52 +31,57 @@ const CommentInput = () => {
 
     setLoading(true);
     const response: any = await dispatch(
-      createComment({
-        userId: sesstion?.user?.id as string,
+      updateComment({
+        commentId: comment?.comment_id,
         content: value,
-        comicSlug: params.slug as string,
       })
     );
     setLoading(false);
 
     if (response.payload?.status === "success") {
-      message.success("Cảm ơn bạn đã bình luận!");
-      setValue("");
+      message.success("Cập nhật bình luận thành công!");
+      dispatch(setCommentIdEdit(""));
 
       dispatch(
         getComments({
           comicSlug: params.slug as string,
           limit: 10,
-          page: "1",
+          page: currentPage as string,
           sort: sort as "asc" | "desc",
         })
       );
 
-      socket.emit("newComment", {
+      socket.emit("updateComment", {
         slug: params?.slug,
       });
     }
   };
 
   return (
-    <>
+    <div className="flex gap-4 w-full">
       <TextArea
+        variant="filled"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Bạn đang suy nghĩ gì thế ..."
         autoSize={{ minRows: 3, maxRows: 5 }}
       />
-      <Button
-        onClick={handleComment}
-        loading={loading}
-        color="cyan"
-        variant="solid"
-        style={{ display: "flex", margin: "12px 0 0 auto" }}
-      >
-        Bình luận
-      </Button>
-    </>
+      <div className="flex flex-wrap gap-2">
+        <Button onClick={() => dispatch(setCommentIdEdit(""))} type="text">
+          Huỷ
+        </Button>
+        <Button
+          loading={loading}
+          onClick={() => handleSaveEditComment()}
+          type="text"
+          color="cyan"
+          variant="solid"
+        >
+          Lưu
+        </Button>
+      </div>
+    </div>
   );
 };
 
-export default CommentInput;
+export default CommentEditBox;

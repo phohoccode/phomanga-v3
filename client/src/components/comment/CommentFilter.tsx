@@ -1,19 +1,40 @@
+"use client";
+
 import { FilterComment } from "@/lib/types";
+import { isPositiveInteger } from "@/lib/utils";
+import { getComments } from "@/store/asyncThunk/commentAsyncThunk";
+import { setSort } from "@/store/slices/commentSlice";
+import { AppDispatch, RootState } from "@/store/store";
 import {
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
-import { useState } from "react";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
 
 const CommentFilter = () => {
-  const [filter, setFilter] = useState<FilterComment>("recent");
+  const dispatch: AppDispatch = useDispatch();
+  const params = useParams();
+  const searchParams = useSearchParams();
+  const sort = searchParams.get("sort") === "asc" ? "asc" : "desc";
+  const router = useRouter();
+
+  const handleChangeSort = (sort: "asc" | "desc") => {
+    const url = new URLSearchParams(searchParams.toString());
+
+    url.delete("sort");
+    url.set("sort", sort);
+    router.push(`${params?.slug}?${url.toString()}`);
+
+    dispatch(setSort(sort));
+  };
 
   return (
     <>
-      {filter === "recent" ? (
+      {sort === "asc" ? (
         <Button
-          onClick={() => setFilter("oldest")}
+          onClick={() => handleChangeSort("desc")}
           size="small"
           type="text"
           icon={<SortDescendingOutlined />}
@@ -22,7 +43,7 @@ const CommentFilter = () => {
         </Button>
       ) : (
         <Button
-          onClick={() => setFilter("recent")}
+          onClick={() => handleChangeSort("asc")}
           size="small"
           type="text"
           icon={<SortAscendingOutlined />}

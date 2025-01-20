@@ -16,7 +16,7 @@ const ShowMoreText = ({
 
   return (
     <div className="flex flex-col gap-1">
-      <p>
+      <p className="break-all">
         {displayText}
         {text?.length > maxLength && !isExpanded && "..."}
       </p>
@@ -27,7 +27,7 @@ const ShowMoreText = ({
           variant="text"
           color="default"
           onClick={toggleText}
-          className="flex mx-auto text-gray-600"
+          className="flex ml-auto text-gray-600"
         >
           {isExpanded ? "Thu gọn" : "Xem thêm"}
         </Button>

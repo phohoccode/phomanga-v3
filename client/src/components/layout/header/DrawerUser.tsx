@@ -55,7 +55,9 @@ const DrawerUser = () => {
           <li key={href} onClick={() => dispatch(setShowDrawerUser(false))}>
             <Link
               className={`p-2 flex gap-2 h-[36px] items-center text-base hover:bg-slate-100 rounded-md transition-all ${
-                pathname === href ? "text-[#13c2c2] hover:text-[#13c2c2]" : "text-gray-700 hover:text-gray-700"
+                pathname === href
+                  ? "text-[#13c2c2] hover:text-[#13c2c2]"
+                  : "text-gray-700 hover:text-gray-700"
               }`}
               href={href}
             >

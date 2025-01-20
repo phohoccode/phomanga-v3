@@ -15,7 +15,7 @@ const initialState: SystemState = {
   showModalSearch: false,
   showModalCategorys: false,
   showModalNotification: false,
-  savingHistory: localStorage.getItem("saving-history") === "true",
+  savingHistory: false,
 };
 
 export const systemSlice = createSlice({

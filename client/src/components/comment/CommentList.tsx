@@ -4,14 +4,22 @@ import { useEffect, useState } from "react";
 import CommentItem from "./CommentItem";
 import SkeletonComment from "../skeleton/SkeletonComment";
 import { Pagination } from "antd";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { isPositiveInteger } from "@/lib/utils";
 import EmptyData from "../common/EmptyData";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
+import { getComments } from "@/store/asyncThunk/commentAsyncThunk";
+import { setCurrentPage } from "@/store/slices/commentSlice";
+import { socket } from "@/lib/socket";
 
 const CommentList = () => {
-  const [comments, setComments] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const { items, loading, totalItems, sort } = useSelector(
+    (state: RootState) => state.comment
+  );
   const router = useRouter();
+  const dispatch: AppDispatch = useDispatch();
+  const params = useParams();
   const searchParams = useSearchParams();
   const currentPage = isPositiveInteger(
     searchParams.get("comment_page") as string
@@ -20,20 +28,35 @@ const CommentList = () => {
     : "1";
 
   useEffect(() => {
-    const fetchComments = async () => {
-      setLoading(true);
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/comments?_page=${currentPage}&_limit=10`
-      );
-      const data = await response.json();
-      setComments(data);
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
-    };
+    socket.on("refreshComments", (res) => {
+      console.log("refreshComments", res);
 
-    fetchComments();
-  }, [currentPage]);
+      if (res?.slug === params?.slug) {
+        handleGetComments();
+      }
+    });
+
+    return () => {
+      socket.off("refreshComments");
+    };
+  }, []);
+
+  useEffect(() => {
+    handleGetComments();
+
+    dispatch(setCurrentPage(currentPage as string));
+  }, [currentPage, sort]);
+
+  const handleGetComments = () => {
+    dispatch(
+      getComments({
+        comicSlug: params?.slug as string,
+        limit: 10,
+        page: currentPage as string,
+        sort: sort as "asc" | "desc",
+      })
+    );
+  };
 
   const handleChangePage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
@@ -45,30 +68,32 @@ const CommentList = () => {
     return <SkeletonComment />;
   }
 
-  if (comments?.length !== 0) {
-    return <EmptyData description="Chưa có bình luận nào" />;
+  if (items?.length === 0) {
+    return <EmptyData description="Chưa có bình luận nào tại đây" />;
   }
 
   return (
     <div>
       <ul className="flex flex-col gap-6 mt-4">
-        {comments?.map((comment) => (
-          <li key={comment.id} className="flex gap-4">
+        {items?.map((comment, index) => (
+          <li key={index} className="flex gap-4">
             <CommentItem comment={comment} />
           </li>
         ))}
       </ul>
 
-      <Pagination
-        style={{ marginTop: "48px" }}
-        align="center"
-        onChange={handleChangePage}
-        showTitle={true}
-        showSizeChanger={false}
-        current={Number(currentPage)}
-        total={200}
-        pageSize={10}
-      />
+      {totalItems > 10 && (
+        <Pagination
+          style={{ marginTop: "48px" }}
+          align="center"
+          onChange={handleChangePage}
+          showTitle={true}
+          showSizeChanger={false}
+          current={Number(currentPage)}
+          total={totalItems}
+          pageSize={10}
+        />
+      )}
     </div>
   );
 };
