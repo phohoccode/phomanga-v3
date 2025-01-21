@@ -37,7 +37,7 @@ const Page = async ({
       <Divider orientation="center">Kho lưu trữ</Divider>
 
       {items?.length > 0 && (
-        <div className="flex justify-end mt-8">
+        <div className="flex justify-end my-8">
           <ButtonDeleteAllComic type="SAVED_COMIC" />
         </div>
       )}
@@ -45,17 +45,13 @@ const Page = async ({
       <Alert
         type="info"
         showIcon={true}
-        message="Tài khoản hiện tại của bạn lưu được tối đa 24 truyện. Nâng cấp tài khoản để lưu nhiều hơn." 
+        message="Tài khoản hiện tại của bạn lưu được tối đa 24 truyện. Nâng cấp tài khoản để lưu nhiều hơn."
         style={{ margin: "32px 0" }}
         closeIcon
       />
 
-      {items?.length === 0 && (
-        <Empty description="Kho lưu trữ của bạn đang trống" />
-      )}
-
       <Suspense key={page} fallback={<Loading />}>
-        <ComicList data={items} />
+        <ComicList data={items} description="Kho lưu trữ của bạn đang trống" />
         {totalItems > pageSize && (
           <PaginationCT
             total={totalItems}

@@ -12,7 +12,17 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import ComicItem from "./ComicItem";
 
-const ComicList = ({ data, loading }: ComicList) => {
+const ComicList = ({
+  data,
+  loading,
+  description,
+  sm,
+  xs,
+  xl,
+  md,
+  lg,
+  xxl,
+}: ComicList) => {
   const dispatch: AppDispatch = useDispatch();
   const [key, setKey] = useState<string | null>(null);
   const { data: session } = useSession();
@@ -34,11 +44,6 @@ const ComicList = ({ data, loading }: ComicList) => {
     );
 
     if (res?.payload?.status === "success") {
-      message.success(
-        pathname === "/kho-luu-tru"
-          ? "Đã bỏ lưu truyện"
-          : "Đã xóa truyện khỏi lịch sử xem"
-      );
       router.refresh();
     } else {
       message.error(res?.payload?.message);
@@ -49,14 +54,22 @@ const ComicList = ({ data, loading }: ComicList) => {
     return <SkeletonComicList quantity={24} />;
   }
 
-  if (!data && !loading) {
-    return <EmptyData description="Không có dữ liệu" />;
+  if ((data?.length === 0 || !data) && !loading) {
+    return <EmptyData description={description ?? "Không có dữ liệu"} />;
   }
 
   return (
     <Row gutter={[16, 16]}>
       {data?.map((comic: any, index: number) => (
-        <Col key={index} xs={12} sm={8} md={6} lg={4} xl={3} xxl={2}>
+        <Col
+          key={index}
+          xs={xs ?? 12}
+          sm={sm ?? 8}
+          md={md ?? 6}
+          lg={lg ?? 4}
+          xl={xl ?? 3}
+          xxl={xxl ?? 2}
+        >
           <ComicItem
             data={comic}
             onClickDelete={handleDeleteComic}

@@ -1,5 +1,5 @@
 import { RootState } from "@/store/store";
-import { Image, Skeleton } from "antd";
+import { Empty, Image, Skeleton } from "antd";
 import { useSelector } from "react-redux";
 
 const SessionImage = ({ item }: any) => {
@@ -14,9 +14,12 @@ const SessionImage = ({ item }: any) => {
             key={index}
             style={{
               width: width > 1024 ? "720px" : "100%",
+              minWidth: "320px",
               minHeight: "320px",
+              border: "0 1px 0 1px solid #f0f0f0",
             }}
             src={`https://sv1.otruyencdn.com/${item?.chapter_path}/${image?.image_file}`}
+            placeholder={<Empty description="Đang tải hình ảnh..." />}
             alt={item?.chapter_name ?? "không xác định"}
           />
         ))}

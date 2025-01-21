@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveComic } from "@/store/asyncThunk/userAsyncThunk";
 import { useSession } from "next-auth/react";
+import FloatButtonGroup from "@/components/read-page/FloatButtonGroup";
 
 const Page = () => {
   const params = useParams();
@@ -112,14 +113,7 @@ const Page = () => {
           />
         )}
 
-        <FloatButton.BackTop
-          shape="circle"
-          style={{
-            insetInlineEnd: width > 1024 ? "32px" : "16px",
-            insetBlockEnd: width > 1024 ? "32px" : "96px",
-          }}
-          icon={<ToTopOutlined />}
-        />
+        <FloatButtonGroup />
       </div>
     </Layout>
   );

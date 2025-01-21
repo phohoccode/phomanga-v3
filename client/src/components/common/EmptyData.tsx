@@ -1,6 +1,10 @@
 import { Empty } from "antd";
 
-const EmptyData = ({ description }: { description: string }) => {
+const EmptyData = ({
+  description,
+}: {
+  description: string | React.ReactNode;
+}) => {
   return (
     <div className="flex justify-center items-center h-96">
       <Empty description={description} />

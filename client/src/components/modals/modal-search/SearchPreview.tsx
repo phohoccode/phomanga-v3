@@ -53,7 +53,7 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
               key={index}
               className="flex gap-2 group rounded-lg hover:bg-slate-100 hover:text-slate-700 p-2 border border-gray-100 transition-all"
             >
-              <figure className="w-24 h-32 rounded-md overflow-hidden border border-gray-100">
+              <figure className="w-24 h-32 rounded-md overflow-hidden shadow-sm">
                 <img
                   onError={({ currentTarget }) => {
                     currentTarget.onerror = null;
@@ -65,9 +65,7 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
                 />
               </figure>
               <div className="flex flex-col flex-1 gap-1">
-                <span className="group-hover:text-[#13c2c2] transition-all">
-                  {item?.name ?? "Không xác định"}
-                </span>
+                <span>{item?.name ?? "Không xác định"}</span>
                 <span className="text-xs">
                   {item?.chaptersLatest?.[0]?.chapter_name
                     ? `Chương mới nhất ${item?.chaptersLatest?.[0]?.chapter_name}`

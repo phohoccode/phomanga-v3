@@ -1,46 +1,23 @@
 "use client";
 
-import { formatDate, randomItemFromArray } from "@/lib/utils";
-import { fetchComicDetail } from "@/store/asyncThunk/comicAsyncThunk";
-import { AppDispatch, RootState } from "@/store/store";
+import { formatDate } from "@/lib/utils";
+import { RootState } from "@/store/store";
 import { Divider } from "antd";
-import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import EmptyData from "../common/EmptyData";
 
-// load 2 lần do loading ở trang thông tin truyện
-
-const ComicSuggesion = () => {
-  const { data: session } = useSession();
-  const catetorys = useSelector((state: RootState) => state.comic.catetorys);
+const ComicSuggesion = ({ title }: { title: string }) => {
   const { items } = useSelector((state: RootState) => state.comic.comicDetail);
-  const dispatch: AppDispatch = useDispatch();
-  const params = useParams();
-
-  useEffect(() => {
-    handleGenarateComicSuggestions();
-  }, [params?.slug, session?.user?.id]);
-
-  const handleGenarateComicSuggestions = () => {
-    if (catetorys?.length > 0) {
-      const itemRandom = randomItemFromArray(catetorys);
-      dispatch(
-        fetchComicDetail({
-          description: "the-loai",
-          slug: itemRandom?.slug,
-          currentPage: "1",
-        })
-      );
-    }
-  };
 
   return (
     <div className="flex flex-col gap-2">
       <Divider style={{ marginTop: 0 }} orientation="center">
-        Gợi ý truyện khác
+        {title ?? "Gợi ý"}
       </Divider>
+
+      {items?.length === 0 && <EmptyData description="Gợi ý đang lỗi" />}
+
       <div className="flex flex-col gap-4">
         {items.slice(0, 12)?.map((item: any, index: number) => (
           <Link

@@ -1,4 +1,4 @@
-import { Alert, Breadcrumb, Divider, Empty } from "antd";
+import { Breadcrumb, Divider } from "antd";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { fetchDataSavedComics } from "@/lib/actions";
@@ -42,10 +42,8 @@ const Page = async ({
         {items?.length > 0 && <ButtonDeleteAllComic type="VIEWED_COMIC" />}
       </div>
 
-      {items?.length === 0 && <Empty description="Lịch sử xem đang trống" />}
-
       <Suspense key={page} fallback={<Loading />}>
-        <ComicList data={items} />
+        <ComicList data={items} description="Lịch sử xem đang trống" />
         {totalItems > pageSize && (
           <PaginationCT
             total={totalItems}

@@ -1,4 +1,4 @@
-import { Button, Divider, Skeleton } from "antd";
+import { Divider, Skeleton } from "antd";
 
 const ComicTitle = ({
   title,

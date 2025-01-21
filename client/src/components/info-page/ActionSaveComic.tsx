@@ -61,8 +61,6 @@ const ActionSaveComic = () => {
 
     const chaprerLasted = comicInfo?.chapters?.[0]?.server_data;
 
-    console.log(comicInfo);
-
     setIsLoading(true);
     const res: any = await dispatch(
       saveComic({

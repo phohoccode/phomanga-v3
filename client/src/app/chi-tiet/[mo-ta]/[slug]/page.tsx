@@ -3,11 +3,11 @@
 import ComicList from "@/components/comic/ComicList";
 import ComicTitle from "@/components/comic/ComicTitle";
 import Layout from "@/components/layout/Layout";
+import Link from "next/link";
 import { isPositiveInteger } from "@/lib/utils";
 import { fetchComicDetail } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { Breadcrumb, Pagination, Skeleton } from "antd";
-import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";

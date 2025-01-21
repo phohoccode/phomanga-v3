@@ -31,16 +31,11 @@ export const SessionInfo = ({ data }: any) => {
     },
     {
       key: "3",
-      label: "Lượt xem",
-      children: 32,
-    },
-    {
-      key: "4",
       label: "Thể loại",
       children: <div className="flex gap-y-2 flex-wrap">{categories}</div>,
     },
     {
-      key: "5",
+      key: "4",
       label: "Chương mới nhất",
       children:
         chapters?.length > 0
@@ -50,7 +45,7 @@ export const SessionInfo = ({ data }: any) => {
           : "Truyện đang lỗi",
     },
     {
-      key: "6",
+      key: "5",
       label: "Nội dung truyện",
       children: (
         <ShowMoreText

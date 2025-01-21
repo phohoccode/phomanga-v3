@@ -49,7 +49,7 @@ const ModalSearch = ({
 
   const onSearch = (value: string) => {
     if (value?.trim() === "") {
-      message.info("Bạn mmuốn tìm kiếm gì?");
+      message.info("Bạn muốn tìm truyện gì thế?");
       return;
     }
     router.push(`/tim-kiem?keyword=${value}&page=1`);

@@ -21,9 +21,6 @@ const handleLogin = async (rawData: rawDataLogin) => {
     `;
     const [rows]: any = await connection.promise().query(sql_select);
 
-    console.log('>>> rawData', rawData);
-    console.log('>>> rows', rows);
-
     const isCorrectPassword = checkPassword(
       rawData?.password,
       rows[0]?.password ?? ""

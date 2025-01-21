@@ -4,8 +4,6 @@ import RootModal from "./RootModal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { fetchCategorys } from "@/store/asyncThunk/comicAsyncThunk";
 import { Col, Row, Skeleton } from "antd";
 import { setShowModalCategorys } from "@/store/slices/systemSlice";
 
@@ -17,19 +15,11 @@ const ModalCategorys = ({
   onCancel: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }) => {
   const dispatch: AppDispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    const handleDispatch = async () => {
-      setIsLoading(true);
-      await dispatch(fetchCategorys());
-      setIsLoading(false);
-    };
+  const { items, loading } = useSelector(
+    (state: RootState) => state.comic.catetorys
+  );
 
-    handleDispatch();
-  }, []);
-
-  const categorys = useSelector((state: RootState) => state.comic.catetorys);
 
   return (
     <RootModal
@@ -37,9 +27,10 @@ const ModalCategorys = ({
       isModalOpen={isModalOpen}
       onCancel={onCancel}
     >
-      {isLoading && <Skeleton style={{ marginTop: "12px" }} />}
+      {loading && <Skeleton style={{ marginTop: "12px" }} />}
+
       <Row gutter={[8, 8]} className="mt-4 max-h-[80vh] overflow-y-auto">
-        {categorys?.map((category: any, index: number) => (
+        {items?.map((category: any, index: number) => (
           <Col
             key={index}
             xl={4}

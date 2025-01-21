@@ -13,7 +13,7 @@ const CommentTitle = () => {
       <span className="text-base font-medium">
         Lượt bình luận{" "}
         <Tag color="cyan-inverse" style={{ marginLeft: "8px" }}>
-          {totalItems}
+          {totalItems ?? 0}
         </Tag>
       </span>
       {totalItems >= 2 && <CommentFilter />}

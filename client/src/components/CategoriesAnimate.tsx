@@ -4,9 +4,16 @@ import { RootState } from "@/store/store";
 import Link from "next/link";
 import Marquee from "react-fast-marquee";
 import { useSelector } from "react-redux";
+import SkeletonCaterogiesAnimate from "./skeleton/SkeletonCaterogiesAnimate";
 
 const CaterogiesAnimate = () => {
-  const categorys = useSelector((state: RootState) => state.comic.catetorys);
+  const { items, loading } = useSelector(
+    (state: RootState) => state.comic.catetorys
+  );
+
+  if (loading) {
+    return <SkeletonCaterogiesAnimate quantity={12} />;
+  }
 
   return (
     <Marquee
@@ -19,7 +26,7 @@ const CaterogiesAnimate = () => {
       style={{ margin: "24px 0" }}
     >
       <div className="flex space-x-3 mr-3 ">
-        {categorys?.map((category: any, index: number) => (
+        {items?.map((category: any, index: number) => (
           <Link
             href={`/chi-tiet/the-loai/${category?.slug}`}
             key={index}

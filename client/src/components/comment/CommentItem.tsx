@@ -11,8 +11,6 @@ import ShowMoreText from "../common/ShowMoreText";
 const CommentItem = ({ comment }: any) => {
   const { commentIdEdit } = useSelector((state: RootState) => state.comment);
 
-  console.log("comment", comment);
-
   return (
     <div className="flex gap-4">
       <figure className="w-9 h-9 flex-shrink-0 rounded-full overflow-hidden">

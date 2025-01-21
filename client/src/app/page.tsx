@@ -7,6 +7,7 @@ import CaterogiesAnimate from "@/components/CategoriesAnimate";
 import Layout from "@/components/layout/Layout";
 import SlideList from "@/components/comic/SlideList";
 import {
+  fetchCategorys,
   fetchCompletedComic,
   fetchNewComic,
   fetchPublishedComic,
@@ -64,10 +65,17 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    dispatch(fetchNewComic());
-    dispatch(fetchPublishedComic());
-    dispatch(fetchUpComingComic());
-    dispatch(fetchCompletedComic());
+    const fetchAllData = async () => {
+      await Promise.all([
+        dispatch(fetchNewComic()),
+        dispatch(fetchPublishedComic()),
+        dispatch(fetchUpComingComic()),
+        dispatch(fetchCompletedComic()),
+        dispatch(fetchCategorys())
+      ]);
+    };
+
+    fetchAllData();
   }, []);
 
   return (

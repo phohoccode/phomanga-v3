@@ -92,6 +92,7 @@ const NavBar = () => {
           {width > 1024 && (
             <>
               <Button
+                style={{ backgroundColor: "transparent" }}
                 onClick={() => dispatch(setShowModalNotification(true))}
                 icon={<BellOutlined />}
               />

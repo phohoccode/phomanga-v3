@@ -15,7 +15,10 @@ import {
 import { comicCategory } from "@/lib/types";
 
 export interface ComicState {
-  catetorys: comicCategory[];
+  catetorys: {
+    items: comicCategory[];
+    loading: boolean;
+  };
   conmicSlide: {
     items: any[];
     loading: boolean;
@@ -66,7 +69,10 @@ export interface ComicState {
 }
 
 const initialState: ComicState = {
-  catetorys: [],
+  catetorys: {
+    items: [],
+    loading: true,
+  },
   conmicSlide: {
     items: [],
     loading: true,
@@ -123,11 +129,16 @@ export const comicSlice = createSlice({
   extraReducers: (builder) => {
     builder
       // Dữ liệu thể loại truyện
-      .addCase(fetchCategorys.pending, (state) => {})
-      .addCase(fetchCategorys.fulfilled, (state, action) => {
-        state.catetorys = action.payload.data?.items;
+      .addCase(fetchCategorys.pending, (state) => {
+        state.catetorys.loading = true;
       })
-      .addCase(fetchCategorys.rejected, (state) => {})
+      .addCase(fetchCategorys.fulfilled, (state, action) => {
+        state.catetorys.items = action.payload.data?.items;
+        state.catetorys.loading = false;
+      })
+      .addCase(fetchCategorys.rejected, (state) => {
+        state.catetorys.loading = false;
+      })
 
       // Dữ liệu slide truyện
       .addCase(fetchComicSlide.pending, (state) => {

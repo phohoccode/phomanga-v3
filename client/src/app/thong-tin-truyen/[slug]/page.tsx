@@ -7,7 +7,11 @@ import SessionChapter from "@/components/info-page/SessionChapter";
 import { SessionInfo } from "@/components/info-page/SessionInfo";
 import Layout from "@/components/layout/Layout";
 import SkeletonInfoPage from "@/components/skeleton/SkeletonInfoPage";
-import { fetchComicInfo } from "@/store/asyncThunk/comicAsyncThunk";
+import { randomItemFromArray } from "@/lib/utils";
+import {
+  fetchComicDetail,
+  fetchComicInfo,
+} from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { Breadcrumb, Col, Row } from "antd";
 import Link from "next/link";
@@ -22,6 +26,7 @@ const Page = () => {
     (state: RootState) => state.comic.comicInfo,
     shallowEqual
   );
+  const catetorys = useSelector((state: RootState) => state.comic.catetorys.items);
 
   const breadcrumbItems = [
     { title: <Link href="/">Trang chủ</Link> },
@@ -32,6 +37,23 @@ const Page = () => {
   useEffect(() => {
     dispatch(fetchComicInfo({ slug: params?.slug as string }));
   }, [params?.slug]);
+
+  useEffect(() => {
+    handleGenarateComicSuggestions();
+  }, [catetorys]);
+
+  const handleGenarateComicSuggestions = () => {
+    if (catetorys?.length > 0) {
+      const itemRandom = randomItemFromArray(catetorys);
+      dispatch(
+        fetchComicDetail({
+          description: "the-loai",
+          slug: itemRandom?.slug,
+          currentPage: "1",
+        })
+      );
+    }
+  };
 
   if (loading) {
     return <SkeletonInfoPage />;
@@ -52,7 +74,7 @@ const Page = () => {
           <CommentBox />
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>
-          <ComicSuggesion />
+          <ComicSuggesion title="Gợi ý ngẫu nhiên"/>
         </Col>
       </Row>
     </Layout>

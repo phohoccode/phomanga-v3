@@ -94,6 +94,13 @@ export type ComicItem = {
 export type ComicList = {
   data: any;
   loading?: boolean;
+  description?: string;
+  xs?: number;
+  sm?: number;
+  md?: number;
+  lg?: number;
+  xl?: number;
+  xxl?: number;
 };
 
 export type PaginationCT = {
@@ -120,4 +127,4 @@ export type GetComments = {
   page: string;
   limit: number;
   sort: "asc" | "desc";
-}
+};
