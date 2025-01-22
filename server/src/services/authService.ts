@@ -14,17 +14,16 @@ import { error_server } from "../lib/define";
 const salt = bcrypt.genSaltSync(10);
 
 const handleLogin = async (rawData: rawDataLogin) => {
+  const { email, password, typeAccount } = rawData;
+
   try {
     const sql_select = `
       Select * from users 
-      where email = '${rawData?.email}'
+      where email = '${email}' and type_account = '${typeAccount}'
     `;
     const [rows]: any = await connection.promise().query(sql_select);
 
-    const isCorrectPassword = checkPassword(
-      rawData?.password,
-      rows[0]?.password ?? ""
-    );
+    const isCorrectPassword = checkPassword(password, rows[0]?.password ?? "");
 
     if ((rows as any)?.length === 0 || !isCorrectPassword) {
       return {
@@ -46,27 +45,31 @@ const handleLogin = async (rawData: rawDataLogin) => {
 };
 
 const handleRegister = async (rawData: rawDataRegister) => {
-  try {
-    if (!validator.isEmail(rawData?.email)) {
-      return {
-        status: "error",
-        error_code: "invalid_email",
-        message: "Email không hợp lệ!",
-      };
-    }
+  const { email, otp, typeAccount, password, name } = rawData;
 
-    if (!validator.isStrongPassword(rawData?.password)) {
-      return {
-        status: "error",
-        error_code: "weak_password",
-        message:
-          "Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt!",
-      };
+  try {
+    if (typeAccount === "credentials") {
+      if (!validator.isEmail(email)) {
+        return {
+          status: "error",
+          error_code: "invalid_email",
+          message: "Email không hợp lệ!",
+        };
+      }
+
+      if (!validator.isStrongPassword(password)) {
+        return {
+          status: "error",
+          error_code: "weak_password",
+          message:
+            "Mật khẩu phải chứa ít nhất 8 ký tự, bao gồm chữ hoa, chữ thường, số và ký tự đặc biệt!",
+        };
+      }
     }
 
     const sql_check_email_exists = `
       Select * from users 
-      where email = '${rawData?.email}'
+      where email = '${email}' and type_account = '${typeAccount}'
     `;
 
     const [rows]: any = await connection
@@ -81,29 +84,35 @@ const handleRegister = async (rawData: rawDataRegister) => {
       };
     }
 
-    const sql_check_otp = `
+    if (typeAccount === "credentials") {
+      const sql_check_otp = `
       Select * from otp_codes
-      where email = '${rawData?.email}' 
-      and otp = '${rawData?.otp}' 
+      where email = '${email}' 
+      and otp = '${otp}' 
       and type = 'register_account'
     `;
 
-    const [rows_otp]: any = await connection.promise().query(sql_check_otp);
+      const [rows_otp]: any = await connection.promise().query(sql_check_otp);
 
-    if ((rows_otp as any).length === 0) {
-      return {
-        status: "error",
-        error_code: "invalid_otp",
-        message: "Mã xác thực không chính xác!",
-      };
+      if ((rows_otp as any).length === 0) {
+        return {
+          status: "error",
+          error_code: "invalid_otp",
+          message: "Mã xác thực không chính xác!",
+        };
+      }
     }
 
-    const passwordHash = hashUserPassword(rawData?.password, salt);
     const user_id = uuidv4();
 
+    const passwordHash =
+      typeAccount === "credentials"
+        ? hashUserPassword(password, salt)
+        : `${user_id}-phohoccode`;
+
     const sql_register_account = `
-      Insert into users (id, name, email, password, role_id, account_status)
-      values ('${user_id}', '${rawData?.name}', '${rawData?.email}','${passwordHash}', '1', 'active')
+      Insert into users (id, name, email, password, role_id, account_status, type_account)
+      values ('${user_id}', '${name}', '${email}','${passwordHash}', '1', 'active', '${typeAccount}')
     `;
 
     const [rows_users]: any = await connection

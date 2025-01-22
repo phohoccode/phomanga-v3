@@ -13,14 +13,6 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
   const offset = (parseInt(page) - 1) * parseInt(limit);
 
   try {
-    // const sql_select_by_page = `
-    //   Select c.id, c.content, c.created_at, u.name, c.user_id from comments c
-    //   join users u on c.user_id = u.id
-    //   where c.comic_slug = '${comicSlug}'
-    //   order by c.created_at ${sort}
-    //   limit ${limit} offset ${offset}
-    // `;
-
     const sql_select_by_page = `
       SELECT 
           c.id AS comment_id,
@@ -64,7 +56,7 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
         ...row,
         liked_by_users: likedByUsers[index],
       };
-    })
+    });
 
     return {
       status: "success",

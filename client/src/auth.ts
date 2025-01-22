@@ -16,8 +16,6 @@ export class InvalidLoginError extends AuthError {
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
       credentials: {
         email: {},
         password: {},
@@ -31,9 +29,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const user: any = await axios.post("/auth/login", {
             email,
             password,
+            typeAccount: "credentials",
           });
-
-          console.log(">>> user", user);
 
           if (user?.status === "error") {
             throw new InvalidLoginError(user?.error_code, user?.message);
@@ -43,7 +40,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         } catch (error) {
           // Nếu lỗi là ZodError, thì xử lý lỗi
           if (error instanceof ZodError) {
-            console.log(">>> error", error.issues);
             throw new InvalidLoginError(
               "zod_error",
               error?.issues?.[0]?.message
@@ -62,16 +58,31 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     signIn: "/auth/login",
   },
   callbacks: {
-    async jwt({ token, profile }: any) {
+    async jwt({ token, profile, account }: any) {
+      
+      if (account?.provider === "google") {
+        await axios.post("/auth/register", {
+          email: profile?.email,
+          name: profile?.name,
+          typeAccount: "google",
+        });
+
+        token.type_account = "google";
+      } else if (account?.provider === "credentials") {
+        token.type_account = "credentials";
+      }
+
       const response: any = await axios.post("/user/get-user", {
         email: token?.email,
+        typeAccount: account?.provider ?? token?.type_account,
       });
 
-      if (profile && response?.status === "error") {
-        token.role = "guest";
-      } else if (response?.status === "success" && !profile) {
-        token.role = response?.user?.role_name;
-      }
+      token.id = response?.user?.user_id;
+      token.role = response?.user?.role_name;
+      token.email = response?.user?.email;
+      token.name = response?.user?.username;
+      token.type_account = response?.user?.type_account;
+      token.created_at = response?.user?.created_at;
 
       return token;
     },
@@ -82,6 +93,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.email = token.email;
       session.user.image = token.picture;
       session.user.role = token.role;
+      session.user.type_account = token.type_account;
+      session.user.created_at = token.created_at;
 
       return session;
     },

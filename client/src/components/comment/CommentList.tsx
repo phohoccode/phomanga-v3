@@ -29,8 +29,6 @@ const CommentList = () => {
 
   useEffect(() => {
     socket.on("refreshComments", (res) => {
-      console.log("refreshComments", res);
-
       if (res?.slug === params?.slug) {
         handleGetComments();
       }

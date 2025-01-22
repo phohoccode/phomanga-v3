@@ -3,15 +3,17 @@ import { handleGetUserByEmail } from "../services/userService";
 
 const getUserByEmail = async (req: Request, res: Response): Promise<any> => {
   try {
-    const email = req.body?.email;
+    const { email, typeAccount } = req.body;
 
-    if (!email) {
+    console.log('>>> body-get-user', req.body);
+
+    if (!email || !typeAccount) {
       return res.status(500).json({
-        message: "Email là bắt buộc",
+        message: "Email và typeAccount là bắt buộc",
       });
     }
 
-    const response = await handleGetUserByEmail(email);
+    const response = await handleGetUserByEmail(email, typeAccount);
 
     return res.status(200).json(response);
   } catch (error) {

@@ -61,6 +61,7 @@ export async function register({
   password,
   name,
   otp,
+  typeAccount,
 }: registerAccount): Promise<any> {
   try {
     const response: any = await axios.post("/auth/register", {
@@ -68,7 +69,10 @@ export async function register({
       password,
       name,
       otp,
+      typeAccount,
     });
+
+    console.log(">>> response", response);
 
     return response;
   } catch (error) {
@@ -148,5 +152,42 @@ export async function deleteAllComic(userId: string, type: string) {
     console.log(error);
   } finally {
     revalidatePath(type === "SAVED_COMIC" ? "/kho-luu-tru" : "/lich-su-da-xem");
+  }
+}
+
+// =============================== ADMIN ===============================
+export async function fetchAllUsers(
+  page: number | string,
+  sort: "ASC" | "DESC",
+  limit: number | string
+) {
+  try {
+    const response: any = await axios.post("/admin/get-all-users", {
+      page,
+      sort,
+      limit,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchAllComments(
+  page: number | string,
+  sort: "ASC" | "DESC",
+  limit: number | string
+) {
+  try {
+    const response: any = await axios.post("/admin/get-all-comments", {
+      page,
+      sort,
+      limit,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
   }
 }

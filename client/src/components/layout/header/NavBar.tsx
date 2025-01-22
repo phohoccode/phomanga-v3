@@ -62,7 +62,11 @@ const NavBar = () => {
   const handleCloseModalCategorys = () =>
     dispatch(setShowModalCategorys(false));
 
-  if (pathHideNavBar.includes(pathname)) return null;
+  if (
+    pathHideNavBar.includes(pathname) ||
+    pathname.startsWith("/bang-dieu-khien")
+  )
+    return null;
 
   return (
     <>

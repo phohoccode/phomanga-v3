@@ -17,7 +17,14 @@ dotenv.config();
 
 const userLogin = async (req: Request, res: Response): Promise<any> => {
   try {
-    console.log(">>>> req", req.body);
+    const { email, password, typeAccount } = req.body;
+
+    if (!email || !password || !typeAccount) {
+      return res.status(500).json({
+        message: "Email, password và typeAccount là bắt buộc",
+      });
+    }
+
     const response = await handleLogin(req.body);
 
     return res.status(200).json(response);
@@ -29,7 +36,19 @@ const userLogin = async (req: Request, res: Response): Promise<any> => {
 
 const registerAccount = async (req: Request, res: Response): Promise<any> => {
   try {
+    const { email, name, typeAccount } = req.body;
+
+    if (!email  || !name || !typeAccount) {
+      return res.status(500).json({
+        message: "Email, name và typeAccount là bắt buộc",
+      });
+    }
+
+    console.log(">>>> req", req.body);
+
     const response = await handleRegister(req.body);
+
+    
 
     return res.status(200).json(response);
   } catch (error) {

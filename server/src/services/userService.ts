@@ -1,18 +1,24 @@
 import connection from "../database/mysql";
 
-export const handleGetUserByEmail = async (email: string) => {
+export const handleGetUserByEmail = async (
+  email: string,
+  typeAccount: string
+) => {
   try {
     const sql_select = `
       Select 
       users.id as user_id,
-      users.name as username, users.email, 
+      users.name as username,
+      users.email,
+      users.created_at, 
       roles.name as role_name, 
-      roles.id as role_id, 
-      roles.description as role_description
+      users.type_account
       from users, roles 
-      where email = '${email}'
+      where email = '${email}' and users.role_id = roles.id and users.type_account = '${typeAccount}'
     `;
     const [rows]: any = await connection.promise().query(sql_select);
+
+    console.log(">>> rows", rows);
 
     if (rows?.length === 0) {
       return {
@@ -25,7 +31,7 @@ export const handleGetUserByEmail = async (email: string) => {
     return {
       status: "success",
       message: "Lấy thông tin người dùng thành công!",
-      user: rows[0],
+      user: rows?.[0],
     };
   } catch (error) {
     console.log(">>> error-login", error);

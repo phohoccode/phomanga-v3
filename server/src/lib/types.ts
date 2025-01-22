@@ -1,6 +1,7 @@
 export type rawDataLogin = {
   email: string;
   password: string;
+  typeAccount: "credentials"| "google";
 };
 
 export type rawDataRegister = {
@@ -8,6 +9,7 @@ export type rawDataRegister = {
   email: string;
   password: string;
   otp: string;
+  typeAccount: "credentials"| "google";
 };
 
 export type rawDataResetPassword = {

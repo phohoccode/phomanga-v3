@@ -1,9 +1,5 @@
 "use client";
 
-import ArchiveIcon from "@/components/icons/ArchiveIcon";
-import HistoryIcon from "@/components/icons/HistoryIcon";
-import PersonIcon from "@/components/icons/PersonIcon";
-import SignOutIcon from "@/components/icons/SignoutIcon";
 import { setShowDrawerUser } from "@/store/slices/systemSlice";
 import { RootState } from "@/store/store";
 import { Avatar, Divider, Drawer } from "antd";
@@ -14,7 +10,7 @@ import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 
 const DrawerUser = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const dispatch = useDispatch();
   const showDrawerUser = useSelector(
     (state: RootState) => state.system.showDrawerUser
@@ -41,6 +37,8 @@ const DrawerUser = () => {
     dispatch(setShowDrawerUser(false));
   };
 
+  console.log("session", session);
+
   return (
     <Drawer
       placement={width > 1024 ? "right" : "bottom"}
@@ -65,7 +63,20 @@ const DrawerUser = () => {
             </Link>
           </li>
         ))}
+
+        {session?.user?.role === "admin" && (
+          <li>
+            <Link
+              className="p-2 flex gap-2 h-[36px] items-center text-base hover:bg-slate-100 hover:text-gray-700 rounded-md transition-all"
+              href="/bang-dieu-khien"
+            >
+              Bảng điều khiển
+            </Link>
+          </li>
+        )}
+
         <Divider style={{ margin: "12px 0" }} />
+
         <li
           onClick={() => signOut({ callbackUrl: "/" })}
           className="cursor-pointer p-2 flex gap-2 h-[36px] items-center text-base hover:bg-slate-100 rounded-md transition-all"

@@ -11,7 +11,7 @@ export const pathHideNavBar = [
 const Footer = () => {
   const pathname = usePathname();
 
-  if (pathHideNavBar.includes(pathname)) {
+  if (pathHideNavBar.includes(pathname) || pathname.includes("/bang-dieu-khien")) {
     return null;
   }
 

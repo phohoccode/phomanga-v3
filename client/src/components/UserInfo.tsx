@@ -4,6 +4,7 @@ import React from "react";
 import { Descriptions } from "antd";
 import { DescriptionsProps, Skeleton } from "antd";
 import { useSession } from "next-auth/react";
+import { formatDate } from "@/lib/utils";
 
 const UserInfo = () => {
   const { data: session }: any = useSession();
@@ -29,22 +30,22 @@ const UserInfo = () => {
     },
     {
       key: "3",
-      label: "Id",
+      label: "Hình thức đăng nhập",
       children: session ? (
-        session?.user?.id
+        session?.user?.type_account === "credentials" ? (
+          "Email và mật khẩu"
+        ) : (
+          "Tài khoản Google"
+        )
       ) : (
         <Skeleton.Input style={{ width: 100, height: 24 }} active />
       ),
     },
     {
       key: "4",
-      label: "Quyền hạn",
+      label: "Thời gian tham gia",
       children: session ? (
-        session?.user?.role === "admin" ? (
-          "Admin"
-        ) : (
-          "User"
-        )
+        formatDate(session?.user?.created_at)
       ) : (
         <Skeleton.Input style={{ width: 100, height: 24 }} active />
       ),

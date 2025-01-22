@@ -39,6 +39,7 @@ const Page = () => {
       password: values.password,
       name: values.name,
       otp: values.code,
+      typeAccount: "credentials",
     });
     setLoadingRegister(false);
 

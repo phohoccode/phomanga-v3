@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
   if (token && adminPaths.includes(pathname)) {
     if (token.role === "admin") {
       return NextResponse.next();
-    } else if (token.role === "guest") {
+    } else if (token.role === "user") {
       return NextResponse.json(
         { status: "error", message: "Bạn không có quyền truy cập!" },
         { status: 403 }

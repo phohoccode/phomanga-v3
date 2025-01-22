@@ -3,7 +3,8 @@ export type registerAccount = {
   name: string;
   email: string;
   password: string;
-  otp: string;
+  otp?: string;
+  typeAccount: "credentials" | "google";
 };
 
 export type resetPassword = {
@@ -128,3 +129,5 @@ export type GetComments = {
   limit: number;
   sort: "asc" | "desc";
 };
+
+

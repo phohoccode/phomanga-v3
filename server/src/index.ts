@@ -8,6 +8,7 @@ import userRouter from "./routes/userRouter";
 import comicRouter from "./routes/comicRouter";
 import searchRouter from "./routes/searchRouter"; 
 import commentRouter from "./routes/commentRouter";
+import adminRouter from "./routes/adminRouter";
 import connectMongoDB from "./database/mongodb";
 import initSocketIO from "./lib/socket";
 
@@ -50,6 +51,9 @@ app.use("/user", userRouter);
 app.use("/comic", comicRouter);
 app.use("/search", searchRouter);
 app.use("/comment", commentRouter);
+
+// admin router
+app.use("/admin", adminRouter);
 
 app.get("/", (req: Request, res: Response) => {
   res.send("Express + TypeScript Server");

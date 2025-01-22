@@ -5,7 +5,6 @@ import UserInfo from "@/components/UserInfo";
 const Page = async () => {
   const session = await auth();
 
-  console.log(session);
 
   return (
     <Layout>

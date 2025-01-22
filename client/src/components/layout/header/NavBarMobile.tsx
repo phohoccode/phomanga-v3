@@ -72,7 +72,11 @@ const NavBarMobile = () => {
   };
 
   if (width > 1024) return null;
-  if (pathHideNavBar.includes(pathname)) return null;
+  if (
+    pathHideNavBar.includes(pathname) ||
+    pathname.startsWith("/bang-dieu-khien")
+  )
+    return null;
 
   return (
     <div className="z-50 fixed bottom-0 left-0 right-0 md:p-6 p-3 flex items-center justify-between bg-white border-t border-[#f2f2f2] h-[60px]">
