@@ -78,6 +78,7 @@ const ModalSearch = ({
       isModalOpen={isModalOpen}
       onCancel={onCancel}
       closeIcon={null}
+      footer={null}
     >
       <SearchPreview keyword={keyword} />
       <SearchHistory keyword={keyword} />

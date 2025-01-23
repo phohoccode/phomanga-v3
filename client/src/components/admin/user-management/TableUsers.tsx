@@ -4,8 +4,6 @@ import { formatDate } from "@/lib/utils";
 import { Table } from "antd";
 
 const TableUsers = ({ data }: { data: any }) => {
-  console.log(data);
-
   const dataSource = data?.map((user: any) => {
     return {
       key: user.id,
@@ -51,7 +49,14 @@ const TableUsers = ({ data }: { data: any }) => {
     },
   ];
 
-  return <Table bordered dataSource={dataSource} columns={columns} />;
+  return (
+    <Table
+      scroll={{ x: 500 }}
+      bordered
+      dataSource={dataSource}
+      columns={columns}
+    />
+  );
 };
 
 export default TableUsers;

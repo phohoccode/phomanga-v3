@@ -20,9 +20,9 @@ const ModalCategorys = ({
     (state: RootState) => state.comic.catetorys
   );
 
-
   return (
     <RootModal
+      footer={null}
       title="Thể loại truyện tranh"
       isModalOpen={isModalOpen}
       onCancel={onCancel}

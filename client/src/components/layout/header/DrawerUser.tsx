@@ -37,7 +37,6 @@ const DrawerUser = () => {
     dispatch(setShowDrawerUser(false));
   };
 
-  console.log("session", session);
 
   return (
     <Drawer

@@ -10,15 +10,7 @@ export const getAllUsers = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { page, sort, limit } = req.body;
-
-    if (!page || !sort || !limit) {
-      return res.status(400).json({
-        message: "Missing required fields",
-      });
-    }
-
-    const response = await handleGetAllUsers(req.body);
+    const response = await handleGetAllUsers();
 
     return res.status(200).json(response);
   } catch (error) {
@@ -32,15 +24,7 @@ export const getAllComments = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { page, sort, limit } = req.body;
-
-    if (!page || !sort || !limit) {
-      return res.status(400).json({
-        message: "Missing required fields",
-      });
-    }
-
-    const response = await handleGetAllComments(req.body);
+    const response = await handleGetAllComments();
 
     return res.status(200).json(response);
   } catch (error) {

@@ -3,6 +3,7 @@ import systemReducer from "@/store/slices/systemSlice";
 import comicReducer from "@/store/slices/comicSlice";
 import userReducer from "@/store/slices/userSlice";
 import commentReducer from "@/store/slices/commentSlice";
+import notificationReducer from "@/store/slices/notificationSlice";
 
 export const store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ export const store = configureStore({
     comic: comicReducer,
     user: userReducer,
     comment: commentReducer,
+    notification: notificationReducer,
   },
 });
 

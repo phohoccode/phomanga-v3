@@ -1,15 +1,15 @@
 "use client";
 
 import { formatDate } from "@/lib/utils";
-import { Table } from "antd";
+import { Button, Space, Table } from "antd";
+import Actions from "../Actions";
 
-const TableComments = ({ data }: { data: any }) => {
+const TableNotification = ({ data }: { data: any }) => {
   const dataSource = data?.map((comment: any) => {
     return {
       key: comment.id,
       id: comment.id,
-      slug: comment.comic_slug,
-      name: comment.name,
+      title: comment.title,
       content: comment.content,
       createdAt: formatDate(comment.created_at),
     };
@@ -22,15 +22,11 @@ const TableComments = ({ data }: { data: any }) => {
       key: "id",
     },
     {
-      title: "Slug",
-      dataIndex: "slug",
-      key: "slug",
+      title: "Tiêu đề",
+      dataIndex: "title",
+      key: "title",
     },
-    {
-      title: "Tên người dùng",
-      dataIndex: "name",
-      key: "name",
-    },
+
     {
       title: "Nội dung",
       dataIndex: "content",
@@ -41,7 +37,18 @@ const TableComments = ({ data }: { data: any }) => {
       dataIndex: "createdAt",
       key: "createdAt",
     },
+    {
+      title: "Hành động",
+      key: "action",
+      render: () => {
+        return <Actions handleDelete={handleDelete} handleEdit={handleEdit} />;
+      },
+    },
   ];
+
+  const handleEdit = (id: number) => {};
+
+  const handleDelete = (id: number) => {};
 
   return (
     <Table
@@ -53,4 +60,4 @@ const TableComments = ({ data }: { data: any }) => {
   );
 };
 
-export default TableComments;
+export default TableNotification;

@@ -5,8 +5,12 @@ import { isPositiveInteger } from "@/lib/utils";
 import { Pagination } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
 
-const PaginationCT = ({ total, pageSize, currentPage }: PaginationCT) => {
-  
+const PaginationCT = ({
+  total,
+  pageSize,
+  currentPage,
+  titleSearch,
+}: PaginationCT) => {
   currentPage = isPositiveInteger(currentPage.toString()) ? currentPage : 1;
 
   const searchParams = useSearchParams();
@@ -14,7 +18,7 @@ const PaginationCT = ({ total, pageSize, currentPage }: PaginationCT) => {
 
   const handleChangePage = (page: number) => {
     const params = new URLSearchParams(searchParams.toString());
-    params.set("page", page.toString());
+    params.set(titleSearch ? titleSearch : "page", page.toString());
     router.push(`?${params.toString()}`);
   };
 

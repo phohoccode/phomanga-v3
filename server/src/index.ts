@@ -6,15 +6,15 @@ import http from "http";
 import authRouter from "./routes/authRouter";
 import userRouter from "./routes/userRouter";
 import comicRouter from "./routes/comicRouter";
-import searchRouter from "./routes/searchRouter"; 
+import searchRouter from "./routes/searchRouter";
 import commentRouter from "./routes/commentRouter";
 import adminRouter from "./routes/adminRouter";
+import notificationRouter from "./routes/notificationRouter";
 import connectMongoDB from "./database/mongodb";
 import initSocketIO from "./lib/socket";
 
 const app: Express = express();
 const port = process.env.PORT || 8080;
-
 
 const server = http.createServer(app);
 const io = require("socket.io")(server, {
@@ -23,7 +23,6 @@ const io = require("socket.io")(server, {
     methods: ["GET", "POST"],
   },
 });
-
 
 // check connect database
 connectMongoDB();
@@ -51,6 +50,7 @@ app.use("/user", userRouter);
 app.use("/comic", comicRouter);
 app.use("/search", searchRouter);
 app.use("/comment", commentRouter);
+app.use("/notification", notificationRouter);
 
 // admin router
 app.use("/admin", adminRouter);

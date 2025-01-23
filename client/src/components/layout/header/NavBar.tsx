@@ -20,7 +20,7 @@ import DrawerUser from "./DrawerUser";
 import AvartarUser from "./AvartarUser";
 import ModalCategorys from "@/components/modals/ModalCategorys";
 import ButtonLink from "@/components/common/ButtonLink";
-import ModalNotifycation from "@/components/modals/ModalNotifycation";
+import ModalNotification from "@/components/modals/modal-notification/ModalNotification";
 
 export const pathHideNavBar = [
   "/auth/sign-in",
@@ -137,7 +137,7 @@ const NavBar = () => {
         onCancel={handleCloseModalCategorys}
       />
 
-      <ModalNotifycation
+      <ModalNotification
         isModalOpen={showModalNotification}
         onCancel={() => dispatch(setShowModalNotification(false))}
       />

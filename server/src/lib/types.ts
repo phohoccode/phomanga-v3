@@ -1,7 +1,7 @@
 export type rawDataLogin = {
   email: string;
   password: string;
-  typeAccount: "credentials"| "google";
+  typeAccount: "credentials" | "google";
 };
 
 export type rawDataRegister = {
@@ -9,7 +9,7 @@ export type rawDataRegister = {
   email: string;
   password: string;
   otp: string;
-  typeAccount: "credentials"| "google";
+  typeAccount: "credentials" | "google";
 };
 
 export type rawDataResetPassword = {
@@ -64,4 +64,29 @@ export type rawDataGetComments = {
   limit: string;
   page: string;
   sort: "asc" | "desc";
+};
+
+export type rawDataGetAllNotifications = {
+  type: "system" | "user";
+  userId?: string;
+  limit: string;
+  page: string;
+};
+
+export type rawDataCreateNotification = {
+  title: string;
+  content: string;
+  type: string;
+  userId: string;
+};
+
+export type rawDataDeleteNotification = {
+  notificationId: string;
+  userId: string;
+};
+
+export type rawDataUpdateNotification = {
+  notificationId: string;
+  title: string;
+  content: string;
 };

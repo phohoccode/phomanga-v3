@@ -6,7 +6,9 @@ const RootModal = ({
   isModalOpen,
   children,
   closeIcon,
+  footer,
   onCancel,
+  onOk,
 }: RootModal) => {
   return (
     <Modal
@@ -15,8 +17,9 @@ const RootModal = ({
       title={title}
       open={isModalOpen}
       onCancel={onCancel}
+      onOk={onOk}
       closeIcon={closeIcon}
-      footer={null}
+      footer={footer}
       width={{
         xs: "90%",
         sm: "80%",

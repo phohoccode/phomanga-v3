@@ -29,7 +29,9 @@ export type RootModal = {
   isModalOpen: boolean;
   children: React.ReactNode;
   closeIcon?: React.ReactNode | null;
+  footer?: React.ReactNode | null;
   onCancel: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onOk?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };
 
 export type ComicDetail = {
@@ -108,6 +110,7 @@ export type PaginationCT = {
   total: number;
   pageSize: number;
   currentPage: number | string;
+  titleSearch?: string;
 };
 
 export type SavedComic = {

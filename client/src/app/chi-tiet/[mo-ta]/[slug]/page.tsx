@@ -15,11 +15,11 @@ import { useDispatch, useSelector } from "react-redux";
 const Page = () => {
   const _params = useParams();
   const router = useRouter();
-  const searchParams = useSearchParams();
   const dispatch: AppDispatch = useDispatch();
   const { items, titlePage, params, breadCrumb, loading } = useSelector(
     (state: RootState) => state.comic.comicDetail
   );
+  const searchParams = useSearchParams();
   const currentPage = isPositiveInteger(searchParams.get("page") as string)
     ? searchParams.get("page")
     : "1";

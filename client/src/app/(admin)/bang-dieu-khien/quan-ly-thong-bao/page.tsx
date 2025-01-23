@@ -1,5 +1,18 @@
-const Page = () => {
-  return <div>Quản lý thông báo</div>;
-};
+import CreateNotification from "@/components/admin/notification-management/CreateNotification";
+import TableNotification from "@/components/admin/notification-management/TableNotification";
+import { fetchAllNotifications } from "@/lib/actions";
 
-export default Page;
+export default async function Page() {
+  const response = await fetchAllNotifications();
+  const notification = response?.data?.notifications;
+
+  return (
+    <div className="flex flex-col border border-gray-200 p-4 rounded-md gap-6">
+      <h3 className="text-lg font-bold">Quản lý thông báo</h3>
+
+      <CreateNotification />
+
+      <TableNotification data={notification} />
+    </div>
+  );
+}

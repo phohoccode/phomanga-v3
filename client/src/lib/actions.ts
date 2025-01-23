@@ -156,16 +156,40 @@ export async function deleteAllComic(userId: string, type: string) {
 }
 
 // =============================== ADMIN ===============================
-export async function fetchAllUsers(
-  page: number | string,
-  sort: "ASC" | "DESC",
-  limit: number | string
-) {
+export async function fetchAllUsers() {
   try {
-    const response: any = await axios.post("/admin/get-all-users", {
-      page,
-      sort,
-      limit,
+    const response: any = await axios.get("/admin/get-all-users");
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchAllComments() {
+  try {
+    const response: any = await axios.get("/admin/get-all-comments");
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function fetchAllNotifications() {
+  try {
+    const response: any = await axios.get("/admin/get-all-notifications");
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteComment(commentId: string) {
+  try {
+    const response: any = await axios.post("/admin/delete-comment", {
+      commentId,
     });
 
     return response;
@@ -174,16 +198,22 @@ export async function fetchAllUsers(
   }
 }
 
-export async function fetchAllComments(
-  page: number | string,
-  sort: "ASC" | "DESC",
-  limit: number | string
-) {
+export async function deleteNotification(notificationId: string) {
   try {
-    const response: any = await axios.post("/admin/get-all-comments", {
-      page,
-      sort,
-      limit,
+    const response: any = await axios.post("/admin/delete-notification", {
+      notificationId,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function deleteUser(userId: string) {
+  try {
+    const response: any = await axios.post("/admin/delete-user", {
+      userId,
     });
 
     return response;
