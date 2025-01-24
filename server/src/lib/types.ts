@@ -89,4 +89,5 @@ export type rawDataUpdateNotification = {
   notificationId: string;
   title: string;
   content: string;
+  userId: string;
 };

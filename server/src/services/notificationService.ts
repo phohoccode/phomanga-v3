@@ -6,6 +6,7 @@ import {
   rawDataGetAllNotifications,
   rawDataUpdateNotification,
 } from "../lib/types";
+import { v4 as uuidv4 } from "uuid";
 
 export const handleGetAllNotifications = async (
   rawData: rawDataGetAllNotifications
@@ -66,12 +67,14 @@ export const handleGetAllNotifications = async (
 export const handleCreateNotification = async (
   rawData: rawDataCreateNotification
 ) => {
-  const { title, content, userId } = rawData;
+  const { title, content, userId, type } = rawData;
 
   try {
+    const id = uuidv4();
+
     const sql_insert = `
-      INSERT INTO notification (title, content, type, user_id)
-      VALUES ('${title}', '${content}', 'system', '${userId}')
+      INSERT INTO notification (id, title, content, type, user_id)
+      VALUES ('${id}', '${title}', '${content}', '${type}', '${userId}')
     `;
 
     const [rows]: any = await connection.promise().execute(sql_insert);
@@ -85,9 +88,7 @@ export const handleCreateNotification = async (
 
     return {
       status: "success",
-      data: {
-        notificationId: rows.insertId,
-      },
+      message: "Create notification successfully",
     };
   } catch (error) {
     console.log(">>> error-create-notification", error);
@@ -98,7 +99,6 @@ export const handleCreateNotification = async (
 export const handleDeleteNotification = async (
   rawData: rawDataDeleteNotification
 ) => {
-
   const { notificationId, userId } = rawData;
 
   try {
@@ -129,13 +129,13 @@ export const handleDeleteNotification = async (
 export const handleUpdateNotification = async (
   rawData: rawDataUpdateNotification
 ) => {
-  const { notificationId, title, content } = rawData;
+  const { notificationId, title, content, userId } = rawData;
 
   try {
     const sql_update = `
       UPDATE notification
       SET title = '${title}', content = '${content}'
-      WHERE id = '${notificationId}'
+      WHERE id = '${notificationId}' and user_id = '${userId}'
     `;
 
     const [rows]: any = await connection.promise().execute(sql_update);

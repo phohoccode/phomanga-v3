@@ -3,11 +3,12 @@
 import EmptyData from "@/components/common/EmptyData";
 import PaginationCT from "@/components/PaginationCT";
 import SkeletonNotifycation from "@/components/skeleton/SkeletonNotifycation";
+import { socket } from "@/lib/socket";
 import { formatDate, isPositiveInteger } from "@/lib/utils";
 import { fetchAllNotifications } from "@/store/asyncThunk/notificationAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { CheckCircleFilled } from "@ant-design/icons";
-import { Divider } from "antd";
+import { Divider, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
@@ -20,12 +21,14 @@ const SystemNotification = () => {
   const dispatch: AppDispatch = useDispatch();
   const { data: sesstion } = useSession();
   const searchParams = useSearchParams();
-  const currentPage = isPositiveInteger(searchParams.get("page-system") as string)
+  const currentPage = isPositiveInteger(
+    searchParams.get("page-system") as string
+  )
     ? searchParams.get("page-system")
     : "1";
   const notifyRef = useRef<any>(null);
 
-  useEffect(() => {
+  const handleFetchAllNotifications = () => {
     dispatch(
       fetchAllNotifications({
         type: "system",
@@ -34,6 +37,10 @@ const SystemNotification = () => {
         page: currentPage,
       })
     );
+  };
+
+  useEffect(() => {
+    handleFetchAllNotifications();
   }, [currentPage]);
 
   useEffect(() => {

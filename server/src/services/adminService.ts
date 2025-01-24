@@ -49,11 +49,12 @@ export const handleGetAllComments = async () => {
 
 export const handleGetAllNotifications = async () => {
   try {
-    const sql_select = `SELECT * FROM notification`;
+    const sql_select = `
+      SELECT * FROM notification
+      where is_deleted = 0 and type = 'system'
+      ORDER BY created_at DESC`;
 
     const [rows]: any = await connection.promise().query(sql_select);
-
-    console.log(">>> rows", rows);
 
     return {
       status: "success",

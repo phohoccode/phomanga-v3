@@ -1,16 +1,20 @@
 import { Button, Space } from "antd";
 
 const Actions = ({
-  handleEdit,
+  loading,
   handleDelete,
+  handleEdit,
 }: {
-  handleEdit: (id: number) => void;
-  handleDelete: (id: number) => void;
+  loading: boolean;
+  handleDelete: () => void;
+  handleEdit: () => void;
 }) => {
   return (
-    <Space size="middle">
-      <Button type="primary">Sửa</Button>
-      <Button type="primary" danger>
+    <Space>
+      <Button onClick={handleEdit} type="primary">
+        Sửa
+      </Button>
+      <Button loading={loading} danger onClick={handleDelete} type="primary">
         Xóa
       </Button>
     </Space>

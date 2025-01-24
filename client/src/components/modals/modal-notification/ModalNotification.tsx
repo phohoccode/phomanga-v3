@@ -1,11 +1,13 @@
 "use client";
 
 import RootModal from "../RootModal";
-import { Tabs } from "antd";
+import { message, Tabs } from "antd";
 import type { TabsProps } from "antd";
 import SystemNotification from "./SystemNotifcation";
 import UserNotification from "./UserNotification";
 import { useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { socket } from "@/lib/socket";
 
 const ModalNotification = ({
   isModalOpen,
@@ -38,6 +40,35 @@ const ModalNotification = ({
   const onChange = (key: string) => {
     console.log(key);
   };
+
+  useEffect(() => {
+    socket.on("refreshNotifications", (res) => {
+      message.success(res?.message);
+    });
+
+    return () => {
+      socket.off("refreshNotifications");
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.on("refreshNotifications", (res) => {
+      message.success(res?.message);
+    });
+
+    socket.on("newNotification", (res) => {
+      console.log(res);
+      console.log(session);
+      if (res?.userLikedId !== session?.user?.id) {
+        message.success(res?.message);
+      }
+    });
+
+    return () => {
+      socket.off("refreshNotifications");
+      socket.off("newNotification");
+    };
+  }, []);
 
   return (
     <RootModal

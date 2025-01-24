@@ -198,10 +198,14 @@ export async function deleteComment(commentId: string) {
   }
 }
 
-export async function deleteNotification(notificationId: string) {
+export async function deleteNotification(
+  notificationId: string,
+  userId: string
+) {
   try {
     const response: any = await axios.post("/admin/delete-notification", {
       notificationId,
+      userId,
     });
 
     return response;
@@ -213,6 +217,46 @@ export async function deleteNotification(notificationId: string) {
 export async function deleteUser(userId: string) {
   try {
     const response: any = await axios.post("/admin/delete-user", {
+      userId,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function createNotification(
+  title: string,
+  content: string,
+  userId: string,
+  type: "system" | "user"
+) {
+  try {
+    const response: any = await axios.post("/admin/create-notification", {
+      title,
+      content,
+      userId,
+      type
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateNotification(
+  notificationId: string,
+  title: string,
+  content: string,
+  userId: string
+) {
+  try {
+    const response: any = await axios.post("/admin/update-notification", {
+      notificationId,
+      title,
+      content,
       userId,
     });
 

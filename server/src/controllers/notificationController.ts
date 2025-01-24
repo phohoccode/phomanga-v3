@@ -31,12 +31,14 @@ export const createNotification = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { title, content, userId } = req.body;
+    const { title, content, userId, type } = req.body;
 
-    if (!title || !content || !userId) {
+    console.log(">>> req.body", req.body);
+
+    if (!title || !content || !userId || !type) {
       return res
         .status(400)
-        .json({ message: "Title, content, userId là bắt buộc" });
+        .json({ message: "Title, content, userId, type là bắt buộc" });
     }
 
     const response: any = await handleCreateNotification(req.body);
@@ -75,12 +77,14 @@ export const updateNotification = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { notificationId, title, content } = req.body;
+    const { notificationId, title, content, userId } = req.body;
 
-    if (!notificationId || !title || !content) {
+    if (!notificationId || !title || !content || !userId) {
       return res
         .status(400)
-        .json({ message: "Notification Id, title, content là bắt buộc" });
+        .json({
+          message: "Notification Id, title, content, userId là bắt buộc",
+        });
     }
 
     const response: any = await handleUpdateNotification(req.body);

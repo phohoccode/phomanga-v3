@@ -6,6 +6,7 @@ export interface SystemState {
   showModalSearch: boolean;
   showModalCategorys: boolean;
   showModalNotification: boolean;
+  showModalActionsNotification: boolean;
   savingHistory: boolean;
 }
 
@@ -15,6 +16,7 @@ const initialState: SystemState = {
   showModalSearch: false,
   showModalCategorys: false,
   showModalNotification: false,
+  showModalActionsNotification: false,
   savingHistory: false,
 };
 
@@ -37,6 +39,9 @@ export const systemSlice = createSlice({
     setShowModalNotification: (state, action) => {
       state.showModalNotification = action.payload;
     },
+    setShowModalActionsNotification: (state, action) => {
+      state.showModalActionsNotification = action.payload;
+    },
     setSavingHistory: (state, action) => {
       state.savingHistory = action.payload;
       localStorage.setItem("saving-history", JSON.stringify(action.payload));
@@ -52,6 +57,7 @@ export const {
   setShowModalSearch,
   setShowModalNotification,
   setSavingHistory,
+  setShowModalActionsNotification,
 } = systemSlice.actions;
 
 export default systemSlice.reducer;

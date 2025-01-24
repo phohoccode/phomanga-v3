@@ -1,10 +1,27 @@
 "use client";
 
 import { formatDate } from "@/lib/utils";
-import { Button, Space, Table } from "antd";
+import { message, Table } from "antd";
 import Actions from "../Actions";
+import { useSession } from "next-auth/react";
+import { deleteNotification } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@/store/store";
+import { setShowModalActionsNotification } from "@/store/slices/systemSlice";
+import {
+  setAction,
+  setDataUpdate,
+  setTitle,
+} from "@/store/slices/notificationSlice";
 
 const TableNotification = ({ data }: { data: any }) => {
+  const { data: sesstion } = useSession();
+  const router = useRouter();
+  const [loadingId, setLoadingId] = useState("");
+  const dispatch: AppDispatch = useDispatch();
+
   const dataSource = data?.map((comment: any) => {
     return {
       key: comment.id,
@@ -40,15 +57,42 @@ const TableNotification = ({ data }: { data: any }) => {
     {
       title: "Hành động",
       key: "action",
-      render: () => {
-        return <Actions handleDelete={handleDelete} handleEdit={handleEdit} />;
+      render: (_: any, record: any) => {
+        return (
+          <Actions
+            loading={loadingId === record.id}
+            handleDelete={() => handleDelete(record.id)}
+            handleEdit={() => handleEdit(record)}
+          />
+        );
       },
     },
   ];
 
-  const handleEdit = (id: number) => {};
+  const handleEdit = (record: any) => {
+    dispatch(setShowModalActionsNotification(true));
+    dispatch(setDataUpdate(record));
+    dispatch(setAction("update"));
+    dispatch(setTitle("Cập nhật thông báo"));
+  };
 
-  const handleDelete = (id: number) => {};
+  const handleDelete = async (id: string) => {
+    if (!sesstion) {
+      message.error("Vui lòng đăng nhập để thực hiện chức năng này.");
+      return;
+    }
+
+    setLoadingId(id);
+    const response = await deleteNotification(id, sesstion?.user?.id as string);
+    setLoadingId("");
+
+    if (response?.status === "success") {
+      message.success(response?.message);
+      router.refresh();
+    } else {
+      message.error(response?.message);
+    }
+  };
 
   return (
     <Table

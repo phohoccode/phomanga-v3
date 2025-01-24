@@ -10,6 +10,9 @@ export interface NotificationState {
     items: any[];
     totalItem: number;
   };
+  dataUpdate: any;
+  action: "create" | "update";
+  title: string;
   totalItem: number;
   loading: boolean;
 }
@@ -23,6 +26,9 @@ const initialState: NotificationState = {
     items: [],
     totalItem: 0,
   },
+  dataUpdate: {},
+  action: "create",
+  title: "",
   totalItem: 0,
   loading: false,
 };
@@ -30,7 +36,17 @@ const initialState: NotificationState = {
 export const notificationSlice = createSlice({
   name: "notifications",
   initialState,
-  reducers: {},
+  reducers: {
+    setDataUpdate: (state, action) => {
+      state.dataUpdate = action.payload;
+    },
+    setAction: (state, action) => {
+      state.action = action.payload;
+    },
+    setTitle: (state, action) => {
+      state.title = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchAllNotifications.pending, (state) => {
@@ -57,6 +73,6 @@ export const notificationSlice = createSlice({
   },
 });
 
-export const {} = notificationSlice.actions;
+export const { setDataUpdate, setAction, setTitle } = notificationSlice.actions;
 
 export default notificationSlice.reducer;

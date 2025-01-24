@@ -7,6 +7,7 @@ import {
   likeComment,
   unlikeComment,
 } from "@/store/asyncThunk/commentAsyncThunk";
+import { createNotification } from "@/store/asyncThunk/notificationAsyncThunk";
 import { setCommentIdEdit } from "@/store/slices/commentSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import {
@@ -41,8 +42,6 @@ const CommentActions = ({ comment }: any) => {
 
   const handleMenuClick: MenuProps["onClick"] = async (e) => {
     if (e.key === "0") {
-      console.log(comment);
-
       const response: any = await dispatch(
         deleteComment({
           commentId: comment?.comment_id,
@@ -77,11 +76,26 @@ const CommentActions = ({ comment }: any) => {
     );
 
     if (response.payload?.status === "success") {
-      handleGetComments();
-
       socket.emit(action === "like" ? "likeComment" : "unlikeComment", {
         slug: params?.slug,
+        userLikedName: sesstion?.user?.name,
+        userLikedId: sesstion?.user?.id,
+        userCommentId: comment?.user_id,
+        content: comment?.content,
       });
+
+      if (sesstion?.user?.id !== comment?.user_id) {
+        await dispatch(
+          createNotification({
+            title: "like-comment",
+            content: `${sesstion?.user?.name} đã thích bình luận "${comment?.content}" của bạn`,
+            type: "user",
+            userId: comment?.user_id,
+          })
+        );
+      }
+
+      await handleGetComments();
     }
   };
 

@@ -1,4 +1,5 @@
 import CreateNotification from "@/components/admin/notification-management/CreateNotification";
+import ModalActionsNotification from "@/components/admin/notification-management/ModalActionsNotification";
 import TableNotification from "@/components/admin/notification-management/TableNotification";
 import { fetchAllNotifications } from "@/lib/actions";
 
@@ -13,6 +14,8 @@ export default async function Page() {
       <CreateNotification />
 
       <TableNotification data={notification} />
+
+      <ModalActionsNotification />
     </div>
   );
 }
