@@ -63,6 +63,12 @@ const CommentActions = ({ comment }: any) => {
   };
 
   const handleActionsLike = async (action: string) => {
+    
+    if (!sesstion) {
+      message.info("Bạn cần đăng nhập để thực hiện nhé!");
+      return;
+    }
+
     const response: any = await dispatch(
       action === "like"
         ? likeComment({

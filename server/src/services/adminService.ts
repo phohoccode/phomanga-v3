@@ -19,7 +19,7 @@ export const handleGetAllUsers = async () => {
       },
     };
   } catch (error) {
-    console.log(">>> error-get-all-users", error);
+    console.log(error);
     return error_server;
   }
 };

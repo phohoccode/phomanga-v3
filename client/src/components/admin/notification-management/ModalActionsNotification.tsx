@@ -69,6 +69,7 @@ const ModalActionsNotification = () => {
       form.resetFields();
 
       socket.emit("newNotification");
+      
     } else if (action === "update") {
       response = await updateNotification(
         dataUpdate.id,
@@ -84,6 +85,8 @@ const ModalActionsNotification = () => {
       message.success(response?.message);
       handleCancel();
       router.refresh();
+
+      socket.emit("updateNotification");
     } else {
       message.error(response?.message);
     }

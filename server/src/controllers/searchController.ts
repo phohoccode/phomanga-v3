@@ -4,6 +4,7 @@ import {
   handleDeleteSearchHistory,
   handleGetSearchHistory,
 } from "../services/searchService";
+import { error_server } from "../lib/define";
 
 export const getSearchHistory = async (
   req: Request,
@@ -13,7 +14,10 @@ export const getSearchHistory = async (
     const userId = req.body.userId;
 
     if (!userId) {
-      return res.status(400).json({ message: "User ID is required!" });
+      return res.status(400).json({
+        status: "error",
+        message: "User ID là bắt buộc!",
+      });
     }
 
     const response = await handleGetSearchHistory(userId);
@@ -21,7 +25,7 @@ export const getSearchHistory = async (
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 
@@ -34,9 +38,10 @@ export const addSearchHistory = async (
     const keyword = req.body.keyword;
 
     if (!userId || !keyword) {
-      return res
-        .status(400)
-        .json({ message: "User ID and keyword are required!" });
+      return res.status(400).json({
+        status: "error",
+        message: "User ID và từ khóa là bắt buộc!",
+      });
     }
 
     const response = await handleAddSearchHistory(userId, keyword);
@@ -44,7 +49,7 @@ export const addSearchHistory = async (
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 
@@ -53,10 +58,13 @@ export const deleteSearchHistory = async (
   res: Response
 ): Promise<any> => {
   try {
-    const {userId, searchId} = req.body;
+    const { userId, searchId } = req.body;
 
     if (!userId || !searchId) {
-      return res.status(400).json({ message: "User ID and search ID are required!" });
+      return res.status(400).json({
+        status: "error",
+        message: "User ID và ID tìm kiếm là bắt buộc!",
+      });
     }
 
     const response = await handleDeleteSearchHistory(userId, searchId);
@@ -64,6 +72,6 @@ export const deleteSearchHistory = async (
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };

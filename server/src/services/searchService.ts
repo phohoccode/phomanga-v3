@@ -22,7 +22,7 @@ export const handleGetSearchHistory = async (userId: string) => {
       },
     };
   } catch (error) {
-    console.log(">>> error-get-search-recent", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -44,7 +44,7 @@ export const handleAddSearchHistory = async (
       message: "Thêm lịch sử tìm kiếm thành công!",
     };
   } catch (error) {
-    console.log(">>> error-add-search-recent", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -65,7 +65,7 @@ export const handleDeleteSearchHistory = async (
       message: "Xóa lịch sử tìm kiếm thành công!",
     };
   } catch (error) {
-    console.log(">>> error-delete-search-recent", error);
+    console.log(error);
     return error_server;
   }
 };

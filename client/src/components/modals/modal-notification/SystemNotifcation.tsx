@@ -47,6 +47,18 @@ const SystemNotification = () => {
     notifyRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentPage]);
 
+  useEffect(() => {
+    socket.on("refreshNotifications", (res) => {
+      if (res?.type === "system") {
+        handleFetchAllNotifications();
+      }
+    });
+
+    return () => {
+      socket.off("refreshNotifications");
+    };
+  }, []);
+
   if (loading) {
     return <SkeletonNotifycation />;
   }

@@ -39,7 +39,7 @@ const handleGetAllComic = async (rawData: rawDataGetComic) => {
       },
     };
   } catch (error) {
-    console.log(">>> error", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -96,7 +96,7 @@ const handleSaveComic = async (rawData: rawDataSaveComic) => {
       };
     }
   } catch (error) {
-    console.log(">>> error-saveComic", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -133,7 +133,7 @@ const handleDeleteComic = async (rawData: rawDataDeleteComic) => {
       message: "Xóa truyện thành công",
     };
   } catch (error) {
-    console.log(">>> error-deleteComic", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -154,7 +154,7 @@ const handleDeleteAllComic = async (rawData: rawDataDeleteAllComic) => {
           : "Đã xoá lịch sử đã xem",
     };
   } catch (error) {
-    console.log(">>> error-deleteComic", error);
+    console.log(error);
     return error_server;
   }
 };

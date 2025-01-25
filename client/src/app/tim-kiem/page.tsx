@@ -61,17 +61,21 @@ const Page = () => {
         )}
 
         <ComicTitle title={titlePage} orientation="center" loading={loading} />
-        <ComicList data={items} loading={loading} title={titlePage} />
-        <Pagination
-          style={{ marginTop: "48px" }}
-          align="center"
-          onChange={handleChangePage}
-          showTitle={true}
-          showSizeChanger={false}
-          current={Number(currentPage)}
-          total={totalItems}
-          pageSize={itemsPerPage}
-        />
+
+        <ComicList data={items} loading={loading} />
+        
+        {items?.length >= 24 && (
+          <Pagination
+            style={{ marginTop: "48px" }}
+            align="center"
+            onChange={handleChangePage}
+            showTitle={true}
+            showSizeChanger={false}
+            current={Number(currentPage)}
+            total={totalItems}
+            pageSize={itemsPerPage}
+          />
+        )}
       </div>
     </Layout>
   );

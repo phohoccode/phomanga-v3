@@ -15,6 +15,7 @@ import {
   setDataUpdate,
   setTitle,
 } from "@/store/slices/notificationSlice";
+import { socket } from "@/lib/socket";
 
 const TableNotification = ({ data }: { data: any }) => {
   const { data: sesstion } = useSession();
@@ -89,6 +90,8 @@ const TableNotification = ({ data }: { data: any }) => {
     if (response?.status === "success") {
       message.success(response?.message);
       router.refresh();
+
+      socket.emit("deleteNotification");
     } else {
       message.error(response?.message);
     }

@@ -6,6 +6,8 @@ import { AppDispatch, RootState } from "@/store/store";
 import Link from "next/link";
 import { Col, Row, Skeleton } from "antd";
 import { setShowModalCategorys } from "@/store/slices/systemSlice";
+import { useEffect } from "react";
+import { fetchCategorys } from "@/store/asyncThunk/comicAsyncThunk";
 
 const ModalCategorys = ({
   isModalOpen,
@@ -20,6 +22,10 @@ const ModalCategorys = ({
     (state: RootState) => state.comic.catetorys
   );
 
+  useEffect(() => {
+    dispatch(fetchCategorys());
+  }, []);
+
   return (
     <RootModal
       footer={null}
@@ -29,7 +35,7 @@ const ModalCategorys = ({
     >
       {loading && <Skeleton style={{ marginTop: "12px" }} />}
 
-      <Row gutter={[8, 8]} className="mt-4 max-h-[80vh] overflow-y-auto">
+      <Row gutter={[8, 8]} className="mt-4 max-h-[60vh] overflow-y-auto">
         {items?.map((category: any, index: number) => (
           <Col
             key={index}

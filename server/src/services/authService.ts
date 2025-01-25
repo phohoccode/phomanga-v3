@@ -39,7 +39,7 @@ const handleLogin = async (rawData: rawDataLogin) => {
       email: rows[0]?.email,
     };
   } catch (error) {
-    console.log(">>> error-login", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -132,14 +132,16 @@ const handleRegister = async (rawData: rawDataRegister) => {
       message: "Đăng ký tài khoản thành công!",
     };
   } catch (error) {
-    console.log(">>> error-login", error);
+    console.log(error);
     return error_server;
   }
 };
 
 const handleResetPassword = async (rawData: rawDataResetPassword) => {
+  const { email, otp, password } = rawData;
+
   try {
-    if (!validator.isEmail(rawData?.email)) {
+    if (!validator.isEmail(email)) {
       return {
         status: "error",
         error_code: "invalid_email",
@@ -147,7 +149,7 @@ const handleResetPassword = async (rawData: rawDataResetPassword) => {
       };
     }
 
-    if (!validator.isStrongPassword(rawData?.password)) {
+    if (!validator.isStrongPassword(password)) {
       return {
         status: "error",
         error_code: "weak_password",
@@ -158,7 +160,7 @@ const handleResetPassword = async (rawData: rawDataResetPassword) => {
 
     const sql_check_email_exists = `
       Select * from users 
-      where email = '${rawData?.email}'
+      where email = '${email}'
     `;
 
     const [rows]: any = await connection
@@ -175,8 +177,8 @@ const handleResetPassword = async (rawData: rawDataResetPassword) => {
 
     const sql_check_otp = `
       Select * from otp_codes
-      where email = '${rawData?.email}' 
-      and otp = '${rawData?.otp}' 
+      where email = '${email}' 
+      and otp = '${otp}' 
       and type = 'forgot_password'
     `;
 
@@ -195,7 +197,7 @@ const handleResetPassword = async (rawData: rawDataResetPassword) => {
     const sql_update_password = `
       Update users
       set password = '${passwordHash}'
-      where email = '${rawData?.email}'
+      where email = '${email}'
     `;
 
     const [rows_update]: any = await connection
@@ -215,7 +217,7 @@ const handleResetPassword = async (rawData: rawDataResetPassword) => {
       message: "Đặt lại mật khẩu thành công!",
     };
   } catch (error) {
-    console.log(">>> error-login", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -243,7 +245,7 @@ const handleSendOTP = async (rawData: rawDataSendOTP) => {
       message: "Gửi mã xác thực thành công!",
     };
   } catch (error) {
-    console.log(">>> error-login", error);
+    console.log(error);
     return error_server;
   }
 };

@@ -4,6 +4,7 @@ import {
   handleGetAllNotifications,
   handleGetAllUsers,
 } from "../services/adminService";
+import { error_server } from "../lib/define";
 
 export const getAllUsers = async (
   req: Request,
@@ -15,7 +16,7 @@ export const getAllUsers = async (
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 
@@ -29,7 +30,7 @@ export const getAllComments = async (
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 
@@ -43,6 +44,6 @@ export const getAllNotifications = async (
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };

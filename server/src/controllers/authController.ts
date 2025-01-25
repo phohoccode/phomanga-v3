@@ -12,6 +12,7 @@ import {
   handleSendOTP,
 } from "../services/authService";
 import { genarateOTP } from "../lib/utils";
+import { error_server } from "../lib/define";
 
 dotenv.config();
 
@@ -30,7 +31,7 @@ const userLogin = async (req: Request, res: Response): Promise<any> => {
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 
@@ -38,41 +39,45 @@ const registerAccount = async (req: Request, res: Response): Promise<any> => {
   try {
     const { email, name, typeAccount } = req.body;
 
-    if (!email  || !name || !typeAccount) {
+    if (!email || !name || !typeAccount) {
       return res.status(500).json({
+        status: "error",
         message: "Email, name và typeAccount là bắt buộc",
       });
     }
 
-    console.log(">>>> req", req.body);
-
     const response = await handleRegister(req.body);
-
-    
 
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 
 const resetPassword = async (req: Request, res: Response): Promise<any> => {
   try {
-    console.log(">>>> req", req.body);
+
+    const { email, password, otp } = req.body;
+
+    if (!email || !password || !otp) {
+      return res.status(500).json({
+        status: "error",
+        message: "Email, password và otp là bắt buộc",
+      });
+    }
+
     const response = await handleResetPassword(req.body);
 
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 
 const sendOTP = async (req: Request, res: Response): Promise<any> => {
   try {
-    console.log(">>>> req", req.body);
-
     if (!validator.isEmail(req.body?.email)) {
       return res.status(400).json({
         status: "error",
@@ -107,7 +112,7 @@ const sendOTP = async (req: Request, res: Response): Promise<any> => {
       },
     });
 
-    const response_mail = await transporter.sendMail({
+    await transporter.sendMail({
       from: `phohoccode <${process.env.GOOGLE_APP_EMAIL}>`,
       to: `${req.body?.email}`,
       subject: "Xác minh tài khoản",
@@ -120,7 +125,7 @@ const sendOTP = async (req: Request, res: Response): Promise<any> => {
     return res.status(200).json(response_send_otp);
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    return res.status(500).json(error_server);
   }
 };
 

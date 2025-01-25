@@ -29,11 +29,15 @@ const initSocketIO = (io: Server) => {
       if (data?.userLikedId !== data?.userCommentId) {
         io.emit("newNotification", {
           message: `${data?.userLikedName} đã thích bình luận "${data?.content}" của bạn`,
-          action: "like-comment",
+          action: "new-notification",
           userLikedId: data?.userLikedId,
           userCommentId: data?.userCommentId,
         });
       }
+
+      io.emit("refreshNotifications", {
+        type: "user",
+      });
     });
 
     socket.on("unlikeComment", (data: any) => {
@@ -43,25 +47,30 @@ const initSocketIO = (io: Server) => {
     socket.on("newNotification", () => {
       console.log("Có thông báo mới!");
       io.emit("refreshNotifications", {
-        message: "Có thông báo mới!",
+        message: "Có thông báo mới từ hệ thống!",
         action: "new-notification",
+        type: "system",
       });
     });
 
-    socket.on("deteleNotification", () => {
+    socket.on("deleteNotification", () => {
       console.log("Có thông báo vừa xóa!");
       io.emit("refreshNotifications", {
-        message: "Có thông báo vừa xóa!",
         action: "delete-notification",
+        type: "system",
       });
     });
 
     socket.on("updateNotification", () => {
       console.log("Có thông báo vừa cập nhật!");
       io.emit("refreshNotifications", {
-        message: "Có thông báo vừa cập nhật!",
         action: "update-notification",
+        type: "system",
       });
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Ngắt kết nối", socket.id);
     });
   });
 };

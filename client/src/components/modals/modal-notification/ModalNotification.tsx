@@ -37,39 +37,6 @@ const ModalNotification = ({
       : []),
   ];
 
-  const onChange = (key: string) => {
-    console.log(key);
-  };
-
-  useEffect(() => {
-    socket.on("refreshNotifications", (res) => {
-      message.success(res?.message);
-    });
-
-    return () => {
-      socket.off("refreshNotifications");
-    };
-  }, []);
-
-  useEffect(() => {
-    socket.on("refreshNotifications", (res) => {
-      message.success(res?.message);
-    });
-
-    socket.on("newNotification", (res) => {
-      console.log(res);
-      console.log(session);
-      if (res?.userLikedId !== session?.user?.id) {
-        message.success(res?.message);
-      }
-    });
-
-    return () => {
-      socket.off("refreshNotifications");
-      socket.off("newNotification");
-    };
-  }, []);
-
   return (
     <RootModal
       footer={null}
@@ -77,7 +44,7 @@ const ModalNotification = ({
       isModalOpen={isModalOpen}
       onCancel={onCancel}
     >
-      <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
+      <Tabs defaultActiveKey="1" items={items} />
     </RootModal>
   );
 };

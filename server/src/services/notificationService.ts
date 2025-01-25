@@ -19,14 +19,17 @@ export const handleGetAllNotifications = async (
     const sql_select =
       type === "system"
         ? `
-          SELECT notification.*
+          SELECT notification.*,
+          CONVERT_TZ(notification.created_at, '+00:00', '+07:00') AS created_at
           FROM notification
           WHERE type = '${type}' and is_deleted = 0
           ORDER BY notification.created_at DESC
           LIMIT ${limit} OFFSET ${offset};
         `
         : `
-          SELECT * FROM notification
+          SELECT notification.*, 
+          CONVERT_TZ(created_at, '+00:00', '+07:00') AS created_at
+          FROM notification
           WHERE type = '${type}'
           AND user_id = '${userId}' and is_deleted = 0
           ORDER BY created_at DESC
@@ -59,7 +62,7 @@ export const handleGetAllNotifications = async (
       },
     };
   } catch (error) {
-    console.log(">>> error-get-all-notifications", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -91,7 +94,7 @@ export const handleCreateNotification = async (
       message: "Create notification successfully",
     };
   } catch (error) {
-    console.log(">>> error-create-notification", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -121,7 +124,7 @@ export const handleDeleteNotification = async (
       message: "Delete notification successfully",
     };
   } catch (error) {
-    console.log(">>> error-delete-notification", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -152,7 +155,7 @@ export const handleUpdateNotification = async (
       message: "Update notification successfully",
     };
   } catch (error) {
-    console.log(">>> error-update-notification", error);
+    console.log(error);
     return error_server;
   }
 };

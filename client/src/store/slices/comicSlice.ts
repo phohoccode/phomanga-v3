@@ -60,6 +60,7 @@ export interface ComicState {
   comicInfo: {
     items: any;
     breadCrumb: any[];
+    seoOnPage: any;
     loading: boolean;
   };
   imagesComic: {
@@ -103,6 +104,7 @@ const initialState: ComicState = {
   comicInfo: {
     items: {},
     breadCrumb: [],
+    seoOnPage: {},
     loading: false,
   },
   searchComic: {
@@ -222,6 +224,7 @@ export const comicSlice = createSlice({
       .addCase(fetchComicInfo.fulfilled, (state, action) => {
         state.comicInfo.loading = false;
         state.comicInfo.items = action.payload?.data?.item;
+        state.comicInfo.seoOnPage = action.payload?.data?.seoOnPage;
         state.comicInfo.breadCrumb = action.payload?.data?.breadCrumb;
       })
       .addCase(fetchComicInfo.rejected, (state) => {

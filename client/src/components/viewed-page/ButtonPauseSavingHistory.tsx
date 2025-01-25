@@ -12,7 +12,7 @@ const ButtonPauseSavingHistory = () => {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    const isSave = localStorage.getItem("savingHistory") ?? false;
+    const isSave = localStorage.getItem("savingHistory") ?? true;
     dispatch(setSavingHistory(isSave));
   }, []);
 

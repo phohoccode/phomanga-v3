@@ -5,6 +5,7 @@ import {
   handleGetAllComic,
   handleSaveComic,
 } from "../services/comicService";
+import { error_server } from "../lib/define";
 
 const getAllComic = async (req: Request, res: Response): Promise<any> => {
   try {
@@ -18,8 +19,8 @@ const getAllComic = async (req: Request, res: Response): Promise<any> => {
 
     return res.status(200).json(response);
   } catch (error) {
-    console.log(">>> error-getAllSavedComic", error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    console.log(error);
+    return res.status(500).json(error_server);
   }
 };
 
@@ -37,8 +38,8 @@ const saveComic = async (req: Request, res: Response): Promise<any> => {
 
     return res.status(200).json(response);
   } catch (error) {
-    console.log(">>> error-saveComic", error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    console.log(error);
+    return res.status(500).json(error_server);
   }
 };
 
@@ -56,8 +57,8 @@ const deleteComic = async (req: Request, res: Response): Promise<any> => {
 
     return res.status(200).json(response);
   } catch (error) {
-    console.log(">>> error-deleteComic", error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    console.log(error);
+    return res.status(500).json(error_server);
   }
 };
 
@@ -75,8 +76,8 @@ const deleteAllComic = async (req: Request, res: Response): Promise<any> => {
 
     return res.status(200).json(response);
   } catch (error) {
-    console.log(">>> error-deleteComic", error);
-    return res.status(500).json({ message: "Internal Server Error", error });
+    console.log(error);
+    return res.status(500).json(error_server);
   }
 };
 

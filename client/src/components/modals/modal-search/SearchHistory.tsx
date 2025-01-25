@@ -12,7 +12,7 @@ import { ClockCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import { Button, Divider, Tooltip, Typography } from "antd";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const SearchHistory = ({ keyword }: { keyword: string }) => {
@@ -21,6 +21,7 @@ const SearchHistory = ({ keyword }: { keyword: string }) => {
     (state: RootState) => state.user.searchHistory
   );
   const { data: session } = useSession();
+  const [loadingId, setLoadingId] = useState("");
 
   useEffect(() => {
     if (session?.user?.id) {
@@ -30,12 +31,16 @@ const SearchHistory = ({ keyword }: { keyword: string }) => {
 
   const handleDeleteSearchHistory = async (searchId: string) => {
     if (session?.user?.id) {
+      setLoadingId(searchId);
       await dispatch(
         deleteSearchHistory({
           userId: session?.user?.id as string,
           searchId,
         })
       );
+
+      setLoadingId("");
+
       await dispatch(getSearchHisory({ userId: session?.user?.id as string }));
     }
   };
@@ -68,6 +73,7 @@ const SearchHistory = ({ keyword }: { keyword: string }) => {
               </Link>
               <Tooltip title="Xoá lịch sử" style={{ width: "10%" }}>
                 <Button
+                  loading={loadingId === item?.id}
                   onClick={() => handleDeleteSearchHistory(item?.id)}
                   size="small"
                   icon={<CloseOutlined />}

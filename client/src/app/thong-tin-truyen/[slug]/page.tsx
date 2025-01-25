@@ -26,7 +26,9 @@ const Page = () => {
     (state: RootState) => state.comic.comicInfo,
     shallowEqual
   );
-  const catetorys = useSelector((state: RootState) => state.comic.catetorys.items);
+  const catetorys = useSelector(
+    (state: RootState) => state.comic.catetorys.items
+  );
 
   const breadcrumbItems = [
     { title: <Link href="/">Trang chủ</Link> },
@@ -74,7 +76,7 @@ const Page = () => {
           <CommentBox />
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>
-          <ComicSuggesion title="Gợi ý ngẫu nhiên"/>
+          <ComicSuggesion title="Gợi ý ngẫu nhiên" />
         </Col>
       </Row>
     </Layout>

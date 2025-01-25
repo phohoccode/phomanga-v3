@@ -3,7 +3,7 @@ import { getToken } from "next-auth/jwt";
 
 const adminPaths = [
   "/bang-dieu-khien/quan-ly-binh-luan",
-  "/bang-dieu-khien/quan-ly-danh-gia",
+  "/bang-dieu-khien/quan-ly-thong-bao",
   "/bang-dieu-khien/quan-ly-nguoi-dung",
 ];
 

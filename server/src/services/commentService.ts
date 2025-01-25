@@ -17,13 +17,15 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
       SELECT 
           c.id AS comment_id,
           c.content,
-          c.created_at,
+          CONVERT_TZ(c.created_at, '+00:00', '+07:00') AS created_at,
           u.name AS user_name,
           c.user_id,
+          r.name AS role_name,
           COUNT(l.id) AS like_count,
           GROUP_CONCAT(DISTINCT CONCAT(l.user_id, ':', u_liker.name)) AS liked_by_users
       FROM comments c
       JOIN users u ON c.user_id = u.id
+      JOIN roles r ON u.role_id = r.id
       LEFT JOIN likes l ON c.id = l.comment_id
       LEFT JOIN users u_liker ON l.user_id = u_liker.id
       WHERE c.comic_slug = '${comicSlug}'
@@ -67,7 +69,7 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
       },
     };
   } catch (error) {
-    console.log(">>> error-get-all-comments", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -97,7 +99,7 @@ export const handleCreateComment = async (rawData: rawDataCreateComment) => {
       message: "Tạo bình luận thành công!",
     };
   } catch (error) {
-    console.log(">>> error-create-comment", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -123,7 +125,7 @@ export const handleDeleteComment = async (commentId: string) => {
       message: "Xóa bình luận thành công!",
     };
   } catch (error) {
-    console.log(">>> error-delete-comment", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -152,7 +154,7 @@ export const handleUpdateComment = async (rawData: rawDataUpdateComment) => {
       message: "Cập nhật bình luận thành công!",
     };
   } catch (error) {
-    console.log(">>> error-update-comment", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -182,7 +184,7 @@ export const handleLikeComment = async (rawData: any) => {
       message: "like comment",
     };
   } catch (error) {
-    console.log(">>> error-like-comment", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -209,7 +211,7 @@ export const handleUnlikeComment = async (rawData: any) => {
       message: "dislike comment",
     };
   } catch (error) {
-    console.log(">>> error-dislike-comment", error);
+    console.log(error);
     return error_server;
   }
 };

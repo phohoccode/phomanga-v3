@@ -17,7 +17,7 @@ const initialState: SystemState = {
   showModalCategorys: false,
   showModalNotification: false,
   showModalActionsNotification: false,
-  savingHistory: false,
+  savingHistory: true,
 };
 
 export const systemSlice = createSlice({

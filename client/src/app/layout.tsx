@@ -7,6 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import NavBar from "@/components/layout/header/NavBar";
 import NavBarMobile from "@/components/layout/header/NavBarMobile";
 import Footer from "@/components/layout/Footer";
+import DisplayNotification from "@/components/DisplayNotification";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,10 +40,12 @@ export default function RootLayout({
         >
           <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
           <SessionProvider>
-            <NavBar />
-            {children}
-            <NavBarMobile />
-            <Footer />
+           <DisplayNotification>
+              <NavBar />
+              {children}
+              <NavBarMobile />
+              <Footer />
+           </DisplayNotification>
           </SessionProvider>
         </body>
       </html>

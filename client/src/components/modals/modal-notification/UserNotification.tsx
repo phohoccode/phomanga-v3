@@ -3,6 +3,7 @@
 import EmptyData from "@/components/common/EmptyData";
 import PaginationCT from "@/components/PaginationCT";
 import SkeletonNotifycation from "@/components/skeleton/SkeletonNotifycation";
+import { socket } from "@/lib/socket";
 import { formatDate, isPositiveInteger } from "@/lib/utils";
 import {
   deleteNotification,
@@ -40,6 +41,18 @@ const UserNotification = () => {
   useEffect(() => {
     notifyRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentPage]);
+
+  useEffect(() => {
+    socket.on("refreshNotifications", (res) => {
+      if (res?.type === "user") {
+        handleGetAllNotify();
+      }
+    });
+
+    return () => {
+      socket.off("refreshNotifications");
+    };
+  }, []);
 
   const handleGetAllNotify = () => {
     dispatch(

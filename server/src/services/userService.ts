@@ -1,4 +1,5 @@
 import connection from "../database/mysql";
+import { error_server } from "../lib/define";
 
 export const handleGetUserByEmail = async (
   email: string,
@@ -18,8 +19,6 @@ export const handleGetUserByEmail = async (
     `;
     const [rows]: any = await connection.promise().query(sql_select);
 
-    console.log(">>> rows", rows);
-
     if (rows?.length === 0) {
       return {
         status: "error",
@@ -34,11 +33,7 @@ export const handleGetUserByEmail = async (
       user: rows?.[0],
     };
   } catch (error) {
-    console.log(">>> error-login", error);
-    return {
-      status: "error",
-      error_code: "error_server",
-      message: "Lỗi server!",
-    };
+    console.log(error);
+    return error_server;
   }
 };

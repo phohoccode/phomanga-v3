@@ -3,7 +3,7 @@
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button, Divider } from "antd";
+import { Button, Divider, Skeleton } from "antd";
 import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -31,7 +31,7 @@ export const pathHideNavBar = [
 const NavBar = () => {
   const pathname = usePathname();
   const dispatch: AppDispatch = useDispatch();
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const width = useSelector((state: RootState) => state.system.width);
   const showModalCategorys = useSelector(
     (state: RootState) => state.system.showModalCategorys
@@ -103,8 +103,10 @@ const NavBar = () => {
             </>
           )}
 
-          {!session ? (
-            <div className="flex gap-4 items-center ">
+          {status === "loading" && <Skeleton.Input style={{ width: 100 }} />}
+
+          {status === "unauthenticated" && (
+            <>
               <ButtonLink
                 href="/auth/sign-in"
                 text="Đăng nhập"
@@ -118,10 +120,10 @@ const NavBar = () => {
                 color="cyan"
                 variant="outlined"
               />
-            </div>
-          ) : (
-            <AvartarUser />
+            </>
           )}
+
+          {status === "authenticated" && <AvartarUser />}
         </div>
       </header>
 

@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import CommentEditBox from "./CommentEditBox";
 import ShowMoreText from "../common/ShowMoreText";
+import { CheckCircleFilled } from "@ant-design/icons";
 
 const CommentItem = ({ comment }: any) => {
   const { commentIdEdit } = useSelector((state: RootState) => state.comment);
@@ -18,8 +19,13 @@ const CommentItem = ({ comment }: any) => {
       </figure>
       <div className="flex flex-col gap-2">
         <div className="flex gap-2 items-center">
-          <span className="text-base font-semibold">
-            {comment?.user_name ?? "Không xác định"}
+          <span
+            className={`"text-base font-semibold ${
+              comment.role_name === "admin" ? "text-[#13c2c2]" : ""
+            }`}
+          >
+            {comment?.user_name ?? "Không xác định"}{" "}
+            {comment.role_name === "admin" && <CheckCircleFilled />}
           </span>
           <span className="text-xs text-gray-600 font-semibold">
             {formatDate(comment?.created_at)}

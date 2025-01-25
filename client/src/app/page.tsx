@@ -81,6 +81,7 @@ export default function Home() {
   return (
     <Layout>
       <div className="flex flex-col gap-6">
+      
         <SlideList />
 
         <CaterogiesAnimate />
