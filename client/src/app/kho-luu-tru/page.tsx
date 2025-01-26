@@ -9,11 +9,7 @@ import Loading from "./loading";
 import PaginationCT from "@/components/PaginationCT";
 import ButtonDeleteAllComic from "@/components/ButtonDeleteAllComic";
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+const Page = async ({ searchParams }: any) => {
   const session = await auth();
   const params = await searchParams;
   const page = params?.page || 1;

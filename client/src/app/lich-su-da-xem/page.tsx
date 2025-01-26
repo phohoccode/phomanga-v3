@@ -10,11 +10,7 @@ import PaginationCT from "@/components/PaginationCT";
 import ButtonDeleteAllComic from "@/components/ButtonDeleteAllComic";
 import ButtonPauseSavingHistory from "@/components/viewed-page/ButtonPauseSavingHistory";
 
-const Page = async ({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | undefined };
-}) => {
+const Page = async ({ searchParams }: any) => {
   const session = await auth();
   const params = await searchParams;
   const page = params?.page || 1;
