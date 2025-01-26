@@ -58,13 +58,13 @@ export const notificationSlice = createSlice({
 
         state.loading = false;
 
-        type === "system"
-          ? (state.system.items = items)
-          : (state.user.items = items);
-
-        type === "system"
-          ? (state.system.totalItem = totalItem)
-          : (state.user.totalItem = totalItem);
+        if (type === "system") {
+          state.system.items = items;
+          state.system.totalItem = totalItem;
+        } else {
+          state.user.items = items;
+          state.user.totalItem = totalItem;
+        }
       })
 
       .addCase(fetchAllNotifications.rejected, (state) => {
