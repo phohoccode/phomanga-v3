@@ -1,17 +1,14 @@
 "use client";
 
-import { FilterComment } from "@/lib/types";
-import { isPositiveInteger } from "@/lib/utils";
-import { getComments } from "@/store/asyncThunk/commentAsyncThunk";
 import { setSort } from "@/store/slices/commentSlice";
-import { AppDispatch, RootState } from "@/store/store";
+import { AppDispatch } from "@/store/store";
 import {
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const CommentFilter = () => {
   const dispatch: AppDispatch = useDispatch();

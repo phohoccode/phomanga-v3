@@ -1,7 +1,6 @@
 import SideBar from "@/components/admin/SideBar";
 import Layout from "@/components/layout/Layout";
 import { Col, Row } from "antd";
-import Link from "next/link";
 
 const DashBoard = ({ children }: { children: React.ReactNode }) => {
   return (

@@ -11,7 +11,6 @@ import {
 } from "@/store/asyncThunk/notificationAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import {
-  CheckCircleFilled,
   ClockCircleOutlined,
   CloseOutlined,
 } from "@ant-design/icons";

@@ -1,5 +1,5 @@
 import { RootState } from "@/store/store";
-import { Empty, Image, Skeleton } from "antd";
+import { Empty, Image } from "antd";
 import { useSelector } from "react-redux";
 
 const SessionImage = ({ item }: any) => {

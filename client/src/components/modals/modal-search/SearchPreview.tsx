@@ -41,7 +41,7 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
         <SearchOutlined />
         <Typography.Text>
           Tìm thấy {items?.length} kết quả cho từ khóa{" "}
-          <span className="font-semibold">"{keyword}"</span>
+          <span className="font-semibold">&quot;{keyword}&quot;</span>
         </Typography.Text>
       </div>
       <ul className="flex flex-col gap-4 overflow-y-auto max-h-96 pr-2">

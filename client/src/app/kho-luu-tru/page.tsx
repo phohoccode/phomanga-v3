@@ -1,4 +1,4 @@
-import { Alert, Breadcrumb, Divider, Empty } from "antd";
+import { Alert, Breadcrumb, Divider } from "antd";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { fetchDataSavedComics } from "@/lib/actions";

@@ -1,4 +1,4 @@
-import NextAuth, { AuthError, User } from "next-auth";
+import NextAuth, { AuthError } from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { signInSchema } from "./lib/zod";
 import { ZodError } from "zod";

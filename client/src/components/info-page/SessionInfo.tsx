@@ -1,5 +1,5 @@
-import { Button, Image, Tag, Tooltip } from "antd";
-import { BookOutlined, EyeOutlined } from "@ant-design/icons";
+import { Button, Image, Tag } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 import { Descriptions } from "antd";
 import type { DescriptionsProps } from "antd";
 import { formatDate, removeHTMLTags } from "@/lib/utils";

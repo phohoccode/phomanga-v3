@@ -17,7 +17,7 @@ const ActionSaveComic = () => {
   const { data: session } = useSession();
   const [isSave, setIsSave] = useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const { items, loading } = useSelector(
+  const { items } = useSelector(
     (state: RootState) => state.user.savedComics
   );
   const { items: comicInfo } = useSelector(

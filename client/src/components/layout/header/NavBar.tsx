@@ -3,7 +3,7 @@
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Button, Divider, Skeleton } from "antd";
+import { Button, Skeleton } from "antd";
 import { BellOutlined, SearchOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -31,7 +31,7 @@ export const pathHideNavBar = [
 const NavBar = () => {
   const pathname = usePathname();
   const dispatch: AppDispatch = useDispatch();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const width = useSelector((state: RootState) => state.system.width);
   const showModalCategorys = useSelector(
     (state: RootState) => state.system.showModalCategorys

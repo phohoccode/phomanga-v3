@@ -12,7 +12,6 @@ import { setCommentIdEdit } from "@/store/slices/commentSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import {
   DashOutlined,
-  DislikeOutlined,
   LikeFilled,
   LikeOutlined,
 } from "@ant-design/icons";

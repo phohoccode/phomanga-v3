@@ -1,11 +1,9 @@
 "use client";
 
 import { socket } from "@/lib/socket";
-import { AppDispatch } from "@/store/store";
 import { message } from "antd";
 import { useSession } from "next-auth/react";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
 
 const DisplayNotification = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();

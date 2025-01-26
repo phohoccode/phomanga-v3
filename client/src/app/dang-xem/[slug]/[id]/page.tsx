@@ -10,8 +10,7 @@ import {
   fetchImageComic,
 } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { ToTopOutlined } from "@ant-design/icons";
-import { Breadcrumb, FloatButton } from "antd";
+import { Breadcrumb } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";

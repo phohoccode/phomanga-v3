@@ -8,7 +8,7 @@ import { formatDate, isPositiveInteger } from "@/lib/utils";
 import { fetchAllNotifications } from "@/store/asyncThunk/notificationAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { CheckCircleFilled } from "@ant-design/icons";
-import { Divider, message } from "antd";
+import { Divider } from "antd";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
