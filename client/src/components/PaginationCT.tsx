@@ -4,6 +4,7 @@ import type { PaginationCT } from "@/lib/types";
 import { isPositiveInteger } from "@/lib/utils";
 import { Pagination } from "antd";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
 const PaginationCT = ({
   total,
@@ -23,15 +24,17 @@ const PaginationCT = ({
   };
 
   return (
-    <Pagination
-      style={{ marginTop: "32px" }}
-      onChange={(page) => handleChangePage(page)}
-      align="center"
-      current={Number(currentPage)}
-      showSizeChanger={false}
-      total={total}
-      pageSize={pageSize}
-    />
+    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
+      <Pagination
+        style={{ marginTop: "32px" }}
+        onChange={(page) => handleChangePage(page)}
+        align="center"
+        current={Number(currentPage)}
+        showSizeChanger={false}
+        total={total}
+        pageSize={pageSize}
+      />
+    </Suspense>
   );
 };
 
