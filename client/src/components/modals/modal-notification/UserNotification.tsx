@@ -14,7 +14,7 @@ import { ClockCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import { Button, Divider, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const UserNotification = () => {
@@ -85,7 +85,7 @@ const UserNotification = () => {
   }
 
   return (
-    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
+    <>
       <ul className="flex flex-col max-h-[50vh] overflow-y-auto pr-2">
         {user?.items?.map((item, index: number) => (
           <li key={index}>
@@ -128,7 +128,7 @@ const UserNotification = () => {
           currentPage={currentPage as string}
         />
       )}
-    </Suspense>
+    </>
   );
 };
 

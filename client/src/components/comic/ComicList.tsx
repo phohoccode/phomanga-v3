@@ -4,8 +4,8 @@ import { Col, message, Row } from "antd";
 import SkeletonComicList from "@/components/skeleton/SkeletonComicList";
 import EmptyData from "@/components/common/EmptyData";
 import type { ComicList } from "@/lib/types";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
 import { useSession } from "next-auth/react";
 import { deleteComic } from "@/store/asyncThunk/userAsyncThunk";
 import { usePathname, useRouter } from "next/navigation";
@@ -28,6 +28,7 @@ const ComicList = ({
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
+  const { width } = useSelector((state: RootState) => state.system);
 
   const handleDeleteComic = async (slug?: string, id?: string) => {
     let res: any = null;

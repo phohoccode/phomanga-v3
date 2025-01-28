@@ -1,6 +1,6 @@
 "use client";
 
-import { Suspense, useEffect } from "react";
+import { useEffect } from "react";
 import CommentItem from "./CommentItem";
 import SkeletonComment from "../skeleton/SkeletonComment";
 import { Pagination } from "antd";
@@ -71,7 +71,7 @@ const CommentList = () => {
   }
 
   return (
-    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
+    <>
       <ul className="flex flex-col gap-6 mt-4">
         {items?.map((comment, index) => (
           <li key={index} className="flex gap-4">
@@ -92,7 +92,7 @@ const CommentList = () => {
           pageSize={10}
         />
       )}
-    </Suspense>
+    </>
   );
 };
 

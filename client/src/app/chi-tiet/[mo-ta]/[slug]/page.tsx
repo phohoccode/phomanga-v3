@@ -13,6 +13,14 @@ import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
+  return (
+    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
+      <DeltailComic />
+    </Suspense>
+  );
+};
+
+const DeltailComic = () => {
   const _params = useParams();
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();

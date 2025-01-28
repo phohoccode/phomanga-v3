@@ -16,7 +16,7 @@ const SlideItem = ({ slide }: any) => {
           alt={slide?.slug ?? "Không xác định"}
         />
       </Link>
-      <div className="absolute top-[100%] flex flex-col justify-center left-[12px] right-[12px] opacity-0 group-hover:opacity-100 rounded-xl transition-all group-hover:top-[77%]">
+      <div className="absolute lg:top-[100%] top-[77%] flex flex-col justify-center left-[12px] right-[12px] lg:opacity-0 lg:group-hover:opacity-100 rounded-xl transition-all lg:group-hover:top-[77%]">
         <Typography.Text className="font-bold block mb-2 truncate text-gray-50 transition-all">
           {slide?.name ?? "Không xác định"}
         </Typography.Text>

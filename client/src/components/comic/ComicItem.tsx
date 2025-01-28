@@ -49,7 +49,7 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
         >
           <figure className="relative xl:h-[260px] 2xl:h-[240px] h-[260px] block rounded-lg overflow-hidden border border-[#f2f2f2]">
             <img
-              className="w-full h-full transition-all group-hover:scale-110 group-hover:brightness-50 object-cover block"
+              className="w-full h-full transition-all lg:group-hover:scale-110 lg:group-hover:brightness-50 object-cover block"
               loading="lazy"
               src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${data?.thumb_url}`}
               alt={data?.slug ?? "Không xác định"}
@@ -59,8 +59,6 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
             {data?.name ?? data?.comic_name ?? "Không xác định"}
           </Typography.Text>
         </Link>
-
-        {/* Hiển thị khi ở /kho-luu-tru hoặc /lich-su-da-xem */}
 
         {(pathname === "/kho-luu-tru" || pathname === "/lich-su-da-xem") && (
           <div className="absolute top-2 right-2">
@@ -74,7 +72,7 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
           </div>
         )}
 
-        <div className="absolute top-[100%] flex justify-center gap-2 left-[12px] right-[12px] opacity-0 group-hover:opacity-100 rounded-xl transition-all group-hover:top-[70%]">
+        <div className="absolute lg:top-full top-[72%] flex justify-center gap-2 left-[12px] right-[12px] lg:opacity-0 group-hover:opacity-100 rounded-xl transition-all lg:group-hover:top-[70%]">
           <Link href={link} className="w-full">
             <Button
               className="w-full"

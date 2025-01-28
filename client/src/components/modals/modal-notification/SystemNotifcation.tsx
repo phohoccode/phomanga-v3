@@ -11,7 +11,7 @@ import { CheckCircleFilled } from "@ant-design/icons";
 import { Divider } from "antd";
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const SystemNotification = () => {
@@ -68,7 +68,7 @@ const SystemNotification = () => {
   }
 
   return (
-    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
+    <>
       <ul className="flex flex-col gap-2 max-h-[50vh] overflow-y-auto pr-2">
         {system?.items?.map((item, index: number) => (
           <li key={index} ref={notifyRef}>
@@ -101,7 +101,7 @@ const SystemNotification = () => {
           currentPage={currentPage as string}
         />
       )}
-    </Suspense>
+    </>
   );
 };
 

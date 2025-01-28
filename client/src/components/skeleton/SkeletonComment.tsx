@@ -5,14 +5,10 @@ const SkeletonComment = () => {
     <div className="flex flex-col gap-6 mt-4">
       {[...Array(5)].map((_, index) => (
         <div className="flex gap-4" key={index}>
-          <Skeleton.Avatar key={index} active size={32} />
+          <Skeleton.Avatar key={index} size={32} />
           <div className="flex flex-col gap-2">
-            <Skeleton.Input
-              style={{ width: 220, height: 12 }}
-              active
-              size="small"
-            />
-            <Skeleton.Input style={{ width: 260 }} active size="small" />
+            <Skeleton.Input style={{ width: 220, height: 12 }} size="small" />
+            <Skeleton.Input style={{ width: 260 }} size="small" />
           </div>
         </div>
       ))}

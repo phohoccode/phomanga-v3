@@ -13,6 +13,14 @@ import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const Page = () => {
+  return (
+    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
+      <Search />
+    </Suspense>
+  );
+};
+
+const Search = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const dispatch: AppDispatch = useDispatch();
@@ -52,38 +60,32 @@ const Page = () => {
   }
 
   return (
-    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
-      <Layout>
-        <div className="flex flex-col gap-2">
-          {loading ? (
-            <Skeleton.Input size="small" style={{ width: "260px" }} />
-          ) : (
-            <Breadcrumb items={breadCrumb} />
-          )}
+    <Layout>
+      <div className="flex flex-col gap-2">
+        {loading ? (
+          <Skeleton.Input size="small" style={{ width: "260px" }} />
+        ) : (
+          <Breadcrumb items={breadCrumb} />
+        )}
 
-          <ComicTitle
-            title={titlePage}
-            orientation="center"
-            loading={loading}
+        <ComicTitle title={titlePage} orientation="center" loading={loading} />
+
+        <ComicList data={items} loading={loading} />
+
+        {items?.length >= 24 && (
+          <Pagination
+            style={{ marginTop: "48px" }}
+            align="center"
+            onChange={handleChangePage}
+            showTitle={true}
+            showSizeChanger={false}
+            current={Number(currentPage)}
+            total={totalItems}
+            pageSize={itemsPerPage}
           />
-
-          <ComicList data={items} loading={loading} />
-
-          {items?.length >= 24 && (
-            <Pagination
-              style={{ marginTop: "48px" }}
-              align="center"
-              onChange={handleChangePage}
-              showTitle={true}
-              showSizeChanger={false}
-              current={Number(currentPage)}
-              total={totalItems}
-              pageSize={itemsPerPage}
-            />
-          )}
-        </div>
-      </Layout>
-    </Suspense>
+        )}
+      </div>
+    </Layout>
   );
 };
 

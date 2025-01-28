@@ -40,12 +40,12 @@ export default function RootLayout({
         >
           <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
           <SessionProvider>
-           <DisplayNotification>
+            <DisplayNotification>
               <NavBar />
               {children}
               <NavBarMobile />
               <Footer />
-           </DisplayNotification>
+            </DisplayNotification>
           </SessionProvider>
         </body>
       </html>

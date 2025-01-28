@@ -24,7 +24,7 @@ const links = [
   {
     href: "/chi-tiet/danh-sach/truyen-moi",
     label: "Truyện mới",
-    icon: <ComicIcon width="24" height="24" />,
+    icon: <ComicIcon width="16" height="16" />,
   },
   {
     href: "#",

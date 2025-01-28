@@ -8,7 +8,6 @@ import {
 } from "@ant-design/icons";
 import { Button } from "antd";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 import { useDispatch } from "react-redux";
 
 const CommentFilter = () => {
@@ -29,7 +28,7 @@ const CommentFilter = () => {
   };
 
   return (
-    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
+    <>
       {sort === "asc" ? (
         <Button
           onClick={() => handleChangeSort("desc")}
@@ -49,7 +48,7 @@ const CommentFilter = () => {
           Cũ nhất
         </Button>
       )}
-    </Suspense>
+    </>
   );
 };
 

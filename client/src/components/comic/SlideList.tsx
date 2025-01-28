@@ -17,6 +17,7 @@ const SlideList = () => {
   );
   const dispatch: AppDispatch = useDispatch();
   const width = useSelector((state: RootState) => state.system.width);
+  const quantity = width > 1024 ? 24 : 12;
 
   useEffect(() => {
     dispatch(fetchComicSlide());
@@ -33,7 +34,7 @@ const SlideList = () => {
       grabCursor={true}
       centeredSlides={true}
       initialSlide={width > 1024 ? 13 : 6}
-      speed={600}
+      speed={400}
       preventClicks={true}
       slidesPerView={"auto"}
       coverflowEffect={{
@@ -45,13 +46,11 @@ const SlideList = () => {
       }}
       className="mySwiper"
     >
-      {items
-        ?.slice(0, width > 1024 ? 24 : 12)
-        ?.map((slide: any, index: number) => (
-          <SwiperSlide key={index}>
-            <SlideItem slide={slide} />
-          </SwiperSlide>
-        ))}
+      {items?.slice(0, quantity)?.map((slide: any, index: number) => (
+        <SwiperSlide key={index}>
+          <SlideItem slide={slide} />
+        </SwiperSlide>
+      ))}
     </Swiper>
   );
 };
