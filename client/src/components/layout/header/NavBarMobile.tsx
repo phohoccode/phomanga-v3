@@ -5,7 +5,7 @@ import {
   setShowModalNotification,
   setShowModalSearch,
 } from "@/store/slices/systemSlice";
-import { AppDispatch } from "@/store/store";
+import { AppDispatch, RootState } from "@/store/store";
 import {
   AppstoreOutlined,
   BellOutlined,
@@ -13,8 +13,8 @@ import {
   SearchOutlined,
 } from "@ant-design/icons";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { pathHideNavBar } from "./NavBar";
 import { usePathname } from "next/navigation";
 import ComicIcon from "@/components/icons/ComicIcon";
@@ -44,21 +44,10 @@ const links = [
 ];
 
 const NavBarMobile = () => {
-  const [width, setWidth] = useState<number>(1025);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const dispatch: AppDispatch = useDispatch();
   const pathname = usePathname();
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setWidth(window.innerWidth);
-
-      const handleResize = () => setWidth(window.innerWidth);
-      window.addEventListener("resize", handleResize);
-
-      return () => window.removeEventListener("resize", handleResize);
-    }
-  }, []);
+  const { width, isVisiable } = useSelector((state: RootState) => state.system);
 
   const handleChangeTab = (index: number) => {
     setCurrentIndex(index);
@@ -71,15 +60,21 @@ const NavBarMobile = () => {
     }
   };
 
-  if (width > 1024) return null;
   if (
+    width > 1024 ||
     pathHideNavBar.includes(pathname) ||
     pathname.startsWith("/bang-dieu-khien")
   )
     return null;
 
   return (
-    <div className="z-50 fixed bottom-0 left-0 right-0 md:p-6 p-3 flex items-center justify-between bg-white border-t border-[#f2f2f2] h-[60px]">
+    <div
+      className={`z-50 fixed bottom-0 left-0 right-0
+        md:p-6 p-3 flex items-center justify-between
+        bg-white border-t border-[#f2f2f2] h-[60px] transition-transform duration-300
+        ${isVisiable ? "transform-none" : "translate-y-full"}
+      `}
+    >
       <ul className="flex space-x-4 max-w-3xl mx-auto w-[768px]">
         {links?.map(({ href, label, icon }, index) => (
           <li

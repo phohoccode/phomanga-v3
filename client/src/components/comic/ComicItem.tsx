@@ -21,7 +21,7 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
         data?.id ??
         "?status=comic-error";
 
-      setTextRibbon(chapterName ? `Chương ${chapterName}` : "Lỗi");
+      setTextRibbon(chapterName ? `Chương ${chapterName}` : "Truyện đang lỗi");
       setLink(`/dang-xem/${data?.slug}/${chapterId}`);
     }
   }, [pathname, data]);

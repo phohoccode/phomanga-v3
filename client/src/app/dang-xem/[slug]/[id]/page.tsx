@@ -2,8 +2,8 @@
 
 import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
-import SessionImage from "@/components/read-page/SessionImages";
-import SesstionControls from "@/components/read-page/SesstionControls";
+import SessionImage from "@/components/pages/read-comic/SessionImages";
+import SesstionControls from "@/components/pages/read-comic/SesstionControls";
 import SkeletonReadPage from "@/components/skeleton/SkeletonReadPage";
 import {
   fetchComicInfo,
@@ -17,7 +17,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveComic } from "@/store/asyncThunk/userAsyncThunk";
 import { useSession } from "next-auth/react";
-import FloatButtonGroup from "@/components/read-page/FloatButtonGroup";
+import FloatButtonGroup from "@/components/pages/read-comic/FloatButtonGroup";
 
 const Page = () => {
   const params = useParams();

@@ -7,8 +7,8 @@ import Layout from "@/components/layout/Layout";
 import ComicList from "@/components/comic/ComicList";
 import Loading from "./loading";
 import PaginationCT from "@/components/PaginationCT";
-import ButtonDeleteAllComic from "@/components/ButtonDeleteAllComic";
-import ButtonPauseSavingHistory from "@/components/viewed-page/ButtonPauseSavingHistory";
+import ButtonDeleteAllComic from "@/components/common/ButtonDeleteAllComic";
+import ButtonPauseSavingHistory from "@/components/pages/viewed-comic/ButtonPauseSavingHistory";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth();

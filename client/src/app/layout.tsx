@@ -1,13 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
 import { StoreProvider } from "@/store/StoreProvieder";
 import NextTopLoader from "nextjs-toploader";
 import { SessionProvider } from "next-auth/react";
-import NavBar from "@/components/layout/header/NavBar";
-import NavBarMobile from "@/components/layout/header/NavBarMobile";
-import Footer from "@/components/layout/Footer";
-import DisplayNotification from "@/components/DisplayNotification";
+import App from "@/components/App";
+import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,12 +37,7 @@ export default function RootLayout({
         >
           <NextTopLoader color="#13c2c2" showSpinner={false} height={2} />
           <SessionProvider>
-            <DisplayNotification>
-              <NavBar />
-              {children}
-              <NavBarMobile />
-              <Footer />
-            </DisplayNotification>
+            <App>{children}</App>
           </SessionProvider>
         </body>
       </html>

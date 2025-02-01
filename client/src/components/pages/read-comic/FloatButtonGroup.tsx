@@ -21,10 +21,10 @@ const FloatButtonGroup = () => {
     <FloatButton.Group
       trigger="click"
       placement="left"
-      shape="circle"
+      shape="square"
       style={{
-        insetInlineEnd: "-10px",
-        insetBlockEnd: "50%",
+        insetInlineEnd: "-12px",
+        insetBlockEnd: "20%",
       }}
       closeIcon={<DoubleRightOutlined />}
       icon={<DoubleLeftOutlined />}

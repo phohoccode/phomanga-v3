@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface SystemState {
   width: number;
+  loaded: boolean;
+  isVisiable: boolean;
+  lastScrollY: number;
   showDrawerUser: boolean;
   showModalSearch: boolean;
   showModalCategorys: boolean;
@@ -12,8 +15,11 @@ export interface SystemState {
 
 const initialState: SystemState = {
   width: 0,
+  loaded: false,
   showDrawerUser: false,
   showModalSearch: false,
+  isVisiable: true,
+  lastScrollY: 0,
   showModalCategorys: false,
   showModalNotification: false,
   showModalActionsNotification: false,
@@ -46,6 +52,15 @@ export const systemSlice = createSlice({
       state.savingHistory = action.payload;
       localStorage.setItem("saving-history", JSON.stringify(action.payload));
     },
+    setIsVisiable: (state, action) => {
+      state.isVisiable = action.payload;
+    },
+    setLastScrollY: (state, action) => {
+      state.lastScrollY = action.payload;
+    },
+    setLoaded: (state, action) => {
+      state.loaded = action.payload;
+    },
   },
 });
 
@@ -58,6 +73,9 @@ export const {
   setShowModalNotification,
   setSavingHistory,
   setShowModalActionsNotification,
+  setIsVisiable,
+  setLoaded,
+  setLastScrollY,
 } = systemSlice.actions;
 
 export default systemSlice.reducer;

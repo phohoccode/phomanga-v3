@@ -4,8 +4,8 @@ import { Descriptions } from "antd";
 import type { DescriptionsProps } from "antd";
 import { formatDate, removeHTMLTags } from "@/lib/utils";
 import Link from "next/link";
-import ShowMoreText from "../common/ShowMoreText";
 import ActionSaveComic from "./ActionSaveComic";
+import ShowMoreText from "@/components/common/ShowMoreText";
 
 export const SessionInfo = ({ data }: any) => {
   const chapters = data?.chapters?.[0]?.server_data ?? [];

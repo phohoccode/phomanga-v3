@@ -59,36 +59,30 @@ const DeltailComic = () => {
   };
 
   return (
-    <Suspense fallback={<div>Đang tải dữ liệu...</div>}>
-      <Layout>
-        <div className="flex flex-col">
-          {loading ? (
-            <Skeleton.Input size="small" style={{ width: "40%" }} />
-          ) : (
-            <Breadcrumb items={breadcrumbItems} />
-          )}
+    <Layout>
+      <div className="flex flex-col">
+        {loading ? (
+          <Skeleton.Input size="small" style={{ width: "40%" }} />
+        ) : (
+          <Breadcrumb items={breadcrumbItems} />
+        )}
 
-          <ComicTitle
-            title={titlePage}
-            orientation="center"
-            loading={loading}
-          />
+        <ComicTitle title={titlePage} orientation="center" loading={loading} />
 
-          <ComicList data={items} loading={loading} />
+        <ComicList data={items} loading={loading} />
 
-          <Pagination
-            style={{ marginTop: "48px" }}
-            align="center"
-            onChange={handleChangePage}
-            showTitle={true}
-            showSizeChanger={false}
-            current={Number(currentPage)}
-            total={totalItems}
-            pageSize={itemsPerPage}
-          />
-        </div>
-      </Layout>
-    </Suspense>
+        <Pagination
+          style={{ marginTop: "48px" }}
+          align="center"
+          onChange={handleChangePage}
+          showTitle={true}
+          showSizeChanger={false}
+          current={Number(currentPage)}
+          total={totalItems}
+          pageSize={itemsPerPage}
+        />
+      </div>
+    </Layout>
   );
 };
 

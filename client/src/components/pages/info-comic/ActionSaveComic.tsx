@@ -62,6 +62,7 @@ const ActionSaveComic = () => {
     const chaprerLasted = comicInfo?.chapters?.[0]?.server_data;
 
     setIsLoading(true);
+    
     const res: any = await dispatch(
       saveComic({
         userId: session?.user?.id,
