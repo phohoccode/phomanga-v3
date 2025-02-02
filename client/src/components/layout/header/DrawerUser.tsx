@@ -37,7 +37,6 @@ const DrawerUser = () => {
     dispatch(setShowDrawerUser(false));
   };
 
-
   return (
     <Drawer
       placement={width > 1024 ? "right" : "bottom"}
@@ -90,7 +89,7 @@ const DrawerUser = () => {
 export default DrawerUser;
 
 const DrawerTitle = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
 
   return (
     <div className="flex gap-2 justify-end">
@@ -102,8 +101,8 @@ const DrawerTitle = () => {
         }}
         src={
           <Image
-            width={32}
-            height={32}
+            width={36}
+            height={36}
             src={(session?.user?.image as string) ?? "/avatar-default.jpg"}
             alt="avatar"
           />

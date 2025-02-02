@@ -35,6 +35,7 @@ export const userSlice = createSlice({
 
       .addCase(getAllComic.fulfilled, (state, action) => {
         state.savedComics.loading = false;
+        
         if (action.payload.data?.type === "GET_ALL_SAVED_COMIC") {
           state.savedComics.items = action.payload.data?.items;
         }

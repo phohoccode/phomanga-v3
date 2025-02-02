@@ -8,8 +8,9 @@ import {
 import { setCommentIdEdit } from "@/store/slices/commentSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { Button, Input, message } from "antd";
+import { TextAreaRef } from "antd/es/input/TextArea";
 import { useParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const { TextArea } = Input;
@@ -22,6 +23,18 @@ const CommentEditBox = ({ comment }: any) => {
   );
   const params = useParams();
   const [loading, setLoading] = useState(false);
+  const inputRef = useRef<TextAreaRef | null>(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+      // lấy ra thẻ textarea từ inputRef
+      const textArea = inputRef.current.resizableTextArea?.textArea;
+      const length = textArea?.value.length ?? 0;
+      
+      textArea?.focus();
+      textArea?.setSelectionRange(length, length);
+    }
+  }, []);
 
   const handleSaveEditComment = async () => {
     if (value.trim() === "") {
@@ -60,6 +73,7 @@ const CommentEditBox = ({ comment }: any) => {
   return (
     <div className="flex gap-4 w-full">
       <TextArea
+        ref={inputRef}
         variant="filled"
         value={value}
         onChange={(e) => setValue(e.target.value)}

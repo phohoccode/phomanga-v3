@@ -14,17 +14,16 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const ActionSaveComic = () => {
-  const { data: session } = useSession();
+  const { data: session }: any = useSession();
   const [isSave, setIsSave] = useState(false);
   const dispatch: AppDispatch = useDispatch();
-  const { items } = useSelector(
-    (state: RootState) => state.user.savedComics
-  );
+  const { items } = useSelector((state: RootState) => state.user.savedComics);
   const { items: comicInfo } = useSelector(
     (state: RootState) => state.comic.comicInfo
   );
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
+
 
   useEffect(() => {
     const getDataSavedComic = () => {
@@ -54,15 +53,19 @@ const ActionSaveComic = () => {
       return;
     }
 
-    if (items?.length >= 24) {
-      message.error("Bạn chỉ có thể lưu tối đa 24 truyện!");
+    const maxStories = session?.user?.max_stories;
+
+    if (items?.length >= maxStories) {
+      message.info(
+        `Bạn chỉ được lưu tối đa ${maxStories} truyện! Nâng cấp VIP để lưu nhiều hơn!`
+      );
       return;
     }
 
     const chaprerLasted = comicInfo?.chapters?.[0]?.server_data;
 
     setIsLoading(true);
-    
+
     const res: any = await dispatch(
       saveComic({
         userId: session?.user?.id,
@@ -83,7 +86,7 @@ const ActionSaveComic = () => {
     setIsLoading(false);
 
     if (res?.payload?.status === "success") {
-      message.success("Lưu truyện thành công!");
+      message.success("Truyện đã được ném vào kho lưu trữ!");
       await dispatch(
         getAllComic({
           userId: session?.user?.id,
@@ -113,7 +116,7 @@ const ActionSaveComic = () => {
     setIsLoading(false);
 
     if (res?.payload?.status === "success") {
-      message.success("Bỏ lưu truyện thành công!");
+      message.success("Truyện đã bị vứt ra khỏi kho lưu trữ!");
       await dispatch(
         getAllComic({
           userId: session?.user?.id,

@@ -43,6 +43,15 @@ const UserInfo = () => {
     },
     {
       key: "4",
+      label: "Cấp độ VIP",
+      children: session ? (
+        session?.user?.vip_level
+      ) : (
+        <Skeleton.Input style={{ width: 100, height: 24 }} active />
+      ),
+    },
+    {
+      key: "5",
       label: "Thời gian tham gia",
       children: session ? (
         formatDate(session?.user?.created_at)

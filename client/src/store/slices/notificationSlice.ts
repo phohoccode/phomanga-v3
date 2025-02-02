@@ -54,7 +54,7 @@ export const notificationSlice = createSlice({
       })
 
       .addCase(fetchAllNotifications.fulfilled, (state, action) => {
-        const { items, totalItem, type } = action.payload.data;
+        const { items, totalItem, type } = action.payload?.data ?? {};
 
         state.loading = false;
 

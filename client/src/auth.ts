@@ -59,7 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token, profile, account }: any) {
-      
       if (account?.provider === "google") {
         await axios.post("/auth/register", {
           email: profile?.email,
@@ -82,6 +81,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       token.email = response?.user?.email;
       token.name = response?.user?.username;
       token.type_account = response?.user?.type_account;
+      token.vip_level = response?.user?.vip_level;
+      token.max_stories = response?.user?.max_stories;
       token.created_at = response?.user?.created_at;
 
       return token;
@@ -93,6 +94,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       session.user.email = token.email;
       session.user.image = token.picture;
       session.user.role = token.role;
+      session.user.vip_level = token.vip_level;
+      session.user.max_stories = token.max_stories;
       session.user.type_account = token.type_account;
       session.user.created_at = token.created_at;
 

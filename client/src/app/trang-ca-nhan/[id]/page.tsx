@@ -5,7 +5,6 @@ import UserInfo from "@/components/UserInfo";
 const Page = async () => {
   const session = await auth();
 
-
   return (
     <Layout>
       <div className="min-h-screen">
@@ -20,7 +19,9 @@ const Page = async () => {
             marginBottom: "120px",
           }}
         >
-          <div className="absolute lg:-bottom-16 lg:left-[16%] -bottom-16 left-[50%] -translate-x-1/2  border-[4px] border-[#13c2c2] rounded-full overflow-hidden">
+          <div
+            className={`absolute lg:-bottom-16 lg:left-[16%] -bottom-16 left-[50%] -translate-x-1/2  border-[3px] border-[#ccc] rounded-full overflow-hidden`}
+          >
             <img
               loading="lazy"
               src={session?.user?.image ?? "/avatar.jpg"}

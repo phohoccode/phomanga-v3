@@ -6,13 +6,11 @@ export const handleGetSearchHistory = async (userId: string) => {
   try {
     const sql_select = `
       Select * from search_history 
-      where user_id = '${userId}'
+      where user_id = '${userId}' and is_deleted = 0
       order by created_at desc
     `;
 
     const [rows]: any = await connection.promise().query(sql_select);
-
-    console.log(">>> rows", rows);
 
     return {
       status: "success",
@@ -55,7 +53,7 @@ export const handleDeleteSearchHistory = async (
 ) => {
   try {
     const sql_delete = `
-      Delete from search_history 
+      Update search_history set is_deleted = 1
       where user_id = '${userId}' and id = '${searchId}'
     `;
     await connection.promise().query(sql_delete);

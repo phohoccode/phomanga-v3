@@ -21,14 +21,16 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
           u.name AS user_name,
           c.user_id,
           r.name AS role_name,
+          v.level as vip_level,
           COUNT(l.id) AS like_count,
           GROUP_CONCAT(DISTINCT CONCAT(l.user_id, ':', u_liker.name)) AS liked_by_users
       FROM comments c
       JOIN users u ON c.user_id = u.id
       JOIN roles r ON u.role_id = r.id
+      JOIN vip_levels v ON u.vip_level_id = v.id
       LEFT JOIN likes l ON c.id = l.comment_id
       LEFT JOIN users u_liker ON l.user_id = u_liker.id
-      WHERE c.comic_slug = '${comicSlug}'
+      WHERE c.comic_slug = '${comicSlug}' and c.is_deleted = 0
       GROUP BY c.id, c.content, c.created_at, u.name, c.user_id
       ORDER BY c.created_at ${sort}
       LIMIT ${limit} OFFSET ${offset};
@@ -107,7 +109,7 @@ export const handleCreateComment = async (rawData: rawDataCreateComment) => {
 export const handleDeleteComment = async (commentId: string) => {
   try {
     const sql_delete = `
-      Delete from comments 
+      UPDATE comments set is_deleted = 1
       where id = '${commentId}'
     `;
 
