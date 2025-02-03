@@ -10,7 +10,7 @@ import PaginationCT from "@/components/PaginationCT";
 import ButtonDeleteAllComic from "@/components/common/ButtonDeleteAllComic";
 
 const Page = async ({ searchParams }: any) => {
-  const session:any = await auth();
+  const session: any = await auth();
   const params = await searchParams;
   const page = params?.page || 1;
   const pageSize = 24;
@@ -30,7 +30,7 @@ const Page = async ({ searchParams }: any) => {
     <Layout>
       <Breadcrumb items={breakCrumbs} />
 
-      <Divider orientation="center">Kho lưu trữ</Divider>
+      <Divider orientation="center">{`Kho lưu trữ (${totalItems}/${session?.user?.max_stories})`}</Divider>
 
       {items?.length > 0 && (
         <div className="flex justify-end my-8">
@@ -41,7 +41,7 @@ const Page = async ({ searchParams }: any) => {
       <Alert
         type="info"
         showIcon={true}
-        message={`Bạn chỉ được lưu tối đa ${session?.user?.max_stories} truyện! Nâng cấp VIP để lưu nhiều hơn!`}
+        message={`Bạn chỉ có thể lưu tối đa ${session?.user?.max_stories} truyện! Nâng cấp VIP để lưu nhiều hơn!`}
         style={{ margin: "32px 0" }}
         closeIcon
       />

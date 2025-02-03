@@ -63,7 +63,7 @@ const DrawerUser = () => {
         ))}
 
         {session?.user?.role === "admin" && (
-          <li>
+          <li onClick={() => dispatch(setShowDrawerUser(false))}>
             <Link
               className="p-2 flex gap-2 h-[36px] items-center text-base hover:bg-slate-100 hover:text-gray-700 rounded-md transition-all"
               href="/bang-dieu-khien"

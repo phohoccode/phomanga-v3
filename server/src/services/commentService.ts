@@ -38,7 +38,7 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
 
     const sql_select_total = `
       Select count(*) as total from comments
-      where comic_slug = '${comicSlug}'
+      where comic_slug = '${comicSlug}' and is_deleted = 0
     `;
 
     const [rows]: any = await connection.promise().query(sql_select_by_page);

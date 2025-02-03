@@ -58,12 +58,12 @@ export const deteleNotification = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { notificationId, userId } = req.body;
+    const { notificationId } = req.body;
 
-    if (!notificationId || !userId) {
+    if (!notificationId) {
       return res.status(400).json({
         status: "error",
-        message: "NotificationId, userId là bắt buộc",
+        message: "NotificationId là bắt buộc",
       });
     }
 
@@ -81,12 +81,12 @@ export const updateNotification = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { notificationId, title, content, userId } = req.body;
+    const { notificationId, title, content } = req.body;
 
-    if (!notificationId || !title || !content || !userId) {
+    if (!notificationId || !title || !content ) {
       return res.status(400).json({
         status: "error",
-        message: "NotificationId, title, content, userId là bắt buộc",
+        message: "NotificationId, title, content là bắt buộc",
       });
     }
 

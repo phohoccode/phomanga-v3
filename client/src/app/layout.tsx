@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Trang chủ",
+  title: "PHOMANGA-V3 - By phohoccode",
   description: "Website đọc truyện tranh online miễn phí",
   icons: {
     icon: "/logo.ico",

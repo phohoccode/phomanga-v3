@@ -85,13 +85,13 @@ export const handleCreateNotification = async (
     if (rows.affectedRows === 0) {
       return {
         status: "error",
-        message: "Create notification failed",
+        message: "Tạo thông báo thất bại!",
       };
     }
 
     return {
       status: "success",
-      message: "Create notification successfully",
+      message: "Tạo thông báo thành công!",
     };
   } catch (error) {
     console.log(error);
@@ -102,12 +102,12 @@ export const handleCreateNotification = async (
 export const handleDeleteNotification = async (
   rawData: rawDataDeleteNotification
 ) => {
-  const { notificationId, userId } = rawData;
+  const { notificationId } = rawData;
 
   try {
     const sql_delete = `
       UPDATE notification set is_deleted = 1
-      WHERE id = '${notificationId}' and user_id = '${userId}'
+      WHERE id = '${notificationId}' 
     `;
 
     const [rows]: any = await connection.promise().execute(sql_delete);
@@ -115,13 +115,13 @@ export const handleDeleteNotification = async (
     if (rows.affectedRows === 0) {
       return {
         status: "error",
-        message: "Delete notification failed",
+        message: "Xóa thông báo thất bại!",
       };
     }
 
     return {
       status: "success",
-      message: "Delete notification successfully",
+      message: "Xóa thông báo thành công!",
     };
   } catch (error) {
     console.log(error);
@@ -132,13 +132,13 @@ export const handleDeleteNotification = async (
 export const handleUpdateNotification = async (
   rawData: rawDataUpdateNotification
 ) => {
-  const { notificationId, title, content, userId } = rawData;
+  const { notificationId, title, content } = rawData;
 
   try {
     const sql_update = `
       UPDATE notification
       SET title = '${title}', content = '${content}'
-      WHERE id = '${notificationId}' and user_id = '${userId}'
+      WHERE id = '${notificationId}' 
     `;
 
     const [rows]: any = await connection.promise().execute(sql_update);
@@ -146,13 +146,13 @@ export const handleUpdateNotification = async (
     if (rows.affectedRows === 0) {
       return {
         status: "error",
-        message: "Update notification failed",
+        message: "Cập nhật thông báo thất bại!",
       };
     }
 
     return {
       status: "success",
-      message: "Update notification successfully",
+      message: "Cập nhật thông báo thành công!",
     };
   } catch (error) {
     console.log(error);
