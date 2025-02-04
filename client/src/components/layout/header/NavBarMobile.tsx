@@ -84,11 +84,15 @@ const NavBarMobile = () => {
           >
             <Link
               href={href}
-              className={`text-lg flex flex-col gap-2 justify-center items-center h-[60px] hover:text-[#13c2c2] transition-all ${
-                index === currentIndex ? "text-[#13c2c2]" : "text-[#333]"
-              }`}
+              className={`text-lg flex flex-col gap-2 justify-center
+                 items-center h-[60px] hover:text-[#13c2c2] transition-all 
+                 ${index === currentIndex
+                     ? "text-[#13c2c2] border-t border-[#13c2c2]"
+                     : "text-[#333]"
+                 }`}
             >
               {icon}
+
               <span className="text-xs truncate">{label}</span>
             </Link>
           </li>

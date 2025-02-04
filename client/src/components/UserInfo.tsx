@@ -16,7 +16,7 @@ const UserInfo = () => {
       children: session ? (
         session?.user?.name
       ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} active />
+        <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
     },
     {
@@ -25,38 +25,26 @@ const UserInfo = () => {
       children: session ? (
         session?.user?.email
       ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} active />
+        <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
     },
+
     {
       key: "3",
-      label: "Hình thức đăng nhập",
-      children: session ? (
-        session?.user?.type_account === "credentials" ? (
-          "Email và mật khẩu"
-        ) : (
-          "Tài khoản Google"
-        )
-      ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} active />
-      ),
-    },
-    {
-      key: "4",
       label: "Cấp độ VIP",
       children: session ? (
         session?.user?.vip_level
       ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} active />
+        <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
     },
     {
-      key: "5",
+      key: "4",
       label: "Thời gian tham gia",
       children: session ? (
         formatDate(session?.user?.created_at)
       ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} active />
+        <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
     },
   ];

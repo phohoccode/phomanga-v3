@@ -6,6 +6,7 @@ import type { TabsProps } from "antd";
 import SystemNotification from "./SystemNotifcation";
 import UserNotification from "./UserNotification";
 import { useSession } from "next-auth/react";
+import { NotificationOutlined } from "@ant-design/icons";
 
 const ModalNotification = ({
   isModalOpen,
@@ -19,11 +20,11 @@ const ModalNotification = ({
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: "Hệ thống",
+      label: "Từ hệ thống",
       children: <SystemNotification />,
     },
 
-    // Show user notification if user is logged in
+    // Hiển thị khi đã đăng nhập
     ...(session
       ? [
           {
@@ -38,7 +39,11 @@ const ModalNotification = ({
   return (
     <RootModal
       footer={null}
-      title="Thông báo"
+      title={
+        <div className="flex items-center gap-2">
+          <NotificationOutlined /> Thông báo
+        </div>
+      }
       isModalOpen={isModalOpen}
       onCancel={onCancel}
     >

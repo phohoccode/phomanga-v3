@@ -24,12 +24,12 @@ const ButtonDeleteAllComic = ({ type }: { type: string }) => {
 
   const showConfirm = () => {
     confirm({
-      title: "Bạn có chắc chắn muốn xoá tất cả?",
-      content: "Hành động này không thể hoàn tác",
+      title: "Xoá hết thật luôn hả?",
+      content: "Xoá là hết sạch luôn đó nha! Không quay xe được đâu!",
       icon: <ExclamationCircleFilled />,
-      okText: "Xoá",
+      okText: "Xoá hết đi",
       okType: "danger",
-      cancelText: "Hủy",
+      cancelText: "Hủy vội",
       onOk() {
         handleDeleteAllComic();
       },

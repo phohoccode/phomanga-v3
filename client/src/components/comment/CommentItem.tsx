@@ -8,12 +8,10 @@ import { RootState } from "@/store/store";
 import CommentEditBox from "./CommentEditBox";
 import ShowMoreText from "../common/ShowMoreText";
 import { CheckCircleFilled } from "@ant-design/icons";
-import { useSession } from "next-auth/react";
 import { useEffect, useState } from "react";
 
 const CommentItem = ({ comment }: any) => {
   const { commentIdEdit } = useSelector((state: RootState) => state.comment);
-  const { data: session }: any = useSession();
   const [color, setColor] = useState("cyan");
 
   useEffect(() => {
@@ -46,7 +44,7 @@ const CommentItem = ({ comment }: any) => {
       </figure>
 
       <div className="flex flex-col gap-2">
-        <div className="flex  items-center">
+        <div className="flex items-center">
           <span
             className={`"text-base font-semibold ${
               comment.role_name === "admin" ? "text-[#13c2c2]" : ""
@@ -55,14 +53,21 @@ const CommentItem = ({ comment }: any) => {
             {comment?.user_name ?? "Không xác định"}{" "}
             {comment.role_name === "admin" && <CheckCircleFilled />}
           </span>
+
           <Divider type="vertical" />
+          
           <Tag color={color} style={{ margin: 0 }}>
             Vip {comment?.vip_level ?? 0}
           </Tag>
-          <Divider type="vertical" />
-          <span className="text-xs text-gray-600 font-semibold">
-            {formatDate(comment?.created_at)}
-          </span>
+
+          {comment?.chapter !== "" && (
+            <>
+              <Divider type="vertical" />
+              <span className="text-xs text-indigo-700 italic">
+                Chương {comment?.chapter ?? 0}
+              </span>
+            </>
+          )}
         </div>
 
         {commentIdEdit !== comment?.comment_id ? (
@@ -74,10 +79,13 @@ const CommentItem = ({ comment }: any) => {
           <CommentEditBox comment={comment} />
         )}
 
-        <>
-          <Divider style={{ margin: "4px 0" }} />
+        <Divider style={{ margin: "4px 0" }} />
+        <div className="flex items-center justify-between gap-6">
           <CommentActions comment={comment} />
-        </>
+          <span className="text-xs text-gray-600 font-semibold">
+            {formatDate(comment?.created_at)}
+          </span>
+        </div>
       </div>
     </div>
   );

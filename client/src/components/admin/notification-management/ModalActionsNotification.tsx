@@ -45,12 +45,12 @@ const ModalActionsNotification = () => {
     const values = await form.getFieldsValue();
 
     if (!sesstion) {
-      message.error("Vui lòng đăng nhập để thực hiện chức năng này.");
+      message.info("Vui lòng đăng nhập để thực hiện chức năng này.");
       return;
     }
 
     if (!values.title || !values.content) {
-      message.error("Vui lòng nhập đủ thông tin.");
+      message.info("Vui lòng nhập đủ thông tin.");
       return;
     }
 

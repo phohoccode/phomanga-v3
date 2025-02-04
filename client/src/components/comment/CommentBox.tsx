@@ -1,16 +1,14 @@
-import { Divider } from "antd";
 import CommentInput from "./CommentInput";
 import CommentTitle from "./CommentTitle";
 import CommentList from "./CommentList";
 
-const CommentBox = () => {
+const CommentBox = ({ isScroll = false }: { isScroll?: boolean }) => {
   return (
-    <div className="flex flex-col gap-2 mt-12 ">
-      <Divider orientation="left">Bình luận</Divider>
+    <>
       <CommentInput />
       <CommentTitle />
-      <CommentList />
-    </div>
+      <CommentList isScroll={isScroll} />
+    </>
   );
 };
 

@@ -1,14 +1,23 @@
 "use client";
 
 import {
+  setShowModalComment,
+  setShowModalUserFeedback,
+} from "@/store/slices/systemSlice";
+import { AppDispatch } from "@/store/store";
+import {
   ArrowDownOutlined,
   ArrowUpOutlined,
-  DoubleLeftOutlined,
-  DoubleRightOutlined,
+  MessageOutlined,
+  ProductOutlined,
+  WarningOutlined,
 } from "@ant-design/icons";
 import { FloatButton } from "antd";
+import { useDispatch } from "react-redux";
 
 const FloatButtonGroup = () => {
+  const dispatch: AppDispatch = useDispatch();
+
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -20,14 +29,10 @@ const FloatButtonGroup = () => {
   return (
     <FloatButton.Group
       trigger="click"
-      placement="left"
-      shape="square"
-      style={{
-        insetInlineEnd: "-12px",
-        insetBlockEnd: "20%",
-      }}
-      closeIcon={<DoubleRightOutlined />}
-      icon={<DoubleLeftOutlined />}
+      placement="top"
+      shape="circle"
+      tooltip="Chức năng khác"
+      icon={<ProductOutlined />}
     >
       <FloatButton
         onClick={handleScrollTop}
@@ -38,6 +43,16 @@ const FloatButtonGroup = () => {
         onClick={handleScrollBottom}
         tooltip="Cuộn xuống cuối trang"
         icon={<ArrowDownOutlined />}
+      />
+      <FloatButton
+        onClick={() => dispatch(setShowModalComment(true))}
+        tooltip="Bình luận"
+        icon={<MessageOutlined />}
+      />
+      <FloatButton
+        onClick={() => dispatch(setShowModalUserFeedback(true))}
+        tooltip="Báo lỗi truyện"
+        icon={<WarningOutlined />}
       />
     </FloatButton.Group>
   );

@@ -2,7 +2,7 @@
 
 import { setShowDrawerUser } from "@/store/slices/systemSlice";
 import { UserOutlined } from "@ant-design/icons";
-import { Avatar, Tag } from "antd";
+import { Avatar } from "antd";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 

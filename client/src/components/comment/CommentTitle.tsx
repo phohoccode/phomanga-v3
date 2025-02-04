@@ -1,21 +1,25 @@
 "use client";
 
-import { Tag } from "antd";
 import CommentFilter from "./CommentFilter";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { Skeleton } from "antd";
 
 const CommentTitle = () => {
-  const { totalItems } = useSelector((state: RootState) => state.comment);
+  const { totalItems, loading } = useSelector(
+    (state: RootState) => state.comment
+  );
 
   return (
-    <div className="flex justify-between flex-wrap gap-2 items-center mt-4 rounded-md p-4 bg-gray-100">
-      <span className="text-base font-medium">
-        Lượt bình luận{" "}
-        <Tag color="cyan-inverse" style={{ marginLeft: "8px" }}>
-          {totalItems ?? 0}
-        </Tag>
-      </span>
+    <div className="flex justify-between flex-wrap gap-2 items-center my-6 rounded-md p-3 bg-gray-100">
+      {loading ? (
+        <Skeleton.Input style={{ width: 200, height: 18 }} />
+      ) : (
+        <span className="text-base font-medium">
+          {totalItems ?? 0} bình luận
+        </span>
+      )}
+
       {totalItems >= 2 && <CommentFilter />}
     </div>
   );

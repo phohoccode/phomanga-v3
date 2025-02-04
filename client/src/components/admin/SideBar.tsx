@@ -2,6 +2,7 @@
 
 import {
   CommentOutlined,
+  HomeOutlined,
   LogoutOutlined,
   NotificationOutlined,
   UserOutlined,
@@ -12,6 +13,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 const Links = [
+  {
+    label: "Trang chủ",
+    href: "/",
+    icon: <HomeOutlined />,
+  },
   {
     label: "Quản lý người dùng",
     href: "/bang-dieu-khien/quan-ly-nguoi-dung",

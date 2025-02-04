@@ -64,7 +64,9 @@ const SystemNotification = () => {
   }
 
   if (system?.items?.length === 0 && !loading) {
-    return <EmptyData description="Không có thông báo nào tại đây" />;
+    return (
+      <EmptyData description="Thông báo đang ngủ đông! 💤 Thử quay lại sau nhé!" />
+    );
   }
 
   return (
@@ -72,18 +74,16 @@ const SystemNotification = () => {
       <ul className="flex flex-col gap-2 max-h-[50vh] overflow-y-auto pr-2">
         {system?.items?.map((item, index: number) => (
           <li key={index} ref={notifyRef}>
-            <h3 className="lg:text-lg text-base font-semibold truncate">
+            <h3 className="lg:text-base text-sm font-semibold truncate">
               <span className="text-[#13c2c2] mr-2">#</span>
               {item.title}
             </h3>
             <p className="lg:text-base text-sm mt-1">{item.content}</p>
             <div className="flex gap-2 items-center mt-2 text-sm">
               <span className="text-xs">
-                Đăng bởi{" "}
-                <span className="text-[#13c2c2] break-words text-xs">
-                  <a href="#">
-                    {"Admin"} <CheckCircleFilled />
-                  </a>
+                Đăng bởi
+                <span className="text-[#13c2c2] break-words text-xs italic ml-2">
+                  {"Admin"} <CheckCircleFilled />
                 </span>
               </span>
               ·<span>{formatDate(item?.created_at)}</span>

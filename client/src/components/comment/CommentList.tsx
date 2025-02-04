@@ -13,7 +13,7 @@ import { getComments } from "@/store/asyncThunk/commentAsyncThunk";
 import { setCurrentPage } from "@/store/slices/commentSlice";
 import { socket } from "@/lib/socket";
 
-const CommentList = () => {
+const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const { items, loading, totalItems, sort } = useSelector(
     (state: RootState) => state.comment
   );
@@ -67,12 +67,18 @@ const CommentList = () => {
   }
 
   if (items?.length === 0) {
-    return <EmptyData description="Chưa có bình luận nào tại đây" />;
+    return (
+      <EmptyData description="Có vẻ như mọi người đang tập trung vào câu chuyện hơn là viết bình luận!" />
+    );
   }
 
   return (
     <>
-      <ul className="flex flex-col gap-6 mt-4">
+      <ul
+        className={`flex flex-col gap-6 mt-4 ${
+          isScroll ? "max-h-60 overflow-y-auto" : ""
+        }`}
+      >
         {items?.map((comment, index) => (
           <li key={index} className="flex gap-4">
             <CommentItem comment={comment} />

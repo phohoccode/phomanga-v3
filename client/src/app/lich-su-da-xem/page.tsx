@@ -39,7 +39,10 @@ const Page = async ({ searchParams }: any) => {
       </div>
 
       <Suspense key={page} fallback={<Loading />}>
-        <ComicList data={items} description="Lịch sử xem đang trống" />
+        <ComicList
+          data={items}
+          description="Lịch sử xem vắng hơn tiệm net lúc cúp điện! ⚡"
+        />
         {totalItems > pageSize && (
           <PaginationCT
             total={totalItems}

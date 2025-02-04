@@ -1,5 +1,6 @@
 "use client";
 
+import { store } from "@/lib/utils";
 import { setSavingHistory } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
 import { PauseOutlined, PlayCircleOutlined } from "@ant-design/icons";
@@ -12,7 +13,7 @@ const ButtonPauseSavingHistory = () => {
   const dispatch: AppDispatch = useDispatch();
 
   useEffect(() => {
-    const isSave = localStorage.getItem("savingHistory") ?? true;
+    const isSave = store.get("saving-history") ?? true;
     dispatch(setSavingHistory(isSave));
   }, []);
 

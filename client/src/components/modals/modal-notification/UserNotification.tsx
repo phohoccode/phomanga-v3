@@ -81,7 +81,7 @@ const UserNotification = () => {
   }
 
   if (user?.items?.length === 0 && !loading) {
-    return <EmptyData description="Không có thông báo nào tại đây" />;
+    return <EmptyData description="Yên tĩnh ghê! Không có thông báo nào!" />;
   }
 
   return (

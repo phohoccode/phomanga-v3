@@ -25,7 +25,7 @@ export type comicCategory = {
 };
 
 export type RootModal = {
-  title: string | React.ReactNode;
+  title: string | React.ReactNode | null;
   isModalOpen: boolean;
   children: React.ReactNode;
   closeIcon?: React.ReactNode | null;
@@ -132,5 +132,3 @@ export type GetComments = {
   limit: number;
   sort: "asc" | "desc";
 };
-
-

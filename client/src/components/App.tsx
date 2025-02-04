@@ -3,10 +3,11 @@
 import {
   setIsVisiable,
   setLastScrollY,
-  setLoaded,
   setShowModalCategorys,
+  setShowModalComment,
   setShowModalNotification,
   setShowModalSearch,
+  setShowModalUserFeedback,
   setWidth,
 } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
@@ -20,14 +21,22 @@ import ModalSearch from "./modals/modal-search/ModalSearch";
 import ModalCategorys from "./modals/ModalCategorys";
 import ModalNotification from "./modals/modal-notification/ModalNotification";
 import DrawerUser from "./layout/header/DrawerUser";
+import ModalComment from "./modals/ModalComment";
+import ModalUserFeedback from "./modals/ModalUserFeedback";
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
   const { lastScrollY } = useSelector((state: RootState) => state.system);
+  const {
+    showModalCategorys,
+    showModalNotification,
+    showModalSearch,
+    showModalComment,
+    showModalUserFeedback
+  } = useSelector((state: RootState) => state.system);
 
   useEffect(() => {
     dispatch(setWidth(window.innerWidth));
-    dispatch(setLoaded(true));
   }, []);
 
   useEffect(() => {
@@ -59,16 +68,6 @@ const App = ({ children }: { children: React.ReactNode }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
 
-  const showModalCategorys = useSelector(
-    (state: RootState) => state.system.showModalCategorys
-  );
-  const showModalSearch = useSelector(
-    (state: RootState) => state.system.showModalSearch
-  );
-  const showModalNotification = useSelector(
-    (state: RootState) => state.system.showModalNotification
-  );
-
   return (
     <DisplayNotification>
       <NavBar />
@@ -94,6 +93,16 @@ const App = ({ children }: { children: React.ReactNode }) => {
       <ModalNotification
         isModalOpen={showModalNotification}
         onCancel={() => dispatch(setShowModalNotification(false))}
+      />
+
+      <ModalComment
+        isModalOpen={showModalComment}
+        onCancel={() => dispatch(setShowModalComment(false))}
+      />
+
+      <ModalUserFeedback
+        isModalOpen={showModalUserFeedback}
+        onCancel={() => dispatch(setShowModalUserFeedback(false))}
       />
     </DisplayNotification>
   );

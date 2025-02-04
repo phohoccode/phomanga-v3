@@ -1,8 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { store } from "@/lib/utils";
 
 export interface SystemState {
   width: number;
-  loaded: boolean;
   isVisiable: boolean;
   lastScrollY: number;
   showDrawerUser: boolean;
@@ -10,12 +10,13 @@ export interface SystemState {
   showModalCategorys: boolean;
   showModalNotification: boolean;
   showModalActionsNotification: boolean;
+  showModalComment: boolean;
+  showModalUserFeedback: boolean;
   savingHistory: boolean;
 }
 
 const initialState: SystemState = {
   width: 0,
-  loaded: false,
   showDrawerUser: false,
   showModalSearch: false,
   isVisiable: true,
@@ -23,6 +24,8 @@ const initialState: SystemState = {
   showModalCategorys: false,
   showModalNotification: false,
   showModalActionsNotification: false,
+  showModalComment: false,
+  showModalUserFeedback: false,
   savingHistory: true,
 };
 
@@ -50,7 +53,7 @@ export const systemSlice = createSlice({
     },
     setSavingHistory: (state, action) => {
       state.savingHistory = action.payload;
-      localStorage.setItem("saving-history", JSON.stringify(action.payload));
+      store.set("saving-history", action.payload);
     },
     setIsVisiable: (state, action) => {
       state.isVisiable = action.payload;
@@ -58,8 +61,11 @@ export const systemSlice = createSlice({
     setLastScrollY: (state, action) => {
       state.lastScrollY = action.payload;
     },
-    setLoaded: (state, action) => {
-      state.loaded = action.payload;
+    setShowModalComment: (state, action) => {
+      state.showModalComment = action.payload;
+    },
+    setShowModalUserFeedback: (state, action) => {
+      state.showModalUserFeedback = action.payload;
     },
   },
 });
@@ -74,8 +80,9 @@ export const {
   setSavingHistory,
   setShowModalActionsNotification,
   setIsVisiable,
-  setLoaded,
   setLastScrollY,
+  setShowModalComment,
+  setShowModalUserFeedback,
 } = systemSlice.actions;
 
 export default systemSlice.reducer;

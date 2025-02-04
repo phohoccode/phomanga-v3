@@ -28,7 +28,9 @@ const ComicList = ({
   const { data: session } = useSession();
   const router = useRouter();
   const pathname = usePathname();
-  const { width } = useSelector((state: RootState) => state.system);
+  const width = useSelector((state: RootState) => state.system.width);
+
+  data = pathname === "/" && width < 1024 ? data.slice(0, 8) : data;
 
   const handleDeleteComic = async (slug?: string, id?: string) => {
     let res: any = null;

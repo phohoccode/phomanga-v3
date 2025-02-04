@@ -6,7 +6,7 @@ import {
   saveComic,
 } from "@/store/asyncThunk/userAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { BookOutlined } from "@ant-design/icons";
+import { BookOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Button, message, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
@@ -23,7 +23,6 @@ const ActionSaveComic = () => {
   );
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
-
 
   useEffect(() => {
     const getDataSavedComic = () => {
@@ -130,7 +129,7 @@ const ActionSaveComic = () => {
   };
 
   return (
-    <Tooltip placement="top" title={isSave ? "Bỏ lưu" : "Lưu truyện"}>
+    <Tooltip placement="top" title={isSave ? "Bỏ vội!" : "Lưu ngay thôi!"}>
       {!isSave ? (
         <Button
           loading={isLoading}
@@ -143,7 +142,7 @@ const ActionSaveComic = () => {
         <Button
           loading={isLoading}
           onClick={() => handleDeleteComic()}
-          icon={<BookOutlined />}
+          icon={<DeleteOutlined />}
           variant="filled"
           color="red"
         />

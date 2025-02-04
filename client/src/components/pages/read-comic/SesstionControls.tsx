@@ -57,9 +57,11 @@ const SessionControls = ({
 
   return (
     <div
-      className={`flex items-center justify-center mt-8 lg:sticky lg:top-0 lg:z-50 ${
-        location === "top" && "flex-col gap-2 rounded-lg bg-gray-100 p-4"
-      }`}
+      className={`flex items-center justify-center mt-8 transition-all duration-300 lg:top-0
+        ${
+          location === "top" ? "flex-col gap-2 rounded-lg bg-gray-100 p-4" : ""
+        } 
+        lg:sticky left-0 right-0 lg:z-50`}
     >
       {location === "top" && (
         <Typography.Title level={4} style={{ color: "#13c2c2" }}>

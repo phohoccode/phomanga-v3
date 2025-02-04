@@ -54,6 +54,7 @@ const ModalSearch = ({
     }
     router.push(`/tim-kiem?keyword=${value}&page=1`);
     dispatch(setShowModalSearch(false));
+    setKeyword("");
 
     if (session?.user?.id) {
       dispatch(addSearchHistory({ userId: session?.user?.id, keyword: value }));

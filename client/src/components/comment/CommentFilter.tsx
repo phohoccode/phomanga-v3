@@ -18,11 +18,23 @@ const CommentFilter = () => {
   const router = useRouter();
 
   const handleChangeSort = (sort: "asc" | "desc") => {
-    const url = new URLSearchParams(searchParams.toString());
+    const urlSearch = new URLSearchParams(searchParams.toString());
+    let patname = window.location.pathname;
 
-    url.delete("sort");
-    url.set("sort", sort);
-    router.push(`${params?.slug}?${url.toString()}`);
+    urlSearch.delete("sort");
+    urlSearch.set("sort", sort);
+
+    patname = patname.startsWith("/thong-tin-truyen")
+      ? "/thong-tin-truyen"
+      : "/dang-xem";
+
+    if (params?.slug && params?.id) {
+      router.push(
+        `${patname}/${params?.slug}/${params?.id}?${urlSearch.toString()}`
+      );
+    } else {
+      router.push(`${patname}/${params?.slug}?${urlSearch.toString()}`);
+    }
 
     dispatch(setSort(sort));
   };

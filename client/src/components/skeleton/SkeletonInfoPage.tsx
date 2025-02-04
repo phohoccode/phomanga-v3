@@ -11,7 +11,8 @@ const SkeletonInfoPage = () => {
             <div className="flex flex-col items-center lg:items-start gap-4">
               <Skeleton.Node style={{ width: "200px", height: "260px" }} />
               <div className="flex gap-2 w-full justify-center">
-                <Skeleton.Button style={{ width: "120px" }} />
+                <Skeleton.Button />
+                <Skeleton.Button />
                 <Skeleton.Button />
               </div>
             </div>

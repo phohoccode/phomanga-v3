@@ -10,11 +10,7 @@ import {
 import { createNotification } from "@/store/asyncThunk/notificationAsyncThunk";
 import { setCommentIdEdit } from "@/store/slices/commentSlice";
 import { AppDispatch, RootState } from "@/store/store";
-import {
-  DashOutlined,
-  LikeFilled,
-  LikeOutlined,
-} from "@ant-design/icons";
+import { DashOutlined, LikeFilled, LikeOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps, message } from "antd";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
@@ -48,7 +44,7 @@ const CommentActions = ({ comment }: any) => {
       );
 
       if (response.payload?.status === "success") {
-        message.success("Xoá bình luận thành công!");
+        message.success("Ú òa! Bình luận đã bay màu! 🚀");
 
         handleGetComments();
 
@@ -62,7 +58,6 @@ const CommentActions = ({ comment }: any) => {
   };
 
   const handleActionsLike = async (action: string) => {
-    
     if (!sesstion) {
       message.info("Bạn cần đăng nhập để thực hiện nhé!");
       return;

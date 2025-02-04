@@ -42,7 +42,7 @@ export const createComment = async (
     if (!userId || !content || !comicSlug) {
       return res.status(400).json({
         status: "error",
-        message: "userId, content và comicSlug là bắt buộc!",
+        message: "userId, content, comicSlug là bắt buộc!",
       });
     }
 

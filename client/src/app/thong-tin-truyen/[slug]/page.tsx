@@ -13,7 +13,7 @@ import {
   fetchComicInfo,
 } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { Breadcrumb, Col, Row } from "antd";
+import { Breadcrumb, Col, Divider, Row } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
@@ -73,7 +73,10 @@ const Page = () => {
         <Col lg={24} xl={18} md={24} sm={24} xs={24}>
           <SessionInfo data={items} />
           <SessionChapter data={items} />
-          <CommentBox />
+          <div className="flex flex-col gap-2 mt-12">
+            <Divider orientation="left">Bình luận</Divider>
+            <CommentBox />
+          </div>
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>
           <ComicSuggesion title="Gợi ý ngẫu nhiên" />

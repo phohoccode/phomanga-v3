@@ -21,13 +21,19 @@ export const randomItemFromArray = (arr: any[]) => {
   return arr[Math.floor(Math.random() * arr.length)];
 };
 
-export const scrollToBottom = (
-  ref: React.RefObject<HTMLUListElement> | null
-): void => {
-  if (ref?.current) {
-    const lastItem = ref?.current.lastElementChild;
-    if (lastItem) {
-      lastItem.scrollIntoView({ behavior: "smooth" });
-    }
-  }
+export const store = {
+  get: (key: string) => {
+    return JSON.parse(localStorage.getItem(key) as string);
+  },
+  set: (key: string, value: string | number | object) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+};
+
+export const detachedText = (
+  text: string,
+  character: string,
+  position: "start" | "end"
+) => {
+  return text.split(character)[position === "start" ? 0 : text.length - 1];
 };

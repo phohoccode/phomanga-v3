@@ -17,9 +17,10 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
       SELECT 
           c.id AS comment_id,
           c.content,
+          c.user_id,
+          c.chapter,
           CONVERT_TZ(c.created_at, '+00:00', '+07:00') AS created_at,
           u.name AS user_name,
-          c.user_id,
           r.name AS role_name,
           v.level as vip_level,
           COUNT(l.id) AS like_count,
@@ -78,13 +79,15 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
 
 export const handleCreateComment = async (rawData: rawDataCreateComment) => {
   try {
-    const { userId, content, comicSlug } = rawData;
+    const { userId, content, comicSlug, chapter } = rawData;
 
     const id = uuidv4();
 
     const sql_insert = `
-      Insert into comments (id, user_id, content, comic_slug)
-      values ('${id}', '${userId}', '${content}', '${comicSlug}')
+      Insert into comments (id, user_id, content, comic_slug, chapter)
+      values ('${id}', '${userId}', '${content}', '${comicSlug}', '${
+      chapter ?? ""
+    }')
     `;
 
     const response: any = await connection.promise().query(sql_insert);

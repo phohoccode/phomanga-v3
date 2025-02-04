@@ -52,6 +52,7 @@ export type rawDataCreateComment = {
   userId: string;
   content: string;
   comicSlug: string;
+  chapter: string;
 };
 
 export type rawDataUpdateComment = {

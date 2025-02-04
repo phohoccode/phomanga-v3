@@ -20,7 +20,7 @@ const Page = async ({ searchParams }: any) => {
     "GET_ALL_SAVED_COMIC"
   );
   const items = response?.data?.items;
-  const totalItems = response?.data?.totalItems;
+  const totalItems = response?.data?.totalItems ?? 0;
   const breakCrumbs = [
     { title: <Link href="/">Trang chủ</Link> },
     { title: "Kho lưu trữ" },
@@ -47,7 +47,10 @@ const Page = async ({ searchParams }: any) => {
       />
 
       <Suspense key={page} fallback={<Loading />}>
-        <ComicList data={items} description="Kho lưu trữ của bạn đang trống" />
+        <ComicList
+          data={items}
+          description="Không có gì ở đây cả! Đi săn truyện về thôi! 🚀"
+        />
         {totalItems > pageSize && (
           <PaginationCT
             total={totalItems}

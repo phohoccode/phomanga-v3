@@ -1,5 +1,6 @@
 import connection from "../database/mysql";
 import { error_server } from "../lib/define";
+import { v4 as uuidv4 } from "uuid";
 
 export const handleGetUserByEmail = async (
   email: string,
@@ -34,6 +35,34 @@ export const handleGetUserByEmail = async (
       status: "success",
       message: "Lấy thông tin người dùng thành công!",
       user: rows?.[0],
+    };
+  } catch (error) {
+    console.log(error);
+    return error_server;
+  }
+};
+
+export const handleAddFeedback = async (rawData: any) => {
+  const { userId, title, description } = rawData;
+
+  try {
+    const sql_insert = `
+      Insert into user_feedback (id, user_id, title, description)
+      values ('${uuidv4()}', '${userId}', '${title}', '${description}')
+    `;
+
+    const response: any = await connection.promise().query(sql_insert);
+
+    if (response?.[0]?.affectedRows === 0) {
+      return {
+        status: "error",
+        message: "Gửi phản hồi thất bại!",
+      };
+    }
+
+    return {
+      status: "success",
+      message: "Gửi phản hồi thành công!",
     };
   } catch (error) {
     console.log(error);

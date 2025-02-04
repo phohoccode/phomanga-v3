@@ -22,15 +22,18 @@ export const createComment = createAsyncThunk(
     userId,
     content,
     comicSlug,
+    chapter,
   }: {
     userId: string;
     content: string;
     comicSlug: string;
+    chapter?: string;
   }) => {
     const response = await axios.post("/comment/add-comment", {
       userId,
       content,
       comicSlug,
+      chapter: chapter ?? null,
     });
 
     return response;

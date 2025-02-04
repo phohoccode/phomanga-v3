@@ -6,14 +6,17 @@ import { formatDate, removeHTMLTags } from "@/lib/utils";
 import Link from "next/link";
 import ActionSaveComic from "./ActionSaveComic";
 import ShowMoreText from "@/components/common/ShowMoreText";
+import { color } from "@/lib/defind";
+import ButtonUserFeedback from "./ButtonUserFeedback";
 
 export const SessionInfo = ({ data }: any) => {
   const chapters = data?.chapters?.[0]?.server_data ?? [];
   const authors = data?.author?.map((item: any) => item);
-  const categories = data?.category?.map((item: any) => {
+
+  const categories = data?.category?.map((item: any, index: number) => {
     return (
       <Link key={item?.id} href={`/chi-tiet/the-loai/${item?.slug}`}>
-        <Tag color="blue"> {item?.name ?? "Không xác định"}</Tag>
+        <Tag color={color[index]}> {item?.name ?? "Không xác định"}</Tag>
       </Link>
     );
   });
@@ -85,10 +88,12 @@ export const SessionInfo = ({ data }: any) => {
                 icon={<EyeOutlined />}
                 iconPosition="start"
               >
-                Đọc ngay
+                Xem ngay
               </Button>
             </Link>
             <ActionSaveComic />
+
+            <ButtonUserFeedback />
           </div>
         )}
       </div>

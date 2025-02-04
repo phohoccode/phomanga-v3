@@ -30,7 +30,7 @@ const CommentEditBox = ({ comment }: any) => {
       // lấy ra thẻ textarea từ inputRef
       const textArea = inputRef.current.resizableTextArea?.textArea;
       const length = textArea?.value.length ?? 0;
-      
+
       textArea?.focus();
       textArea?.setSelectionRange(length, length);
     }
@@ -52,7 +52,7 @@ const CommentEditBox = ({ comment }: any) => {
     setLoading(false);
 
     if (response.payload?.status === "success") {
-      message.success("Cập nhật bình luận thành công!");
+      message.success("Cập nhật xong, sẵn sàng nhận like thôi! 😎");
       dispatch(setCommentIdEdit(""));
 
       dispatch(

@@ -48,7 +48,9 @@ const SearchHistory = ({ keyword }: { keyword: string }) => {
   if (keyword?.trim() !== "") return null;
 
   if (items?.length === 0 && !loading) {
-    return <EmptyData description="Lịch sử tìm kiếm trống!" />;
+    return (
+      <EmptyData description="Không có gì để xem lại… Chắc bạn vừa dọn dẹp ký ức? 🧹" />
+    );
   }
 
   return (

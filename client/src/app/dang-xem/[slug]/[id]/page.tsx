@@ -28,7 +28,7 @@ const Page = () => {
   const { savingHistory } = useSelector((state: RootState) => state.system);
   const { data: session } = useSession();
   const { items } = useSelector((state: RootState) => state.comic.comicInfo);
-  const width = useSelector((state: RootState) => state.system.width);
+  const { width, isVisiable } = useSelector((state: RootState) => state.system);
   const breadCrumb = [
     { title: <Link href="/">Trang chủ</Link> },
     { title: "Đang xem" },
@@ -95,15 +95,12 @@ const Page = () => {
     <Layout>
       <div className="flex flex-col gap-2">
         <Breadcrumb items={breadCrumb} />
-
         <SesstionControls
           location="top"
           dataInfoComic={items}
           dataChapterComic={item}
         />
-
         <SessionImage item={item} />
-
         {width < 1024 && (
           <SesstionControls
             location="bottom"
@@ -112,7 +109,7 @@ const Page = () => {
           />
         )}
 
-        <FloatButtonGroup />
+        {!isVisiable && <FloatButtonGroup />}
       </div>
     </Layout>
   );

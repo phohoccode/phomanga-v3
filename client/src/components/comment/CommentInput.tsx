@@ -8,7 +8,7 @@ import {
 import { AppDispatch, RootState } from "@/store/store";
 import { Button, Input, message } from "antd";
 import { useSession } from "next-auth/react";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -18,11 +18,13 @@ const CommentInput = () => {
   const [value, setValue] = useState("");
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
+  const pathname = usePathname();
   const { data: sesstion } = useSession();
   const [loading, setLoading] = useState(false);
   const { sort } = useSelector((state: RootState) => state.comment);
+  const { item } = useSelector((state: RootState) => state.comic.imagesComic);
 
-  const handleComment = async () => {
+  const handleCreateComment = async () => {
     if (!sesstion?.user) {
       message.info("Bạn cần đăng nhập để bình luận nhé!");
       return;
@@ -33,18 +35,23 @@ const CommentInput = () => {
       return;
     }
 
+    const chapterName = pathname.startsWith("/thong-tin-truyen")
+      ? ""
+      : item?.chapter_name;
+
     setLoading(true);
     const response: any = await dispatch(
       createComment({
         userId: sesstion?.user?.id as string,
         content: value,
         comicSlug: params.slug as string,
+        chapter: chapterName,
       })
     );
     setLoading(false);
 
     if (response.payload?.status === "success") {
-      message.success("Cảm ơn bạn đã bình luận!");
+      message.success("Ting! Bình luận của bạn đã cập bến an toàn 😎");
       setValue("");
 
       dispatch(
@@ -59,6 +66,8 @@ const CommentInput = () => {
       socket.emit("newComment", {
         slug: params?.slug,
       });
+    } else {
+      message.error("Có lỗi xảy ra! Vui lòng thử lại sau  🥺");
     }
   };
 
@@ -71,7 +80,7 @@ const CommentInput = () => {
         autoSize={{ minRows: 3, maxRows: 5 }}
       />
       <Button
-        onClick={handleComment}
+        onClick={handleCreateComment}
         loading={loading}
         color="cyan"
         variant="solid"

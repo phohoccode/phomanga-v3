@@ -75,3 +75,24 @@ export const deleteSearchHistory = createAsyncThunk(
     return response;
   }
 );
+
+export const createUserFeedback = createAsyncThunk(
+  "user/createUserFeedback",
+  async ({
+    userId,
+    title,
+    description,
+  }: {
+    userId: string;
+    title: string;
+    description: string;
+  }) => {
+    const response = await axios.post(`/user/add-feedback`, {
+      userId,
+      title,
+      description,
+    });
+
+    return response;
+  }
+);

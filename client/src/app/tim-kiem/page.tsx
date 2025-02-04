@@ -8,6 +8,7 @@ import { isPositiveInteger } from "@/lib/utils";
 import { fetchSearchComic } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { Breadcrumb, Pagination, Skeleton } from "antd";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +29,7 @@ const Search = () => {
     (state: RootState) => state.comic.searchComic
   );
   const breadCrumb = [
-    { title: "Trang chủ", href: "/" },
+    { title: <Link href="/">Trang chủ</Link> },
     { title: "Tìm kiếm" },
     { title: titlePage },
   ];
@@ -56,7 +57,9 @@ const Search = () => {
   };
 
   if (items.length === 0 && !loading) {
-    return <EmptyData description="Không tìm thấy truyện phù hợp!" />;
+    return (
+      <EmptyData description="Có vẻ như truyện bạn tìm chưa xuất hiện... thử một truyện khác xem sao!" />
+    );
   }
 
   return (
