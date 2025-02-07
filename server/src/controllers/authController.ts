@@ -37,12 +37,12 @@ const userLogin = async (req: Request, res: Response): Promise<any> => {
 
 const registerAccount = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { email, name, typeAccount } = req.body;
+    const { email, name, typeAccount, avatar } = req.body;
 
-    if (!email || !name || !typeAccount) {
+    if (!email || !name || !typeAccount || !avatar) {
       return res.status(500).json({
         status: "error",
-        message: "Email, name và typeAccount là bắt buộc",
+        message: "Email, name typeAccount và avatar là bắt buộc",
       });
     }
 

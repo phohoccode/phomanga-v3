@@ -26,8 +26,12 @@ const handleGetAllComic = async (rawData: rawDataGetComic) => {
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
     );
 
-    const items = data?.[0]?.comics?.slice(skip, skip + itemsPerPage);
-    const totalItems = data?.[0]?.comics?.length;
+    const finalData = data?.[0]?.comics?.filter(
+      (item: any) => item.is_deleted === false
+    );
+
+    const items = finalData?.slice(skip, skip + itemsPerPage);
+    const totalItems = finalData?.length;
 
     return {
       status: "success",
@@ -60,41 +64,28 @@ const handleSaveComic = async (rawData: rawDataSaveComic) => {
           : new ViewedComic({ userId, comics: [] });
     }
 
-    let isExist = false;
-
-    if (type === "SAVED_COMIC") {
-      isExist = res?.comics?.some(
-        (comic: any) => comic.slug === dataComic?.slug
-      );
-    } else if (type === "VIEWED_COMIC") {
-      isExist = res?.comics?.some((comic: any) => comic.id === dataComic?.id);
-    }
-
-    if (isExist) {
-      return {
-        status: "error",
-        error_code: "error-exist-comic",
-        message: "Truyện đã tồn tại trong hệ thống!",
-      };
-    }
-
-    if (!isExist) {
-      res?.comics?.push(dataComic);
-      const data = await res?.save();
-
-      if (!data) {
-        return {
-          status: "error",
-          error_code: "error-save-comic",
-          message: "Lưu truyện thất bại",
-        };
+    const indexComicExist = res?.comics?.findIndex((comic: any) => {
+      if (type === "SAVED_COMIC") {
+        return comic.slug === dataComic?.slug;
+      } else if (type === "VIEWED_COMIC") {
+        return comic.id === dataComic?.id;
       }
+    });
 
-      return {
-        status: "success",
-        message: "Lưu truyện thành công",
-      };
+    if (indexComicExist !== -1) {
+      res.comics[indexComicExist].is_deleted = false;
+    } else {
+      res.comics.push(dataComic);
     }
+
+    res.markModified("comics");
+
+    await res.save();
+
+    return {
+      status: "success",
+      message: "Lưu truyện thành công",
+    };
   } catch (error) {
     console.log(error);
     return error_server;
@@ -110,13 +101,17 @@ const handleDeleteComic = async (rawData: rawDataDeleteComic) => {
         ? await SavedComic.findOne({ userId })
         : await ViewedComic.findOne({ userId });
 
-    if (type === "SAVED_COMIC") {
-      data.comics = data?.comics.filter(
-        (comic: any) => comic.slug !== comicSlug
-      );
-    } else if (type === "VIEWED_COMIC") {
-      data.comics = data?.comics.filter((comic: any) => comic.id !== comicId);
-    }
+    const indexComicDelete = data?.comics?.findIndex((comic: any) => {
+      if (type === "SAVED_COMIC") {
+        return comic.slug === comicSlug;
+      } else if (type === "VIEWED_COMIC") {
+        return comic.id === comicId;
+      }
+    });
+
+    data.comics[indexComicDelete].is_deleted = true;
+
+    data.markModified("comics");
 
     await data.save();
 
@@ -142,9 +137,19 @@ const handleDeleteAllComic = async (rawData: rawDataDeleteAllComic) => {
   try {
     const { userId, type } = rawData;
 
+    let data: any = null;
+
     type === "SAVED_COMIC"
-      ? await SavedComic.deleteOne({ userId })
-      : await ViewedComic.deleteOne({ userId });
+      ? (data = await SavedComic.findOne({ userId }))
+      : (data = await ViewedComic.findOne({ userId }));
+
+    data.comics?.forEach((comic: any) => {
+      comic.is_deleted = true;
+    });
+
+    data.markModified("comics");
+
+    await data.save();
 
     return {
       status: "success",

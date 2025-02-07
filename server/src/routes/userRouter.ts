@@ -1,9 +1,12 @@
 import express from "express";
-import { addFeedback, getUserByEmail } from "../controllers/userController";
+import {
+  addFeedback,
+  getUserInfo,
+} from "../controllers/userController";
 
 const route = express.Router();
 
-route.post("/get-user", getUserByEmail);
-route.post('/add-feedback', addFeedback);
+route.post("/get-user-info", getUserInfo);
+route.post("/add-feedback", addFeedback);
 
 export default route;

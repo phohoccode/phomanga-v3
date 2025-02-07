@@ -7,6 +7,7 @@ const RootModal = ({
   children,
   closeIcon,
   footer,
+  width,
   onCancel,
   onOk,
 }: RootModal) => {
@@ -20,14 +21,16 @@ const RootModal = ({
       onOk={onOk}
       closeIcon={closeIcon}
       footer={footer}
-      width={{
-        xs: "90%",
-        sm: "80%",
-        md: "70%",
-        lg: "60%",
-        xl: "45%",
-        xxl: "40%",
-      }}
+      width={
+        width ?? {
+          xs: "90%",
+          sm: "80%",
+          md: "70%",
+          lg: "60%",
+          xl: "45%",
+          xxl: "40%",
+        }
+      }
     >
       {children}
     </Modal>

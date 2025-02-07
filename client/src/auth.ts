@@ -59,19 +59,24 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token, profile, account }: any) {
+      console.log("profile", profile);
+
       if (account?.provider === "google") {
         await axios.post("/auth/register", {
           email: profile?.email,
           name: profile?.name,
+          avatar: profile?.picture,
           typeAccount: "google",
         });
 
         token.type_account = "google";
+        token.picture = profile?.picture;
       } else if (account?.provider === "credentials") {
         token.type_account = "credentials";
+        token.picture = "/images/avatar.jpg";
       }
 
-      const response: any = await axios.post("/user/get-user", {
+      const response: any = await axios.post("/user/get-user-info", {
         email: token?.email,
         typeAccount: account?.provider ?? token?.type_account,
       });

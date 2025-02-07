@@ -4,10 +4,10 @@ import { Descriptions } from "antd";
 import type { DescriptionsProps } from "antd";
 import { formatDate, removeHTMLTags } from "@/lib/utils";
 import Link from "next/link";
-import ActionSaveComic from "./ActionSaveComic";
+import ActionComic from "./button/ActionComic";
 import ShowMoreText from "@/components/common/ShowMoreText";
 import { color } from "@/lib/defind";
-import ButtonUserFeedback from "./ButtonUserFeedback";
+import UserFeedback from "./button/UserFeedback";
 
 export const SessionInfo = ({ data }: any) => {
   const chapters = data?.chapters?.[0]?.server_data ?? [];
@@ -91,9 +91,9 @@ export const SessionInfo = ({ data }: any) => {
                 Xem ngay
               </Button>
             </Link>
-            <ActionSaveComic />
+            <ActionComic />
 
-            <ButtonUserFeedback />
+            <UserFeedback />
           </div>
         )}
       </div>

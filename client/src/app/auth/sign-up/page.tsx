@@ -40,6 +40,7 @@ const Page = () => {
       name: values.name,
       otp: values.code,
       typeAccount: "credentials",
+      avatar: "/images/avatar.jpg",
     });
     setLoadingRegister(false);
 

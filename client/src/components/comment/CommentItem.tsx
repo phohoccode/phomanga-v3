@@ -1,6 +1,6 @@
 "use client";
 
-import { Divider, Tag } from "antd";
+import { Divider, Tag, Tooltip } from "antd";
 import CommentActions from "./CommentActions";
 import { formatDate } from "@/lib/utils";
 import { useSelector } from "react-redux";
@@ -9,6 +9,7 @@ import CommentEditBox from "./CommentEditBox";
 import ShowMoreText from "../common/ShowMoreText";
 import { CheckCircleFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
+import Link from "next/link";
 
 const CommentItem = ({ comment }: any) => {
   const { commentIdEdit } = useSelector((state: RootState) => state.comment);
@@ -45,17 +46,20 @@ const CommentItem = ({ comment }: any) => {
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center">
-          <span
-            className={`"text-base font-semibold ${
-              comment.role_name === "admin" ? "text-[#13c2c2]" : ""
-            }`}
-          >
-            {comment?.user_name ?? "Không xác định"}{" "}
-            {comment.role_name === "admin" && <CheckCircleFilled />}
-          </span>
+          <Tooltip title="Xem trang cá nhân">
+            <Link
+              href={`/trang-ca-nhan/${comment?.user_id}`}
+              className={`"text-base font-semibold hover:underline cursor-pointer ${
+                comment.role_name === "admin" ? "text-[#13c2c2]" : ""
+              }`}
+            >
+              {comment?.user_name ?? "Không xác định"}{" "}
+              {comment.role_name === "admin" && <CheckCircleFilled />}
+            </Link>
+          </Tooltip>
 
           <Divider type="vertical" />
-          
+
           <Tag color={color} style={{ margin: 0 }}>
             Vip {comment?.vip_level ?? 0}
           </Tag>

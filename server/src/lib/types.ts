@@ -10,6 +10,7 @@ export type rawDataRegister = {
   password: string;
   otp: string;
   typeAccount: "credentials" | "google";
+  avatar: string;
 };
 
 export type rawDataResetPassword = {
@@ -91,4 +92,10 @@ export type rawDataUpdateNotification = {
   title: string;
   content: string;
   userId: string;
+};
+
+export type rawDataGetUserInfo = {
+  email: string;
+  typeAccount: string;
+  userId?: string;
 };

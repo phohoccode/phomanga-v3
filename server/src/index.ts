@@ -9,6 +9,7 @@ import comicRouter from "./routes/comicRouter";
 import searchRouter from "./routes/searchRouter";
 import commentRouter from "./routes/commentRouter";
 import adminRouter from "./routes/adminRouter";
+import vipLevelRouter from "./routes/vipLevelRouter";
 import notificationRouter from "./routes/notificationRouter";
 import connectMongoDB from "./database/mongodb";
 import initSocketIO from "./lib/socket";
@@ -51,6 +52,7 @@ app.use("/comic", comicRouter);
 app.use("/search", searchRouter);
 app.use("/comment", commentRouter);
 app.use("/notification", notificationRouter);
+app.use("/vip-level", vipLevelRouter);
 
 // admin router
 app.use("/admin", adminRouter);

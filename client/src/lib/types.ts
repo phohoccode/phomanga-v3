@@ -3,8 +3,9 @@ export type registerAccount = {
   name: string;
   email: string;
   password: string;
-  otp?: string;
   typeAccount: "credentials" | "google";
+  avatar: string;
+  otp?: string;
 };
 
 export type resetPassword = {
@@ -30,6 +31,14 @@ export type RootModal = {
   children: React.ReactNode;
   closeIcon?: React.ReactNode | null;
   footer?: React.ReactNode | null;
+  width?: {
+    xs?: string;
+    sm?: string;
+    md?: string;
+    lg?: string;
+    xl?: string;
+    xxl?: string;
+  };
   onCancel: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   onOk?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 };

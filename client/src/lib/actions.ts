@@ -62,6 +62,7 @@ export async function register({
   name,
   otp,
   typeAccount,
+  avatar,
 }: registerAccount): Promise<any> {
   try {
     const response: any = await axios.post("/auth/register", {
@@ -70,6 +71,7 @@ export async function register({
       name,
       otp,
       typeAccount,
+      avatar,
     });
 
     console.log(">>> response", response);
@@ -237,7 +239,7 @@ export async function createNotification(
       title,
       content,
       userId,
-      type
+      type,
     });
 
     return response;
@@ -259,6 +261,28 @@ export async function updateNotification(
       content,
       userId,
     });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUserInfo(userId: string) {
+  try {
+    const response: any = await axios.post("/user/get-user-info", {
+      userId,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getAllVipLevel() {
+  try {
+    const response: any = await axios.get("/vip-level/get-all-vip-level");
 
     return response;
   } catch (error) {

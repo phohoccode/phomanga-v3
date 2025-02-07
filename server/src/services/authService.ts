@@ -45,7 +45,7 @@ const handleLogin = async (rawData: rawDataLogin) => {
 };
 
 const handleRegister = async (rawData: rawDataRegister) => {
-  const { email, otp, typeAccount, password, name } = rawData;
+  const { email, otp, typeAccount, password, name, avatar } = rawData;
 
   try {
     if (typeAccount === "credentials") {
@@ -80,7 +80,7 @@ const handleRegister = async (rawData: rawDataRegister) => {
       return {
         status: "error",
         error_code: "email_exist",
-        message: "Email đã tồn tại!",
+        message: "Email đã tồn tại trong hệ thống!",
       };
     }
 
@@ -110,9 +110,14 @@ const handleRegister = async (rawData: rawDataRegister) => {
         ? hashUserPassword(password, salt)
         : `${user_id}-phohoccode`;
 
+    const [rows_vip_levels]: any = await connection
+      .promise()
+      .query(`Select id from vip_levels where level = 1`);
+
     const sql_register_account = `
-      Insert into users (id, name, email, password, role_id, account_status, type_account)
-      values ('${user_id}', '${name}', '${email}','${passwordHash}', '1', 'active', '${typeAccount}')
+      Insert into users (id, name, email, password, role_id, account_status, type_account, avatar, vip_level_id)
+      values ('${user_id}', '${name}', '${email}','${passwordHash}',
+         '1', 'active', '${typeAccount}', '${avatar}', '${rows_vip_levels[0]?.id}')
     `;
 
     const [rows_users]: any = await connection

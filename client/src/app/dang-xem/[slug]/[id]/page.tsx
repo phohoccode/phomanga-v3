@@ -71,6 +71,7 @@ const Page = () => {
                 name: name,
                 slug: slug,
                 thumb_url: thumb_url,
+                is_deleted: false,
                 createdAt: new Date().toISOString(),
               },
               type: "VIEWED_COMIC",

@@ -13,14 +13,14 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const ActionSaveComic = () => {
+const ActionComic = () => {
   const { data: session }: any = useSession();
-  const [isSave, setIsSave] = useState(false);
   const dispatch: AppDispatch = useDispatch();
   const { items } = useSelector((state: RootState) => state.user.savedComics);
   const { items: comicInfo } = useSelector(
     (state: RootState) => state.comic.comicInfo
   );
+  const [isSave, setIsSave] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const params = useParams();
 
@@ -48,7 +48,7 @@ const ActionSaveComic = () => {
 
   const handleSaveComic = async () => {
     if (!session?.user?.id) {
-      message.error("Bạn phải đăng nhập để lưu truyện!");
+      message.info("Đăng nhập để lưu truyện nhé bạn êi!");
       return;
     }
 
@@ -77,6 +77,7 @@ const ActionSaveComic = () => {
           slug: comicInfo?.slug,
           name: comicInfo?.name,
           thumb_url: comicInfo?.thumb_url,
+          is_deleted: false,
           createdAt: new Date().toISOString(),
         },
         type: "SAVED_COMIC",
@@ -151,4 +152,4 @@ const ActionSaveComic = () => {
   );
 };
 
-export default ActionSaveComic;
+export default ActionComic;

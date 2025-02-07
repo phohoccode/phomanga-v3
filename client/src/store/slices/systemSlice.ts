@@ -12,6 +12,7 @@ export interface SystemState {
   showModalActionsNotification: boolean;
   showModalComment: boolean;
   showModalUserFeedback: boolean;
+  showModalUpgradeLevelVip: boolean;
   savingHistory: boolean;
 }
 
@@ -26,6 +27,7 @@ const initialState: SystemState = {
   showModalActionsNotification: false,
   showModalComment: false,
   showModalUserFeedback: false,
+  showModalUpgradeLevelVip: false,
   savingHistory: true,
 };
 
@@ -67,12 +69,16 @@ export const systemSlice = createSlice({
     setShowModalUserFeedback: (state, action) => {
       state.showModalUserFeedback = action.payload;
     },
+    setShowModalUpgradeLevelVip: (state, action) => {
+      state.showModalUpgradeLevelVip = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
 export const {
   setWidth,
+  setShowModalUpgradeLevelVip,
   setShowDrawerUser,
   setShowModalCategorys,
   setShowModalSearch,

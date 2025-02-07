@@ -7,6 +7,7 @@ import {
   setShowModalComment,
   setShowModalNotification,
   setShowModalSearch,
+  setShowModalUpgradeLevelVip,
   setShowModalUserFeedback,
   setWidth,
 } from "@/store/slices/systemSlice";
@@ -23,6 +24,7 @@ import ModalNotification from "./modals/modal-notification/ModalNotification";
 import DrawerUser from "./layout/header/DrawerUser";
 import ModalComment from "./modals/ModalComment";
 import ModalUserFeedback from "./modals/ModalUserFeedback";
+import ModalUpgradeLevelVip from "./modals/modal-upgrade-level-vip/ModalUpgradeLevelVip";
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
@@ -32,7 +34,8 @@ const App = ({ children }: { children: React.ReactNode }) => {
     showModalNotification,
     showModalSearch,
     showModalComment,
-    showModalUserFeedback
+    showModalUserFeedback,
+    showModalUpgradeLevelVip,
   } = useSelector((state: RootState) => state.system);
 
   useEffect(() => {
@@ -103,6 +106,11 @@ const App = ({ children }: { children: React.ReactNode }) => {
       <ModalUserFeedback
         isModalOpen={showModalUserFeedback}
         onCancel={() => dispatch(setShowModalUserFeedback(false))}
+      />
+
+      <ModalUpgradeLevelVip
+        isModalOpen={showModalUpgradeLevelVip}
+        onCancel={() => dispatch(setShowModalUpgradeLevelVip(false))}
       />
     </DisplayNotification>
   );

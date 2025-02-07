@@ -1,9 +1,12 @@
-import { auth } from "@/auth";
 import Layout from "@/components/layout/Layout";
-import UserInfo from "@/components/UserInfo";
+import UserInfo from "@/components/pages/proflie/UserInfo";
+import { getUserInfo } from "@/lib/actions";
+import { Col, Row } from "antd";
 
-const Page = async () => {
-  const session = await auth();
+const Page = async ({ params }: any) => {
+  const _params = await params;
+  const response = await getUserInfo(_params.id);
+  const data = response?.user;
 
   return (
     <Layout>
@@ -11,10 +14,10 @@ const Page = async () => {
         <div
           style={{
             position: "relative",
-            backgroundImage: "url('/background-profile.jpg')",
+            backgroundImage: "url('/images/background-profile.jpg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
-            height: "240px",
+            height: "260px",
             borderRadius: "8px",
             marginBottom: "120px",
           }}
@@ -24,13 +27,20 @@ const Page = async () => {
           >
             <img
               loading="lazy"
-              src={session?.user?.image ?? "/avatar.jpg"}
+              src={data?.avatar ?? "/images/avatar.jpg"}
               alt="avatar"
               className="w-32 h-32 "
             />
           </div>
         </div>
-        <UserInfo />
+        <Row gutter={[32, 32]}>
+          <Col xs={24} lg={14}>
+            <UserInfo data={data} />
+          </Col>
+          <Col xs={24} lg={10}>
+            Thống kê
+          </Col>
+        </Row>
       </div>
     </Layout>
   );

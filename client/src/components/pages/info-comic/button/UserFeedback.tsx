@@ -6,7 +6,7 @@ import { WarningOutlined } from "@ant-design/icons";
 import { Button, Tooltip } from "antd";
 import { useDispatch } from "react-redux";
 
-const ButtonUserFeedback = () => {
+const UserFeedback = () => {
   const dispatch: AppDispatch = useDispatch();
 
   return (
@@ -21,4 +21,4 @@ const ButtonUserFeedback = () => {
   );
 };
 
-export default ButtonUserFeedback;
+export default UserFeedback;
