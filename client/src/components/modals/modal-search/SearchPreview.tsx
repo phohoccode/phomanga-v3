@@ -9,21 +9,18 @@ import { useDispatch, useSelector } from "react-redux";
 import SkeletonSearchComicPreview from "../../skeleton/SkeletonSearchComicPreview";
 import EmptyData from "../../common/EmptyData";
 import { setShowModalSearch } from "@/store/slices/systemSlice";
-import { addSearchHistory } from "@/store/asyncThunk/userAsyncThunk";
-import { useSession } from "next-auth/react";
 
-const SearchPreview = ({ keyword }: { keyword: string }) => {
+const SearchPreview = ({
+  keyword,
+  setKeyword,
+}: {
+  keyword: string;
+  setKeyword: (value: string) => void;
+}) => {
   const { items, loading } = useSelector(
     (state: RootState) => state.comic.searchComicPreview
   );
   const dispatch: AppDispatch = useDispatch();
-  const { data: session } = useSession();
-
-  const handleClickItemPreview = () => {
-    if (session?.user?.id) {
-      dispatch(addSearchHistory({ userId: session?.user?.id, keyword }));
-    }
-  };
 
   if (keyword.trim() === "") return null;
 
@@ -32,7 +29,9 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
   }
 
   if (items?.length === 0 && !loading) {
-    return <EmptyData description="Không có truyện phù hợp" />;
+    return (
+      <EmptyData description="Oops! Không có truyện nào hợp ý bạn, chắc chúng đang ở thế giới khác!" />
+    );
   }
 
   return (
@@ -48,7 +47,7 @@ const SearchPreview = ({ keyword }: { keyword: string }) => {
         {items?.map((item: any, index: number) => (
           <li key={index} onClick={() => dispatch(setShowModalSearch(false))}>
             <Link
-              onClick={handleClickItemPreview}
+              onClick={() => setKeyword("")}
               href={`/thong-tin-truyen/${item?.slug}`}
               key={index}
               className="flex gap-2 group rounded-lg hover:bg-slate-100 hover:text-slate-700 p-2 border border-gray-100 transition-all"

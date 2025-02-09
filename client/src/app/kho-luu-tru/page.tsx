@@ -21,6 +21,8 @@ const Page = async ({ searchParams }: any) => {
   );
   const items = response?.data?.items;
   const totalItems = response?.data?.totalItems ?? 0;
+  const maxStories = session?.user?.max_stories ?? 0;
+  
   const breakCrumbs = [
     { title: <Link href="/">Trang chủ</Link> },
     { title: "Kho lưu trữ" },
@@ -30,7 +32,7 @@ const Page = async ({ searchParams }: any) => {
     <Layout>
       <Breadcrumb items={breakCrumbs} />
 
-      <Divider orientation="center">{`Kho lưu trữ (${totalItems}/${session?.user?.max_stories})`}</Divider>
+      <Divider orientation="center">{`Kho lưu trữ (${totalItems}/${maxStories})`}</Divider>
 
       {items?.length > 0 && (
         <div className="flex justify-end my-8">

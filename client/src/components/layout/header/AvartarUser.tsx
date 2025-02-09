@@ -15,13 +15,14 @@ const AvartarUser = () => {
       className="cursor-pointer rounded-full border border-gray-200 relative"
       onClick={() => dispatch(setShowDrawerUser(true))}
     >
-      <>
-        {session?.user?.image ? (
-          <Avatar src={<img src={session?.user?.image} alt="avatar" />} />
-        ) : (
-          <Avatar size="default" shape="circle" icon={<UserOutlined />} />
-        )}
-      </>
+      <Avatar
+        src={
+          <img
+            src={session?.user?.image ?? "/images/avatar.jpg"}
+            alt="avatar"
+          />
+        }
+      />
     </div>
   );
 };

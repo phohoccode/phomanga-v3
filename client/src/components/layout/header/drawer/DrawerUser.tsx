@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
+import DrawerTitle from "./DrawerTitle";
 
 const DrawerUser = () => {
   const { data: session }: any = useSession();
@@ -87,31 +88,3 @@ const DrawerUser = () => {
 };
 
 export default DrawerUser;
-
-const DrawerTitle = () => {
-  const { data: session }: any = useSession();
-
-  return (
-    <div className="flex gap-2 justify-end">
-      <Avatar
-        style={{
-          marginTop: "6px",
-          borderRadius: "50%",
-          border: "1px solid #ccc",
-        }}
-        src={
-          <Image
-            width={36}
-            height={36}
-            src={(session?.user?.image as string) ?? "/avatar-default.jpg"}
-            alt="avatar"
-          />
-        }
-      />
-      <div className="flex flex-col">
-        <span className="text-base">{session?.user?.name}</span>
-        <span className="text-sm text-gray-500">{session?.user?.email}</span>
-      </div>
-    </div>
-  );
-};

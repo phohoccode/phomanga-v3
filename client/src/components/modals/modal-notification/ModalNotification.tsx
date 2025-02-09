@@ -20,7 +20,7 @@ const ModalNotification = ({
   const items: TabsProps["items"] = [
     {
       key: "1",
-      label: "Từ hệ thống",
+      label: "Hệ thống",
       children: <SystemNotification />,
     },
 

@@ -81,7 +81,7 @@ const ModalSearch = ({
       closeIcon={null}
       footer={null}
     >
-      <SearchPreview keyword={keyword} />
+      <SearchPreview keyword={keyword} setKeyword={setKeyword}/>
       <SearchHistory keyword={keyword} />
     </RootModal>
   );

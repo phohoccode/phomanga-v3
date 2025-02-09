@@ -21,6 +21,7 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
           c.chapter,
           CONVERT_TZ(c.created_at, '+00:00', '+07:00') AS created_at,
           u.name AS user_name,
+          u.avatar AS user_avatar,
           r.name AS role_name,
           v.level as vip_level,
           COUNT(l.id) AS like_count,

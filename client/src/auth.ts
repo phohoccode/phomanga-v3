@@ -59,7 +59,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   callbacks: {
     async jwt({ token, profile, account }: any) {
-      console.log("profile", profile);
 
       if (account?.provider === "google") {
         await axios.post("/auth/register", {

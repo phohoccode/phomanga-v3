@@ -99,3 +99,9 @@ export type rawDataGetUserInfo = {
   typeAccount: string;
   userId?: string;
 };
+
+export type criterion =
+  | "vip_level"
+  | "saved_comic"
+  | "number_of_stories_read"
+  | "comment_wrote";

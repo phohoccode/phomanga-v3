@@ -12,7 +12,7 @@ import {
   setWidth,
 } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayNotification from "./DisplayNotification";
 import NavBar from "./layout/header/NavBar";
@@ -21,13 +21,15 @@ import Footer from "./layout/Footer";
 import ModalSearch from "./modals/modal-search/ModalSearch";
 import ModalCategorys from "./modals/ModalCategorys";
 import ModalNotification from "./modals/modal-notification/ModalNotification";
-import DrawerUser from "./layout/header/DrawerUser";
+import DrawerUser from "./layout/header/drawer/DrawerUser";
 import ModalComment from "./modals/ModalComment";
 import ModalUserFeedback from "./modals/ModalUserFeedback";
 import ModalUpgradeLevelVip from "./modals/modal-upgrade-level-vip/ModalUpgradeLevelVip";
+import FloatButtonGroup from "./FloatButtonGroup";
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
+  const [loaded, setLoaded] = useState(false);
   const { lastScrollY } = useSelector((state: RootState) => state.system);
   const {
     showModalCategorys,
@@ -36,10 +38,12 @@ const App = ({ children }: { children: React.ReactNode }) => {
     showModalComment,
     showModalUserFeedback,
     showModalUpgradeLevelVip,
+    isVisiable,
   } = useSelector((state: RootState) => state.system);
 
   useEffect(() => {
     dispatch(setWidth(window.innerWidth));
+    setLoaded(true);
   }, []);
 
   useEffect(() => {
@@ -75,9 +79,9 @@ const App = ({ children }: { children: React.ReactNode }) => {
     <DisplayNotification>
       <NavBar />
 
-      {children}
+      {loaded && <NavBarMobile />}
 
-      <NavBarMobile />
+      {children}
 
       <Footer />
 
@@ -112,6 +116,8 @@ const App = ({ children }: { children: React.ReactNode }) => {
         isModalOpen={showModalUpgradeLevelVip}
         onCancel={() => dispatch(setShowModalUpgradeLevelVip(false))}
       />
+
+      {!isVisiable && <FloatButtonGroup />}
     </DisplayNotification>
   );
 };

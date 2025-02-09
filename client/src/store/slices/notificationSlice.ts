@@ -59,11 +59,11 @@ export const notificationSlice = createSlice({
         state.loading = false;
 
         if (type === "system") {
-          state.system.items = items;
-          state.system.totalItem = totalItem;
+          state.system.items = items ?? [];
+          state.system.totalItem = totalItem ?? 0;
         } else {
-          state.user.items = items;
-          state.user.totalItem = totalItem;
+          state.user.items = items ?? [];
+          state.user.totalItem = totalItem ?? 0;
         }
       })
 

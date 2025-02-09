@@ -35,9 +35,9 @@ export const userSlice = createSlice({
 
       .addCase(getAllComic.fulfilled, (state, action) => {
         state.savedComics.loading = false;
-        
+
         if (action.payload.data?.type === "GET_ALL_SAVED_COMIC") {
-          state.savedComics.items = action.payload.data?.items;
+          state.savedComics.items = action.payload.data?.items ?? [];
         }
       })
 
@@ -51,7 +51,7 @@ export const userSlice = createSlice({
 
       .addCase(getSearchHisory.fulfilled, (state, action) => {
         state.searchHistory.loading = false;
-        state.searchHistory.items = action.payload.data?.items;
+        state.searchHistory.items = action.payload.data?.items ?? [];
       })
 
       .addCase(getSearchHisory.rejected, (state) => {

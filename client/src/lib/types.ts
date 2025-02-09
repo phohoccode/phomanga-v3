@@ -141,3 +141,5 @@ export type GetComments = {
   limit: number;
   sort: "asc" | "desc";
 };
+
+export type criterion = "vip_level" | "comment_wrote" | "saved_comic" | "number_of_stories_read";

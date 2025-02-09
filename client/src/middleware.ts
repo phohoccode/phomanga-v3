@@ -7,12 +7,7 @@ const adminPaths = [
   "/bang-dieu-khien/quan-ly-nguoi-dung",
 ];
 
-const protectedPaths = [
-  "/kho-luu-tru",
-  "/lich-su-da-xem",
-  "/trang-ca-nhan",
-  ...adminPaths,
-];
+const protectedPaths = ["/kho-luu-tru", "/lich-su-da-xem", ...adminPaths];
 
 export async function middleware(request: NextRequest) {
   const url = request.url;
@@ -60,7 +55,6 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     "/bang-dieu-khien/:path*",
-    "/trang-ca-nhan/:path*",
     "/auth/:path*",
     "/kho-luu-tru",
     "/lich-su-da-xem",

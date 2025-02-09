@@ -42,23 +42,24 @@ const CardListLevelVip = ({
             <Card
               onClick={() => setSelectedCard(index)}
               loading={loading}
-              title={<Tag color={colors[index]}>Vip {vipLevel.level}</Tag>}
+              title={
+                <div className="flex justify-between items-center">
+                  <Tag color={colors[index]}>Vip {vipLevel?.level}</Tag>
+                  <span className="text-sm text-gray-600">{vipLevel?.id}</span>
+                </div>
+              }
               className={`text-center cursor-pointer ${
                 selectedCard === index ? "border-[#13c2c2] border" : ""
               }`}
             >
               <div className="flex justify-between gap-2">
-                <span className="font-semibold text-[#13c2c2]">
-                  Truyện lưu trữ
-                </span>
+                <span className="font-semibold ">Truyện lưu trữ</span>
                 <span className="text-gray-600">
                   {vipLevel?.max_stories} truyện
                 </span>
               </div>
               <div className="flex justify-between gap-2">
-                <span className="font-semibold text-[#13c2c2]">
-                  Tiền nâng cấp
-                </span>
+                <span className="font-semibold ">Tiền nâng cấp</span>
                 <span className="text-gray-600">{vipLevel?.price}đ</span>
               </div>
             </Card>

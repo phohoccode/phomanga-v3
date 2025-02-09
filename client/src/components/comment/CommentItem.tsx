@@ -1,17 +1,19 @@
 "use client";
 
-import { Divider, Tag, Tooltip } from "antd";
+import { Avatar, Divider, Tag, Tooltip } from "antd";
 import CommentActions from "./CommentActions";
 import { formatDate } from "@/lib/utils";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
 import CommentEditBox from "./CommentEditBox";
 import ShowMoreText from "../common/ShowMoreText";
 import { CheckCircleFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { setShowModalComment } from "@/store/slices/systemSlice";
 
 const CommentItem = ({ comment }: any) => {
+  const dispatch: AppDispatch = useDispatch();
   const { commentIdEdit } = useSelector((state: RootState) => state.comment);
   const [color, setColor] = useState("cyan");
 
@@ -40,14 +42,13 @@ const CommentItem = ({ comment }: any) => {
 
   return (
     <div className="flex gap-4">
-      <figure className="w-9 h-9 flex-shrink-0 rounded-full overflow-hidden">
-        <img src="/avatar-default.jpg" alt="avartar" />
-      </figure>
+      <Avatar src={comment?.user_avatar ?? "/images/avatar.jpg"} alt="avatar" />
 
       <div className="flex flex-col gap-2">
         <div className="flex items-center">
           <Tooltip title="Xem trang cá nhân">
             <Link
+              onClick={() => dispatch(setShowModalComment(false))}
               href={`/trang-ca-nhan/${comment?.user_id}`}
               className={`"text-base font-semibold hover:underline cursor-pointer ${
                 comment.role_name === "admin" ? "text-[#13c2c2]" : ""

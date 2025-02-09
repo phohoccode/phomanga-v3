@@ -28,6 +28,11 @@ const ModalUpgradeLevelVip = ({
       onCancel={onCancel}
       width={{
         xs: "90%",
+        sm: "80%",
+        md: "70%",
+        lg: "70%",
+        xl: "70%",
+        xxl: "70%"
       }}
     >
       <Row gutter={[48, 48]}>

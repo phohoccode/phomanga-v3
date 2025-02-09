@@ -135,7 +135,7 @@ export const comicSlice = createSlice({
         state.catetorys.loading = true;
       })
       .addCase(fetchCategorys.fulfilled, (state, action) => {
-        state.catetorys.items = action.payload.data?.items;
+        state.catetorys.items = action.payload.data?.items ?? [];
         state.catetorys.loading = false;
       })
       .addCase(fetchCategorys.rejected, (state) => {
@@ -148,7 +148,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchComicSlide.fulfilled, (state, action) => {
         state.conmicSlide.loading = false;
-        state.conmicSlide.items = action.payload.data?.items;
+        state.conmicSlide.items = action.payload.data?.items ?? [];
       })
       .addCase(fetchComicSlide.rejected, (state) => {
         state.conmicSlide.loading = false;
@@ -160,7 +160,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchNewComic.fulfilled, (state, action) => {
         state.newComic.loading = false;
-        state.newComic.items = action.payload.data?.items;
+        state.newComic.items = action.payload.data?.items ?? [];
       })
       .addCase(fetchNewComic.rejected, (state) => {
         state.newComic.loading = false;
@@ -172,7 +172,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchPublishedComic.fulfilled, (state, action) => {
         state.publishedComic.loading = false;
-        state.publishedComic.items = action.payload.data?.items;
+        state.publishedComic.items = action.payload.data?.items ?? [];
       })
       .addCase(fetchPublishedComic.rejected, (state) => {
         state.publishedComic.loading = false;
@@ -184,7 +184,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchUpComingComic.fulfilled, (state, action) => {
         state.upComingComic.loading = false;
-        state.upComingComic.items = action.payload.data?.items;
+        state.upComingComic.items = action.payload.data?.items ?? [];
       })
       .addCase(fetchUpComingComic.rejected, (state) => {
         state.upComingComic.loading = false;
@@ -196,7 +196,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchCompletedComic.fulfilled, (state, action) => {
         state.completedComic.loading = false;
-        state.completedComic.items = action.payload.data?.items;
+        state.completedComic.items = action.payload.data?.items ?? [];
       })
       .addCase(fetchCompletedComic.rejected, (state) => {
         state.completedComic.loading = false;
@@ -208,7 +208,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchComicDetail.fulfilled, (state, action) => {
         state.comicDetail.loading = false;
-        state.comicDetail.items = action.payload?.data?.items;
+        state.comicDetail.items = action.payload?.data?.items ?? [];
         state.comicDetail.breadCrumb = action.payload?.data?.breadCrumb;
         state.comicDetail.params = action.payload?.data?.params;
         state.comicDetail.titlePage = action.payload?.data?.titlePage;
@@ -237,7 +237,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchSearchComic.fulfilled, (state, action) => {
         state.searchComic.loading = false;
-        state.searchComic.items = action.payload?.data?.items;
+        state.searchComic.items = action.payload?.data?.items ?? [];
         state.searchComic.breadCrumb = action.payload?.data?.breadCrumb;
         state.searchComic.params = action.payload?.data?.params;
         state.searchComic.titlePage = action.payload?.data?.titlePage;
@@ -253,7 +253,7 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchSearchComicPreview.fulfilled, (state, action) => {
         state.searchComicPreview.loading = false;
-        state.searchComicPreview.items = action.payload?.data?.items;
+        state.searchComicPreview.items = action.payload?.data?.items ?? [];
       })
       .addCase(fetchSearchComicPreview.rejected, (state) => {
         state.searchComicPreview.loading = false;

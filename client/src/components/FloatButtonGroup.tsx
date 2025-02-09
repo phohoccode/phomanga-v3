@@ -13,10 +13,12 @@ import {
   WarningOutlined,
 } from "@ant-design/icons";
 import { FloatButton } from "antd";
+import { usePathname } from "next/navigation";
 import { useDispatch } from "react-redux";
 
 const FloatButtonGroup = () => {
   const dispatch: AppDispatch = useDispatch();
+  const pathname = usePathname();
 
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,16 +46,22 @@ const FloatButtonGroup = () => {
         tooltip="Cuộn xuống cuối trang"
         icon={<ArrowDownOutlined />}
       />
-      <FloatButton
-        onClick={() => dispatch(setShowModalComment(true))}
-        tooltip="Bình luận"
-        icon={<MessageOutlined />}
-      />
-      <FloatButton
-        onClick={() => dispatch(setShowModalUserFeedback(true))}
-        tooltip="Báo lỗi truyện"
-        icon={<WarningOutlined />}
-      />
+
+      {pathname.startsWith("/dang-xem") && (
+        <FloatButton
+          onClick={() => dispatch(setShowModalComment(true))}
+          tooltip="Bình luận"
+          icon={<MessageOutlined />}
+        />
+      )}
+      {(pathname.startsWith("/thong-tin-truyen") ||
+        pathname.startsWith("/dang-xem")) && (
+        <FloatButton
+          onClick={() => dispatch(setShowModalUserFeedback(true))}
+          tooltip="Báo lỗi truyện"
+          icon={<WarningOutlined />}
+        />
+      )}
     </FloatButton.Group>
   );
 };

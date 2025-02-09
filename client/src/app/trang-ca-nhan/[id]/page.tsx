@@ -1,46 +1,72 @@
+import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
+import Statistical from "@/components/pages/proflie/Statistical";
 import UserInfo from "@/components/pages/proflie/UserInfo";
-import { getUserInfo } from "@/lib/actions";
-import { Col, Row } from "antd";
+import { getUserInfo, getUserStatistical } from "@/lib/actions";
+import { Breadcrumb, Col, Row } from "antd";
+import Link from "next/link";
 
 const Page = async ({ params }: any) => {
   const _params = await params;
-  const response = await getUserInfo(_params.id);
-  const data = response?.user;
+  const responseUserInfo = await getUserInfo(_params.id);
+  const responseUserStatistical = await getUserStatistical(_params.id);
+  const dataUserInfo = responseUserInfo?.user;
+  const dataUserStatistical = responseUserStatistical?.statistical;
+  const breadCrumb = [
+    { title: <Link href="/">Trang chủ</Link> },
+    { title: "Trang cá nhân" },
+    { title: dataUserInfo?.username },
+  ];
+
+  if (!dataUserInfo || !dataUserStatistical) {
+    return <EmptyData description="Không tìm thấy thông tin người dùng" />;
+  }
 
   return (
     <Layout>
-      <div className="min-h-screen">
-        <div
-          style={{
-            position: "relative",
-            backgroundImage: "url('/images/background-profile.jpg')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-            height: "260px",
-            borderRadius: "8px",
-            marginBottom: "120px",
-          }}
-        >
+      <div className="flex flex-col gap-7">
+        <Breadcrumb items={breadCrumb} />
+
+        <div className="min-h-screen">
           <div
-            className={`absolute lg:-bottom-16 lg:left-[16%] -bottom-16 left-[50%] -translate-x-1/2  border-[3px] border-[#ccc] rounded-full overflow-hidden`}
+            style={{
+              position: "relative",
+              backgroundImage: "url('/images/background-profile.jpg')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              height: "260px",
+              borderRadius: "8px",
+              marginBottom: "120px",
+            }}
           >
-            <img
-              loading="lazy"
-              src={data?.avatar ?? "/images/avatar.jpg"}
-              alt="avatar"
-              className="w-32 h-32 "
-            />
+            <div
+              className={`absolute lg:-bottom-16 lg:left-[16%] -bottom-16 left-[50%] -translate-x-1/2  border-[3px] border-[#ccc] rounded-full overflow-hidden`}
+            >
+              <img
+                loading="lazy"
+                src={dataUserInfo?.avatar ?? "/images/avatar.jpg"}
+                alt="avatar"
+                className="w-32 h-32 "
+              />
+            </div>
           </div>
+          <Row gutter={[32, 32]}>
+            <Col
+              xs={24}
+              sm={20}
+              md={16}
+              lg={14}
+              xl={10}
+              xxl={8}
+              className="ml-auto mr-auto"
+            >
+              <Statistical data={dataUserStatistical} />
+            </Col>
+            <Col xs={24} lg={24}>
+              <UserInfo data={dataUserInfo} />
+            </Col>
+          </Row>
         </div>
-        <Row gutter={[32, 32]}>
-          <Col xs={24} lg={14}>
-            <UserInfo data={data} />
-          </Col>
-          <Col xs={24} lg={10}>
-            Thống kê
-          </Col>
-        </Row>
       </div>
     </Layout>
   );

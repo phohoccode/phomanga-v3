@@ -6,7 +6,7 @@ import { DescriptionsProps, Skeleton } from "antd";
 import { formatDate } from "@/lib/utils";
 import UpgradeLevelVip from "./button/UpgradeLevelVip";
 
-interface UserInfoProps {
+export interface UserInfoProps {
   data: {
     avatar: string;
     created_at: string;
@@ -67,13 +67,15 @@ const UserInfo = ({ data }: UserInfoProps) => {
   ];
 
   return (
-    <Descriptions
-      column={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 2, xxl: 4 }}
-      bordered
-      title="Thông tin độc giả"
-      layout="vertical"
-      items={items}
-    />
+   <div className="max-w-[1200px] mx-auto">
+      <Descriptions
+        column={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 4, xxl: 4 }}
+        bordered
+        title="Thông tin độc giả"
+        layout="vertical"
+        items={items}
+      />
+   </div>
   );
 };
 

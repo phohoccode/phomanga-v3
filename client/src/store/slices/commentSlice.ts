@@ -48,8 +48,8 @@ export const commentSlice = createSlice({
       state.loading = true;
     });
     builder.addCase(getComments.fulfilled, (state, action) => {
-      state.items = action.payload?.data?.items;
-      state.totalItems = action.payload?.data?.totalItems;
+      state.items = action.payload?.data?.items ?? [];
+      state.totalItems = action.payload?.data?.totalItems ?? 0;
       state.loading = false;
     });
     builder.addCase(getComments.rejected, (state) => {

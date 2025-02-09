@@ -280,9 +280,33 @@ export async function getUserInfo(userId: string) {
   }
 }
 
+export async function getUserStatistical(userId: string) {
+  try {
+    const response: any = await axios.post("/user/get-user-statistical", {
+      userId,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getAllVipLevel() {
   try {
     const response: any = await axios.get("/vip-level/get-all-vip-level");
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getUserRankings(criterion: string) {
+  try {
+    const response: any = await axios.post("/user/get-user-rankings", {
+      criterion,
+    });
 
     return response;
   } catch (error) {
