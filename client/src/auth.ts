@@ -54,12 +54,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 24 * 60 * 60,
+  },
+  jwt: {
+    maxAge: 24 * 60 * 60,
+  },
   pages: {
     signIn: "/auth/login",
   },
   callbacks: {
     async jwt({ token, profile, account }: any) {
-
       if (account?.provider === "google") {
         await axios.post("/auth/register", {
           email: profile?.email,

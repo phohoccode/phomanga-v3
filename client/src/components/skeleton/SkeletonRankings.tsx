@@ -9,8 +9,8 @@ const SkeletonRankings = () => {
         <Skeleton.Input style={{ width: 200, height: 16 }} />
       </Divider>
       <Row gutter={[16, 16]}>
-        {[...Array(4)].map((_, index) => (
-          <Col key={index} xs={12}>
+        {[...Array(6)].map((_, index) => (
+          <Col key={index} xs={24} sm={12}>
             <div className="flex gap-2">
               <Skeleton.Avatar size="large" />
 

@@ -6,10 +6,12 @@ import { useEffect, useState } from "react";
 import ListUser from "./ListUser";
 import { getUserRankings } from "@/lib/actions";
 import SkeletonRankings from "../skeleton/SkeletonRankings";
-import EmptyData from "../common/EmptyData";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store/store";
 
 const Rankings = () => {
   const [criterion, setCriterion] = useState<criterion>("vip_level");
+  const width = useSelector((state: RootState) => state.system.width);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [key, setKey] = useState("1");
@@ -20,7 +22,7 @@ const Rankings = () => {
       const response = await getUserRankings(criterion);
       setLoading(false);
 
-      if (response.status === "success") {
+      if (response?.status === "success") {
         setData(response.data);
       }
     };
@@ -65,9 +67,8 @@ const Rankings = () => {
     setKey(key);
   };
 
-  if (loading) return <SkeletonRankings />;
 
-  if (!data) return <EmptyData description="Không có dữ liệu" />;
+  if (loading) return <SkeletonRankings />;
 
   return (
     <div className="my-8">
@@ -76,7 +77,7 @@ const Rankings = () => {
       </Divider>
       <Tabs
         activeKey={key}
-        tabPosition="left"
+        tabPosition={width > 1024 ? "left" : "top"}
         centered
         items={items}
         onChange={onChange}

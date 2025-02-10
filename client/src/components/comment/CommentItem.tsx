@@ -2,7 +2,7 @@
 
 import { Avatar, Divider, Tag, Tooltip } from "antd";
 import CommentActions from "./CommentActions";
-import { formatDate } from "@/lib/utils";
+import { formatDate, getColorVipLevel } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import CommentEditBox from "./CommentEditBox";
@@ -18,26 +18,7 @@ const CommentItem = ({ comment }: any) => {
   const [color, setColor] = useState("cyan");
 
   useEffect(() => {
-    switch (comment?.vip_level) {
-      case 1:
-        setColor("cyan");
-        break;
-      case 2:
-        setColor("green");
-        break;
-      case 3:
-        setColor("gold");
-        break;
-      case 4:
-        setColor("purple");
-        break;
-      case 5:
-        setColor("red");
-        break;
-      default:
-        setColor("cyan");
-        break;
-    }
+    setColor(() => getColorVipLevel(comment?.vip_level));
   }, []);
 
   return (

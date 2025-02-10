@@ -37,3 +37,20 @@ export const detachedText = (
 ) => {
   return text.split(character)[position === "start" ? 0 : text.length - 1];
 };
+
+export const getColorVipLevel = (vipLevel: number) => {
+  switch (vipLevel) {
+    case 1:
+      return "cyan";
+    case 2:
+      return "green";
+    case 3:
+      return "gold";
+    case 4:
+      return "purple";
+    case 5:
+      return "red";
+    default:
+      return "cyan";
+  }
+}

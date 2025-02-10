@@ -43,7 +43,7 @@ const Page = async ({ searchParams }: any) => {
       <Alert
         type="info"
         showIcon={true}
-        message={`Bạn chỉ có thể lưu tối đa ${session?.user?.max_stories} truyện! Nâng cấp VIP để lưu nhiều hơn!`}
+        message={`Hiện tại bạn chỉ có thể lưu tối đa ${session?.user?.max_stories} truyện! Nâng cấp VIP để lưu nhiều hơn!`}
         style={{ margin: "32px 0" }}
         closeIcon
       />

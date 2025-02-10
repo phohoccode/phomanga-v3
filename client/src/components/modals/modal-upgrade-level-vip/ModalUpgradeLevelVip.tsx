@@ -29,8 +29,8 @@ const ModalUpgradeLevelVip = ({
       width={{
         xs: "90%",
         sm: "80%",
-        md: "70%",
-        lg: "70%",
+        md: "80%",
+        lg: "80%",
         xl: "70%",
         xxl: "70%"
       }}
