@@ -11,7 +11,7 @@ const TableUsers = ({ data }: { data: any }) => {
       name: user.name,
       email: user.email,
       typeAccount: user.type_account,
-      status: user.account_status,
+      roleName: user.role,
       createdAt: formatDate(user.created_at),
     };
   });
@@ -38,9 +38,9 @@ const TableUsers = ({ data }: { data: any }) => {
       key: "typeAccount",
     },
     {
-      title: "Trạng thái",
-      dataIndex: "status",
-      key: "status",
+      title: "Vai trò",
+      dataIndex: "roleName",
+      key: "roleName",
     },
     {
       title: "Thời gian tạo",

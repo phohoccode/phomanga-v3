@@ -50,7 +50,7 @@ const handleGetAllComic = async (rawData: rawDataGetComic) => {
 
 const handleSaveComic = async (rawData: rawDataSaveComic) => {
   try {
-    const { dataComic, userId, type } = rawData;
+    const { dataComic, userId, type, username, avatar } = rawData;
 
     let res =
       type === "SAVED_COMIC"
@@ -60,8 +60,8 @@ const handleSaveComic = async (rawData: rawDataSaveComic) => {
     if (!res) {
       res =
         type === "SAVED_COMIC"
-          ? new SavedComic({ userId, comics: [] })
-          : new ViewedComic({ userId, comics: [] });
+          ? new SavedComic({ userId, username, avatar, comics: [] })
+          : new ViewedComic({ userId, username, avatar, comics: [] });
     }
 
     const indexComicExist = res?.comics?.findIndex((comic: any) => {

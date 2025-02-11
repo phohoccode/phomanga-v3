@@ -6,6 +6,14 @@ const SavedComicSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  username: {
+    type: String,
+    required: true,
+  },
+  avatar: {
+    type: String,
+    required: true,
+  },
   comics: [
     {
       type: mongoose.Schema.Types.Mixed,

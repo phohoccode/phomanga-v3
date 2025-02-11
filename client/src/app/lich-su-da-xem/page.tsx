@@ -9,6 +9,7 @@ import Loading from "./loading";
 import PaginationCT from "@/components/PaginationCT";
 import ButtonDeleteAllComic from "@/components/common/ButtonDeleteAllComic";
 import ButtonPauseSavingHistory from "@/components/pages/viewed-comic/ButtonPauseSavingHistory";
+import { FieldTimeOutlined } from "@ant-design/icons";
 
 const Page = async ({ searchParams }: any) => {
   const session = await auth();
@@ -31,7 +32,10 @@ const Page = async ({ searchParams }: any) => {
     <Layout>
       <Breadcrumb items={breakCrumbs} />
 
-      <Divider orientation="center">Lịch sử đã xem</Divider>
+      <Divider orientation="center">
+        <FieldTimeOutlined className="mr-2" />
+        Lịch sử đã xem
+      </Divider>
 
       <div className="flex gap-2 justify-end my-8 flex-wrap">
         <ButtonPauseSavingHistory />

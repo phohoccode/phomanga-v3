@@ -13,6 +13,7 @@ import {
   fetchComicInfo,
 } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
+import { CommentOutlined } from "@ant-design/icons";
 import { Breadcrumb, Col, Divider, Row } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
@@ -74,12 +75,15 @@ const InfoComic = () => {
           <SessionInfo data={items} />
           <SessionChapter data={items} />
           <div className="flex flex-col gap-2 mt-12">
-            <Divider orientation="left">Bình luận</Divider>
+            <Divider orientation="left">
+              <CommentOutlined className="mr-2" />
+              Bình luận
+            </Divider>
             <CommentBox />
           </div>
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>
-          <ComicSuggesion title="Gợi ý ngẫu nhiên" />
+          <ComicSuggesion title="Gợi ý cho bạn" />
         </Col>
       </Row>
     </Layout>

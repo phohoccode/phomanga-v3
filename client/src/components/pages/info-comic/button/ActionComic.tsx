@@ -56,7 +56,7 @@ const ActionComic = () => {
 
     if (items?.length >= maxStories) {
       message.info(
-        `Bạn chỉ được lưu tối đa ${maxStories} truyện! Nâng cấp VIP để lưu nhiều hơn!`
+        `Bạn chỉ được lưu tối đa ${maxStories ?? 0} truyện! Nâng cấp VIP để lưu nhiều hơn!`
       );
       return;
     }
@@ -64,6 +64,7 @@ const ActionComic = () => {
     const chaprerLasted = comicInfo?.chapters?.[0]?.server_data;
 
     setIsLoading(true);
+
 
     const res: any = await dispatch(
       saveComic({
@@ -81,6 +82,8 @@ const ActionComic = () => {
           createdAt: new Date().toISOString(),
         },
         type: "SAVED_COMIC",
+        username: session?.user?.username,
+        avatar: session?.user?.avatar,
       })
     );
     setIsLoading(false);

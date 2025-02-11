@@ -4,6 +4,7 @@ import ComicList from "@/components/comic/ComicList";
 import ComicTitle from "@/components/comic/ComicTitle";
 import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
+import useGetQuery from "@/hooks/useGetQuery";
 import { isPositiveInteger } from "@/lib/utils";
 import { fetchSearchComic } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
@@ -26,9 +27,7 @@ const SearchComic = () => {
     { title: titlePage },
   ];
   const keyword = searchParams.get("keyword") ?? "abc";
-  const currentPage = isPositiveInteger(searchParams.get("page") as string)
-    ? searchParams.get("page")
-    : "1";
+  const currentPage = useGetQuery("page", "1", "number");
   const totalItems = params?.pagination?.totalItems;
   const itemsPerPage = params?.pagination?.totalItemsPerPage;
 

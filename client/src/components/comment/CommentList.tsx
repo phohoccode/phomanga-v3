@@ -1,17 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import CommentItem from "./CommentItem";
 import SkeletonComment from "../skeleton/SkeletonComment";
 import { Pagination } from "antd";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { isPositiveInteger } from "@/lib/utils";
 import EmptyData from "../common/EmptyData";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { getComments } from "@/store/asyncThunk/commentAsyncThunk";
 import { setCurrentPage } from "@/store/slices/commentSlice";
-import { socket } from "@/lib/socket";
+import useGetQuery from "@/hooks/useGetQuery";
+import { scrollToCurrentElement } from "@/lib/utils";
 
 const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const { items, loading, totalItems, sort } = useSelector(
@@ -21,32 +21,16 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const searchParams = useSearchParams();
-  const currentPage = isPositiveInteger(
-    searchParams.get("comment_page") as string
-  )
-    ? searchParams.get("comment_page")
-    : "1";
-
-  useEffect(() => {
-    socket.on("refreshComments", (res) => {
-      if (res?.slug === params?.slug) {
-        handleGetComments();
-      }
-    });
-
-    return () => {
-      socket.off("refreshComments");
-    };
-  }, []);
+  const currentPage = useGetQuery("comment_page", "1", "number");
+  const currentScrollRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
     handleGetComments();
-
     dispatch(setCurrentPage(currentPage as string));
   }, [currentPage, sort]);
 
-  const handleGetComments = () => {
-    dispatch(
+  const handleGetComments = async () => {
+    await dispatch(
       getComments({
         comicSlug: params?.slug as string,
         limit: 10,
@@ -75,6 +59,7 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   return (
     <>
       <ul
+        ref={currentScrollRef}
         className={`flex flex-col gap-6 mt-4 ${
           isScroll ? "max-h-60 overflow-y-auto" : ""
         }`}

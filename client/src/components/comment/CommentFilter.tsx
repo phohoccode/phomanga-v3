@@ -1,5 +1,6 @@
 "use client";
 
+import useGetQuery from "@/hooks/useGetQuery";
 import { setSort } from "@/store/slices/commentSlice";
 import { AppDispatch } from "@/store/store";
 import {
@@ -14,7 +15,7 @@ const CommentFilter = () => {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const searchParams = useSearchParams();
-  const sort = searchParams.get("sort") === "asc" ? "asc" : "desc";
+  const sort = useGetQuery("sort", "desc", "string", "asc");
   const router = useRouter();
 
   const handleChangeSort = (sort: "asc" | "desc") => {

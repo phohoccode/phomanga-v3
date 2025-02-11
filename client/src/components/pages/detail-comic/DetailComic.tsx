@@ -11,6 +11,7 @@ import { Breadcrumb, Pagination, Skeleton } from "antd";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import useGetQuery from "@/hooks/useGetQuery";
 
 const DeltailComic = () => {
   const _params = useParams();
@@ -20,11 +21,7 @@ const DeltailComic = () => {
     (state: RootState) => state.comic.comicDetail
   );
   const searchParams = useSearchParams();
-
-  const currentPage = isPositiveInteger(searchParams.get("page") as string)
-    ? searchParams.get("page")
-    : "1";
-
+  const currentPage = useGetQuery("page", "1", "number");
   const totalItems = params?.pagination?.totalItems;
   const itemsPerPage = params?.pagination?.totalItemsPerPage;
   const breadcrumbItems = [
@@ -52,7 +49,7 @@ const DeltailComic = () => {
 
   return (
     <Layout>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-8">
         {loading ? (
           <Skeleton.Input size="small" style={{ width: "40%" }} />
         ) : (

@@ -3,14 +3,14 @@
 import EmptyData from "@/components/common/EmptyData";
 import PaginationCT from "@/components/PaginationCT";
 import SkeletonNotifycation from "@/components/skeleton/SkeletonNotifycation";
+import useGetQuery from "@/hooks/useGetQuery";
 import { socket } from "@/lib/socket";
-import { formatDate, isPositiveInteger } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { fetchAllNotifications } from "@/store/asyncThunk/notificationAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { CheckCircleFilled } from "@ant-design/icons";
 import { Divider } from "antd";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -20,12 +20,7 @@ const SystemNotification = () => {
   );
   const dispatch: AppDispatch = useDispatch();
   const { data: sesstion } = useSession();
-  const searchParams = useSearchParams();
-  const currentPage = isPositiveInteger(
-    searchParams.get("page-system") as string
-  )
-    ? searchParams.get("page-system")
-    : "1";
+  const currentPage = useGetQuery("page-system", "1", "number");
   const notifyRef = useRef<any>(null);
 
   const handleFetchAllNotifications = () => {

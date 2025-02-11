@@ -126,6 +126,8 @@ export type SavedComic = {
   userId: string;
   dataComic: any;
   type: string;
+  avatar: string;
+  username: string;
 };
 
 export type DeleteComic = {
@@ -142,4 +144,24 @@ export type GetComments = {
   sort: "asc" | "desc";
 };
 
-export type criterion = "vip_level" | "comment_wrote" | "saved_comic" | "number_of_stories_read";
+export type criterion =
+  | "vip_level"
+  | "comment_wrote"
+  | "saved_comic"
+  | "number_of_stories_read";
+
+export type ListUserProps = {
+  criterion:
+    | string
+    | "vip_level"
+    | "comment_wrote"
+    | "saved_comic"
+    | "number_of_stories_read";
+  users: {
+    user_id: string;
+    username: string;
+    avatar: string;
+    vip_level?: number;
+    quantity?: number;
+  }[];
+};

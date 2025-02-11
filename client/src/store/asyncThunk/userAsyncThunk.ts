@@ -4,11 +4,13 @@ import type { DeleteComic, SavedComic } from "@/lib/types";
 
 export const saveComic = createAsyncThunk(
   "user/saveComic",
-  async ({ userId, dataComic, type }: SavedComic) => {
+  async ({ userId, dataComic, type, username, avatar }: SavedComic) => {
     const response = await axios.post(`/comic/save-comic`, {
       userId,
       dataComic,
       type,
+      username,
+      avatar,
     });
 
     return response;

@@ -35,6 +35,8 @@ export type rawDataSaveComic = {
   userId: string;
   dataComic: any;
   type: string;
+  username: string;
+  avatar: string;
 };
 
 export type rawDataDeleteComic = {

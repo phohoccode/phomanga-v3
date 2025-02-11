@@ -25,7 +25,7 @@ const ReadComic = () => {
     (state: RootState) => state.comic.imagesComic
   );
   const { savingHistory } = useSelector((state: RootState) => state.system);
-  const { data: session } = useSession();
+  const { data: session }:any = useSession();
   const { items } = useSelector((state: RootState) => state.comic.comicInfo);
   const { width } = useSelector((state: RootState) => state.system);
   const breadCrumb = [
@@ -73,7 +73,10 @@ const ReadComic = () => {
                 is_deleted: false,
                 createdAt: new Date().toISOString(),
               },
+
               type: "VIEWED_COMIC",
+              username: session?.user?.username,
+              avatar: session?.user?.avatar,
             })
           );
         }

@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import {
   handleGetAllComments,
+  handleGetAllFeedbacks,
   handleGetAllNotifications,
   handleGetAllUsers,
 } from "../services/adminService";
@@ -40,6 +41,20 @@ export const getAllNotifications = async (
 ): Promise<any> => {
   try {
     const response = await handleGetAllNotifications();
+
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error_server);
+  }
+};
+
+export const getAllFeedbacks = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const response = await handleGetAllFeedbacks();
 
     return res.status(200).json(response);
   } catch (error) {

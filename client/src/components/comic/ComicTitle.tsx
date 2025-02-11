@@ -1,4 +1,8 @@
+"use client";
+
+import { ReadOutlined, SearchOutlined } from "@ant-design/icons";
 import { Divider, Skeleton } from "antd";
+import { usePathname } from "next/navigation";
 
 const ComicTitle = ({
   title,
@@ -9,12 +13,21 @@ const ComicTitle = ({
   orientation: "left" | "right" | "center";
   loading?: boolean;
 }) => {
+  const pathname = usePathname();
+
   return (
     <Divider orientation={orientation}>
       {loading ? (
         <Skeleton.Input style={{ width: "100%" }} size="small" />
       ) : (
-        title
+        <>
+          {!pathname.startsWith("/tim-kiem") ? (
+            <ReadOutlined className="mr-2" />
+          ) : (
+            <SearchOutlined className="mr-2" />
+          )}
+          {title}
+        </>
       )}
     </Divider>
   );

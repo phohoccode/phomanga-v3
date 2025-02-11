@@ -13,6 +13,11 @@ export const isPositiveInteger = (value: string) => {
   return /^[1-9]\d*$/.test(value);
 };
 
+export const scrollToCurrentElement = (ref: any) => {
+  console.log(ref.current);
+  ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
 export const removeHTMLTags = (str: string) => {
   return str.replace(/<[^>]*>?/gm, "");
 };
@@ -53,4 +58,4 @@ export const getColorVipLevel = (vipLevel: number) => {
     default:
       return "cyan";
   }
-}
+};

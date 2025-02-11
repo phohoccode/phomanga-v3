@@ -76,7 +76,8 @@ export const handleGetUserStatistical = async (userId: string) => {
 export const handleGetUserRankings = async (criterion: criterion) => {
   try {
     let sql_select = "";
-    let [rows]: any = [];
+    let rows: any = [];
+    const quantity = 10;
 
     switch (criterion) {
       case "vip_level":
@@ -89,7 +90,7 @@ export const handleGetUserRankings = async (criterion: criterion) => {
           from users, vip_levels
           where users.vip_level_id = vip_levels.id
           order by vip_levels.level desc
-          limit 10
+          limit ${quantity}
         `;
 
         [rows] = await connection.promise().query(sql_select);
@@ -101,49 +102,36 @@ export const handleGetUserRankings = async (criterion: criterion) => {
             users.id as user_id,
             users.name as username,
             users.avatar,
-            count(comments.id) as total_comments
+            count(comments.id) as quantity
           from users, comments
           where users.id = comments.user_id
           group by users.id, users.name, users.avatar
-          order by total_comments desc
-          limit 10
+          order by quantity desc
+          limit ${quantity}
         `;
 
         [rows] = await connection.promise().query(sql_select);
         break;
 
       case "saved_comic":
-        [rows] = await SavedComic.aggregate([
-          {
-            $group: {
-              _id: "$userId",
-              total_saved_comic: { $sum: 1 },
-            },
-          },
-          {
-            $sort: { total_saved_comic: -1 },
-          },
-          {
-            $limit: 10,
-          },
-        ]);
-        break;
-
       case "number_of_stories_read":
-        [rows] = await ViewedComic.aggregate([
-          {
-            $group: {
-              _id: "$userId",
-              total_viewed_comic: { $sum: 1 },
-            },
-          },
-          {
-            $sort: { total_viewed_comic: -1 },
-          },
-          {
-            $limit: 10,
-          },
-        ]);
+        if (criterion === "saved_comic") {
+          rows = await SavedComic.find();
+        } else if (criterion === "number_of_stories_read") {
+          rows = await ViewedComic.find();
+        }
+
+        rows = rows
+          .sort((a: any, b: any) => b.comics.length - a.comics.length)
+          .slice(0, quantity)
+          .map((item: any) => {
+            return {
+              user_id: item.userId,
+              username: item.username,
+              avatar: item.avatar,
+              quantity: item.comics?.length,
+            };
+          });
 
         break;
 

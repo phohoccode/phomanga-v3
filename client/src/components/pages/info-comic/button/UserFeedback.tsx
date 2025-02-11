@@ -2,7 +2,7 @@
 
 import { setShowModalUserFeedback } from "@/store/slices/systemSlice";
 import { AppDispatch } from "@/store/store";
-import { WarningOutlined } from "@ant-design/icons";
+import { ExceptionOutlined } from "@ant-design/icons";
 import { Button, Tooltip } from "antd";
 import { useDispatch } from "react-redux";
 
@@ -13,7 +13,7 @@ const UserFeedback = () => {
     <Tooltip title="Báo lỗi truyện">
       <Button
         onClick={() => dispatch(setShowModalUserFeedback(true))}
-        icon={<WarningOutlined />}
+        icon={<ExceptionOutlined />}
         variant="filled"
         color="gold"
       />

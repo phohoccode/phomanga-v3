@@ -3,6 +3,7 @@
 import EmptyData from "@/components/common/EmptyData";
 import PaginationCT from "@/components/PaginationCT";
 import SkeletonNotifycation from "@/components/skeleton/SkeletonNotifycation";
+import useGetQuery from "@/hooks/useGetQuery";
 import { socket } from "@/lib/socket";
 import { formatDate, isPositiveInteger } from "@/lib/utils";
 import {
@@ -13,7 +14,6 @@ import { AppDispatch, RootState } from "@/store/store";
 import { ClockCircleOutlined, CloseOutlined } from "@ant-design/icons";
 import { Button, Divider, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -24,10 +24,7 @@ const UserNotification = () => {
   const dispatch: AppDispatch = useDispatch();
   const { data: sesstion } = useSession();
   const [loadingId, setLoadingId] = useState("");
-  const searchParams = useSearchParams();
-  const currentPage = isPositiveInteger(searchParams.get("page-user") as string)
-    ? searchParams.get("page-user")
-    : "1";
+  const currentPage = useGetQuery("page-user", "1", "number");
   const notifyRef = useRef<any>(null);
 
   useEffect(() => {

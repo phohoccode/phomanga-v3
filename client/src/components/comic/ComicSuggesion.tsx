@@ -6,6 +6,7 @@ import { Divider } from "antd";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import EmptyData from "../common/EmptyData";
+import { FireOutlined } from "@ant-design/icons";
 
 const ComicSuggesion = ({ title }: { title: string }) => {
   const { items } = useSelector((state: RootState) => state.comic.comicDetail);
@@ -13,7 +14,8 @@ const ComicSuggesion = ({ title }: { title: string }) => {
   return (
     <div className="flex flex-col gap-2">
       <Divider style={{ marginTop: 0 }} orientation="center">
-        {title ?? "Gợi ý"}
+        <FireOutlined className="mr-2" />
+        {title}
       </Divider>
 
       {items?.length === 0 && <EmptyData description="Gợi ý đang lỗi" />}

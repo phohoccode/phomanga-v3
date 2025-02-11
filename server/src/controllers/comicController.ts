@@ -11,6 +11,7 @@ const getAllComic = async (req: Request, res: Response): Promise<any> => {
   try {
     if (!req.body?.userId) {
       return res.status(500).json({
+        status: "error",
         message: "userId là bắt buộc",
       });
     }
@@ -26,11 +27,12 @@ const getAllComic = async (req: Request, res: Response): Promise<any> => {
 
 const saveComic = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { dataComic, userId } = req.body;
+    const { dataComic, userId, username, avatar } = req.body;
 
-    if (!dataComic || !userId) {
+    if (!dataComic || !userId || !username || !avatar) {
       return res.status(500).json({
-        message: "DataComic và userId là bắt buộc",
+        status: "error",
+        message: "dataComic, userId, username và avatar là bắt buộc",
       });
     }
 
@@ -49,6 +51,7 @@ const deleteComic = async (req: Request, res: Response): Promise<any> => {
 
     if (!comicSlug || !userId) {
       return res.status(500).json({
+        status: "error",
         message: "comicSlug và userId là bắt buộc",
       });
     }
@@ -68,6 +71,7 @@ const deleteAllComic = async (req: Request, res: Response): Promise<any> => {
 
     if (!userId || !type) {
       return res.status(500).json({
+        status: "error",
         message: "userId và type là bắt buộc",
       });
     }

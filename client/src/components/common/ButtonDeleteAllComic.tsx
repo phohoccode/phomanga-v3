@@ -18,7 +18,11 @@ const ButtonDeleteAllComic = ({ type }: { type: string }) => {
     setLoading(false);
 
     if (res?.status === "success") {
-      message.success(res?.message ?? "Đã xoá tất cả truyện");
+      message.success(
+        type === "SAVED_COMIC"
+          ? "Tất cả truyện trong kho lưu trữ đã bay màu!"
+          : "Lịch sử đã xem đã được dọn dẹp!"
+      );
     }
   };
 

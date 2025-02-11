@@ -188,6 +188,16 @@ export async function fetchAllNotifications() {
   }
 }
 
+export async function fetchAllFeedbacks() {
+  try {
+    const response: any = await axios.get("/admin/get-all-feedbacks");
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function deleteComment(commentId: string) {
   try {
     const response: any = await axios.post("/admin/delete-comment", {

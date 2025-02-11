@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { createUserFeedback } from "@/store/asyncThunk/userAsyncThunk";
 import { setShowModalUserFeedback } from "@/store/slices/systemSlice";
+import { usePathname } from "next/navigation";
 
 const ModalUserFeedback = ({
   isModalOpen,
@@ -21,12 +22,20 @@ const ModalUserFeedback = ({
   const { data: sesstion } = useSession();
   const { items } = useSelector((state: RootState) => state.comic.comicInfo);
   const dispatch: AppDispatch = useDispatch();
+  const pathname = usePathname();
 
   useEffect(() => {
     if (isModalOpen) {
-      form.setFieldsValue({
-        title: items?.name,
-      });
+      if (
+        pathname.startsWith("/thong-tin-truyen") ||
+        pathname.startsWith("/dang-xem")
+      )
+        form.setFieldsValue({
+          title: items?.name,
+        });
+      else {
+        form.resetFields();
+      }
     }
   }, [isModalOpen]);
 
@@ -68,7 +77,7 @@ const ModalUserFeedback = ({
 
   return (
     <RootModal
-      title="Phản hồi về truyện"
+      title="Phản hồi của bạn"
       isModalOpen={isModalOpen}
       footer={
         <Space size="middle">

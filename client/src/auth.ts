@@ -89,7 +89,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       token.id = response?.user?.user_id;
       token.role = response?.user?.role_name;
       token.email = response?.user?.email;
-      token.name = response?.user?.username;
+      token.username = response?.user?.username;
       token.type_account = response?.user?.type_account;
       token.vip_level = response?.user?.vip_level;
       token.max_stories = response?.user?.max_stories;
@@ -100,9 +100,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     // nhận token từ jwt callback và trả về session
     async session({ session, token }: any) {
       session.user.id = token?.id ?? token?.sub;
-      session.user.name = token.name;
+      session.user.username = token.name;
       session.user.email = token.email;
-      session.user.image = token.picture;
+      session.user.avatar = token.picture;
       session.user.role = token.role;
       session.user.vip_level = token.vip_level;
       session.user.max_stories = token.max_stories;

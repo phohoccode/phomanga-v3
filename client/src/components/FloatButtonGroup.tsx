@@ -8,9 +8,9 @@ import { AppDispatch } from "@/store/store";
 import {
   ArrowDownOutlined,
   ArrowUpOutlined,
+  ExceptionOutlined,
   MessageOutlined,
   ProductOutlined,
-  WarningOutlined,
 } from "@ant-design/icons";
 import { FloatButton } from "antd";
 import { usePathname } from "next/navigation";
@@ -27,6 +27,8 @@ const FloatButtonGroup = () => {
   const handleScrollBottom = () => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
+
+  if (pathname.startsWith("/bang-dieu-khien")) return null;
 
   return (
     <FloatButton.Group
@@ -54,14 +56,12 @@ const FloatButtonGroup = () => {
           icon={<MessageOutlined />}
         />
       )}
-      {(pathname.startsWith("/thong-tin-truyen") ||
-        pathname.startsWith("/dang-xem")) && (
-        <FloatButton
-          onClick={() => dispatch(setShowModalUserFeedback(true))}
-          tooltip="Báo lỗi truyện"
-          icon={<WarningOutlined />}
-        />
-      )}
+
+      <FloatButton
+        onClick={() => dispatch(setShowModalUserFeedback(true))}
+        tooltip="Phản hồi"
+        icon={<ExceptionOutlined />}
+      />
     </FloatButton.Group>
   );
 };

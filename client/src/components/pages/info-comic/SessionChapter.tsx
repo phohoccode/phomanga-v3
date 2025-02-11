@@ -1,5 +1,6 @@
 "use client";
 
+import { CoffeeOutlined } from "@ant-design/icons";
 import { Col, Divider, Empty, Input, Pagination, Row } from "antd";
 import Link from "next/link";
 import { useState } from "react";
@@ -31,7 +32,10 @@ const SessionChapter = ({ data }: any) => {
 
   return (
     <div className="flex flex-col gap-4 mt-8">
-      <Divider orientation="center">Danh sách chương</Divider>
+      <Divider orientation="center">
+        <CoffeeOutlined className="mr-2" />
+        Danh sách chương
+      </Divider>
       {chaptersData?.length > 0 ? (
         <>
           <Input
