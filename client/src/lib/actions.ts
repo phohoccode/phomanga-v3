@@ -109,7 +109,7 @@ export async function resetPassword({
 }
 
 // =============================== USER.JS ===============================
-export async function fetchDataSavedComics(
+export async function fetchDataComic(
   userId: string,
   page: number | string,
   type: string
@@ -124,21 +124,6 @@ export async function fetchDataSavedComics(
     return response;
   } catch (error) {
     console.log(error);
-  }
-}
-
-export async function deleteSavedComic(comicSlug: string, userId: string) {
-  try {
-    const response: any = await axios.post("/comic/delete-saved-comic", {
-      comicSlug,
-      userId,
-    });
-
-    return response;
-  } catch (error) {
-    console.log(error);
-  } finally {
-    revalidatePath("/kho-luu-tru");
   }
 }
 

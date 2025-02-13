@@ -2,11 +2,11 @@
 
 import { formatDate } from "@/lib/utils";
 import { RootState } from "@/store/store";
-import { Divider } from "antd";
 import Link from "next/link";
 import { useSelector } from "react-redux";
 import EmptyData from "../common/EmptyData";
 import { FireOutlined } from "@ant-design/icons";
+import { Divider } from "antd";
 
 const ComicSuggesion = ({ title }: { title: string }) => {
   const { items } = useSelector((state: RootState) => state.comic.comicDetail);

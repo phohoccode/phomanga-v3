@@ -1,8 +1,6 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
-import "@/assets/styles/swiper.css";
 import { EffectCoverflow } from "swiper/modules";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
@@ -10,6 +8,8 @@ import { useEffect } from "react";
 import { fetchComicSlide } from "@/store/asyncThunk/comicAsyncThunk";
 import SlideItem from "./SlideItem";
 import SkeletonSlideList from "../skeleton/SkeletonSlideList";
+import "swiper/css";
+import "@/assets/styles/swiper.css";
 
 const SlideList = () => {
   const { items, loading } = useSelector(

@@ -1,11 +1,11 @@
 "use client";
 
 import type { ComicItem } from "@/lib/types";
-import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
-import { Badge, Button, Typography } from "antd";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { Badge, Button, Typography } from "antd";
+import { DeleteOutlined, EyeOutlined } from "@ant-design/icons";
 
 const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
   const [textRibbon, setTextRibbon] = useState<string>("");
@@ -49,6 +49,10 @@ const ComicItem = ({ data, onClickDelete, loading }: ComicItem) => {
         >
           <figure className="relative xl:h-[260px] 2xl:h-[240px] h-[260px] block rounded-lg overflow-hidden border border-[#f2f2f2]">
             <img
+              onError={({ currentTarget }) => {
+                currentTarget.onerror = null;
+                currentTarget.src = "/images/error-img.png";
+              }}
               className="w-full h-full transition-all lg:group-hover:scale-110 lg:group-hover:brightness-50 object-cover block"
               loading="lazy"
               src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${data?.thumb_url}`}

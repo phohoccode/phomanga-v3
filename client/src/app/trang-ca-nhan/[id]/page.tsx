@@ -2,16 +2,18 @@ import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
 import Statistical from "@/components/pages/proflie/Statistical";
 import UserInfo from "@/components/pages/proflie/UserInfo";
-import { getUserInfo, getUserStatistical } from "@/lib/actions";
-import { Breadcrumb, Col, Row } from "antd";
+import { getAllVipLevel, getUserInfo, getUserStatistical } from "@/lib/actions";
 import Link from "next/link";
+import { Breadcrumb, Col, Row } from "antd";
 
 const Page = async ({ params }: any) => {
   const _params = await params;
   const responseUserInfo = await getUserInfo(_params.id);
   const responseUserStatistical = await getUserStatistical(_params.id);
+  const responseVipLevels = await getAllVipLevel();
   const dataUserInfo = responseUserInfo?.user;
   const dataUserStatistical = responseUserStatistical?.statistical;
+  const dataVipLevels = responseVipLevels?.data?.items;
   const breadCrumb = [
     { title: <Link href="/">Trang chủ</Link> },
     { title: "Trang cá nhân" },
@@ -63,7 +65,10 @@ const Page = async ({ params }: any) => {
               <Statistical data={dataUserStatistical} />
             </Col>
             <Col xs={24} lg={24}>
-              <UserInfo data={dataUserInfo} />
+              <UserInfo
+                dataUserInfo={dataUserInfo}
+                dataVipLevels={dataVipLevels}
+              />
             </Col>
           </Row>
         </div>

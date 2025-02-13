@@ -10,9 +10,8 @@ import { useParams } from "next/navigation";
 
 const UpgradeLevelVip = () => {
   const dispatch: AppDispatch = useDispatch();
-  const { data: session }: any = useSession();
   const params = useParams();
-
+  const { data: session }: any = useSession();
 
   if (!session || session?.user?.id !== params?.id) return null;
 

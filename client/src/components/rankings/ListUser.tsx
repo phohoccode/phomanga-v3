@@ -1,12 +1,15 @@
 "use client";
 
-import { Avatar, Col, Row, Tag, Tooltip } from "antd";
 import EmptyData from "../common/EmptyData";
 import Link from "next/link";
 import { getColorVipLevel } from "@/lib/utils";
 import { ListUserProps } from "@/lib/types";
+import { useSession } from "next-auth/react";
+import { Avatar, Col, Row, Tag, Tooltip } from "antd";
 
 const ListUser = ({ users, criterion }: ListUserProps) => {
+  const { data: session }: any = useSession();
+
   if (users?.length === 0) {
     return (
       <EmptyData description="Không có ai xếp hạng à? Thời cơ tỏa sáng đây rồi! 🌟" />
@@ -33,9 +36,17 @@ const ListUser = ({ users, criterion }: ListUserProps) => {
                 <Tooltip title="Xem trang cá nhân">
                   <Link
                     href={`/trang-ca-nhan/${item?.user_id}`}
-                    className="font-semibold text-sm"
+                    className={`font-semibold text-sm
+                    ${
+                      session?.user?.id === item?.user_id
+                        ? "text-[#13c2c2]"
+                        : "text-black"
+                    }
+                      `}
                   >
-                    {item?.username}
+                    {session?.user?.id === item?.user_id
+                      ? `${item?.username}`
+                      : item?.username}
                   </Link>
                 </Tooltip>
                 {criterion === "vip_level" && (

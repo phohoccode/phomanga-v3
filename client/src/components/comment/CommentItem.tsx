@@ -1,16 +1,16 @@
 "use client";
 
-import { Avatar, Divider, Tag, Tooltip } from "antd";
 import CommentActions from "./CommentActions";
 import { formatDate, getColorVipLevel } from "@/lib/utils";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import CommentEditBox from "./CommentEditBox";
 import ShowMoreText from "../common/ShowMoreText";
-import { CheckCircleFilled } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { setShowModalComment } from "@/store/slices/systemSlice";
+import { CheckCircleFilled } from "@ant-design/icons";
+import { Avatar, Divider, Tag, Tooltip } from "antd";
 
 const CommentItem = ({ comment }: any) => {
   const dispatch: AppDispatch = useDispatch();

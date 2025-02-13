@@ -5,17 +5,17 @@ import PaginationCT from "@/components/PaginationCT";
 import SkeletonNotifycation from "@/components/skeleton/SkeletonNotifycation";
 import useGetQuery from "@/hooks/useGetQuery";
 import { socket } from "@/lib/socket";
-import { formatDate, isPositiveInteger } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import {
   deleteNotification,
   fetchAllNotifications,
 } from "@/store/asyncThunk/notificationAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { ClockCircleOutlined, CloseOutlined } from "@ant-design/icons";
-import { Button, Divider, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ClockCircleOutlined, CloseOutlined } from "@ant-design/icons";
+import { Button, Divider, Tooltip } from "antd";
 
 const UserNotification = () => {
   const { user, loading } = useSelector(

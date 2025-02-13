@@ -16,7 +16,9 @@ const DisplayNotification = ({ children }: { children: React.ReactNode }) => {
     });
 
     socket.on("newNotification", (res) => {
-      if (res?.userLikedId !== session?.user?.id) {
+
+      // kiểm tra xem user đang đăng nhập có phải là người nhận thông báo không
+      if (res?.userCommentId === session?.user?.id) {
         message.info(res?.message);
       }
     });

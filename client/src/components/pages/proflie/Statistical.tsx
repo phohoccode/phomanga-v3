@@ -1,8 +1,8 @@
 "use client";
 
+import "@/assets/styles/border-animation.css";
 import { BookOutlined, EditOutlined, EyeOutlined } from "@ant-design/icons";
 import { Col, Row, Statistic } from "antd";
-import "@/assets/styles/border-animation.css";
 
 const Statistical = ({ data }: any) => {
   return (

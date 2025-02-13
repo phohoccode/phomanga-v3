@@ -1,7 +1,7 @@
-import { LeftOutlined, RightOutlined } from "@ant-design/icons";
-import { Button, Select, Typography } from "antd";
 import { useParams, useRouter } from "next/navigation";
 import { useState } from "react";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import { Button, Select, Typography } from "antd";
 
 const SessionControls = ({
   dataInfoComic,

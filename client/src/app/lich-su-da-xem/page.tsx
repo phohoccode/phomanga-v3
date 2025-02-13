@@ -1,7 +1,7 @@
 import { Breadcrumb, Divider } from "antd";
 import Link from "next/link";
 import { auth } from "@/auth";
-import { fetchDataSavedComics } from "@/lib/actions";
+import { fetchDataComic } from "@/lib/actions";
 import { Suspense } from "react";
 import Layout from "@/components/layout/Layout";
 import ComicList from "@/components/comic/ComicList";
@@ -16,7 +16,7 @@ const Page = async ({ searchParams }: any) => {
   const params = await searchParams;
   const page = params?.page || 1;
   const pageSize = 24;
-  const response = await fetchDataSavedComics(
+  const response = await fetchDataComic(
     session?.user?.id as string,
     page,
     "GET_ALL_VIEWED_COMIC"

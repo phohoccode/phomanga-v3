@@ -1,6 +1,7 @@
 "use client";
-import { Col, Row } from "antd";
+
 import { usePathname } from "next/navigation";
+import { Col, Row } from "antd";
 
 export const pathHideNavBar = [
   "/auth/sign-in",

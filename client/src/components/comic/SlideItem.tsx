@@ -1,6 +1,6 @@
+import { EyeOutlined } from "@ant-design/icons";
 import { Button, Typography } from "antd";
 import Link from "next/link";
-import { EyeOutlined } from "@ant-design/icons";
 
 const SlideItem = ({ slide }: any) => {
   return (
@@ -9,7 +9,7 @@ const SlideItem = ({ slide }: any) => {
         <img
           onError={({ currentTarget }) => {
             currentTarget.onerror = null;
-            currentTarget.src = "/error-img.png";
+            currentTarget.src = "/images/error-img.png";
           }}
           loading="lazy"
           src={`${process.env.NEXT_PUBLIC_OTRUYEN_URL_IMAGE}/${slide?.thumb_url}`}

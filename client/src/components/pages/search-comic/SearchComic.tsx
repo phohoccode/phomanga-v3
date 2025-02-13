@@ -5,14 +5,13 @@ import ComicTitle from "@/components/comic/ComicTitle";
 import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
 import useGetQuery from "@/hooks/useGetQuery";
-import { isPositiveInteger } from "@/lib/utils";
 import { fetchSearchComic } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { Breadcrumb, Pagination, Skeleton } from "antd";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Breadcrumb, Pagination, Skeleton } from "antd";
 
 const SearchComic = () => {
   const router = useRouter();

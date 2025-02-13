@@ -4,10 +4,10 @@ import RootModal from "./RootModal";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import Link from "next/link";
-import { Col, Row, Skeleton } from "antd";
 import { setShowModalCategorys } from "@/store/slices/systemSlice";
 import { useEffect } from "react";
 import { fetchCategorys } from "@/store/asyncThunk/comicAsyncThunk";
+import { Col, Row, Skeleton } from "antd";
 
 const ModalCategorys = ({
   isModalOpen,

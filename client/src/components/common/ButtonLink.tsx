@@ -1,6 +1,6 @@
 import type { ButtonLink } from "@/lib/types";
-import { Button } from "antd";
 import Link from "next/link";
+import { Button } from "antd";
 
 const ButtonLink = ({
   href,

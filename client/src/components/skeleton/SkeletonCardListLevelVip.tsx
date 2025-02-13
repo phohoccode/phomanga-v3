@@ -22,7 +22,6 @@ const SkeletonCardListLevelVip = () => {
           </Card>
         </Col>
       ))}
-      ;
     </Row>
   );
 };

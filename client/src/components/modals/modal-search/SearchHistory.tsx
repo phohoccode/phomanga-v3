@@ -8,12 +8,12 @@ import {
 } from "@/store/asyncThunk/userAsyncThunk";
 import { setShowModalSearch } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
-import { ClockCircleOutlined, CloseOutlined } from "@ant-design/icons";
-import { Button, Divider, Tooltip, Typography } from "antd";
 import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { ClockCircleOutlined, CloseOutlined } from "@ant-design/icons";
+import { Button, Divider, Tooltip, Typography } from "antd";
 
 const SearchHistory = ({ keyword }: { keyword: string }) => {
   const dispatch: AppDispatch = useDispatch();

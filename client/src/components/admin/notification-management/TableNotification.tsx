@@ -1,7 +1,7 @@
 "use client";
 
-import { formatDate } from "@/lib/utils";
 import { message, Table } from "antd";
+import { formatDate } from "@/lib/utils";
 import Actions from "../Actions";
 import { useSession } from "next-auth/react";
 import { deleteNotification } from "@/lib/actions";

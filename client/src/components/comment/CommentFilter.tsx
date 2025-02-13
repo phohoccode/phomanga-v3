@@ -3,13 +3,13 @@
 import useGetQuery from "@/hooks/useGetQuery";
 import { setSort } from "@/store/slices/commentSlice";
 import { AppDispatch } from "@/store/store";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useDispatch } from "react-redux";
 import {
   SortAscendingOutlined,
   SortDescendingOutlined,
 } from "@ant-design/icons";
 import { Button } from "antd";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useDispatch } from "react-redux";
 
 const CommentFilter = () => {
   const dispatch: AppDispatch = useDispatch();

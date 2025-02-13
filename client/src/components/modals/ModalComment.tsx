@@ -1,8 +1,8 @@
 "use client";
 
-import { MessageOutlined } from "@ant-design/icons";
 import CommentBox from "../comment/CommentBox";
 import RootModal from "./RootModal";
+import { MessageOutlined } from "@ant-design/icons";
 
 const ModalComment = ({
   isModalOpen,

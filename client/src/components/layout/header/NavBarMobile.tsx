@@ -6,6 +6,11 @@ import {
   setShowModalSearch,
 } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
+import Link from "next/link";
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { pathHideNavBar } from "./NavBar";
+import { usePathname } from "next/navigation";
 import {
   AppstoreOutlined,
   BellOutlined,
@@ -13,11 +18,6 @@ import {
   ReadOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
-import Link from "next/link";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { pathHideNavBar } from "./NavBar";
-import { usePathname } from "next/navigation";
 
 const links = [
   { href: "/", label: "Trang chủ", icon: <HomeOutlined /> },

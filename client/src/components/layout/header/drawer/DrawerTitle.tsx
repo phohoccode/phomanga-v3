@@ -1,4 +1,4 @@
-import { Avatar, Image } from "antd";
+import { Avatar } from "antd";
 import { useSession } from "next-auth/react";
 
 const DrawerTitle = () => {

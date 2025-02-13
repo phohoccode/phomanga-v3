@@ -10,13 +10,13 @@ import {
   fetchImageComic,
 } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { Breadcrumb } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { saveComic } from "@/store/asyncThunk/userAsyncThunk";
 import { useSession } from "next-auth/react";
+import { Breadcrumb } from "antd";
 
 const ReadComic = () => {
   const params = useParams();
@@ -25,7 +25,7 @@ const ReadComic = () => {
     (state: RootState) => state.comic.imagesComic
   );
   const { savingHistory } = useSelector((state: RootState) => state.system);
-  const { data: session }:any = useSession();
+  const { data: session }: any = useSession();
   const { items } = useSelector((state: RootState) => state.comic.comicInfo);
   const { width } = useSelector((state: RootState) => state.system);
   const breadCrumb = [

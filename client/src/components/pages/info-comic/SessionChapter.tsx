@@ -1,9 +1,9 @@
 "use client";
 
-import { CoffeeOutlined } from "@ant-design/icons";
-import { Col, Divider, Empty, Input, Pagination, Row } from "antd";
 import Link from "next/link";
 import { useState } from "react";
+import { CoffeeOutlined } from "@ant-design/icons";
+import { Col, Divider, Empty, Input, Pagination, Row } from "antd";
 
 const quantity = 24;
 

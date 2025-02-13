@@ -3,7 +3,6 @@
 import "@ant-design/v5-patch-for-react-19";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Skeleton } from "antd";
 import { useSession } from "next-auth/react";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
@@ -11,6 +10,7 @@ import AvartarUser from "./AvartarUser";
 import SearchComic from "./SearchComic";
 import AuthButton from "./AuthButton";
 import Notification from "./Notification";
+import { Skeleton } from "antd";
 
 export const pathHideNavBar = [
   "/auth/sign-in",

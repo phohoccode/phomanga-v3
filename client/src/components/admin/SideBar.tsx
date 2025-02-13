@@ -37,7 +37,7 @@ const Links = [
     label: "Quản lý phản hồi",
     href: "/bang-dieu-khien/quan-ly-phan-hoi",
     icon: <NotificationOutlined />,
-  }
+  },
 ];
 
 const SideBar = () => {

@@ -6,11 +6,11 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { fetchComicDetail } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { Breadcrumb, Pagination, Skeleton } from "antd";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useGetQuery from "@/hooks/useGetQuery";
+import { Breadcrumb, Pagination, Skeleton } from "antd";
 
 const DeltailComic = () => {
   const _params = useParams();

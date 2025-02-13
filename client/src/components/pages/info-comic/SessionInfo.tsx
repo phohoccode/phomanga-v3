@@ -1,5 +1,3 @@
-import { Button, Image, Tag } from "antd";
-import { EyeOutlined } from "@ant-design/icons";
 import { Descriptions } from "antd";
 import type { DescriptionsProps } from "antd";
 import { formatDate, removeHTMLTags } from "@/lib/utils";
@@ -8,6 +6,8 @@ import ActionComic from "./button/ActionComic";
 import ShowMoreText from "@/components/common/ShowMoreText";
 import { color } from "@/lib/defind";
 import UserFeedback from "./button/UserFeedback";
+import { Button, Image, Tag } from "antd";
+import { EyeOutlined } from "@ant-design/icons";
 
 export const SessionInfo = ({ data }: any) => {
   const chapters = data?.chapters?.[0]?.server_data ?? [];

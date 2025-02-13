@@ -2,13 +2,13 @@
 
 import { formatDate } from "@/lib/utils";
 import { AppDispatch, RootState } from "@/store/store";
-import { SearchOutlined } from "@ant-design/icons";
-import { Typography } from "antd";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
 import SkeletonSearchComicPreview from "../../skeleton/SkeletonSearchComicPreview";
 import EmptyData from "../../common/EmptyData";
 import { setShowModalSearch } from "@/store/slices/systemSlice";
+import { SearchOutlined } from "@ant-design/icons";
+import { Typography } from "antd";
 
 const SearchPreview = ({
   keyword,

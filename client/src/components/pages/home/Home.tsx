@@ -14,11 +14,10 @@ import {
   fetchUpComingComic,
 } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Col, Divider, Row } from "antd";
 import Rankings from "@/components/rankings/Rankings";
+import { ArrowRightOutlined } from "@ant-design/icons";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();

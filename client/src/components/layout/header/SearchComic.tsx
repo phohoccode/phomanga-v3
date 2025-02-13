@@ -2,9 +2,9 @@
 
 import { setShowModalSearch } from "@/store/slices/systemSlice";
 import { AppDispatch } from "@/store/store";
-import { SearchOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 import { useDispatch } from "react-redux";
+import { Button } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 
 const SearchComic = () => {
   const dispatch: AppDispatch = useDispatch();

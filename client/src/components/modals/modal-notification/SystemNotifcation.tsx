@@ -8,11 +8,11 @@ import { socket } from "@/lib/socket";
 import { formatDate } from "@/lib/utils";
 import { fetchAllNotifications } from "@/store/asyncThunk/notificationAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { CheckCircleFilled } from "@ant-design/icons";
-import { Divider } from "antd";
 import { useSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { CheckCircleFilled } from "@ant-design/icons";
+import { Divider } from "antd";
 
 const SystemNotification = () => {
   const { system, loading } = useSelector(

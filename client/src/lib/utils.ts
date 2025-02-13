@@ -14,7 +14,6 @@ export const isPositiveInteger = (value: string) => {
 };
 
 export const scrollToCurrentElement = (ref: any) => {
-  console.log(ref.current);
   ref.current?.scrollIntoView({ behavior: "smooth", block: "start" });
 };
 
@@ -43,7 +42,7 @@ export const detachedText = (
   return text.split(character)[position === "start" ? 0 : text.length - 1];
 };
 
-export const getColorVipLevel = (vipLevel: number) => {
+export const getColorVipLevel = (vipLevel: number | string) => {
   switch (vipLevel) {
     case 1:
       return "cyan";

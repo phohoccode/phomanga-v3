@@ -6,12 +6,12 @@ import {
   saveComic,
 } from "@/store/asyncThunk/userAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { BookOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Button, message, Tooltip } from "antd";
 import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Button, message, Tooltip } from "antd";
+import { BookOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const ActionComic = () => {
   const { data: session }: any = useSession();
@@ -56,7 +56,9 @@ const ActionComic = () => {
 
     if (items?.length >= maxStories) {
       message.info(
-        `Bạn chỉ được lưu tối đa ${maxStories ?? 0} truyện! Nâng cấp VIP để lưu nhiều hơn!`
+        `Bạn chỉ được lưu tối đa ${
+          maxStories ?? 0
+        } truyện! Nâng cấp VIP để lưu nhiều hơn!`
       );
       return;
     }
@@ -64,7 +66,6 @@ const ActionComic = () => {
     const chaprerLasted = comicInfo?.chapters?.[0]?.server_data;
 
     setIsLoading(true);
-
 
     const res: any = await dispatch(
       saveComic({

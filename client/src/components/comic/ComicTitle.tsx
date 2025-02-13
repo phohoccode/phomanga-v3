@@ -1,8 +1,8 @@
 "use client";
 
+import { usePathname } from "next/navigation";
 import { ReadOutlined, SearchOutlined } from "@ant-design/icons";
 import { Divider, Skeleton } from "antd";
-import { usePathname } from "next/navigation";
 
 const ComicTitle = ({
   title,

@@ -1,6 +1,5 @@
 "use client";
 
-import { Col, message, Row } from "antd";
 import SkeletonComicList from "@/components/skeleton/SkeletonComicList";
 import EmptyData from "@/components/common/EmptyData";
 import type { ComicList } from "@/lib/types";
@@ -11,6 +10,7 @@ import { deleteComic } from "@/store/asyncThunk/userAsyncThunk";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import ComicItem from "./ComicItem";
+import { Col, message, Row } from "antd";
 
 const ComicList = ({
   data,

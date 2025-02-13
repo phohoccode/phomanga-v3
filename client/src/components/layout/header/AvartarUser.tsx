@@ -1,10 +1,9 @@
 "use client";
 
 import { setShowDrawerUser } from "@/store/slices/systemSlice";
-import { UserOutlined } from "@ant-design/icons";
-import { Avatar } from "antd";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
+import { Avatar } from "antd";
 
 const AvartarUser = () => {
   const dispatch = useDispatch();

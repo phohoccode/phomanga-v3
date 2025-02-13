@@ -2,9 +2,9 @@
 
 import { setShowModalNotification } from "@/store/slices/systemSlice";
 import { AppDispatch } from "@/store/store";
-import { BellOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 import { useDispatch } from "react-redux";
+import { Button } from "antd";
+import { BellOutlined } from "@ant-design/icons";
 
 const Notification = () => {
   const dispatch: AppDispatch = useDispatch();

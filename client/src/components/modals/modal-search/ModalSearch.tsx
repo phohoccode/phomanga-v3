@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation";
 import { AppDispatch } from "@/store/store";
 import { useDispatch } from "react-redux";
 import { setShowModalSearch } from "@/store/slices/systemSlice";
-import { message } from "antd";
 import { useEffect, useState } from "react";
 import SearchPreview from "./SearchPreview";
 import { fetchSearchComicPreview } from "@/store/asyncThunk/comicAsyncThunk";
@@ -14,6 +13,7 @@ import debounce from "debounce";
 import SearchHistory from "./SearchHistory";
 import { addSearchHistory } from "@/store/asyncThunk/userAsyncThunk";
 import { useSession } from "next-auth/react";
+import { message } from "antd";
 
 const ModalSearch = ({
   isModalOpen,
@@ -81,7 +81,7 @@ const ModalSearch = ({
       closeIcon={null}
       footer={null}
     >
-      <SearchPreview keyword={keyword} setKeyword={setKeyword}/>
+      <SearchPreview keyword={keyword} setKeyword={setKeyword} />
       <SearchHistory keyword={keyword} />
     </RootModal>
   );

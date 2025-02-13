@@ -2,13 +2,12 @@
 
 import { setShowDrawerUser } from "@/store/slices/systemSlice";
 import { RootState } from "@/store/store";
-import { Avatar, Divider, Drawer } from "antd";
 import { signOut, useSession } from "next-auth/react";
-import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import DrawerTitle from "./DrawerTitle";
+import { Divider, Drawer } from "antd";
 
 const DrawerUser = () => {
   const { data: session }: any = useSession();

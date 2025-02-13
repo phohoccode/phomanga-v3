@@ -1,12 +1,12 @@
 "use client";
 
 import RootModal from "../RootModal";
-import { Tabs } from "antd";
-import type { TabsProps } from "antd";
 import SystemNotification from "./SystemNotifcation";
 import UserNotification from "./UserNotification";
 import { useSession } from "next-auth/react";
+import type { TabsProps } from "antd";
 import { NotificationOutlined } from "@ant-design/icons";
+import { Tabs } from "antd";
 
 const ModalNotification = ({
   isModalOpen,

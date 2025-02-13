@@ -2,9 +2,9 @@
 
 import { setShowModalUserFeedback } from "@/store/slices/systemSlice";
 import { AppDispatch } from "@/store/store";
-import { ExceptionOutlined } from "@ant-design/icons";
-import { Button, Tooltip } from "antd";
 import { useDispatch } from "react-redux";
+import { Button, Tooltip } from "antd";
+import { ExceptionOutlined } from "@ant-design/icons";
 
 const UserFeedback = () => {
   const dispatch: AppDispatch = useDispatch();

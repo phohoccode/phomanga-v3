@@ -13,12 +13,12 @@ import {
   fetchComicInfo,
 } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { CommentOutlined } from "@ant-design/icons";
-import { Breadcrumb, Col, Divider, Row } from "antd";
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { Breadcrumb, Col, Divider, Row } from "antd";
+import { CommentOutlined } from "@ant-design/icons";
 
 const InfoComic = () => {
   const params = useParams();

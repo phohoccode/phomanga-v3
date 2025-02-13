@@ -12,7 +12,7 @@ import {
   setWidth,
 } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import DisplayNotification from "./DisplayNotification";
 import NavBar from "./layout/header/NavBar";
@@ -26,8 +26,6 @@ import ModalComment from "./modals/ModalComment";
 import ModalUserFeedback from "./modals/ModalUserFeedback";
 import ModalUpgradeLevelVip from "./modals/modal-upgrade-level-vip/ModalUpgradeLevelVip";
 import FloatButtonGroup from "./FloatButtonGroup";
-import RefreshData from "./RefreshData";
-import Spinner from "./common/Spinner";
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
@@ -80,49 +78,45 @@ const App = ({ children }: { children: React.ReactNode }) => {
   }, [lastScrollY]);
 
   return (
-   <Suspense fallback={<Spinner/>}>
-      <DisplayNotification>
-        <RefreshData>
-          <NavBar />
-          {loaded && <NavBarMobile />}
-          {children}
-          <Footer />
-          <DrawerUser />
-  
-          <ModalSearch
-            isModalOpen={showModalSearch}
-            onCancel={() => dispatch(setShowModalSearch(false))}
-          />
-  
-          <ModalCategorys
-            isModalOpen={showModalCategorys}
-            onCancel={() => dispatch(setShowModalCategorys(false))}
-          />
-  
-          <ModalNotification
-            isModalOpen={showModalNotification}
-            onCancel={() => dispatch(setShowModalNotification(false))}
-          />
-  
-          <ModalComment
-            isModalOpen={showModalComment}
-            onCancel={() => dispatch(setShowModalComment(false))}
-          />
-  
-          <ModalUserFeedback
-            isModalOpen={showModalUserFeedback}
-            onCancel={() => dispatch(setShowModalUserFeedback(false))}
-          />
-  
-          <ModalUpgradeLevelVip
-            isModalOpen={showModalUpgradeLevelVip}
-            onCancel={() => dispatch(setShowModalUpgradeLevelVip(false))}
-          />
-  
-          {!isVisiable && <FloatButtonGroup />}
-        </RefreshData>
-      </DisplayNotification>
-   </Suspense>
+    <DisplayNotification>
+      <NavBar />
+      {loaded && <NavBarMobile />}
+      {children}
+      <Footer />
+      <DrawerUser />
+
+      <ModalSearch
+        isModalOpen={showModalSearch}
+        onCancel={() => dispatch(setShowModalSearch(false))}
+      />
+
+      <ModalCategorys
+        isModalOpen={showModalCategorys}
+        onCancel={() => dispatch(setShowModalCategorys(false))}
+      />
+
+      <ModalNotification
+        isModalOpen={showModalNotification}
+        onCancel={() => dispatch(setShowModalNotification(false))}
+      />
+
+      <ModalComment
+        isModalOpen={showModalComment}
+        onCancel={() => dispatch(setShowModalComment(false))}
+      />
+
+      <ModalUserFeedback
+        isModalOpen={showModalUserFeedback}
+        onCancel={() => dispatch(setShowModalUserFeedback(false))}
+      />
+
+      <ModalUpgradeLevelVip
+        isModalOpen={showModalUpgradeLevelVip}
+        onCancel={() => dispatch(setShowModalUpgradeLevelVip(false))}
+      />
+
+      {!isVisiable && <FloatButtonGroup />}
+    </DisplayNotification>
   );
 };
 

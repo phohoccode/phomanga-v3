@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import CommentItem from "./CommentItem";
 import SkeletonComment from "../skeleton/SkeletonComment";
-import { Pagination } from "antd";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import EmptyData from "../common/EmptyData";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +10,8 @@ import { AppDispatch, RootState } from "@/store/store";
 import { getComments } from "@/store/asyncThunk/commentAsyncThunk";
 import { setCurrentPage } from "@/store/slices/commentSlice";
 import useGetQuery from "@/hooks/useGetQuery";
-import { scrollToCurrentElement } from "@/lib/utils";
+import { socket } from "@/lib/socket";
+import { Pagination } from "antd";
 
 const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const { items, loading, totalItems, sort } = useSelector(
@@ -23,6 +23,18 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const searchParams = useSearchParams();
   const currentPage = useGetQuery("comment_page", "1", "number");
   const currentScrollRef = useRef<HTMLUListElement>(null);
+
+  useEffect(() => {
+    socket.on("refreshComments", (res) => {
+      if (res?.slug === params?.slug) {
+        handleGetComments();
+      }
+    });
+
+    return () => {
+      socket.off("refreshComments");
+    };
+  }, []);
 
   useEffect(() => {
     handleGetComments();
