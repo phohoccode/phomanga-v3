@@ -5,6 +5,8 @@ import Link from "next/link";
 import Marquee from "react-fast-marquee";
 import { useSelector } from "react-redux";
 import SkeletonCaterogiesAnimate from "./skeleton/SkeletonCaterogiesAnimate";
+import { colorDetail } from "@/lib/defind";
+import { randomItemFromArray } from "@/lib/utils";
 
 const CaterogiesAnimate = () => {
   const { items, loading } = useSelector(
@@ -30,7 +32,13 @@ const CaterogiesAnimate = () => {
           <Link
             href={`/chi-tiet/the-loai/${category?.slug}`}
             key={index}
-            className="px-4 py-2 text-base border border-gray-200 transition-all hover:border-[#13c2c2] hover:text-[#13c2c2] rounded-xl"
+            className={`px-4 py-2 text-base border transition-all rounded-xl hover:opacity-80`}
+            style={{
+              backgroundColor:
+                colorDetail[index % colorDetail.length]?.backround,
+              color: colorDetail[index % colorDetail.length]?.color,
+              borderColor: colorDetail[index % colorDetail.length]?.borderColor,
+            }}
           >
             {category?.name}
           </Link>

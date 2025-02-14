@@ -2,12 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { Col, Row } from "antd";
-
-export const pathHideNavBar = [
-  "/auth/sign-in",
-  "/auth/sign-up",
-  "/auth/forgot-password",
-];
+import { pathHideNavBar } from "@/lib/defind";
 
 const Footer = () => {
   const pathname = usePathname();

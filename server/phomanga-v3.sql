@@ -7,6 +7,7 @@ CREATE TABLE `comments` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `is_spam` tinyint(1) NOT NULL DEFAULT '0',
   `chapter` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -95,6 +96,7 @@ CREATE TABLE `vip_levels` (
   `id` char(36) NOT NULL DEFAULT (uuid()),
   `level` int NOT NULL DEFAULT '1',
   `max_stories` int NOT NULL,
+  `nickname` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `price` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

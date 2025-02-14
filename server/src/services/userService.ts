@@ -19,6 +19,7 @@ export const handleGetUserInfo = async (rawData: rawDataGetUserInfo) => {
         users.type_account,
         roles.name as role_name, 
         vip_levels.level as vip_level,
+        vip_levels.nickname as nickname,
         vip_levels.max_stories as max_stories
       from users, roles, vip_levels 
       where ${userId ? `users.id = '${userId}'` : `users.email = '${email}'`}
@@ -73,6 +74,31 @@ export const handleGetUserStatistical = async (userId: string) => {
   }
 };
 
+export const handleFindUserByEmailAndTypeAccount = async (
+  email: string,
+  typeAccount: string
+) => {
+  try {
+    const sql_select = `
+      Select id from users where email = '${email}' and type_account = '${typeAccount}'
+    `;
+
+    const [rows]: any = await connection.promise().query(sql_select);
+
+    return {
+      status: "success",
+      message:
+        rows?.length > 0
+          ? "Tìm thấy người dùng!"
+          : "Không tìm thấy người dùng!",
+      user: rows?.[0],
+    };
+  } catch (error) {
+    console.log(error);
+    return error_server;
+  }
+};
+
 export const handleGetUserRankings = async (criterion: criterion) => {
   try {
     let sql_select = "";
@@ -86,6 +112,7 @@ export const handleGetUserRankings = async (criterion: criterion) => {
             users.id as user_id,
             users.name as username,
             users.avatar,
+            vip_levels.nickname as nickname,
             vip_levels.level as vip_level
           from users, vip_levels
           where users.vip_level_id = vip_levels.id
@@ -104,7 +131,7 @@ export const handleGetUserRankings = async (criterion: criterion) => {
             users.avatar,
             count(comments.id) as quantity
           from users, comments
-          where users.id = comments.user_id
+          where users.id = comments.user_id and comments.is_spam = 0
           group by users.id, users.name, users.avatar
           order by quantity desc
           limit ${quantity}

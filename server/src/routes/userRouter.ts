@@ -1,6 +1,7 @@
 import express from "express";
 import {
   addFeedback,
+  findUserByEmailAndTypeAccount,
   getUserInfo,
   getUserRankings,
   getUserStatistical,
@@ -10,6 +11,7 @@ import {
 const route = express.Router();
 
 route.post("/get-user-info", getUserInfo);
+route.post("/find-user", findUserByEmailAndTypeAccount);
 route.post("/get-user-statistical", getUserStatistical);
 route.post("/get-user-rankings", getUserRankings);
 route.post("/add-feedback", addFeedback);

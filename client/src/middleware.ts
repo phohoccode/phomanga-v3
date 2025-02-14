@@ -13,9 +13,6 @@ export async function middleware(request: NextRequest) {
   const url = request.url;
   const { pathname } = new URL(url);
 
-  console.log("NEXTAUTH_SECRET", process.env.NEXTAUTH_SECRET);
-  console.log("VERCEL_ENV", process.env.VERCEL_ENV);
-
   const token = await getToken({
     req: request,
     secret: process.env.NEXTAUTH_SECRET,

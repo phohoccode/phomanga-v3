@@ -43,16 +43,12 @@ const Rankings = () => {
     },
     {
       key: "2",
-      label: "Truyện đã lưu",
+      label: "Kho lưu trữ",
       children: <ListUser users={data.users} criterion={data.criterion} />,
     },
     {
       key: "3",
-      label: (
-        <div className="flex items-center">
-          <span>Số truyện đã xem</span>
-        </div>
-      ),
+      label: "Truyện đã xem",
       children: <ListUser users={data.users} criterion={data.criterion} />,
     },
     {

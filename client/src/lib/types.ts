@@ -163,5 +163,6 @@ export type ListUserProps = {
     avatar: string;
     vip_level?: number;
     quantity?: number;
+    nickname?: string;
   }[];
 };

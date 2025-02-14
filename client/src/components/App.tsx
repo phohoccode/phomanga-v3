@@ -26,6 +26,8 @@ import ModalComment from "./modals/ModalComment";
 import ModalUserFeedback from "./modals/ModalUserFeedback";
 import ModalUpgradeLevelVip from "./modals/modal-upgrade-level-vip/ModalUpgradeLevelVip";
 import FloatButtonGroup from "./FloatButtonGroup";
+import { signOut, useSession } from "next-auth/react";
+import { message } from "antd";
 
 const App = ({ children }: { children: React.ReactNode }) => {
   const dispatch: AppDispatch = useDispatch();
@@ -40,6 +42,24 @@ const App = ({ children }: { children: React.ReactNode }) => {
     showModalUpgradeLevelVip,
     isVisiable,
   } = useSelector((state: RootState) => state.system);
+  const { data: sesstion, status }: any = useSession();
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      if (!sesstion?.user?.email) {
+        message.error(
+          "Toang rồi ní ơi! Không lấy được thông tin tài khoản! 😭"
+        );
+
+        setTimeout(async () => {
+          await message.info("Đang đăng xuất ...");
+          signOut({ callbackUrl: "/" });
+        }, 2000);
+      } else {
+        message.success(`Xin chào, ${sesstion?.user?.name}!`);
+      }
+    }
+  }, [status]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {

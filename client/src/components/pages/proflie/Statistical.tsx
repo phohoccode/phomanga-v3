@@ -10,6 +10,7 @@ const Statistical = ({ data }: any) => {
       <Row gutter={16}>
         <Col span={8}>
           <Statistic
+            className="truncate"
             title="Chương đã xem"
             value={data?.total_viewed_comic ?? 0}
             prefix={<EyeOutlined />}
@@ -17,6 +18,7 @@ const Statistical = ({ data }: any) => {
         </Col>
         <Col span={8}>
           <Statistic
+            className="truncate"
             title="Bình luận đã viết"
             value={data?.total_comments ?? 0}
             prefix={<EditOutlined />}
@@ -24,6 +26,7 @@ const Statistical = ({ data }: any) => {
         </Col>
         <Col span={8}>
           <Statistic
+            className="truncate"
             title="Truyện đã lưu"
             value={data?.total_saved_comic ?? 0}
             prefix={<BookOutlined />}

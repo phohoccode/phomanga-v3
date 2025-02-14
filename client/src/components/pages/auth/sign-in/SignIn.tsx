@@ -30,7 +30,6 @@ const SignIn = () => {
     if (res?.status === "error") {
       message.error(res?.message);
     } else {
-      message.success(res?.message);
       setTimeout(() => {
         window.location.href = "/";
       }, 1000);

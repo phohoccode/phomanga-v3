@@ -4,6 +4,7 @@ import comicReducer from "@/store/slices/comicSlice";
 import userReducer from "@/store/slices/userSlice";
 import commentReducer from "@/store/slices/commentSlice";
 import notificationReducer from "@/store/slices/notificationSlice";
+import vipLevelReducer from "@/store/slices/vipLevelSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     comic: comicReducer,
     user: userReducer,
     comment: commentReducer,
+    vipLevel: vipLevelReducer,
     notification: notificationReducer,
   },
 });

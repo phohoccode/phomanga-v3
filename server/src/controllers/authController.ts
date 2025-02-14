@@ -57,7 +57,6 @@ const registerAccount = async (req: Request, res: Response): Promise<any> => {
 
 const resetPassword = async (req: Request, res: Response): Promise<any> => {
   try {
-
     const { email, password, otp } = req.body;
 
     if (!email || !password || !otp) {

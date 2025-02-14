@@ -9,7 +9,6 @@ import { AppDispatch, RootState } from "@/store/store";
 import Link from "next/link";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { pathHideNavBar } from "./NavBar";
 import { usePathname } from "next/navigation";
 import {
   AppstoreOutlined,
@@ -18,6 +17,7 @@ import {
   ReadOutlined,
   SearchOutlined,
 } from "@ant-design/icons";
+import { pathHideNavBar } from "@/lib/defind";
 
 const links = [
   { href: "/", label: "Trang chủ", icon: <HomeOutlined /> },

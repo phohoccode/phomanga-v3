@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { formatDate, getColorVipLevel } from "@/lib/utils";
 import UpgradeLevelVip from "./button/UpgradeLevelVip";
 import DescriptionTitle from "@/components/common/DescriptionTitle";
@@ -18,6 +18,7 @@ export interface UserInfoProps {
     user_id: string;
     username: string;
     vip_level: number | string;
+    nickname: string;
   };
   dataVipLevels: any;
 }
@@ -44,7 +45,6 @@ const UserInfo = ({ dataUserInfo, dataVipLevels }: UserInfoProps) => {
         <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
     },
-
     {
       key: "3",
       label: (
@@ -67,6 +67,24 @@ const UserInfo = ({ dataUserInfo, dataVipLevels }: UserInfoProps) => {
     },
     {
       key: "4",
+      label: "Biệt danh",
+      children: dataUserInfo ? (
+        dataUserInfo?.nickname
+      ) : (
+        <Skeleton.Input style={{ width: 100, height: 24 }} />
+      ),
+    },
+    {
+      key: "5",
+      label: "Kho lưu trữ",
+      children: dataUserInfo ? (
+        dataUserInfo?.max_stories
+      ) : (
+        <Skeleton.Input style={{ width: 100, height: 24 }} />
+      ),
+    },
+    {
+      key: "6",
       label: "Thời gian tham gia",
       children: dataUserInfo ? (
         formatDate(dataUserInfo?.created_at)
@@ -80,7 +98,7 @@ const UserInfo = ({ dataUserInfo, dataVipLevels }: UserInfoProps) => {
     <div className="max-w-[1200px] mx-auto">
       <Descriptions
         size="middle"
-        column={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 4, xxl: 4 }}
+        column={{ xs: 1, sm: 1, md: 2, lg: 2, xl: 6, xxl: 6 }}
         bordered
         title={
           <DescriptionTitle title="Thông tin độc giả" icon={<UserOutlined />} />

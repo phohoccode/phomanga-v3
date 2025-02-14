@@ -23,7 +23,7 @@ export async function authenticate(
       message: "Đăng nhập thành công!",
     };
   } catch (error: any) {
-    console.log(">>> actions-error", error);
+    console.log(error);
 
     switch (error?.code) {
       case "invalid_credentials":
@@ -33,7 +33,7 @@ export async function authenticate(
       default:
         return {
           status: "error",
-          message: "Đã có lỗi xảy ra, vui lòng thử lại!",
+          message: "Đã có lỗi xảy ra, vui lòng thử lại sau!",
         };
     }
   }

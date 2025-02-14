@@ -27,10 +27,9 @@ export const handleGetAllUsers = async () => {
 export const handleGetAllComments = async () => {
   try {
     const sql_select_by_page = `
-      SELECT c.id, c.content, c.created_at, u.name, c.user_id, c.comic_slug
+      SELECT c.id, c.content, c.created_at, u.name, c.user_id, c.comic_slug, c.is_spam
       FROM comments c, users u
       WHERE c.user_id = u.id
-
     `;
 
     const [rows]: any = await connection.promise().query(sql_select_by_page);
@@ -42,7 +41,7 @@ export const handleGetAllComments = async () => {
       },
     };
   } catch (error) {
-    console.log(">>> error-get-all-comments", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -63,7 +62,7 @@ export const handleGetAllNotifications = async () => {
       },
     };
   } catch (error) {
-    console.log(">>> error-get-all-notifications", error);
+    console.log(error);
     return error_server;
   }
 };
@@ -88,7 +87,7 @@ export const handleGetAllFeedbacks = async () => {
       },
     };
   } catch (error) {
-    console.log(">>> error-get-all-feedbacks", error);
+    console.log(error);
     return error_server;
   }
 };

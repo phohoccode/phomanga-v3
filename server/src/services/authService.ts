@@ -47,6 +47,8 @@ const handleLogin = async (rawData: rawDataLogin) => {
 const handleRegister = async (rawData: rawDataRegister) => {
   const { email, otp, typeAccount, password, name, avatar } = rawData;
 
+  console.log(">>> register_account");
+
   try {
     if (typeAccount === "credentials") {
       if (!validator.isEmail(email)) {

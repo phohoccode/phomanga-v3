@@ -2,10 +2,9 @@
 
 import EmptyData from "../common/EmptyData";
 import Link from "next/link";
-import { getColorVipLevel } from "@/lib/utils";
 import { ListUserProps } from "@/lib/types";
 import { useSession } from "next-auth/react";
-import { Avatar, Col, Row, Tag, Tooltip } from "antd";
+import { Avatar, Col, Row, Tooltip } from "antd";
 
 const ListUser = ({ users, criterion }: ListUserProps) => {
   const { data: session }: any = useSession();
@@ -28,11 +27,7 @@ const ListUser = ({ users, criterion }: ListUserProps) => {
               alt="avatar"
             />
             <div className="flex items-start gap-1">
-              <div
-                className={`flex ${
-                  criterion === "vip_level" ? "flex-row" : "flex-col"
-                }`}
-              >
+              <div className={`flex flex-col gap-1`}>
                 <Tooltip title="Xem trang cá nhân">
                   <Link
                     href={`/trang-ca-nhan/${item?.user_id}`}
@@ -50,12 +45,9 @@ const ListUser = ({ users, criterion }: ListUserProps) => {
                   </Link>
                 </Tooltip>
                 {criterion === "vip_level" && (
-                  <Tag
-                    className="ml-2"
-                    color={getColorVipLevel(item?.vip_level as number)}
-                  >
-                    Vip {item?.vip_level}
-                  </Tag>
+                  <span className="text-sm text-gray-500">
+                    {item?.nickname} - Vip {item?.vip_level}
+                  </span>
                 )}
                 {criterion === "comment_wrote" && (
                   <span className="text-sm text-gray-500">

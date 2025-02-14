@@ -4,7 +4,7 @@ import { formatDate, removeHTMLTags } from "@/lib/utils";
 import Link from "next/link";
 import ActionComic from "./button/ActionComic";
 import ShowMoreText from "@/components/common/ShowMoreText";
-import { color } from "@/lib/defind";
+import { colorDetail } from "@/lib/defind";
 import UserFeedback from "./button/UserFeedback";
 import { Button, Image, Tag } from "antd";
 import { EyeOutlined } from "@ant-design/icons";
@@ -16,7 +16,9 @@ export const SessionInfo = ({ data }: any) => {
   const categories = data?.category?.map((item: any, index: number) => {
     return (
       <Link key={item?.id} href={`/chi-tiet/the-loai/${item?.slug}`}>
-        <Tag color={color[index]}> {item?.name ?? "Không xác định"}</Tag>
+        <Tag color={colorDetail[index].name}>
+          {item?.name ?? "Không xác định"}
+        </Tag>
       </Link>
     );
   });

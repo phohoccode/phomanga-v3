@@ -4,7 +4,7 @@ import Statistical from "@/components/pages/proflie/Statistical";
 import UserInfo from "@/components/pages/proflie/UserInfo";
 import { getAllVipLevel, getUserInfo, getUserStatistical } from "@/lib/actions";
 import Link from "next/link";
-import { Breadcrumb, Col, Row } from "antd";
+import { Breadcrumb, Col, Image, Row } from "antd";
 
 const Page = async ({ params }: any) => {
   const _params = await params;
@@ -42,13 +42,16 @@ const Page = async ({ params }: any) => {
             }}
           >
             <div
-              className={`absolute lg:-bottom-16 lg:left-[16%] -bottom-16 left-[50%] -translate-x-1/2  border-[3px] border-[#ccc] rounded-full overflow-hidden`}
+              className={`w-32 h-32 absolute lg:-bottom-16 lg:left-[16%] -bottom-16
+                 left-[50%] -translate-x-1/2  border-[3px] border-[#ccc] rounded-full overflow-hidden`}
             >
-              <img
-                loading="lazy"
+              <Image
                 src={dataUserInfo?.avatar ?? "/images/avatar.jpg"}
                 alt="avatar"
-                className="w-32 h-32 "
+                width={128}
+                preview={true}
+                placeholder={true}
+                height={128}
               />
             </div>
           </div>

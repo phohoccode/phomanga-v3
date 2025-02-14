@@ -55,6 +55,7 @@ export interface ComicState {
   };
   searchComicPreview: {
     items: any[];
+    totalItems: number;
     loading: boolean;
   };
   comicInfo: {
@@ -116,6 +117,7 @@ const initialState: ComicState = {
   },
   searchComicPreview: {
     items: [],
+    totalItems: 0,
     loading: true,
   },
   imagesComic: {
@@ -253,6 +255,8 @@ export const comicSlice = createSlice({
       })
       .addCase(fetchSearchComicPreview.fulfilled, (state, action) => {
         state.searchComicPreview.loading = false;
+        state.searchComicPreview.totalItems =
+          action.payload?.data?.params?.pagination?.totalItems ?? 0;
         state.searchComicPreview.items = action.payload?.data?.items ?? [];
       })
       .addCase(fetchSearchComicPreview.rejected, (state) => {

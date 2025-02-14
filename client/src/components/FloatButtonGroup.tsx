@@ -28,7 +28,9 @@ const FloatButtonGroup = () => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
   };
 
-  if (pathname.startsWith("/bang-dieu-khien")) return null;
+  if (pathname.startsWith("/bang-dieu-khien") || pathname.startsWith("/auth")) {
+    return null;
+  }
 
   return (
     <FloatButton.Group

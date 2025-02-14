@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import {
   handleAddFeedback,
+  handleFindUserByEmailAndTypeAccount,
   handleGetUserInfo,
   handleGetUserRankings,
   handleGetUserStatistical,
-  handleUpgradeVipLevel,
 } from "../services/userService";
 import { error_server } from "../lib/define";
 import axios from "axios";
@@ -69,6 +69,32 @@ export const getUserRankings = async (
   }
 };
 
+export const findUserByEmailAndTypeAccount = async (
+  req: Request,
+  res: Response
+): Promise<any> => {
+  try {
+    const { email, typeAccount } = req.body;
+
+    if (!email || !typeAccount) {
+      return res.status(500).json({
+        status: "error",
+        message: "Email và typeAccount là bắt buộc",
+      });
+    }
+
+    const response = await handleFindUserByEmailAndTypeAccount(
+      email,
+      typeAccount
+    );
+
+    return res.status(200).json(response);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error_server);
+  }
+};
+
 export const addFeedback = async (
   req: Request,
   res: Response
@@ -91,6 +117,7 @@ export const addFeedback = async (
   }
 };
 
+// =============================== MOMO ===============================
 export const upgradeVipLevel = async (
   req: Request,
   res: Response

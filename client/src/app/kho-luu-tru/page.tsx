@@ -1,4 +1,4 @@
-import { Alert, Breadcrumb, Divider } from "antd";
+import { Breadcrumb, Divider } from "antd";
 import Link from "next/link";
 import { auth } from "@/auth";
 import { fetchDataComic } from "@/lib/actions";
@@ -9,6 +9,7 @@ import Loading from "./loading";
 import PaginationCT from "@/components/PaginationCT";
 import ButtonDeleteAllComic from "@/components/common/ButtonDeleteAllComic";
 import { InboxOutlined } from "@ant-design/icons";
+import TitleAlert from "@/components/pages/archive-comic/TitleAlert";
 
 const Page = async ({ searchParams }: any) => {
   const session: any = await auth();
@@ -44,13 +45,7 @@ const Page = async ({ searchParams }: any) => {
         </div>
       )}
 
-      <Alert
-        type="info"
-        showIcon={true}
-        message={`Hiện tại bạn chỉ có thể lưu tối đa ${session?.user?.max_stories} truyện! Nâng cấp VIP để lưu nhiều hơn!`}
-        style={{ margin: "32px 0" }}
-        closeIcon
-      />
+      <TitleAlert />
 
       <Suspense key={page} fallback={<Loading />}>
         <ComicList

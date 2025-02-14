@@ -116,7 +116,7 @@ const CommentActions = ({ comment }: any) => {
   };
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 ml-[-7px]">
       {comment?.liked_by_users?.some(
         (user: any) => user.userId === sesstion?.user?.id
       ) ? (

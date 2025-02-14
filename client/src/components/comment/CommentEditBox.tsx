@@ -80,7 +80,7 @@ const CommentEditBox = ({ comment }: any) => {
         placeholder="Bạn đang suy nghĩ gì thế ..."
         autoSize={{ minRows: 3, maxRows: 5 }}
       />
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 flex-1">
         <Button onClick={() => dispatch(setCommentIdEdit(""))} type="text">
           Huỷ
         </Button>

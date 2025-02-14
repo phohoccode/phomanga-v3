@@ -29,7 +29,7 @@ const SignUp = () => {
 
   const onFinish: FormProps<FieldType>["onFinish"] = async (values) => {
     if (values.password !== values.confirmPassword) {
-      message.error("Mật khẩu không khớp!");
+      message.error("Sai pass rồi bạn ơi, chắc tay trượt phím đấy!");
       return;
     }
 
@@ -47,7 +47,7 @@ const SignUp = () => {
     if (response?.status === "error") {
       message.error(response?.message);
     } else {
-      message.success(response?.message);
+      message.success("Đăng ký xong rồi! Giờ thì bung lụa thôi!");
       setTimeout(() => {
         window.location.href = "/auth/sign-in";
       }, 1000);

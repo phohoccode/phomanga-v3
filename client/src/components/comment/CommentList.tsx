@@ -77,7 +77,10 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
         }`}
       >
         {items?.map((comment, index) => (
-          <li key={index} className="flex gap-4">
+          <li
+            key={index}
+            className="flex gap-4 border-2 border-gray-100 p-4 rounded-lg"
+          >
             <CommentItem comment={comment} />
           </li>
         ))}

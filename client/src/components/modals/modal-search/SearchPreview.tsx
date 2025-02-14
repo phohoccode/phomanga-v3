@@ -17,7 +17,7 @@ const SearchPreview = ({
   keyword: string;
   setKeyword: (value: string) => void;
 }) => {
-  const { items, loading } = useSelector(
+  const { items, loading, totalItems } = useSelector(
     (state: RootState) => state.comic.searchComicPreview
   );
   const dispatch: AppDispatch = useDispatch();
@@ -39,12 +39,12 @@ const SearchPreview = ({
       <div className="flex items-center gap-1 mt-4">
         <SearchOutlined />
         <Typography.Text>
-          Tìm thấy {items?.length} kết quả cho từ khóa{" "}
+          Tìm thấy {totalItems} kết quả cho từ khóa{" "}
           <span className="font-semibold">&quot;{keyword}&quot;</span>
         </Typography.Text>
       </div>
       <ul className="flex flex-col gap-4 overflow-y-auto max-h-96 pr-2">
-        {items?.map((item: any, index: number) => (
+        {items?.slice(0, 10)?.map((item: any, index: number) => (
           <li key={index} onClick={() => dispatch(setShowModalSearch(false))}>
             <Link
               onClick={() => setKeyword("")}
