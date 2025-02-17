@@ -58,9 +58,15 @@ export type rawDataCreateComment = {
   chapter: string;
 };
 
-export type rawDataUpdateComment = {
+export type rawDataDeleteComment = {
   commentId: string;
+  userId: string;
+};
+
+export type rawDataUpdateComment = {
+  id: string;
   content: string;
+  userId: string;
 };
 
 export type rawDataGetComments = {
@@ -77,6 +83,22 @@ export type rawDataGetAllNotifications = {
   page: string;
 };
 
+export type rawDataLikeComment = {
+  commentId: string;
+  userId: string;
+}
+
+export type rawDataUnlikeComment = {
+  commentId: string;
+  userId: string;
+}
+
+export type rawDataGetSearchHistory = {
+  userId: string;
+  limit: string;
+  page: string;
+}
+
 export type rawDataCreateNotification = {
   title: string;
   content: string;
@@ -87,13 +109,13 @@ export type rawDataCreateNotification = {
 export type rawDataDeleteNotification = {
   notificationId: string;
   userId: string;
+  role: "admin" | "user";
 };
 
 export type rawDataUpdateNotification = {
-  notificationId: string;
   title: string;
   content: string;
-  userId: string;
+  id: string;
 };
 
 export type rawDataGetUserInfo = {

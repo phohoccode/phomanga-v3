@@ -4,7 +4,7 @@ import axios from "@/config/axios";
 export const getAllVipLevel = createAsyncThunk(
   "vipLevel/getAllVipLevel",
   async () => {
-    const response: any = await axios.get("/vip-level/get-all-vip-level");
+    const response: any = await axios.get("/user/vip-levels");
 
     return response;
   }

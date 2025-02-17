@@ -83,7 +83,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
 
-      if (currentScrollY > lastScrollY) {
+      if (currentScrollY > lastScrollY && currentScrollY > 0) {
         dispatch(setIsVisiable(false));
       } else {
         dispatch(setIsVisiable(true));

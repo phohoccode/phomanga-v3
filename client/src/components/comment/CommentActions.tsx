@@ -40,6 +40,7 @@ const CommentActions = ({ comment }: any) => {
       const response: any = await dispatch(
         deleteComment({
           commentId: comment?.comment_id,
+          userId: sesstion?.user?.id as string,
         })
       );
 

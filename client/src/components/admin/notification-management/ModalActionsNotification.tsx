@@ -69,13 +69,11 @@ const ModalActionsNotification = () => {
       form.resetFields();
 
       socket.emit("newNotification");
-      
     } else if (action === "update") {
       response = await updateNotification(
         dataUpdate.id,
         values.title,
-        values.content,
-        sesstion?.user?.id as string
+        values.content
       );
     }
 

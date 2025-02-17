@@ -115,11 +115,8 @@ export async function fetchDataComic(
   type: string
 ) {
   try {
-    const response: any = await axios.post("/comic/get-all-comic", {
-      userId,
-      page,
-      type,
-    });
+    const query = `userId=${userId}&page=${page}&type=${type}`;
+    const response: any = await axios.get(`/user/comics?${query}`);
 
     return response;
   } catch (error) {
@@ -129,10 +126,8 @@ export async function fetchDataComic(
 
 export async function deleteAllComic(userId: string, type: string) {
   try {
-    const response: any = await axios.post("/comic/delete-all-comic", {
-      userId,
-      type,
-    });
+    const query = `userId=${userId}&type=${type}`;
+    const response: any = await axios.delete(`/user/comics?${query}`);
 
     return response;
   } catch (error) {
@@ -145,7 +140,7 @@ export async function deleteAllComic(userId: string, type: string) {
 // =============================== ADMIN ===============================
 export async function fetchAllUsers() {
   try {
-    const response: any = await axios.get("/admin/get-all-users");
+    const response: any = await axios.get("/admin/users");
 
     return response;
   } catch (error) {
@@ -155,7 +150,7 @@ export async function fetchAllUsers() {
 
 export async function fetchAllComments() {
   try {
-    const response: any = await axios.get("/admin/get-all-comments");
+    const response: any = await axios.get("/admin/comments");
 
     return response;
   } catch (error) {
@@ -165,7 +160,7 @@ export async function fetchAllComments() {
 
 export async function fetchAllNotifications() {
   try {
-    const response: any = await axios.get("/admin/get-all-notifications");
+    const response: any = await axios.get("/admin/notifications");
 
     return response;
   } catch (error) {
@@ -175,7 +170,7 @@ export async function fetchAllNotifications() {
 
 export async function fetchAllFeedbacks() {
   try {
-    const response: any = await axios.get("/admin/get-all-feedbacks");
+    const response: any = await axios.get("/admin/feedbacks");
 
     return response;
   } catch (error) {
@@ -195,15 +190,21 @@ export async function deleteComment(commentId: string) {
   }
 }
 
-export async function deleteNotification(
-  notificationId: string,
-  userId: string
-) {
+export async function deleteNotification({
+  notificationId,
+  userId,
+  role,
+}: {
+  notificationId: string;
+  userId: string;
+  role: "admin" | "user";
+}) {
   try {
-    const response: any = await axios.post("/admin/delete-notification", {
-      notificationId,
-      userId,
-    });
+    const query = `notificationId=${notificationId}&userId=${userId}&role=${role}`;
+
+    const response: any = await axios.delete(`/admin/notification?${query}`);
+
+    console.log(">>> response", response);
 
     return response;
   } catch (error) {
@@ -230,7 +231,7 @@ export async function createNotification(
   type: "system" | "user"
 ) {
   try {
-    const response: any = await axios.post("/admin/create-notification", {
+    const response: any = await axios.post("/admin/notification", {
       title,
       content,
       userId,
@@ -246,16 +247,17 @@ export async function createNotification(
 export async function updateNotification(
   notificationId: string,
   title: string,
-  content: string,
-  userId: string
+  content: string
 ) {
   try {
-    const response: any = await axios.post("/admin/update-notification", {
-      notificationId,
+    const data = {
       title,
       content,
-      userId,
-    });
+    };
+    const response: any = await axios.put(
+      `/admin/notification/${notificationId}`,
+      data
+    );
 
     return response;
   } catch (error) {
@@ -265,9 +267,8 @@ export async function updateNotification(
 
 export async function getUserInfo(userId: string) {
   try {
-    const response: any = await axios.post("/user/get-user-info", {
-      userId,
-    });
+    const query = `userId=${userId}`;
+    const response: any = await axios.get(`/user/info?${query}`);
 
     return response;
   } catch (error) {
@@ -277,9 +278,8 @@ export async function getUserInfo(userId: string) {
 
 export async function getUserStatistical(userId: string) {
   try {
-    const response: any = await axios.post("/user/get-user-statistical", {
-      userId,
-    });
+    const query = `userId=${userId}`;
+    const response: any = await axios.get(`/user/statistics?${query}`);
 
     return response;
   } catch (error) {
@@ -289,7 +289,7 @@ export async function getUserStatistical(userId: string) {
 
 export async function getAllVipLevel() {
   try {
-    const response: any = await axios.get("/vip-level/get-all-vip-level");
+    const response: any = await axios.get("/user/vip-levels");
 
     return response;
   } catch (error) {
@@ -299,9 +299,8 @@ export async function getAllVipLevel() {
 
 export async function getUserRankings(criterion: string) {
   try {
-    const response: any = await axios.post("/user/get-user-rankings", {
-      criterion,
-    });
+    const query = `criterion=${criterion}`;
+    const response: any = await axios.get(`/user/rankings?${query}`);
 
     return response;
   } catch (error) {

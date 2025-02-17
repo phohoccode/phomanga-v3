@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getAllComic, getSearchHisory } from "../asyncThunk/userAsyncThunk";
+import { getAllComic, getSearchHistory } from "../asyncThunk/userAsyncThunk";
 
 type UserSlice = {
   savedComics: {
@@ -8,6 +8,7 @@ type UserSlice = {
   };
   searchHistory: {
     items: any[];
+    total: number;
     loading: boolean;
   };
 };
@@ -19,6 +20,7 @@ const initialState: UserSlice = {
   },
   searchHistory: {
     items: [],
+    total: 0,
     loading: false,
   },
 };
@@ -45,16 +47,17 @@ export const userSlice = createSlice({
         state.savedComics.loading = false;
       })
 
-      .addCase(getSearchHisory.pending, (state) => {
+      .addCase(getSearchHistory.pending, (state) => {
         state.searchHistory.loading = true;
       })
 
-      .addCase(getSearchHisory.fulfilled, (state, action) => {
+      .addCase(getSearchHistory.fulfilled, (state, action) => {
         state.searchHistory.loading = false;
+        state.searchHistory.total = action.payload.data?.totalItems ?? 0;
         state.searchHistory.items = action.payload.data?.items ?? [];
       })
 
-      .addCase(getSearchHisory.rejected, (state) => {
+      .addCase(getSearchHistory.rejected, (state) => {
         state.searchHistory.loading = false;
       });
   },

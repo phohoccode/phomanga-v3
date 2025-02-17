@@ -30,7 +30,11 @@ const handleGetAllComic = async (rawData: rawDataGetComic) => {
       (item: any) => item.is_deleted === false
     );
 
-    const items = finalData?.slice(skip, skip + itemsPerPage);
+    const items =
+      Number(page) === 0 || Number(page) === -1
+        ? finalData
+        : finalData?.slice(skip, skip + itemsPerPage);
+
     const totalItems = finalData?.length;
 
     return {

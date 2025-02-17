@@ -7,18 +7,18 @@ import {
 } from "../controllers/adminController";
 import {
   createNotification,
-  deteleNotification,
+  deleteNotification,
   updateNotification,
 } from "../controllers/notificationController";
 
 const route = express.Router();
 
-route.get("/get-all-users", getAllUsers);
-route.get("/get-all-comments", getAllComments);
-route.get("/get-all-feedbacks", getAllFeedbacks);
-route.get("/get-all-notifications", getAllNotifications);
-route.post("/delete-notification", deteleNotification);
-route.post("/create-notification", createNotification);
-route.post("/update-notification", updateNotification);
+route.get("/users", getAllUsers);
+route.get("/comments", getAllComments);
+route.get("/feedbacks", getAllFeedbacks);
+route.get("/notifications", getAllNotifications);
+route.post("/notification", createNotification);
+route.delete("/notification", deleteNotification);
+route.put("/notification/:id", updateNotification);
 
 export default route;

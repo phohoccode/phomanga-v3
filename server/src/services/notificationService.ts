@@ -102,13 +102,22 @@ export const handleCreateNotification = async (
 export const handleDeleteNotification = async (
   rawData: rawDataDeleteNotification
 ) => {
-  const { notificationId } = rawData;
+  const { notificationId, userId, role } = rawData;
 
   try {
-    const sql_delete = `
-      UPDATE notification set is_deleted = 1
-      WHERE id = '${notificationId}' 
-    `;
+    let sql_delete = "";
+
+    if (role === "admin") {
+      sql_delete = `
+        UPDATE notification set is_deleted = 1
+        WHERE id = '${notificationId}' 
+      `;
+    } else if (role === "user") {
+      sql_delete = `
+        UPDATE notification set is_deleted = 1
+        WHERE id = '${notificationId}' and user_id = '${userId}'
+      `;
+    }
 
     const [rows]: any = await connection.promise().execute(sql_delete);
 
@@ -132,13 +141,13 @@ export const handleDeleteNotification = async (
 export const handleUpdateNotification = async (
   rawData: rawDataUpdateNotification
 ) => {
-  const { notificationId, title, content } = rawData;
+  const { id, title, content } = rawData;
 
   try {
     const sql_update = `
       UPDATE notification
       SET title = '${title}', content = '${content}'
-      WHERE id = '${notificationId}' 
+      WHERE id = '${id}' 
     `;
 
     const [rows]: any = await connection.promise().execute(sql_update);

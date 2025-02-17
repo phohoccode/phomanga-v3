@@ -2,7 +2,10 @@ import connection from "../database/mysql";
 import { error_server } from "../lib/define";
 import {
   rawDataCreateComment,
+  rawDataDeleteComment,
   rawDataGetComments,
+  rawDataLikeComment,
+  rawDataUnlikeComment,
   rawDataUpdateComment,
 } from "../lib/types";
 import { v4 as uuidv4 } from "uuid";
@@ -112,11 +115,13 @@ export const handleCreateComment = async (rawData: rawDataCreateComment) => {
   }
 };
 
-export const handleDeleteComment = async (commentId: string) => {
+export const handleDeleteComment = async (rawData: rawDataDeleteComment) => {
+  const { commentId, userId } = rawData;
+
   try {
     const sql_delete = `
       UPDATE comments set is_deleted = 1
-      where id = '${commentId}'
+      where id = '${commentId}' and user_id = '${userId}'
     `;
 
     const response: any = await connection.promise().query(sql_delete);
@@ -139,13 +144,13 @@ export const handleDeleteComment = async (commentId: string) => {
 };
 
 export const handleUpdateComment = async (rawData: rawDataUpdateComment) => {
-  const { commentId, content } = rawData;
+  const { id, userId, content } = rawData;
 
   try {
     const sql_update = `
       Update comments 
       set content = '${content}'
-      where id = '${commentId}'
+      where id = '${id}' and user_id = '${userId}'
     `;
 
     const response: any = await connection.promise().query(sql_update);
@@ -167,7 +172,7 @@ export const handleUpdateComment = async (rawData: rawDataUpdateComment) => {
   }
 };
 
-export const handleLikeComment = async (rawData: any) => {
+export const handleLikeComment = async (rawData: rawDataLikeComment) => {
   try {
     const { commentId, userId } = rawData;
 
@@ -197,7 +202,7 @@ export const handleLikeComment = async (rawData: any) => {
   }
 };
 
-export const handleUnlikeComment = async (rawData: any) => {
+export const handleUnlikeComment = async (rawData: rawDataUnlikeComment) => {
   try {
     const { commentId, userId } = rawData;
 

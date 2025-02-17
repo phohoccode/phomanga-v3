@@ -5,12 +5,9 @@ import cors from "cors";
 import http from "http";
 import authRouter from "./routes/authRouter";
 import userRouter from "./routes/userRouter";
-import comicRouter from "./routes/comicRouter";
 import searchRouter from "./routes/searchRouter";
-import commentRouter from "./routes/commentRouter";
+import comicRouter from "./routes/comicRouter";
 import adminRouter from "./routes/adminRouter";
-import vipLevelRouter from "./routes/vipLevelRouter";
-import notificationRouter from "./routes/notificationRouter";
 import connectMongoDB from "./database/mongodb";
 import initSocketIO from "./lib/socket";
 
@@ -46,13 +43,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // defind routes
-app.use("/auth", authRouter);
 app.use("/user", userRouter);
-app.use("/comic", comicRouter);
+app.use("/auth", authRouter);
 app.use("/search", searchRouter);
-app.use("/comment", commentRouter);
-app.use("/notification", notificationRouter);
-app.use("/vip-level", vipLevelRouter);
+app.use("/comic", comicRouter);
 
 // admin router
 app.use("/admin", adminRouter);

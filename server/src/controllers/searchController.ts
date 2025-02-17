@@ -5,22 +5,25 @@ import {
   handleGetSearchHistory,
 } from "../services/searchService";
 import { error_server } from "../lib/define";
+import { rawDataGetSearchHistory } from "../lib/types";
 
 export const getSearchHistory = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const userId = req.body.userId;
+    const { userId, limit, page } = req.query;
 
-    if (!userId) {
+    if (!userId || !limit || !page) {
       return res.status(400).json({
         status: "error",
         message: "User ID là bắt buộc!",
       });
     }
 
-    const response = await handleGetSearchHistory(userId);
+    const response = await handleGetSearchHistory(
+      req.query as rawDataGetSearchHistory
+    );
 
     return res.status(200).json(response);
   } catch (error) {
@@ -34,8 +37,7 @@ export const addSearchHistory = async (
   res: Response
 ): Promise<any> => {
   try {
-    const userId = req.body.userId;
-    const keyword = req.body.keyword;
+    const { userId, keyword } = req.body;
 
     if (!userId || !keyword) {
       return res.status(400).json({
@@ -58,7 +60,7 @@ export const deleteSearchHistory = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { userId, searchId } = req.body;
+    const { userId, searchId } = req.query;
 
     if (!userId || !searchId) {
       return res.status(400).json({
@@ -67,7 +69,10 @@ export const deleteSearchHistory = async (
       });
     }
 
-    const response = await handleDeleteSearchHistory(userId, searchId);
+    const response = await handleDeleteSearchHistory(
+      userId as string,
+      searchId as string
+    );
 
     return res.status(200).json(response);
   } catch (error) {

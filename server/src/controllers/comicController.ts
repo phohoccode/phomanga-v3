@@ -6,17 +6,24 @@ import {
   handleSaveComic,
 } from "../services/comicService";
 import { error_server } from "../lib/define";
+import {
+  rawDataDeleteAllComic,
+  rawDataDeleteComic,
+  rawDataGetComic,
+} from "../lib/types";
 
 const getAllComic = async (req: Request, res: Response): Promise<any> => {
   try {
-    if (!req.body?.userId) {
+    const { userId, page, type } = req.query;
+
+    if (!userId || !page || !type) {
       return res.status(500).json({
         status: "error",
-        message: "userId là bắt buộc",
+        message: "userId, page và type là bắt buộc",
       });
     }
 
-    const response = await handleGetAllComic(req.body);
+    const response = await handleGetAllComic(req.query as rawDataGetComic);
 
     return res.status(200).json(response);
   } catch (error) {
@@ -47,7 +54,7 @@ const saveComic = async (req: Request, res: Response): Promise<any> => {
 
 const deleteComic = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { comicSlug, userId } = req.body;
+    const { comicSlug, userId } = req.query;
 
     if (!comicSlug || !userId) {
       return res.status(500).json({
@@ -56,7 +63,9 @@ const deleteComic = async (req: Request, res: Response): Promise<any> => {
       });
     }
 
-    const response = await handleDeleteComic(req.body);
+    const response = await handleDeleteComic(req.query as rawDataDeleteComic);
+
+    console.log(">>> response", response);
 
     return res.status(200).json(response);
   } catch (error) {
@@ -67,7 +76,7 @@ const deleteComic = async (req: Request, res: Response): Promise<any> => {
 
 const deleteAllComic = async (req: Request, res: Response): Promise<any> => {
   try {
-    const { userId, type } = req.body;
+    const { userId, type } = req.query;
 
     if (!userId || !type) {
       return res.status(500).json({
@@ -76,7 +85,9 @@ const deleteAllComic = async (req: Request, res: Response): Promise<any> => {
       });
     }
 
-    const response = await handleDeleteAllComic(req.body);
+    const response = await handleDeleteAllComic(
+      req.query as rawDataDeleteAllComic
+    );
 
     return res.status(200).json(response);
   } catch (error) {

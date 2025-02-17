@@ -64,6 +64,7 @@ const UserNotification = () => {
       deleteNotification({
         notificationId: id,
         userId: sesstion?.user?.id as string,
+        role: "user",
       })
     );
     setLoadingId("");

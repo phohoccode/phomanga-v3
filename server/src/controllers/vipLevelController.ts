@@ -8,6 +8,7 @@ export const getAllVipLevel = async (
 ): Promise<any> => {
   try {
     const response = await handleGetAllVipLevel();
+
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);

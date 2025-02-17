@@ -8,13 +8,14 @@ import {
 } from "../services/userService";
 import { error_server } from "../lib/define";
 import axios from "axios";
+import { criterion, rawDataGetUserInfo } from "../lib/types";
 
 export const getUserInfo = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const response = await handleGetUserInfo(req.body);
+    const response = await handleGetUserInfo(req.query as rawDataGetUserInfo);
 
     return res.status(200).json(response);
   } catch (error) {
@@ -28,7 +29,7 @@ export const getUserStatistical = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { userId } = req.body;
+    const { userId } = req.query;
 
     if (!userId) {
       return res.status(500).json({
@@ -37,7 +38,7 @@ export const getUserStatistical = async (
       });
     }
 
-    const response = await handleGetUserStatistical(userId);
+    const response = await handleGetUserStatistical(userId as string);
 
     return res.status(200).json(response);
   } catch (error) {
@@ -51,7 +52,7 @@ export const getUserRankings = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { criterion } = req.body;
+    const { criterion } = req.query;
 
     if (!criterion) {
       return res.status(500).json({
@@ -60,7 +61,9 @@ export const getUserRankings = async (
       });
     }
 
-    const response = await handleGetUserRankings(criterion);
+    const response = await handleGetUserRankings(criterion as criterion);
+
+    console.log(">>> response", response);
 
     return res.status(200).json(response);
   } catch (error) {
@@ -74,7 +77,10 @@ export const findUserByEmailAndTypeAccount = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { email, typeAccount } = req.body;
+    // const { email, typeAccount } = req.body;
+    const { email, typeAccount } = req.query;
+
+    console.log(">>> query", req.query);
 
     if (!email || !typeAccount) {
       return res.status(500).json({
@@ -84,8 +90,8 @@ export const findUserByEmailAndTypeAccount = async (
     }
 
     const response = await handleFindUserByEmailAndTypeAccount(
-      email,
-      typeAccount
+      email as string,
+      typeAccount as string
     );
 
     return res.status(200).json(response);

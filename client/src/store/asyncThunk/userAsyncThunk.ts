@@ -5,7 +5,7 @@ import type { DeleteComic, SavedComic } from "@/lib/types";
 export const saveComic = createAsyncThunk(
   "user/saveComic",
   async ({ userId, dataComic, type, username, avatar }: SavedComic) => {
-    const response = await axios.post(`/comic/save-comic`, {
+    const response = await axios.post(`/user/comic`, {
       userId,
       dataComic,
       type,
@@ -20,35 +20,44 @@ export const saveComic = createAsyncThunk(
 export const deleteComic = createAsyncThunk(
   "user/deleteComic",
   async ({ userId, comicSlug, comicId, type }: DeleteComic) => {
-    const response = await axios.post(`/comic/delele-comic`, {
-      userId,
-      comicSlug,
-      comicId,
-      type,
-    });
+    const query = `comicSlug=${comicSlug}&userId=${userId}&comicId=${comicId}&type=${type}`;
 
+    const response = await axios.delete(`/user/comic?${query}`);
     return response;
   }
 );
 
 export const getAllComic = createAsyncThunk(
   "user/getAllComic",
-  async ({ userId, type }: { userId: string; type: string }) => {
-    const response = await axios.post(`/comic/get-all-comic`, {
-      userId,
-      type,
-    });
+  async ({
+    userId,
+    type,
+    page,
+  }: {
+    userId: string;
+    type: string;
+    page: string;
+  }) => {
+    const query = `userId=${userId}&type=${type}&page=${page}`;
+    const response = await axios.get(`/user/comics?${query}`);
 
     return response;
   }
 );
 
-export const getSearchHisory = createAsyncThunk(
-  "user/getSearchHisory",
-  async ({ userId }: { userId: string }) => {
-    const response = await axios.post(`/search/get-search-history`, {
-      userId,
-    });
+export const getSearchHistory = createAsyncThunk(
+  "user/getSearchHistory",
+  async ({
+    userId,
+    limit,
+    page,
+  }: {
+    userId: string;
+    page: string;
+    limit: string;
+  }) => {
+    const query = `userId=${userId}&limit=${limit}&page=${page}`;
+    const response = await axios.get(`/user/search-history?${query}`);
 
     return response;
   }
@@ -57,7 +66,7 @@ export const getSearchHisory = createAsyncThunk(
 export const addSearchHistory = createAsyncThunk(
   "user/addSearchHistory",
   async ({ userId, keyword }: { userId: string; keyword: string }) => {
-    const response = await axios.post(`/search/add-search-history`, {
+    const response = await axios.post(`/user/search-history`, {
       userId,
       keyword,
     });
@@ -69,10 +78,8 @@ export const addSearchHistory = createAsyncThunk(
 export const deleteSearchHistory = createAsyncThunk(
   "user/deleteSearchHistory",
   async ({ userId, searchId }: { userId: string; searchId: string }) => {
-    const response = await axios.post(`/search/delete-search-history`, {
-      userId,
-      searchId,
-    });
+    const query = `userId=${userId}&searchId=${searchId}`;
+    const response = await axios.delete(`/user/search-history?${query}`);
 
     return response;
   }

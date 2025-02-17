@@ -67,10 +67,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     async jwt({ token, profile, account }: any) {
       if (account?.provider === "google") {
-        const response: any = await axios.post("/user/find-user", {
-          email: profile?.email,
-          typeAccount: "google",
-        });
+        const query = `email=${profile?.email}&typeAccount=google`;
+        const response: any = await axios.get(`/user/search?${query}`);
 
         if (!response?.user) {
           await axios.post("/auth/register", {
@@ -88,10 +86,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         token.picture = "/images/avatar.jpg";
       }
 
-      const response: any = await axios.post("/user/get-user-info", {
-        email: token?.email,
-        typeAccount: account?.provider ?? token?.type_account,
-      });
+      const query = `email=${token?.email}&typeAccount=${
+        account?.provider ?? token?.type_account
+      }`;
+      const response: any = await axios.get(`/user/info?${query}`);
 
       token.id = response?.user?.user_id;
       token.role = response?.user?.role_name;

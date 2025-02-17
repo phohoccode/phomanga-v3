@@ -72,7 +72,7 @@ const NavBarMobile = () => {
       className={`z-50 fixed left-3 right-3 ${
         !isVisiable ? "bottom-0" : "bottom-3"
       } 
-        md:p-6 p-3 flex items-center justify-between rounded-full
+        md:p-6 p-3 flex items-center justify-between rounded-2xl
         bg-[#fffc] backdrop-blur border border-[#f2f2f2] h-[60px] transition-all duration-300
         ${isVisiable ? "transform-none" : "translate-y-full"}
       `}
@@ -87,7 +87,7 @@ const NavBarMobile = () => {
             <Link
               href={href}
               className={`text-lg flex flex-col gap-1 justify-center
-                 items-center p-2 transition-all rounded-full
+                 items-center p-2 transition-all rounded-xl
                  ${
                    index === currentIndex
                      ? "bg-[#13c2c2] text-[#fff]"

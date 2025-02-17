@@ -18,7 +18,7 @@ import {
 import { socket } from "@/lib/socket";
 
 const TableNotification = ({ data }: { data: any }) => {
-  const { data: sesstion } = useSession();
+  const { data: sesstion }: any = useSession();
   const router = useRouter();
   const [loadingId, setLoadingId] = useState("");
   const dispatch: AppDispatch = useDispatch();
@@ -84,7 +84,11 @@ const TableNotification = ({ data }: { data: any }) => {
     }
 
     setLoadingId(id);
-    const response = await deleteNotification(id, sesstion?.user?.id as string);
+    const response = await deleteNotification({
+      notificationId: id,
+      userId: sesstion?.user?.id as string,
+      role: sesstion?.user?.role as "admin" | "user",
+    });
     setLoadingId("");
 
     if (response?.status === "success") {

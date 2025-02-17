@@ -4,12 +4,8 @@ import axios from "@/config/axios";
 export const fetchAllNotifications = createAsyncThunk(
   "notifications/fetchAllNotifications",
   async ({ type, userId, limit, page }: any) => {
-    const response = await axios.post("/notification//get-all-notifications", {
-      type,
-      userId,
-      limit,
-      page,
-    });
+    const query = `type=${type}&userId=${userId}&limit=${limit}&page=${page}`;
+    const response = await axios.get(`/user/notifications?${query}`);
 
     return response;
   }
@@ -18,7 +14,7 @@ export const fetchAllNotifications = createAsyncThunk(
 export const createNotification = createAsyncThunk(
   "notifications/createNotification",
   async ({ title, content, type, userId }: any) => {
-    const response = await axios.post("/notification/create-notification", {
+    const response = await axios.post("/user/notification", {
       title,
       content,
       type,
@@ -34,14 +30,14 @@ export const deleteNotification = createAsyncThunk(
   async ({
     notificationId,
     userId,
+    role,
   }: {
     notificationId: string;
     userId: string;
+    role: "admin" | "user";
   }) => {
-    const response = await axios.post("/notification/delete-notification", {
-      notificationId,
-      userId,
-    });
+    const query = `notificationId=${notificationId}&userId=${userId}&role=${role}`;
+    const response = await axios.delete(`/user/notification?${query}`);
 
     return response;
   }

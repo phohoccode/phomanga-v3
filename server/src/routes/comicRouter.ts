@@ -1,16 +1,20 @@
 import express from "express";
 import {
-  deleteAllComic,
-  deleteComic,
-  getAllComic,
-  saveComic,
-} from "../controllers/comicController";
+  createComment,
+  deleteComment,
+  getComments,
+  likeComment,
+  unlikeComment,
+  updateComment,
+} from "../controllers/commentController";
 
 const route = express.Router();
 
-route.post("/save-comic", saveComic);
-route.post("/delele-comic", deleteComic);
-route.post("/delete-all-comic", deleteAllComic);
-route.post("/get-all-comic", getAllComic);
+route.get("/comments", getComments);
+route.post("/comment", createComment);
+route.delete("/comment", deleteComment);
+route.put("/comment/:id", updateComment);
+route.post("/comment/like", likeComment);
+route.delete("/comment/unlike", unlikeComment);
 
 export default route;

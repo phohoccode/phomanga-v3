@@ -5,19 +5,16 @@ import { GetComments } from "@/lib/types";
 export const getComments = createAsyncThunk(
   "comment/getComments",
   async ({ comicSlug, limit, page, sort }: GetComments) => {
-    const response = await axios.post(`/comment/get-comments`, {
-      comicSlug,
-      limit,
-      page,
-      sort,
-    });
+    const query = `?comicSlug=${comicSlug}&limit=${limit}&page=${page}&sort=${sort}`;
+
+    const response = await axios.get(`/comic/comments${query}`);
 
     return response;
   }
 );
 
 export const createComment = createAsyncThunk(
-  "comment/createComment",
+  "comic/createComment",
   async ({
     userId,
     content,
@@ -29,7 +26,7 @@ export const createComment = createAsyncThunk(
     comicSlug: string;
     chapter?: string;
   }) => {
-    const response = await axios.post("/comment/add-comment", {
+    const response = await axios.post("/comic/comment", {
       userId,
       content,
       comicSlug,
@@ -42,8 +39,9 @@ export const createComment = createAsyncThunk(
 
 export const deleteComment = createAsyncThunk(
   "comment/deleteComment",
-  async ({ commentId }: { commentId: string }) => {
-    const response = await axios.post("/comment/delete-comment", { commentId });
+  async ({ commentId, userId }: { commentId: string; userId: string }) => {
+    const query = `?commentId=${commentId}&userId=${userId}`;
+    const response = await axios.delete(`/comic/comment${query}`);
 
     return response;
   }
@@ -51,10 +49,18 @@ export const deleteComment = createAsyncThunk(
 
 export const updateComment = createAsyncThunk(
   "comment/updateComment",
-  async ({ commentId, content }: { commentId: string; content: string }) => {
-    const response = await axios.post("/comment/update-comment", {
-      commentId,
+  async ({
+    commentId,
+    content,
+    userId,
+  }: {
+    commentId: string;
+    content: string;
+    userId: string;
+  }) => {
+    const response = await axios.put(`/comic/comment/${commentId}`, {
       content,
+      userId,
     });
 
     return response;
@@ -64,7 +70,7 @@ export const updateComment = createAsyncThunk(
 export const likeComment = createAsyncThunk(
   "comment/likeComment",
   async ({ commentId, userId }: { commentId: string; userId: string }) => {
-    const response = await axios.post("/comment/like-comment", {
+    const response = await axios.post("/comic/comment/like", {
       commentId,
       userId,
     });
@@ -76,10 +82,8 @@ export const likeComment = createAsyncThunk(
 export const unlikeComment = createAsyncThunk(
   "comment/unlikeComment",
   async ({ commentId, userId }: { commentId: string; userId: string }) => {
-    const response = await axios.post("/comment/unlike-comment", {
-      commentId,
-      userId,
-    });
+    const query = `?commentId=${commentId}&userId=${userId}`;
+    const response = await axios.delete(`/comic/comment/unlike${query}`);
 
     return response;
   }

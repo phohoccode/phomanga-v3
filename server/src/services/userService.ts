@@ -63,9 +63,9 @@ export const handleGetUserStatistical = async (userId: string) => {
       status: "success",
       message: "Lấy thông tin thống kê người dùng thành công!",
       statistical: {
-        total_comments: rows?.[0]?.total_comments,
-        total_saved_comic: savedComic?.[0]?.comics?.length,
-        total_viewed_comic: viewdComic?.[0]?.comics?.length,
+        total_comments: rows?.[0]?.total_comments ?? 0,
+        total_saved_comic: savedComic?.[0]?.comics?.length ?? 0,
+        total_viewed_comic: viewdComic?.[0]?.comics?.length ?? 0,
       },
     };
   } catch (error) {

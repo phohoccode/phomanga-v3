@@ -8,13 +8,19 @@ import {
   handleUpdateComment,
 } from "../services/commentService";
 import { error_server } from "../lib/define";
+import {
+  rawDataDeleteComment,
+  rawDataGetComments,
+  rawDataUnlikeComment,
+  rawDataUpdateComment,
+} from "../lib/types";
 
 export const getComments = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const { comicSlug, limit, page, sort } = req.body;
+    const { comicSlug, limit, page, sort } = req.query;
 
     if (!comicSlug || !limit || !page || !sort) {
       return res.status(400).json({
@@ -23,7 +29,7 @@ export const getComments = async (
       });
     }
 
-    const response = await handleGetComments(req.body);
+    const response = await handleGetComments(req.query as rawDataGetComments);
 
     return res.status(200).json(response);
   } catch (error) {
@@ -60,16 +66,18 @@ export const deleteComment = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { commentId } = req.body;
+    const { commentId, userId } = req.query;
 
-    if (!commentId) {
+    if (!commentId || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "commentId là bắt buộc!",
+        message: "commentId và userId là bắt buộc!",
       });
     }
 
-    const response = await handleDeleteComment(commentId);
+    const response = await handleDeleteComment(
+      req.query as rawDataDeleteComment
+    );
 
     return res.status(200).json(response);
   } catch (error) {
@@ -83,14 +91,19 @@ export const updateComment = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { commentId, content } = req.body;
-    if (!commentId || !content) {
+    const { id } = req.params;
+    const { content, userId } = req.body;
+
+    if (!content || !id || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "commentId và content là bắt buộc!",
+        message: "content, id và userId là bắt buộc!",
       });
     }
-    const response = await handleUpdateComment(req.body);
+
+    const data: rawDataUpdateComment = { id, content, userId };
+    const response = await handleUpdateComment(data);
+
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);
@@ -123,14 +136,17 @@ export const unlikeComment = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { commentId, userId } = req.body;
+    const { commentId, userId } = req.query;
+
     if (!commentId || !userId) {
       return res.status(400).json({
         status: "error",
         message: "commentId và userId là bắt buộc!",
       });
     }
-    const response = await handleUnlikeComment(req.body);
+    const response = await handleUnlikeComment(
+      req.query as rawDataUnlikeComment
+    );
     return res.status(200).json(response);
   } catch (error) {
     console.log(error);

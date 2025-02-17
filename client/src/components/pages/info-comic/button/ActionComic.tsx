@@ -31,6 +31,7 @@ const ActionComic = () => {
           getAllComic({
             userId: session.user.id,
             type: "GET_ALL_SAVED_COMIC",
+            page: "-1"
           })
         );
       }
@@ -95,6 +96,7 @@ const ActionComic = () => {
         getAllComic({
           userId: session?.user?.id,
           type: "GET_ALL_SAVED_COMIC",
+          page: "-1"
         })
       );
       setIsSave(true);
@@ -125,6 +127,7 @@ const ActionComic = () => {
         getAllComic({
           userId: session?.user?.id,
           type: "GET_ALL_SAVED_COMIC",
+          page: "-1"
         })
       );
       setIsSave(false);

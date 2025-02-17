@@ -6,22 +6,28 @@ import {
   handleUpdateNotification,
 } from "../services/notificationService";
 import { error_server } from "../lib/define";
+import {
+  rawDataDeleteNotification,
+  rawDataGetAllNotifications,
+} from "../lib/types";
 
 export const getAllNotifications = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const { type, limit, page } = req.body;
+    const { type, limit, page, userId } = req.query;
 
-    if (!type || !limit || !page) {
+    if (!type || !limit || !page || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "Type, limit, page là bắt buộc",
+        message: "Type, limit, page, userId là bắt buộc",
       });
     }
 
-    const response: any = await handleGetAllNotifications(req.body);
+    const response: any = await handleGetAllNotifications(
+      req.query as rawDataGetAllNotifications
+    );
 
     return res.status(200).json(response);
   } catch (error) {
@@ -53,21 +59,23 @@ export const createNotification = async (
   }
 };
 
-export const deteleNotification = async (
+export const deleteNotification = async (
   req: Request,
   res: Response
 ): Promise<any> => {
   try {
-    const { notificationId } = req.body;
+    const { notificationId, userId, role } = req.query;
 
-    if (!notificationId) {
+    if (!notificationId || !userId || !role) {
       return res.status(400).json({
         status: "error",
-        message: "NotificationId là bắt buộc",
+        message: "NotificationId, userId, role là bắt buộc",
       });
     }
 
-    const response: any = await handleDeleteNotification(req.body);
+    const response: any = await handleDeleteNotification(
+      req.query as rawDataDeleteNotification
+    );
 
     return res.status(200).json(response);
   } catch (error) {
@@ -81,16 +89,22 @@ export const updateNotification = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { notificationId, title, content } = req.body;
+    const { id } = req.params;
+    const { title, content } = req.body;
 
-    if (!notificationId || !title || !content ) {
+    if (!id || !title || !content) {
       return res.status(400).json({
         status: "error",
         message: "NotificationId, title, content là bắt buộc",
       });
     }
 
-    const response: any = await handleUpdateNotification(req.body);
+    const data = {
+      id,
+      title,
+      content,
+    };
+    const response: any = await handleUpdateNotification(data);
 
     return res.status(200).json(response);
   } catch (error) {

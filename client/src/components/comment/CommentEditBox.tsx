@@ -47,6 +47,7 @@ const CommentEditBox = ({ comment }: any) => {
       updateComment({
         commentId: comment?.comment_id,
         content: value,
+        userId: comment?.user_id,
       })
     );
     setLoading(false);
