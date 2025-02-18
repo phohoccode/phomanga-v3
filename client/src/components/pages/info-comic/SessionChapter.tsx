@@ -1,9 +1,10 @@
 "use client";
 
-import Link from "next/link";
 import { useState } from "react";
 import { CoffeeOutlined } from "@ant-design/icons";
-import { Col, Divider, Empty, Input, Pagination, Row } from "antd";
+import { Divider, Empty, Input, Pagination } from "antd";
+import { useParams } from "next/navigation";
+import ChapterList from "./ChapterList";
 
 const quantity = 24;
 
@@ -11,6 +12,7 @@ const SessionChapter = ({ data }: any) => {
   const chaptersData = data?.chapters?.[0]?.server_data;
   const [chapters, setChapters] = useState(chaptersData?.slice(0, quantity));
   const [currentPage, setCurrentPage] = useState(1);
+  const params = useParams();
 
   const handlePagination = (page: number) => {
     setCurrentPage(page);
@@ -20,10 +22,10 @@ const SessionChapter = ({ data }: any) => {
   };
 
   const handleSearchChapter = (value: string) => {
-    if (value === "") {
-      setChapters(chaptersData.slice(0, quantity));
+    if (value?.trim() === "") {
+      setChapters(chaptersData?.slice(0, quantity));
     } else {
-      const searchChapter = chaptersData.filter((item: any) =>
+      const searchChapter = chaptersData?.filter((item: any) =>
         item?.chapter_name.toLowerCase().includes(value.toLowerCase())
       );
       setChapters(searchChapter);
@@ -46,21 +48,9 @@ const SessionChapter = ({ data }: any) => {
           {chapters?.length === 0 ? (
             <Empty description="Không có dữ liệu" />
           ) : (
-            <Row gutter={[8, 8]}>
-              {chapters?.map((item: any, index: number) => (
-                <Col key={index} xs={8} sm={6} md={4} lg={3} xxl={2}>
-                  <Link
-                    className="block w-full rounded-md hover:bg-gray-100 p-2 hover:text-gray-800 text-gray-900"
-                    href={`/dang-xem/${data?.slug}/${item?.chapter_api_data
-                      ?.split("/")
-                      .pop()}`}
-                  >
-                    Chương {item?.chapter_name}
-                  </Link>
-                </Col>
-              ))}
-            </Row>
+            <ChapterList chapters={chapters} slug={params?.slug as string} />
           )}
+
           {chaptersData?.length > quantity && chapters?.length > 0 && (
             <Pagination
               style={{ marginTop: "16px" }}

@@ -5,7 +5,6 @@ import cors from "cors";
 import http from "http";
 import authRouter from "./routes/authRouter";
 import userRouter from "./routes/userRouter";
-import searchRouter from "./routes/searchRouter";
 import comicRouter from "./routes/comicRouter";
 import adminRouter from "./routes/adminRouter";
 import connectMongoDB from "./database/mongodb";
@@ -45,7 +44,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // defind routes
 app.use("/user", userRouter);
 app.use("/auth", authRouter);
-app.use("/search", searchRouter);
 app.use("/comic", comicRouter);
 
 // admin router

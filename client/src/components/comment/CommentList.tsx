@@ -21,7 +21,7 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const searchParams = useSearchParams();
-  const currentPage = useGetQuery("comment_page", "1", "number");
+  const currentPage = useGetQuery("comment-page", "1", "number");
   const currentScrollRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
@@ -53,9 +53,9 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   };
 
   const handleChangePage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
-    params.set("comment_page", page.toString());
-    router.push(`?${params.toString()}`);
+    const params = new URLSearchParams();
+    params.set("comment-page", page.toString());
+    router.push(`?${params.toString()}`); 
   };
 
   if (loading) {
@@ -77,10 +77,7 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
         }`}
       >
         {items?.map((comment, index) => (
-          <li
-            key={index}
-            className="flex gap-4 border-2 border-gray-100 p-4 rounded-lg"
-          >
+          <li key={index} className="flex gap-4">
             <CommentItem comment={comment} />
           </li>
         ))}

@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "@/config/axios";
+import axios from "@/components/config/axios";
 import { GetComments } from "@/lib/types";
 
 export const getComments = createAsyncThunk(

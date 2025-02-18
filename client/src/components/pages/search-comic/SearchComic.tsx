@@ -20,15 +20,16 @@ const SearchComic = () => {
   const { items, titlePage, params, loading } = useSelector(
     (state: RootState) => state.comic.searchComic
   );
-  const breadCrumb = [
-    { title: <Link href="/">Trang chủ</Link> },
-    { title: "Tìm kiếm" },
-    { title: titlePage },
-  ];
   const keyword = searchParams.get("keyword") ?? "abc";
   const currentPage = useGetQuery("page", "1", "number");
   const totalItems = params?.pagination?.totalItems;
   const itemsPerPage = params?.pagination?.totalItemsPerPage;
+  const breadCrumb = [
+    { title: <Link href="/">Trang chủ</Link> },
+    { title: "Tìm kiếm" },
+    { title: titlePage },
+    { title: `Trang ${currentPage}` },
+  ];
 
   useEffect(() => {
     dispatch(
@@ -40,7 +41,7 @@ const SearchComic = () => {
   }, [currentPage, keyword]);
 
   const handleChangePage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams();
     params.set("keyword", keyword as string);
     params.set("page", page.toString());
     router.push(`?${params.toString()}`);

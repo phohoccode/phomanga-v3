@@ -3,7 +3,7 @@
 import RootModal from "../RootModal";
 import CardListLevelVip from "./CardListLevelVip";
 import { useEffect, useState } from "react";
-import Payment from "./Payment";
+import Payment from "./PaymentInfomation";
 import { useSession } from "next-auth/react";
 import { Col, Row } from "antd";
 import { ThunderboltOutlined } from "@ant-design/icons";

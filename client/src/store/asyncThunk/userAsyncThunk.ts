@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "@/config/axios";
+import axios from "@/components/config/axios";
 import type { DeleteComic, SavedComic } from "@/lib/types";
 
 export const saveComic = createAsyncThunk(

@@ -2,7 +2,7 @@
 
 import { signIn } from "@/auth";
 import type { registerAccount, resetPassword } from "./types";
-import axios from "@/config/axios";
+import axios from "@/components/config/axios";
 import { revalidatePath } from "next/cache";
 
 // =============================== AUTH.JS ===============================

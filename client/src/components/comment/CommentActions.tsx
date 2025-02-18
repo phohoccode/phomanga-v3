@@ -15,11 +15,13 @@ import { useParams } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { DashOutlined, LikeFilled, LikeOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps, message } from "antd";
+import { useState } from "react";
 
 const CommentActions = ({ comment }: any) => {
   const { data: sesstion } = useSession();
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
+  const [loading, setLoading] = useState(false);
   const { currentPage, sort } = useSelector(
     (state: RootState) => state.comment
   );
@@ -64,6 +66,7 @@ const CommentActions = ({ comment }: any) => {
       return;
     }
 
+    setLoading(true);
     const response: any = await dispatch(
       action === "like"
         ? likeComment({
@@ -75,6 +78,7 @@ const CommentActions = ({ comment }: any) => {
             userId: sesstion?.user?.id as string,
           })
     );
+    setLoading(false);
 
     if (response.payload?.status === "success") {
       socket.emit(action === "like" ? "likeComment" : "unlikeComment", {
@@ -117,11 +121,12 @@ const CommentActions = ({ comment }: any) => {
   };
 
   return (
-    <div className="flex gap-2 ml-[-7px]">
+    <div className="flex gap-2">
       {comment?.liked_by_users?.some(
         (user: any) => user.userId === sesstion?.user?.id
       ) ? (
         <Button
+          loading={loading}
           onClick={() => handleActionsLike("unlike")}
           type="text"
           size="small"

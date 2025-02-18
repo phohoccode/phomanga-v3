@@ -59,3 +59,7 @@ export const getColorVipLevel = (vipLevel: number | string) => {
       return "cyan";
   }
 };
+
+export const copyToClipboard = (text: string) => {
+  navigator.clipboard.writeText(text);
+};

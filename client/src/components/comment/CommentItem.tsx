@@ -37,9 +37,8 @@ const CommentItem = ({ comment }: any) => {
           </Tag>
         </div>
 
-        <Divider type="vertical" style={{ height: "100%", margin: "0" }} />
 
-        <div className="flex flex-col flex-1 gap-1">
+        <div className="flex flex-col flex-1 gap-1 p-2 rounded-lg border-2 border-gray-100">
           <div className="flex items-center">
             <Tooltip title="Xem trang cá nhân">
               <Link
@@ -85,7 +84,7 @@ const CommentItem = ({ comment }: any) => {
                 {commentIdEdit !== comment?.comment_id ? (
                   <ShowMoreText
                     text={comment?.content ?? "Không xác định"}
-                    maxLength={200}
+                    maxLength={500}
                   />
                 ) : (
                   <CommentEditBox comment={comment} />

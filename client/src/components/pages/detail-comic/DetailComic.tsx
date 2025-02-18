@@ -6,7 +6,7 @@ import Layout from "@/components/layout/Layout";
 import Link from "next/link";
 import { fetchComicDetail } from "@/store/asyncThunk/comicAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useGetQuery from "@/hooks/useGetQuery";
@@ -19,7 +19,6 @@ const DeltailComic = () => {
   const { items, titlePage, params, breadCrumb, loading } = useSelector(
     (state: RootState) => state.comic.comicDetail
   );
-  const searchParams = useSearchParams();
   const currentPage = useGetQuery("page", "1", "number");
   const totalItems = params?.pagination?.totalItems;
   const itemsPerPage = params?.pagination?.totalItemsPerPage;
@@ -41,7 +40,7 @@ const DeltailComic = () => {
   }, [_params["mo-ta"], _params["slug"], currentPage]);
 
   const handleChangePage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams();
     params.set("page", page.toString());
     router.push(`?${params.toString()}`);
   };

@@ -3,7 +3,7 @@ import Credentials from "next-auth/providers/credentials";
 import { signInSchema } from "./lib/zod";
 import { ZodError } from "zod";
 import GoogleProvider from "next-auth/providers/google";
-import axios from "@/config/axios";
+import axios from "@/components/config/axios";
 import { codeErrorLogin } from "./lib/types";
 
 export class InvalidLoginError extends AuthError {

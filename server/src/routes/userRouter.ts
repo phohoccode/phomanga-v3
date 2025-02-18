@@ -5,7 +5,6 @@ import {
   getUserInfo,
   getUserRankings,
   getUserStatistical,
-  upgradeVipLevel,
 } from "../controllers/userController";
 import {
   createNotification,
@@ -51,8 +50,5 @@ route.delete("/search-history", deleteSearchHistory);
 
 // vip
 route.get("/vip-levels", getAllVipLevel);
-
-// coming soon
-route.post("/upgrade-vip-level", upgradeVipLevel);
 
 export default route;

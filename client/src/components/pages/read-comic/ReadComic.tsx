@@ -17,10 +17,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { saveComic } from "@/store/asyncThunk/userAsyncThunk";
 import { useSession } from "next-auth/react";
 import { Breadcrumb } from "antd";
+import useLocalStorage from "@/hooks/useLocalStorage";
 
 const ReadComic = () => {
   const params = useParams();
   const dispatch: AppDispatch = useDispatch();
+  const { getLocalStorage, setLocalStorage } = useLocalStorage();
   const { item, loading } = useSelector(
     (state: RootState) => state.comic.imagesComic
   );
@@ -42,9 +44,12 @@ const ReadComic = () => {
         dispatch(fetchImageComic({ id: params?.id as string })),
       ]);
 
+      const { status: statusInfo } = resInfo?.payload;
+      const { status: statusImages } = resImages?.payload;
+
       if (
-        resInfo?.payload?.status === "success" &&
-        resImages?.payload?.status === "success" &&
+        statusInfo === "success" &&
+        statusImages === "success" &&
         savingHistory
       ) {
         const dataComicInfo = resInfo?.payload?.data?.item;
@@ -73,7 +78,6 @@ const ReadComic = () => {
                 is_deleted: false,
                 createdAt: new Date().toISOString(),
               },
-
               type: "VIEWED_COMIC",
               username: session?.user?.username,
               avatar: session?.user?.avatar,
@@ -84,7 +88,23 @@ const ReadComic = () => {
     };
 
     handleInit();
+    handleMarkAsViewed();
   }, [params?.slug, params?.id]);
+
+  const handleMarkAsViewed = () => {
+    const id = params.id;
+    const viewedChapters = getLocalStorage("viewedChapters", {});
+    const viewedChaptersBySlug = viewedChapters[params.slug as string] || [];
+
+    if (!viewedChaptersBySlug.includes(id)) {
+      const data = {
+        ...viewedChapters,
+        [params.slug as string]: [...viewedChaptersBySlug, id],
+      };
+
+      setLocalStorage("viewedChapters", data);
+    }
+  };
 
   if (loading) {
     return <SkeletonReadPage width={width} />;

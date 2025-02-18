@@ -56,9 +56,10 @@ const SideBar = () => {
               href={link.href}
               className={`${
                 pathname === link.href
-                  ? "bg-gray-200 text-[#13c2c2]"
-                  : "text-gray-800"
-              } font-medium flex items-center gap-3 text-base p-2 rounded-md transition-all hover:bg-gray-200 hover:text-[#13c2c2]`}
+                  ? "bg-[#13c2c2] text-gray-50 "
+                  : "text-gray-800 "
+              } font-medium flex items-center gap-3 text-base 
+              p-2 rounded-md transition-all hover:bg-[#13c2c2] hover:text-gray-50`}
             >
               {link.icon}
               {link.label}

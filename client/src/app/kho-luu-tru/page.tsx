@@ -36,7 +36,14 @@ const Page = async ({ searchParams }: any) => {
 
       <Divider orientation="center">
         <InboxOutlined className="mr-2" />
-        {`Kho lưu trữ (${totalItems}/${maxStories})`}
+        <span>
+          Kho lưu trữ{" "}
+          <span
+            className={`${
+              totalItems === maxStories && "text-red-500 font-semibold"
+            }`}
+          >{`(${totalItems}/${maxStories})`}</span>
+        </span>
       </Divider>
 
       {items?.length > 0 && (

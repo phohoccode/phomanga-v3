@@ -96,7 +96,7 @@ const CardListLevelVip = ({
               </div>
               <div className="flex justify-between gap-2">
                 <span className="font-semibold ">Tiền nâng cấp</span>
-                <span className="text-gray-600">{vipLevel?.price}đ</span>
+                <span className="text-gray-600">{vipLevel?.price} VNĐ</span>
               </div>
               {vipLevel.level <= session?.user?.vip_level && (
                 <p className="text-sm text-[#13c2c2] mt-2 text-right">
