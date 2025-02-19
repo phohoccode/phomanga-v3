@@ -9,23 +9,26 @@ const DisplayNotification = ({ children }: { children: React.ReactNode }) => {
   const { data: session } = useSession();
 
   useEffect(() => {
-    socket.on("refreshNotifications", (res) => {
+    socket.on("refresh-notifications", (res) => {
       if (res?.action === "new-notification") {
         message.info(res?.message);
       }
     });
 
-    socket.on("newNotification", (res) => {
-
-      // kiểm tra xem user đang đăng nhập có phải là người nhận thông báo không
+    // kiểm tra xem user đang đăng nhập có phải là người nhận thông báo không
+    socket.on("new-notification", (res) => {
       if (res?.userCommentId === session?.user?.id) {
+        message.info(res?.message);
+      }
+
+      if (res?.userId === session?.user?.id) {
         message.info(res?.message);
       }
     });
 
     return () => {
-      socket.off("refreshNotifications");
-      socket.off("newNotification");
+      socket.off("refresh-notifications");
+      socket.off("new-notification");
     };
   }, [session]);
 

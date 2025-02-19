@@ -65,7 +65,7 @@ const CommentEditBox = ({ comment }: any) => {
         })
       );
 
-      socket.emit("updateComment", {
+      socket.emit("update-comment", {
         slug: params?.slug,
       });
     }

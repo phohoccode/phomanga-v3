@@ -63,7 +63,7 @@ const CommentInput = () => {
         })
       );
 
-      socket.emit("newComment", {
+      socket.emit("new-comment", {
         slug: params?.slug,
       });
     } else {

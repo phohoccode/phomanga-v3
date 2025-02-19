@@ -44,12 +44,9 @@ const ReadComic = () => {
         dispatch(fetchImageComic({ id: params?.id as string })),
       ]);
 
-      const { status: statusInfo } = resInfo?.payload;
-      const { status: statusImages } = resImages?.payload;
-
       if (
-        statusInfo === "success" &&
-        statusImages === "success" &&
+        resInfo.payload?.status === "success" &&
+        resImages.payload?.status === "success" &&
         savingHistory
       ) {
         const dataComicInfo = resInfo?.payload?.data?.item;

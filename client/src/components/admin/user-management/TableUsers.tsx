@@ -2,9 +2,27 @@
 
 import { formatDate } from "@/lib/utils";
 import { Table } from "antd";
+import SelectChangeRole from "./SelectChangeRole";
+import SelectChangeVipLevel from "./SelectChangeVipLevel";
+import { useEffect, useState } from "react";
+import { getAllVipLevel } from "@/lib/actions";
 
-const TableUsers = ({ data }: { data: any }) => {
-  const dataSource = data?.map((user: any) => {
+interface TableUsersProps {
+  data: {
+    id: string;
+    name: string;
+    email: string;
+    type_account: string;
+    role: string;
+    vip_level: string;
+    created_at: string;
+  }[];
+}
+
+const TableUsers = ({ data }: TableUsersProps) => {
+  const [vipLevels, setVipLevels] = useState<any[]>([]);
+
+  const dataSource = data?.map((user) => {
     return {
       key: user.id,
       id: user.id,
@@ -12,9 +30,29 @@ const TableUsers = ({ data }: { data: any }) => {
       email: user.email,
       typeAccount: user.type_account,
       roleName: user.role,
+      vipLevel: user.vip_level,
       createdAt: formatDate(user.created_at),
     };
   });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response: any = await getAllVipLevel();
+
+      if (response?.status === "success") {
+        const data = response?.data?.items?.map((item: any) => {
+          return {
+            value: item?.id ?? "",
+            label: `Cấp ${item?.level ?? 1}`,
+          };
+        });
+
+        setVipLevels(data);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const columns = [
     {
@@ -41,6 +79,21 @@ const TableUsers = ({ data }: { data: any }) => {
       title: "Vai trò",
       dataIndex: "roleName",
       key: "roleName",
+      render: (_: any, record: any) => (
+        <SelectChangeRole defaultValue={record.roleName} userId={record.id} />
+      ),
+    },
+    {
+      title: "Cấp độ VIP",
+      dataIndex: "vipLevel",
+      key: "vipLevel",
+      render: (_: any, record: any) => (
+        <SelectChangeVipLevel
+          defaultValue={`Cấp ${record.vipLevel}`}
+          userId={record.id}
+          options={vipLevels}
+        />
+      ),
     },
     {
       title: "Thời gian tạo",

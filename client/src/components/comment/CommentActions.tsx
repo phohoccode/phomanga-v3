@@ -51,7 +51,7 @@ const CommentActions = ({ comment }: any) => {
 
         handleGetComments();
 
-        socket.emit("deleteComment", {
+        socket.emit("delete-comment", {
           slug: params?.slug,
         });
       }
@@ -81,7 +81,7 @@ const CommentActions = ({ comment }: any) => {
     setLoading(false);
 
     if (response.payload?.status === "success") {
-      socket.emit(action === "like" ? "likeComment" : "unlikeComment", {
+      socket.emit(action === "like" ? "like-comment" : "unlike-comment", {
         slug: params?.slug,
         userLikedName: sesstion?.user?.name,
         userLikedId: sesstion?.user?.id,
@@ -100,7 +100,7 @@ const CommentActions = ({ comment }: any) => {
         );
       }
 
-      await handleGetComments();
+      handleGetComments();
     }
   };
 
@@ -136,6 +136,7 @@ const CommentActions = ({ comment }: any) => {
         </Button>
       ) : (
         <Button
+          loading={loading}
           onClick={() => handleActionsLike("like")}
           type="text"
           size="small"

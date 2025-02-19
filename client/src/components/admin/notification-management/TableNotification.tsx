@@ -61,8 +61,8 @@ const TableNotification = ({ data }: { data: any }) => {
       render: (_: any, record: any) => {
         return (
           <Actions
-            loading={loadingId === record.id}
-            handleDelete={() => handleDelete(record.id)}
+            loading={loadingId === record?.id}
+            handleDelete={() => handleDelete(record?.id)}
             handleEdit={() => handleEdit(record)}
           />
         );
@@ -95,7 +95,7 @@ const TableNotification = ({ data }: { data: any }) => {
       message.success(response?.message);
       router.refresh();
 
-      socket.emit("deleteNotification");
+      socket.emit("delete-notification");
     } else {
       message.error(response?.message);
     }

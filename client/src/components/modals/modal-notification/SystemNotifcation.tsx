@@ -43,14 +43,14 @@ const SystemNotification = () => {
   }, [currentPage]);
 
   useEffect(() => {
-    socket.on("refreshNotifications", (res) => {
+    socket.on("refresh-notifications", (res) => {
       if (res?.type === "system") {
         handleFetchAllNotifications();
       }
     });
 
     return () => {
-      socket.off("refreshNotifications");
+      socket.off("refresh-notifications");
     };
   }, []);
 

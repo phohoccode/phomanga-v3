@@ -37,18 +37,18 @@ const CardListLevelVip = ({
   const { data: session }: any = useSession();
 
   useEffect(() => {
-    const fetchVipLevels = async () => {
-      setLoading(true);
-      const response = await getAllVipLevel();
-      setLoading(false);
-
-      if (response?.status === "success") {
-        setVipLevels(response?.data?.items ?? []);
-      }
-    };
-
     fetchVipLevels();
   }, []);
+
+  const fetchVipLevels = async () => {
+    setLoading(true);
+    const response = await getAllVipLevel();
+    setLoading(false);
+
+    if (response?.status === "success") {
+      setVipLevels(response?.data?.items ?? []);
+    }
+  };
 
   if (loading) return <SkeletonCardListLevelVip />;
 

@@ -204,8 +204,6 @@ export async function deleteNotification({
 
     const response: any = await axios.delete(`/admin/notification?${query}`);
 
-    console.log(">>> response", response);
-
     return response;
   } catch (error) {
     console.log(error);
@@ -301,6 +299,30 @@ export async function getUserRankings(criterion: string) {
   try {
     const query = `criterion=${criterion}`;
     const response: any = await axios.get(`/user/rankings?${query}`);
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateUserRole(userId: string, role: "admin" | "user") {
+  try {
+    const response: any = await axios.put(`/admin/user/${userId}/role`, {
+      role,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function updateVipLevels(userId: string, idVipLevel: string) {
+  try {
+    const response: any = await axios.put(`/admin/user/${userId}/vip-level`, {
+      idVipLevel,
+    });
 
     return response;
   } catch (error) {

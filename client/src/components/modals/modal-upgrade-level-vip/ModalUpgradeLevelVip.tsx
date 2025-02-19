@@ -32,7 +32,7 @@ const ModalUpgradeLevelVip = ({
     max_stories: 0,
   });
   const [loading, setLoading] = useState(true);
-  const { data: session }: any = useSession();
+  const { data: session, update }: any = useSession();
 
   useEffect(() => {
     const index = session?.user?.vip_level - 1;
@@ -44,7 +44,7 @@ const ModalUpgradeLevelVip = ({
       price: vipLevels[index]?.price,
       max_stories: vipLevels[index]?.max_stories,
     });
-  }, [vipLevels]);
+  }, [session]);
 
   return (
     <RootModal

@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useEffect } from "react";
 import { formatDate, getColorVipLevel } from "@/lib/utils";
 import UpgradeLevelVip from "./button/UpgradeLevelVip";
 import DescriptionTitle from "@/components/common/DescriptionTitle";

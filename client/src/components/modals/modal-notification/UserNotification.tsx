@@ -28,22 +28,23 @@ const UserNotification = () => {
   const notifyRef = useRef<any>(null);
 
   useEffect(() => {
+    console.log("test")
     handleGetAllNotify();
-  }, [currentPage]);
+  }, [currentPage, sesstion]);
 
   useEffect(() => {
     notifyRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [currentPage]);
 
   useEffect(() => {
-    socket.on("refreshNotifications", (res) => {
+    socket.on("refresh-notifications", (res) => {
       if (res?.type === "user") {
         handleGetAllNotify();
       }
     });
 
     return () => {
-      socket.off("refreshNotifications");
+      socket.off("refresh-notifications");
     };
   }, []);
 

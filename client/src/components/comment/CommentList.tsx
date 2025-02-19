@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import CommentItem from "./CommentItem";
 import SkeletonComment from "../skeleton/SkeletonComment";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import EmptyData from "../common/EmptyData";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
@@ -12,6 +12,7 @@ import { setCurrentPage } from "@/store/slices/commentSlice";
 import useGetQuery from "@/hooks/useGetQuery";
 import { socket } from "@/lib/socket";
 import { Pagination } from "antd";
+import { useSession } from "next-auth/react";
 
 const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const { items, loading, totalItems, sort } = useSelector(
@@ -20,21 +21,29 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const router = useRouter();
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
-  const searchParams = useSearchParams();
   const currentPage = useGetQuery("comment-page", "1", "number");
   const currentScrollRef = useRef<HTMLUListElement>(null);
+  const { data: session } = useSession();
 
   useEffect(() => {
-    socket.on("refreshComments", (res) => {
+    socket.on("refresh-comments", (res) => {
       if (res?.slug === params?.slug) {
         handleGetComments();
       }
     });
 
+    socket.on("refresh-sesstion", (res) => {
+      const isExist = items?.some((item) => item.user_id === res?.userId);
+
+      if (isExist) {
+        handleGetComments();
+      }
+    });
+
     return () => {
-      socket.off("refreshComments");
+      socket.off("refresh-comments");
     };
-  }, []);
+  }, [session]);
 
   useEffect(() => {
     handleGetComments();
@@ -55,7 +64,7 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   const handleChangePage = (page: number) => {
     const params = new URLSearchParams();
     params.set("comment-page", page.toString());
-    router.push(`?${params.toString()}`); 
+    router.push(`?${params.toString()}`);
   };
 
   if (loading) {
