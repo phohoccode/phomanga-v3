@@ -13,6 +13,14 @@ const ModalComment = ({
 }) => {
   return (
     <RootModal
+      width={{
+        xs: "90%",
+        sm: "90%",
+        md: "80%",
+        lg: "80%",
+        xl: "50%",
+        xxl: "50%",
+      }}
       footer={null}
       title={
         <div className="flex items-center gap-2">

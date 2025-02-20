@@ -7,10 +7,11 @@ import {
 } from "@/store/asyncThunk/commentAsyncThunk";
 import { AppDispatch, RootState } from "@/store/store";
 import { useSession } from "next-auth/react";
-import { useParams, usePathname } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Input, message } from "antd";
+import { setIsScroll } from "@/store/slices/commentSlice";
 
 const { TextArea } = Input;
 
@@ -19,6 +20,7 @@ const CommentInput = () => {
   const dispatch: AppDispatch = useDispatch();
   const params = useParams();
   const pathname = usePathname();
+  const router = useRouter();
   const { data: sesstion } = useSession();
   const [loading, setLoading] = useState(false);
   const { sort } = useSelector((state: RootState) => state.comment);
@@ -54,6 +56,13 @@ const CommentInput = () => {
       message.success("Ting! Bình luận của bạn đã cập bến an toàn 😎");
       setValue("");
 
+      // reset query
+      router.replace(window.location.pathname);
+
+      // turn on scroll
+      dispatch(setIsScroll(true));
+
+      // get comments
       dispatch(
         getComments({
           comicSlug: params.slug as string,
@@ -63,6 +72,7 @@ const CommentInput = () => {
         })
       );
 
+      // emit socket
       socket.emit("new-comment", {
         slug: params?.slug,
       });

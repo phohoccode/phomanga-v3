@@ -4,7 +4,8 @@ import Statistical from "@/components/pages/proflie/Statistical";
 import UserInfo from "@/components/pages/proflie/UserInfo";
 import { getAllVipLevel, getUserInfo, getUserStatistical } from "@/lib/actions";
 import Link from "next/link";
-import { Breadcrumb, Col, Image, Row } from "antd";
+import { Breadcrumb, Col, Row } from "antd";
+import AvatarUser from "@/components/pages/proflie/Avatar";
 
 const Page = async ({ params }: any) => {
   const _params = await params;
@@ -41,19 +42,7 @@ const Page = async ({ params }: any) => {
               marginBottom: "120px",
             }}
           >
-            <div
-              className={`w-32 h-32 absolute lg:-bottom-16 lg:left-[16%] -bottom-16
-                 left-[50%] -translate-x-1/2  border-[3px] border-[#ccc] rounded-full overflow-hidden`}
-            >
-              <Image
-                src={dataUserInfo?.avatar ?? "/images/avatar.jpg"}
-                alt="avatar"
-                width={128}
-                preview={true}
-                placeholder={true}
-                height={128}
-              />
-            </div>
+            <AvatarUser />
           </div>
           <Row gutter={[32, 32]}>
             <Col

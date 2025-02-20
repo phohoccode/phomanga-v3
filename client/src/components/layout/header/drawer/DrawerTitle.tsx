@@ -1,3 +1,4 @@
+import AvatarUser from "@/components/common/AvatarUser";
 import { Avatar } from "antd";
 import { useSession } from "next-auth/react";
 
@@ -5,19 +6,11 @@ const DrawerTitle = () => {
   const { data: session }: any = useSession();
 
   return (
-    <div className="flex gap-2 justify-end">
-      <Avatar
-        style={{
-          marginTop: "6px",
-          borderRadius: "50%",
-          border: "1px solid #ccc",
-        }}
-        src={
-          <img
-            src={session?.user?.image ?? "/images/avatar.jpg"}
-            alt="avatar"
-          />
-        }
+    <div className="flex gap-2 justify-end items-center">
+      <AvatarUser
+        size="default"
+        level={session?.user?.vip_level}
+        src={session?.user?.avatar}
       />
       <div className="flex flex-col">
         <span className="text-base">{session?.user?.name}</span>

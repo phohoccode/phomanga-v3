@@ -13,7 +13,7 @@ const CommentTitle = () => {
   return (
     <div className="flex justify-between flex-wrap gap-2 items-center my-6 rounded-md p-3 bg-gray-100">
       {loading ? (
-        <Skeleton.Input style={{ width: 200, height: 18 }} />
+        <Skeleton.Input style={{ width: 120, height: 18 }} />
       ) : (
         <span className="text-base font-medium">
           {totalItems ?? 0} bình luận

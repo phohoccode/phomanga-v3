@@ -16,6 +16,7 @@ export interface IComment {
   currentPage?: string;
   commentIdEdit?: string;
   sort?: "asc" | "desc";
+  isScroll?: boolean;
 }
 
 const initialState: IComment = {
@@ -25,6 +26,7 @@ const initialState: IComment = {
   commentIdEdit: "",
   currentPage: "1",
   sort: "desc",
+  isScroll: false,
 };
 
 export const commentSlice = createSlice({
@@ -39,6 +41,9 @@ export const commentSlice = createSlice({
     },
     setSort: (state, action) => {
       state.sort = action.payload;
+    },
+    setIsScroll: (state, action) => {
+      state.isScroll = action.payload;
     },
   },
 
@@ -58,7 +63,7 @@ export const commentSlice = createSlice({
   },
 });
 
-export const { setCommentIdEdit, setCurrentPage, setSort } =
+export const { setCommentIdEdit, setCurrentPage, setIsScroll, setSort } =
   commentSlice.actions;
 
 export default commentSlice.reducer;

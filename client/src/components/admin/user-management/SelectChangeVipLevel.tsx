@@ -49,7 +49,7 @@ const SelectChangeVipLevel = ({
 
       await createNotification(
         "Cập nhật cấp độ VIP",
-        "Cấp độ VIP của bạn vừa được cập nhật!",
+        "Cấp độ VIP của bạn vừa được cập nhật.",
         userId,
         "user"
       );

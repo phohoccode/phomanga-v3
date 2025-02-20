@@ -6,7 +6,6 @@ import Marquee from "react-fast-marquee";
 import { useSelector } from "react-redux";
 import SkeletonCaterogiesAnimate from "./skeleton/SkeletonCaterogiesAnimate";
 import { colorDetail } from "@/lib/defind";
-import { randomItemFromArray } from "@/lib/utils";
 
 const CaterogiesAnimate = () => {
   const { items, loading } = useSelector(

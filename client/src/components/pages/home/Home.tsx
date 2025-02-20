@@ -33,6 +33,9 @@ export default function Home() {
   const { items: completedComic, loading: completedComicLoading } = useSelector(
     (state: RootState) => state.comic.completedComic
   );
+  const { items: categorys } = useSelector(
+    (state: RootState) => state.comic.catetorys
+  );
 
   const sessions = [
     {
@@ -76,7 +79,15 @@ export default function Home() {
       ]);
     };
 
-    fetchAllData();
+    if (
+      newComic?.length == 0 ||
+      publishedComic?.length == 0 ||
+      completedComic?.length == 0 ||
+      upComingComic?.length == 0 ||
+      categorys?.length == 0
+    ) {
+      fetchAllData();
+    }
   }, []);
 
   return (

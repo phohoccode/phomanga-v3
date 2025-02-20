@@ -165,4 +165,5 @@ export type ListUserProps = {
     quantity?: number;
     nickname?: string;
   }[];
+  showFrame?: boolean;
 };

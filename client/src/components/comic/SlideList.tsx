@@ -20,7 +20,9 @@ const SlideList = () => {
   const quantity = width > 1024 ? 24 : 12;
 
   useEffect(() => {
-    dispatch(fetchComicSlide());
+    if (items?.length == 0) {
+      dispatch(fetchComicSlide());
+    }
   }, []);
 
   if (loading) {

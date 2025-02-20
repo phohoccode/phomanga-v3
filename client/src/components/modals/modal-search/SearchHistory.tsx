@@ -28,7 +28,7 @@ const SearchHistory = ({ keyword }: { keyword: string }) => {
   const limit = 10;
 
   useEffect(() => {
-    if (session?.user?.id) {
+    if (session?.user?.id && items?.length === 0) {
       getAllSearchHistory();
     }
   }, [session, page]);

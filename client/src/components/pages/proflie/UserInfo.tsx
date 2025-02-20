@@ -5,6 +5,9 @@ import UpgradeLevelVip from "./button/UpgradeLevelVip";
 import DescriptionTitle from "@/components/common/DescriptionTitle";
 import { UserOutlined } from "@ant-design/icons";
 import { DescriptionsProps, Skeleton, Descriptions, Tag } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { useSession } from "next-auth/react";
 
 export interface UserInfoProps {
   dataUserInfo: {
@@ -24,6 +27,12 @@ export interface UserInfoProps {
 
 const UserInfo = ({ dataUserInfo, dataVipLevels }: UserInfoProps) => {
   const vipLevelMax = dataVipLevels[dataVipLevels.length - 1].level;
+  const router = useRouter();
+  const { data: session } = useSession();
+
+  // useEffect(() => {
+  //   router.refresh();
+  // }, [session]);
 
   const items: DescriptionsProps["items"] = [
     {

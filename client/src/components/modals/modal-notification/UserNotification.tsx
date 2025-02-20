@@ -24,11 +24,10 @@ const UserNotification = () => {
   const dispatch: AppDispatch = useDispatch();
   const { data: sesstion } = useSession();
   const [loadingId, setLoadingId] = useState("");
-  const currentPage = useGetQuery("page-user", "1", "number");
+  const currentPage = useGetQuery("user-notification-page", "1", "number");
   const notifyRef = useRef<any>(null);
 
   useEffect(() => {
-    console.log("test")
     handleGetAllNotify();
   }, [currentPage, sesstion]);
 
@@ -121,7 +120,7 @@ const UserNotification = () => {
 
       {user?.totalItem > 10 && (
         <PaginationCT
-          titleSearch="page-user"
+          titleSearch="user-notification-page"
           total={user?.totalItem}
           pageSize={10}
           currentPage={currentPage as string}

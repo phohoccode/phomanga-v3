@@ -5,7 +5,7 @@ import SystemNotification from "./SystemNotifcation";
 import UserNotification from "./UserNotification";
 import { useSession } from "next-auth/react";
 import type { TabsProps } from "antd";
-import { NotificationOutlined } from "@ant-design/icons";
+import { BellOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 
 const ModalNotification = ({
@@ -41,7 +41,7 @@ const ModalNotification = ({
       footer={null}
       title={
         <div className="flex items-center gap-2">
-          <NotificationOutlined /> Thông báo
+          <BellOutlined /> Thông báo
         </div>
       }
       isModalOpen={isModalOpen}

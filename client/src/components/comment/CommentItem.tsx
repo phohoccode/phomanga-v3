@@ -11,6 +11,7 @@ import Link from "next/link";
 import { setShowModalComment } from "@/store/slices/systemSlice";
 import { CheckCircleFilled } from "@ant-design/icons";
 import { Avatar, Divider, Tag, Tooltip } from "antd";
+import AvatarUser from "../common/AvatarUser";
 
 const CommentItem = ({ comment }: any) => {
   const dispatch: AppDispatch = useDispatch();
@@ -24,14 +25,14 @@ const CommentItem = ({ comment }: any) => {
 
   return (
     <div className="flex gap-4 flex-1">
-      <div className="flex flex-col gap-2 items-center">
-        <Avatar
-          draggable={false}
-          src={comment?.user_avatar ?? "/images/avatar.jpg"}
-          alt="avatar"
+      <div className="flex flex-col gap-1 items-center">
+        <AvatarUser
+          size="default"
+          level={comment?.vip_level}
+          src={comment?.avatar ?? "/images/avatar.jpg"}
         />
 
-        <Tag color={color} style={{ margin: 0 }}>
+        <Tag color={color} className="m-0 text-xs">
           Vip {comment?.vip_level ?? 0}
         </Tag>
       </div>

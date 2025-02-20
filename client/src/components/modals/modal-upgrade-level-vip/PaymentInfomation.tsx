@@ -20,25 +20,18 @@ import { BankOutlined, CopyOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 
-interface PaymentProps {
-  data: {
-    id: string;
-    level: number;
-    max_stories: number;
-    price: number;
-  };
-  loading: boolean;
-}
-
 const handleCopy = (text: string, _message: string) => {
   copyToClipboard(text);
   message.success(_message);
 };
 
-const PaymentInfomation = ({ data, loading }: PaymentProps) => {
+const PaymentInfomation = () => {
   const currentScrollRef = useRef<HTMLDivElement | null>(null);
   const { data: session }: any = useSession();
   const { width } = useSelector((state: RootState) => state.system);
+  const { selectedCard, loading } = useSelector(
+    (state: RootState) => state.vipLevel
+  );
 
   const items: DescriptionsProps["items"] = [
     {
@@ -54,7 +47,9 @@ const PaymentInfomation = ({ data, loading }: PaymentProps) => {
       key: "2",
       label: "Cấp độ VIP",
       children: !loading ? (
-        <Tag color={getColorVipLevel(data?.level)}>VIP {data?.level}</Tag>
+        <Tag color={getColorVipLevel(selectedCard?.level)}>
+          VIP {selectedCard?.level}
+        </Tag>
       ) : (
         <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
@@ -63,7 +58,7 @@ const PaymentInfomation = ({ data, loading }: PaymentProps) => {
       key: "3",
       label: "Số truyện lưu trữ",
       children: !loading ? (
-        <p>{data?.max_stories}</p>
+        <p>{selectedCard?.max_stories}</p>
       ) : (
         <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
@@ -72,7 +67,7 @@ const PaymentInfomation = ({ data, loading }: PaymentProps) => {
       key: "4",
       label: "Tổng số tiền",
       children: !loading ? (
-        <p>{data?.price} VNĐ</p>
+        <p>{selectedCard?.price} VNĐ</p>
       ) : (
         <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),
@@ -89,6 +84,7 @@ const PaymentInfomation = ({ data, loading }: PaymentProps) => {
         <div className="flex gap-2 justify-between items-center">
           <p>107873364069</p>
           <Button
+            className="flex-shrink-0"
             onClick={() =>
               handleCopy("107873364069", "Đã sao chép số tài khoản")
             }
@@ -102,10 +98,11 @@ const PaymentInfomation = ({ data, loading }: PaymentProps) => {
       label: "Nội dung chuyển khoản",
       children: (
         <div className="flex gap-2 justify-between items-center">
-          <p>{data?.id}</p>
+          <p>{selectedCard?.id}</p>
           <Button
+            className="flex-shrink-0"
             onClick={() =>
-              handleCopy(data?.id, "Đã sao chép nội dung chuyển khoản")
+              handleCopy(selectedCard?.id, "Đã sao chép nội dung chuyển khoản")
             }
             icon={<CopyOutlined />}
           />
@@ -129,7 +126,7 @@ const PaymentInfomation = ({ data, loading }: PaymentProps) => {
     if (!loading) {
       scrollToCurrentElement(currentScrollRef);
     }
-  }, [data]);
+  }, [selectedCard]);
 
   return (
     <div ref={currentScrollRef}>
@@ -145,7 +142,7 @@ const PaymentInfomation = ({ data, loading }: PaymentProps) => {
         }
         bordered
         items={items}
-        layout={width < 768 ? "vertical" : "horizontal"}
+        layout={width < 1024 ? "vertical" : "horizontal"}
       />
     </div>
   );

@@ -72,11 +72,9 @@ const initSocketIO = (io: Server) => {
     socket.on("update-role", (data: any) => {
       console.log("Có người dùng vừa được cập nhật vai trò!");
 
-      const nickname = data?.role === "admin" ? "Admin" : "User";
-
       io.emit("new-notification", {
         userId: data?.userId,
-        message: `Vai trò của bạn vừa được cập nhật thành ${nickname}!`,
+        message: "Bạn vừa nhận được thông báo mới!!!",
       });
 
       io.emit("refresh-sesstion", {
@@ -93,18 +91,17 @@ const initSocketIO = (io: Server) => {
       console.log("Có người dùng vừa được cập nhật cấp độ VIP!");
       io.emit("new-notification", {
         userId: data?.userId,
-        message: "Cấp độ VIP của bạn vừa được cập nhật!",
+        message: "Bạn vừa nhận được thông báo mới!!!",
       });
 
       io.emit("refresh-sesstion", {
         userId: data?.userId,
+        type: "update-ranking",
       });
 
       io.emit("refresh-notifications", {
         type: "user",
       });
-
-      
     });
 
     socket.on("disconnect", () => {

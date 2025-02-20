@@ -17,7 +17,7 @@ const PaginationCT = ({
   const router = useRouter();
 
   const handleChangePage = (page: number) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams();
     params.set(titleSearch ? titleSearch : "page", page.toString());
     router.push(`?${params.toString()}`);
   };

@@ -7,7 +7,7 @@ import { getUserRankings } from "@/lib/actions";
 import SkeletonRankings from "../skeleton/SkeletonRankings";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
-import { Divider, Tabs, TabsProps } from "antd";
+import { Divider, message, Tabs, TabsProps } from "antd";
 import { TrophyOutlined } from "@ant-design/icons";
 import { socket } from "@/lib/socket";
 import { useSession } from "next-auth/react";
@@ -34,14 +34,18 @@ const Rankings = () => {
     setLoading(false);
 
     if (response?.status === "success") {
-      setData(response.data ?? { criterion: "vip_level", users: [] });
+      setData(response.data);
+    } else {
+      setData({ criterion: "vip_level", users: [] });
     }
   };
 
   useEffect(() => {
-    socket.on("refresh-sesstion", () => {
-      console.log("refresh-sesstion");
-      fetchData();
+    socket.on("refresh-sesstion", (res) => {
+      if (res?.type === "update-ranking") {
+        fetchData();
+        message.info("Bảng xếp hạng vừa được cập nhật");
+      }
     });
 
     return () => {
@@ -53,22 +57,46 @@ const Rankings = () => {
     {
       key: "1",
       label: "Cấp độ Vip",
-      children: <ListUser users={data.users} criterion={data.criterion} />,
+      children: (
+        <ListUser
+          showFrame={true}
+          users={data.users}
+          criterion={data.criterion}
+        />
+      ),
     },
     {
       key: "2",
       label: "Kho lưu trữ",
-      children: <ListUser users={data.users} criterion={data.criterion} />,
+      children: (
+        <ListUser
+          showFrame={false}
+          users={data.users}
+          criterion={data.criterion}
+        />
+      ),
     },
     {
       key: "3",
       label: "Truyện đã xem",
-      children: <ListUser users={data.users} criterion={data.criterion} />,
+      children: (
+        <ListUser
+          showFrame={false}
+          users={data.users}
+          criterion={data.criterion}
+        />
+      ),
     },
     {
       key: "4",
       label: "Bình luận đã viết",
-      children: <ListUser users={data.users} criterion={data.criterion} />,
+      children: (
+        <ListUser
+          showFrame={false}
+          users={data.users}
+          criterion={data.criterion}
+        />
+      ),
     },
   ];
 

@@ -20,7 +20,7 @@ const SystemNotification = () => {
   );
   const dispatch: AppDispatch = useDispatch();
   const { data: sesstion } = useSession();
-  const currentPage = useGetQuery("page-system", "1", "number");
+  const currentPage = useGetQuery("system-notification-page", "1", "number");
   const notifyRef = useRef<any>(null);
 
   const handleFetchAllNotifications = () => {
@@ -90,7 +90,7 @@ const SystemNotification = () => {
 
       {system?.totalItem > 10 && (
         <PaginationCT
-          titleSearch="page-system"
+          titleSearch="system-notification-page"
           total={system?.totalItem}
           pageSize={10}
           currentPage={currentPage as string}

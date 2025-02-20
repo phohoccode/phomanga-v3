@@ -4,9 +4,10 @@ import EmptyData from "../common/EmptyData";
 import Link from "next/link";
 import { ListUserProps } from "@/lib/types";
 import { useSession } from "next-auth/react";
-import { Avatar, Col, Row, Tooltip } from "antd";
+import { Col, Row, Tooltip } from "antd";
+import AvatarUser from "../common/AvatarUser";
 
-const ListUser = ({ users, criterion }: ListUserProps) => {
+const ListUser = ({ users, criterion, showFrame }: ListUserProps) => {
   const { data: session }: any = useSession();
 
   if (users?.length === 0) {
@@ -19,12 +20,13 @@ const ListUser = ({ users, criterion }: ListUserProps) => {
     <Row gutter={[16, 16]}>
       {users?.map((item, index: number) => (
         <Col key={index} xs={24} sm={12}>
-          <div className="flex gap-2">
-            <h3 className="text-lg font-semibold">{index + 1}</h3>
-            <Avatar
-              size="large"
+          <div className="flex gap-2 items-center">
+            <h3 className="text-lg font-semibold w-3">{index + 1}</h3>
+            <AvatarUser
+              size="default"
+              level={item?.vip_level as number}
               src={item?.avatar ?? "/images/avatar.jpg"}
-              alt="avatar"
+              showFrame={showFrame}
             />
             <div className="flex items-start gap-1">
               <div className={`flex flex-col gap-1`}>
