@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DashOutlined, LikeFilled, LikeOutlined } from "@ant-design/icons";
 import { Button, Dropdown, MenuProps, message } from "antd";
 import { useState } from "react";
+import PopoverUserLikeComment from "./PopoverListUserLikeComment";
 
 const CommentActions = ({ comment }: any) => {
   const { data: sesstion } = useSession();
@@ -122,29 +123,31 @@ const CommentActions = ({ comment }: any) => {
 
   return (
     <div className="flex gap-2">
-      {comment?.liked_by_users?.some(
-        (user: any) => user.userId === sesstion?.user?.id
-      ) ? (
-        <Button
-          loading={loading}
-          onClick={() => handleActionsLike("unlike")}
-          type="text"
-          size="small"
-          icon={<LikeFilled />}
-        >
-          {comment?.like_count}
-        </Button>
-      ) : (
-        <Button
-          loading={loading}
-          onClick={() => handleActionsLike("like")}
-          type="text"
-          size="small"
-          icon={<LikeOutlined />}
-        >
-          {comment?.like_count}
-        </Button>
-      )}
+      <PopoverUserLikeComment comment={comment}>
+        {comment?.liked_by_users?.some(
+          (user: any) => user.userId === sesstion?.user?.id
+        ) ? (
+          <Button
+            loading={loading}
+            onClick={() => handleActionsLike("unlike")}
+            type="text"
+            size="small"
+            icon={<LikeFilled />}
+          >
+            {comment?.like_count}
+          </Button>
+        ) : (
+          <Button
+            loading={loading}
+            onClick={() => handleActionsLike("like")}
+            type="text"
+            size="small"
+            icon={<LikeOutlined />}
+          >
+            {comment?.like_count}
+          </Button>
+        )}
+      </PopoverUserLikeComment>
 
       {sesstion?.user?.id === comment?.user_id && (
         <Dropdown menu={menuProps} trigger={["click"]}>

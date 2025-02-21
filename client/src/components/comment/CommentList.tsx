@@ -41,7 +41,7 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
   return (
     <>
       <ul
-        className={`flex flex-col gap-6 mt-4 ${
+        className={`flex flex-col gap-6 ${
           isScroll ? "max-h-60 overflow-y-auto" : ""
         }`}
       >

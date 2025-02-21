@@ -7,7 +7,7 @@ import { useSession } from "next-auth/react";
 import { Col, Row, Tooltip } from "antd";
 import AvatarUser from "../common/AvatarUser";
 
-const ListUser = ({ users, criterion, showFrame }: ListUserProps) => {
+const ListUser = ({ users, criterion, showFrame, type }: ListUserProps) => {
   const { data: session }: any = useSession();
 
   if (users?.length === 0) {
@@ -17,16 +17,17 @@ const ListUser = ({ users, criterion, showFrame }: ListUserProps) => {
   }
 
   return (
-    <Row gutter={[16, 16]}>
+    <Row gutter={[24, 24]}>
       {users?.map((item, index: number) => (
         <Col key={index} xs={24} sm={12}>
           <div className="flex gap-2 items-center">
             <h3 className="text-lg font-semibold w-3">{index + 1}</h3>
             <AvatarUser
               size="default"
-              level={item?.vip_level as number}
-              src={item?.avatar ?? "/images/avatar.jpg"}
+              number={item?.vip_level ?? index + 1}
+              avatar={item?.avatar ?? "/images/avatar.jpg"}
               showFrame={showFrame}
+              type={type as "vip" | "top"}
             />
             <div className="flex items-start gap-1">
               <div className={`flex flex-col gap-1`}>

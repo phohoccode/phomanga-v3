@@ -23,7 +23,6 @@ const RefreshComments = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     socket.on("refresh-comments", (res) => {
       if (res?.slug === params?.slug) {
-        console.log("RefreshComments");
         handleGetComments();
       }
     });
@@ -32,7 +31,6 @@ const RefreshComments = ({ children }: { children: React.ReactNode }) => {
       const isExist = items?.some((item) => item.user_id === res?.userId);
 
       if (isExist) {
-        console.log("RefreshSession");
         handleGetComments();
       }
     });

@@ -42,6 +42,7 @@ const App = ({ children }: { children: React.ReactNode }) => {
     showModalUserFeedback,
     showModalUpgradeLevelVip,
     isVisiable,
+    displayGreetings,
   } = useSelector((state: RootState) => state.system);
   const { data: sesstion, status }: any = useSession();
 
@@ -57,7 +58,9 @@ const App = ({ children }: { children: React.ReactNode }) => {
           signOut({ callbackUrl: "/" });
         }, 2000);
       } else {
-        message.success(`Xin chào, ${sesstion?.user?.name}!`);
+        if (displayGreetings) {
+          message.success(`Xin chào, ${sesstion?.user?.name}!`);
+        }
       }
     }
   }, [status]);

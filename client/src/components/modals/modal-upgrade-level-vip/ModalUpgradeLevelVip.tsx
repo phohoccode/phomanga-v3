@@ -3,7 +3,7 @@
 import RootModal from "../RootModal";
 import CardListLevelVip from "./CardListLevelVip";
 import { useEffect } from "react";
-import Payment from "./PaymentInfomation";
+import PaymentInfomation from "./PaymentInfomation";
 import { useSession } from "next-auth/react";
 import { Col, Row } from "antd";
 import { ThunderboltOutlined } from "@ant-design/icons";
@@ -18,6 +18,7 @@ export interface VipLevel {
   price: number;
   level: number;
   max_stories: number;
+  nickname: string;
 }
 
 const ModalUpgradeLevelVip = ({
@@ -32,7 +33,7 @@ const ModalUpgradeLevelVip = ({
   const { vipLevels } = useSelector((state: RootState) => state.vipLevel);
 
   useEffect(() => {
-    const index = session?.user?.vip_level - 1;
+    const index = session?.user?.vip_level;
 
     dispatch(
       setSelectedCard({
@@ -41,6 +42,7 @@ const ModalUpgradeLevelVip = ({
         level: vipLevels[index]?.level,
         price: vipLevels[index]?.price,
         max_stories: vipLevels[index]?.max_stories,
+        nickname: vipLevels[index]?.nickname,
       })
     );
   }, [session]);
@@ -54,7 +56,7 @@ const ModalUpgradeLevelVip = ({
       title={
         <div className="flex gap-2">
           <ThunderboltOutlined />
-          Nâng cấp VIP
+          Các gói nâng cấp
         </div>
       }
       isModalOpen={isModalOpen}
@@ -74,7 +76,7 @@ const ModalUpgradeLevelVip = ({
           <CardListLevelVip />
         </Col>
         <Col xs={24} lg={8}>
-          <Payment />
+          <PaymentInfomation />
         </Col>
       </Row>
     </RootModal>

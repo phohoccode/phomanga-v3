@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { setShowModalComment } from "@/store/slices/systemSlice";
 import { CheckCircleFilled } from "@ant-design/icons";
-import { Avatar, Divider, Tag, Tooltip } from "antd";
+import { Divider, Tag, Tooltip } from "antd";
 import AvatarUser from "../common/AvatarUser";
 
 const CommentItem = ({ comment }: any) => {
@@ -25,11 +25,13 @@ const CommentItem = ({ comment }: any) => {
 
   return (
     <div className="flex gap-4 flex-1">
-      <div className="flex flex-col gap-1 items-center">
+      <div className="flex flex-col gap-2 items-center">
         <AvatarUser
           size="default"
-          level={comment?.vip_level}
-          src={comment?.avatar ?? "/images/avatar.jpg"}
+          number={comment?.vip_level}
+          avatar={comment?.avatar ?? "/images/avatar.jpg"}
+          type="vip"
+          showFrame={true}
         />
 
         <Tag color={color} className="m-0 text-xs">

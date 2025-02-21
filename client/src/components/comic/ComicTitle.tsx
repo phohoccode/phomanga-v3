@@ -9,7 +9,7 @@ const ComicTitle = ({
   orientation,
   loading,
 }: {
-  title: string;
+  title: string | React.ReactNode;
   orientation: "left" | "right" | "center";
   loading?: boolean;
 }) => {

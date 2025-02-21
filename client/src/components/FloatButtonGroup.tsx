@@ -25,7 +25,10 @@ const FloatButtonGroup = () => {
   };
 
   const handleScrollBottom = () => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: "smooth",
+    });
   };
 
   if (pathname.startsWith("/bang-dieu-khien") || pathname.startsWith("/auth")) {

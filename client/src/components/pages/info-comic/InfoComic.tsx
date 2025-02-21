@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Breadcrumb, Col, Divider, Row } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
+import Donate from "@/components/Donate";
 
 const InfoComic = () => {
   const params = useParams();
@@ -80,6 +81,9 @@ const InfoComic = () => {
               Bình luận
             </Divider>
             <CommentBox />
+          </div>
+          <div className="mt-12">
+            <Donate />
           </div>
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>

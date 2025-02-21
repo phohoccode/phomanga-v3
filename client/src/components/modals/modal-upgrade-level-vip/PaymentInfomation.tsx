@@ -6,7 +6,6 @@ import {
   getColorVipLevel,
   scrollToCurrentElement,
 } from "@/lib/utils";
-import { useSession } from "next-auth/react";
 import { useEffect, useRef } from "react";
 import {
   Button,
@@ -27,7 +26,6 @@ const handleCopy = (text: string, _message: string) => {
 
 const PaymentInfomation = () => {
   const currentScrollRef = useRef<HTMLDivElement | null>(null);
-  const { data: session }: any = useSession();
   const { width } = useSelector((state: RootState) => state.system);
   const { selectedCard, loading } = useSelector(
     (state: RootState) => state.vipLevel
@@ -36,16 +34,7 @@ const PaymentInfomation = () => {
   const items: DescriptionsProps["items"] = [
     {
       key: "1",
-      label: "Tên độc giả",
-      children: !loading ? (
-        <p>{session?.user?.name}</p>
-      ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} />
-      ),
-    },
-    {
-      key: "2",
-      label: "Cấp độ VIP",
+      label: "Cấp độ VIP ",
       children: !loading ? (
         <Tag color={getColorVipLevel(selectedCard?.level)}>
           VIP {selectedCard?.level}
@@ -55,10 +44,19 @@ const PaymentInfomation = () => {
       ),
     },
     {
-      key: "3",
+      key: "2",
       label: "Số truyện lưu trữ",
       children: !loading ? (
         <p>{selectedCard?.max_stories}</p>
+      ) : (
+        <Skeleton.Input style={{ width: 100, height: 24 }} />
+      ),
+    },
+    {
+      key: "3",
+      label: "Biệt danh",
+      children: !loading ? (
+        <p>{selectedCard?.nickname}</p>
       ) : (
         <Skeleton.Input style={{ width: 100, height: 24 }} />
       ),

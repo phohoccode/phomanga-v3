@@ -27,7 +27,7 @@ const SearchComic = () => {
   const breadCrumb = [
     { title: <Link href="/">Trang chủ</Link> },
     { title: "Tìm kiếm" },
-    { title: titlePage },
+    { title: `Từ khóa: ${keyword}` },
     { title: `Trang ${currentPage}` },
   ];
 
@@ -62,7 +62,11 @@ const SearchComic = () => {
           <Breadcrumb items={breadCrumb} />
         )}
 
-        <ComicTitle title={titlePage} orientation="center" loading={loading} />
+        <ComicTitle
+          title={`Tìm kiếm được ${totalItems} kết quả cho từ khóa "${keyword}"`}
+          orientation="center"
+          loading={loading}
+        />
 
         <ComicList data={items} loading={loading} />
 

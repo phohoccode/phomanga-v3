@@ -166,4 +166,5 @@ export type ListUserProps = {
     nickname?: string;
   }[];
   showFrame?: boolean;
+  type?: "vip" | "top";
 };

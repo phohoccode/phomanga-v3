@@ -4,6 +4,7 @@ import { store } from "@/lib/utils";
 export interface SystemState {
   width: number;
   isVisiable: boolean;
+  displayGreetings: boolean;
   lastScrollY: number;
   showDrawerUser: boolean;
   showModalSearch: boolean;
@@ -22,6 +23,7 @@ const initialState: SystemState = {
   showModalSearch: false,
   isVisiable: true,
   lastScrollY: 0,
+  displayGreetings: true,
   showModalCategorys: false,
   showModalNotification: false,
   showModalActionsNotification: false,
@@ -72,12 +74,16 @@ export const systemSlice = createSlice({
     setShowModalUpgradeLevelVip: (state, action) => {
       state.showModalUpgradeLevelVip = action.payload;
     },
+    setDisplayGreetings: (state, action) => {
+      state.displayGreetings = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
 export const {
   setWidth,
+  setDisplayGreetings,
   setShowModalUpgradeLevelVip,
   setShowDrawerUser,
   setShowModalCategorys,

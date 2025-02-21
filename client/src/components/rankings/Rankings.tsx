@@ -62,17 +62,19 @@ const Rankings = () => {
           showFrame={true}
           users={data.users}
           criterion={data.criterion}
+          type="vip"
         />
       ),
     },
     {
       key: "2",
-      label: "Kho lưu trữ",
+      label: "Truyện đã lưu",
       children: (
         <ListUser
-          showFrame={false}
+          showFrame={true}
           users={data.users}
           criterion={data.criterion}
+          type="top"
         />
       ),
     },
@@ -81,9 +83,10 @@ const Rankings = () => {
       label: "Truyện đã xem",
       children: (
         <ListUser
-          showFrame={false}
+          showFrame={true}
           users={data.users}
           criterion={data.criterion}
+          type="top"
         />
       ),
     },
@@ -92,9 +95,10 @@ const Rankings = () => {
       label: "Bình luận đã viết",
       children: (
         <ListUser
-          showFrame={false}
+          showFrame={true}
           users={data.users}
           criterion={data.criterion}
+          type="top"
         />
       ),
     },
@@ -117,14 +121,14 @@ const Rankings = () => {
   if (loading) return <SkeletonRankings />;
 
   return (
-    <div className="my-8" ref={currentScrollRef}>
+    <div ref={currentScrollRef}>
       <Divider orientation="center" style={{ marginBottom: "32px" }}>
         <TrophyOutlined className="mr-1" />
         Bảng xếp hạng
       </Divider>
       <Tabs
         activeKey={key}
-        tabPosition={width > 1024 ? "left" : "top"}
+        tabPosition={width > 1200 ? "left" : "top"}
         centered
         items={items}
         onChange={onChange}

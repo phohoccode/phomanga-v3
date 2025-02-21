@@ -10,8 +10,10 @@ const CommentTitle = () => {
     (state: RootState) => state.comment
   );
 
+  if (totalItems === 0) return null;
+
   return (
-    <div className="flex justify-between flex-wrap gap-2 items-center my-6 rounded-md p-3 bg-gray-100">
+    <div className="flex justify-between flex-wrap gap-2 items-center my-12 rounded-md p-3 bg-gray-50 shadow-md">
       {loading ? (
         <Skeleton.Input style={{ width: 120, height: 18 }} />
       ) : (

@@ -115,18 +115,10 @@ const ReadComic = () => {
     <Layout>
       <div className="flex flex-col gap-2">
         <Breadcrumb items={breadCrumb} />
-        <SesstionControls
-          location="top"
-          dataInfoComic={items}
-          dataChapterComic={item}
-        />
+        <SesstionControls dataInfoComic={items} dataChapterComic={item} />
         <SessionImage item={item} />
         {width < 1024 && (
-          <SesstionControls
-            location="bottom"
-            dataInfoComic={items}
-            dataChapterComic={item}
-          />
+          <SesstionControls dataInfoComic={items} dataChapterComic={item} />
         )}
       </div>
     </Layout>

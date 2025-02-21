@@ -18,6 +18,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Rankings from "@/components/rankings/Rankings";
 import { ArrowRightOutlined } from "@ant-design/icons";
+import { Col, Row } from "antd";
+import Donate from "@/components/Donate";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();
@@ -80,11 +82,11 @@ export default function Home() {
     };
 
     if (
-      newComic?.length == 0 ||
-      publishedComic?.length == 0 ||
-      completedComic?.length == 0 ||
-      upComingComic?.length == 0 ||
-      categorys?.length == 0
+      newComic?.length === 0 ||
+      publishedComic?.length === 0 ||
+      completedComic?.length === 0 ||
+      upComingComic?.length === 0 ||
+      categorys?.length === 0
     ) {
       fetchAllData();
     }
@@ -97,7 +99,14 @@ export default function Home() {
 
         <CaterogiesAnimate />
 
-        <Rankings />
+        <Row gutter={[24, 24]} className="my-6">
+          <Col xs={24} md={24} lg={16} xl={16} xxl={18}>
+            <Rankings />
+          </Col>
+          <Col xs={24} md={24} lg={8} xl={8} xxl={6}>
+            <Donate />
+          </Col>
+        </Row>
 
         <div className="flex flex-col gap-6">
           {sessions.map((session) => (

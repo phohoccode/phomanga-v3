@@ -29,6 +29,7 @@ const TitleAlert = () => {
       <Skeleton.Input
         style={{
           width: "320px",
+          margin: "32px 0",
         }}
       />
     );

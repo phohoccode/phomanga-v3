@@ -3,11 +3,7 @@ import { useState } from "react";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import { Button, Select, Typography } from "antd";
 
-const SessionControls = ({
-  dataInfoComic,
-  dataChapterComic,
-  location,
-}: any) => {
+const SessionControls = ({ dataInfoComic, dataChapterComic }: any) => {
   const params = useParams();
   const router = useRouter();
   const [currentId, setCurrentId] = useState(params?.id as string);
@@ -57,20 +53,18 @@ const SessionControls = ({
 
   return (
     <div
-      className={`flex items-center justify-center mt-8 transition-all duration-300 lg:top-0
-        ${
-          location === "top" ? "flex-col gap-2 rounded-lg bg-gray-100 p-4" : ""
-        } 
-        lg:sticky left-0 right-0 lg:z-50`}
+      className={`
+          flex items-center justify-center mt-8 flex-col gap-2
+          transition-all shadow-md duration-300 lg:top-0
+          rounded-lg bg-gray-100 p-4 lg:sticky left-0 right-0 lg:z-50
+       `}
     >
-      {location === "top" && (
-        <Typography.Title level={4} style={{ color: "#13c2c2" }}>
-          {dataInfoComic?.name ?? "không xác định"} -{" Chương "}
-          {dataChapterComic?.chapter_name ?? "không xác định"}
-        </Typography.Title>
-      )}
+      <Typography.Title level={4} style={{ color: "#13c2c2" }}>
+        {dataInfoComic?.name ?? "không xác định"} -{" Chương "}
+        {dataChapterComic?.chapter_name ?? "không xác định"}
+      </Typography.Title>
 
-      <div className="flex gap-2 flex-col md:flex-row items-center justify-center">
+      <div className="flex gap-2 flex-wrap items-center justify-center">
         <Button
           onClick={handlePrevChapter}
           disabled={

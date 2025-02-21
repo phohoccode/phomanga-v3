@@ -9,7 +9,6 @@ import { Card, Col, Row, Tag } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { setSelectedCard, VipLevel } from "@/store/slices/vipLevelSlice";
-import { useEffect } from "react";
 
 const CardListLevelVip = () => {
   const { data: session }: any = useSession();
@@ -29,10 +28,6 @@ const CardListLevelVip = () => {
       })
     );
   };
-
-  useEffect(() => {
-    console.log(selectedCard);
-  }, [selectedCard]);
 
   if (loading) return <SkeletonCardListLevelVip />;
 

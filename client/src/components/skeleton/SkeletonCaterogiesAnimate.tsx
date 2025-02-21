@@ -8,9 +8,11 @@ const SkeletonCaterogiesAnimate = ({
   quantity?: number;
 }) => {
   return (
-    <div className="flex gap-2 overflow-x-hidden my-6">
+    <div className="flex gap-2 overflow-x-hidden my-8">
       {[...Array(quantity)].map((_, index) => (
-        <Skeleton.Input key={index} size="large" />
+        <Skeleton.Input key={index} size="large" style={{
+          borderRadius: "12px",
+        }} />
       ))}
     </div>
   );

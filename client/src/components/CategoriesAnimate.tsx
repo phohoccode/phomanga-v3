@@ -26,12 +26,12 @@ const CaterogiesAnimate = () => {
       pauseOnClick={true}
       style={{ margin: "24px 0" }}
     >
-      <div className="flex space-x-3 mr-3 ">
+      <div className="flex space-x-3 mr-3">
         {items?.map((category: any, index: number) => (
           <Link
             href={`/chi-tiet/the-loai/${category?.slug}`}
             key={index}
-            className={`px-4 py-2 text-base border transition-all rounded-xl hover:opacity-80`}
+            className={`h-10 px-4 py-2 text-base border transition-all rounded-xl hover:opacity-80`}
             style={{
               backgroundColor:
                 colorDetail[index % colorDetail.length]?.backround,
