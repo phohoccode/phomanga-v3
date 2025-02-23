@@ -2,6 +2,7 @@
 
 import {
   CommentOutlined,
+  ExceptionOutlined,
   HomeOutlined,
   LogoutOutlined,
   NotificationOutlined,
@@ -36,7 +37,7 @@ const Links = [
   {
     label: "Quản lý phản hồi",
     href: "/bang-dieu-khien/quan-ly-phan-hoi",
-    icon: <NotificationOutlined />,
+    icon: <ExceptionOutlined />,
   },
 ];
 

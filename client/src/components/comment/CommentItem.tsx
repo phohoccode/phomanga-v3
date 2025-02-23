@@ -76,7 +76,7 @@ const CommentItem = ({ comment }: any) => {
         </div>
 
         {comment?.is_spam === 1 ? (
-          <span className="italic text-gray-500">
+          <span className="italic text-gray-500 text-sm mt-1">
             Bình luận không hiển thị vì được đánh dấu là spam.
           </span>
         ) : (

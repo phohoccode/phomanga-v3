@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { CoffeeOutlined } from "@ant-design/icons";
+import { ReadOutlined } from "@ant-design/icons";
 import { Divider, Empty, Input, Pagination } from "antd";
 import { useParams } from "next/navigation";
 import ChapterList from "./ChapterList";
@@ -35,7 +35,7 @@ const SessionChapter = ({ data }: any) => {
   return (
     <div className="flex flex-col gap-4 mt-8">
       <Divider orientation="center">
-        <CoffeeOutlined className="mr-2" />
+        <ReadOutlined className="mr-2" />
         Danh sách chương
       </Divider>
       {chaptersData?.length > 0 ? (
@@ -46,7 +46,7 @@ const SessionChapter = ({ data }: any) => {
             placeholder="Tìm kiếm chương ..."
           />
           {chapters?.length === 0 ? (
-            <Empty description="Không có dữ liệu" />
+            <Empty description="Oops! Không tìm thấy chương nào, chắc tác giả đi chơi rồi! 😭" />
           ) : (
             <ChapterList chapters={chapters} slug={params?.slug as string} />
           )}

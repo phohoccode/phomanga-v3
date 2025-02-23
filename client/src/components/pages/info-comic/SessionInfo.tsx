@@ -55,7 +55,7 @@ export const SessionInfo = ({ data }: any) => {
       children: (
         <ShowMoreText
           text={removeHTMLTags(data?.content ?? "")}
-          maxLength={200}
+          maxLength={500}
         />
       ),
     },

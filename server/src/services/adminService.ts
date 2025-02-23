@@ -27,9 +27,11 @@ export const handleGetAllUsers = async () => {
 export const handleGetAllComments = async () => {
   try {
     const sql_select_by_page = `
-      SELECT c.id, c.content, c.created_at, u.name, c.user_id, c.comic_slug, c.is_spam
+      SELECT c.id, c.content, c.created_at, u.name, u.id as user_id,
+        c.user_id, c.comic_slug, c.is_spam, c.is_deleted, c.comic_name
       FROM comments c, users u
       WHERE c.user_id = u.id
+      ORDER BY created_at DESC
     `;
 
     const [rows]: any = await connection.promise().query(sql_select_by_page);
@@ -138,14 +140,59 @@ export const handleUpdateVipLevels = async (
     if (response[0].affectedRows === 0) {
       return {
         status: "error",
-        message: "Cập nhật vip level thất bại",
+        message: "Cập nhật cấp độ VIP thất bại!",
       };
     }
 
     return {
       status: "success",
-      message: "Cập nhật vip level thành công",
+      message: "Cập nhật cấp độ VIP thành công!",
       userId,
+    };
+  } catch (error) {
+    console.log(error);
+    return error_server;
+  }
+};
+
+export const handleMarkUserCommentAsSpam = async (commentId: string) => {
+  try {
+    console.log(commentId);
+
+    // nếu is_spam là 1 thì thành 0 và ngược lại
+    const sql_update = `
+      UPDATE comments
+      SET is_spam = CASE WHEN is_spam = 1 THEN 0 ELSE 1 END
+      WHERE id = '${commentId}'
+    `;
+
+    const sql_select = `
+      SELECT is_spam
+      FROM comments
+      WHERE id = '${commentId}'
+    `;
+
+    const response: any = await connection.promise().query(sql_update);
+    const [rows]: any = await connection.promise().query(sql_select);
+
+    if (response[0].affectedRows === 0) {
+      return {
+        status: "error",
+        message: "Đánh dấu spam thất bại",
+      };
+    }
+
+    let message = "";
+
+    if (rows[0]?.is_spam === 1) {
+      message = "Đã đánh dấu bình luận này là spam";
+    } else {
+      message = "Đã bỏ đánh dấu spam cho bình luận này";
+    }
+
+    return {
+      status: "success",
+      message,
     };
   } catch (error) {
     console.log(error);

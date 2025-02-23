@@ -30,7 +30,7 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
           v.nickname AS nickname,
           v.level as vip_level,
           COUNT(l.id) AS like_count,
-          GROUP_CONCAT(DISTINCT CONCAT(l.user_id, ':', u_liker.name)) AS liked_by_users
+          GROUP_CONCAT(DISTINCT CONCAT(l.user_id, ';', u_liker.name, ';', u.avatar)) AS liked_by_users
       FROM comments c
       JOIN users u ON c.user_id = u.id
       JOIN roles r ON u.role_id = r.id
@@ -56,8 +56,8 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
     const likedByUsers = rows.map((row: any) => {
       if (!row.liked_by_users) return [];
       const likedByUsers = row.liked_by_users?.split(",")?.map((item: any) => {
-        const [userId, userName] = item.split(":");
-        return { userId, userName };
+        const [userId, userName, avatar] = item.split(";");
+        return { userId, userName, avatar };
       });
       return likedByUsers;
     });
@@ -85,15 +85,16 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
 
 export const handleCreateComment = async (rawData: rawDataCreateComment) => {
   try {
-    const { userId, content, comicSlug, chapter } = rawData;
+    const { userId, content, comicSlug, chapter, comicName } = rawData;
 
     const id = uuidv4();
 
     const sql_insert = `
-      Insert into comments (id, user_id, content, comic_slug, chapter)
-      values ('${id}', '${userId}', '${content}', '${comicSlug}', '${
-      chapter ?? ""
-    }')
+      Insert into comments (id, user_id, content, comic_slug, chapter, comic_name)
+      values (
+        '${id}', '${userId}', '${content}',
+        '${comicSlug}', '${chapter ?? ""}', '${comicName}'
+      )
     `;
 
     const response: any = await connection.promise().query(sql_insert);

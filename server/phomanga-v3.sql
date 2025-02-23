@@ -3,6 +3,7 @@ CREATE TABLE `comments` (
   `id` varchar(100) NOT NULL,
   `user_id` varchar(100) NOT NULL,
   `comic_slug` varchar(100) DEFAULT NULL,
+  `comic_name` varchar(100) DEFAULT NULL,
   `content` text NOT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,

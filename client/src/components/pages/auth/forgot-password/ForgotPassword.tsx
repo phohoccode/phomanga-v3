@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import type { FormProps } from "antd";
 import Link from "next/link";
-import { resetPassword, sendOTP } from "@/lib/actions";
+import { resetPassword, sendOTP } from "@/lib/actions/auth";
 import { Button, Flex, Form, Input, message, Typography } from "antd";
 import {
   EyeInvisibleOutlined,

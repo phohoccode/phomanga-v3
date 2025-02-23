@@ -1,6 +1,6 @@
 "use client";
 
-import { deleteAllComic } from "@/lib/actions";
+import { deleteAllComic } from "@/lib/actions/user";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Button, message, Modal } from "antd";

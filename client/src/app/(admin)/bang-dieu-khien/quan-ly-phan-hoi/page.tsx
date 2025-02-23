@@ -1,5 +1,5 @@
 import TableFeedback from "@/components/admin/feedback-management.tsx/TableFeedback";
-import { fetchAllFeedbacks } from "@/lib/actions";
+import { fetchAllFeedbacks } from "@/lib/actions/admin";
 
 export default async function Page() {
   const response = await fetchAllFeedbacks();

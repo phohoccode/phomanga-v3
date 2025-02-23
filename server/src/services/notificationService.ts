@@ -82,6 +82,8 @@ export const handleCreateNotification = async (
 
     const [rows]: any = await connection.promise().execute(sql_insert);
 
+    console.log(rows);
+
     if (rows.affectedRows === 0) {
       return {
         status: "error",

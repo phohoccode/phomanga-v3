@@ -1,6 +1,6 @@
 "use client";
 
-import { createNotification, updateUserRole } from "@/lib/actions";
+import { createNotification, updateUserRole } from "@/lib/actions/admin";
 import { socket } from "@/lib/socket";
 import { message, Modal, Select } from "antd";
 import { useState } from "react";
@@ -43,7 +43,7 @@ const SelectChangeRole = ({ defaultValue, userId }: SelectChangeRoleProps) => {
       const nickname = role === "admin" ? "Admin" : "User";
 
       await createNotification(
-        "Cập nhật vai trò",
+        "update-role",
         `Vai trò của bạn vừa được cập nhật thành ${nickname}.`,
         userId,
         "user"

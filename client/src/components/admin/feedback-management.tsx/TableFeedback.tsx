@@ -1,9 +1,25 @@
 "use client";
 
+import { socket } from "@/lib/socket";
 import { formatDate } from "@/lib/utils";
-import { Table } from "antd";
+import { message, Table } from "antd";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 const TableFeedback = ({ data }: { data: any }) => {
+  const router = useRouter();
+
+  useEffect(() => {
+    socket.on("refresh-table-feedbacks", (res: any) => {
+      router.refresh();
+      message.info(res?.message);
+    });
+
+    return () => {
+      socket.off("refresh-table-feedback");
+    };
+  }, []);
+
   const dataSource = data?.map((feedback: any) => {
     return {
       key: feedback.id,

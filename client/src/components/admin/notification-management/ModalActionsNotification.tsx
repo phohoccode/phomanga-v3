@@ -1,7 +1,7 @@
 "use client";
 
 import RootModal from "@/components/modals/RootModal";
-import { createNotification, updateNotification } from "@/lib/actions";
+import { createNotification, updateNotification } from "@/lib/actions/admin";
 import { socket } from "@/lib/socket";
 import { setShowModalActionsNotification } from "@/store/slices/systemSlice";
 import { AppDispatch, RootState } from "@/store/store";

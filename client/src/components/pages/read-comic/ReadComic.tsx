@@ -32,7 +32,7 @@ const ReadComic = () => {
   const { width } = useSelector((state: RootState) => state.system);
   const breadCrumb = [
     { title: <Link href="/">Trang chủ</Link> },
-    { title: "Đang xem" },
+    { title: "Đang xem truyện" },
     { title: `${items?.name}` },
     { title: `Chương ${item?.chapter_name}` },
   ];
@@ -108,7 +108,7 @@ const ReadComic = () => {
   }
 
   if (!item || !items) {
-    return <EmptyData description="Không có dữ liệu" />;
+    return <EmptyData description="Chương hiện tại đang xem chưa có dữ liệu!" />;
   }
 
   return (

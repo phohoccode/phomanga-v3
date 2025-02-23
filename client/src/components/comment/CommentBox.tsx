@@ -5,12 +5,12 @@ import CommentTitle from "./CommentTitle";
 import CommentList from "./CommentList";
 import RefreshComments from "./RefreshComments";
 
-const CommentBox = ({ isScroll = false }: { isScroll?: boolean }) => {
+const CommentBox = () => {
   return (
     <RefreshComments>
       <CommentInput />
       <CommentTitle />
-      <CommentList isScroll={isScroll} />
+      <CommentList />
     </RefreshComments>
   );
 };

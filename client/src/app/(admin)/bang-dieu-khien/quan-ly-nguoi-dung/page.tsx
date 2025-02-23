@@ -1,5 +1,5 @@
 import TableUsers from "@/components/admin/user-management/TableUsers";
-import { fetchAllUsers } from "@/lib/actions";
+import { fetchAllUsers } from "@/lib/actions/admin";
 
 export default async function Page() {
   const response = await fetchAllUsers();

@@ -10,7 +10,7 @@ import { useSession } from "next-auth/react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, message, Tooltip } from "antd";
+import { Button, message, Popover, Tooltip } from "antd";
 import { BookOutlined, DeleteOutlined } from "@ant-design/icons";
 
 const ActionComic = () => {
@@ -22,6 +22,7 @@ const ActionComic = () => {
   );
   const [isSave, setIsSave] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [savedQuantity, setSavedQuantity] = useState(0);
   const params = useParams();
 
   useEffect(() => {
@@ -31,7 +32,7 @@ const ActionComic = () => {
           getAllComic({
             userId: session.user.id,
             type: "GET_ALL_SAVED_COMIC",
-            page: "-1"
+            page: "-1",
           })
         );
       }
@@ -46,6 +47,15 @@ const ActionComic = () => {
       setIsSave(isSave);
     }
   }, [items, params?.slug]);
+
+  useEffect(() => {
+    if (items?.length > 0) {
+      const quantity = items.filter(
+        (item) => item?.slug === params?.slug
+      ).length;
+      setSavedQuantity(quantity);
+    }
+  }, [items]);
 
   const handleSaveComic = async () => {
     if (!session?.user?.id) {
@@ -96,7 +106,7 @@ const ActionComic = () => {
         getAllComic({
           userId: session?.user?.id,
           type: "GET_ALL_SAVED_COMIC",
-          page: "-1"
+          page: "-1",
         })
       );
       setIsSave(true);
@@ -127,7 +137,7 @@ const ActionComic = () => {
         getAllComic({
           userId: session?.user?.id,
           type: "GET_ALL_SAVED_COMIC",
-          page: "-1"
+          page: "-1",
         })
       );
       setIsSave(false);
@@ -137,7 +147,15 @@ const ActionComic = () => {
   };
 
   return (
-    <Tooltip placement="top" title={isSave ? "Bỏ vội!" : "Lưu ngay thôi!"}>
+    <Popover
+      content={
+        savedQuantity > 0 ? (
+          <span className="text-sm text-gray-700">
+            {savedQuantity} người đã lưu
+          </span>
+        ) : null
+      }
+    >
       {!isSave ? (
         <Button
           loading={isLoading}
@@ -155,7 +173,7 @@ const ActionComic = () => {
           color="red"
         />
       )}
-    </Tooltip>
+    </Popover>
   );
 };
 

@@ -56,6 +56,7 @@ export type rawDataCreateComment = {
   content: string;
   comicSlug: string;
   chapter: string;
+  comicName: string;
 };
 
 export type rawDataDeleteComment = {
@@ -86,18 +87,18 @@ export type rawDataGetAllNotifications = {
 export type rawDataLikeComment = {
   commentId: string;
   userId: string;
-}
+};
 
 export type rawDataUnlikeComment = {
   commentId: string;
   userId: string;
-}
+};
 
 export type rawDataGetSearchHistory = {
   userId: string;
   limit: string;
   page: string;
-}
+};
 
 export type rawDataCreateNotification = {
   title: string;

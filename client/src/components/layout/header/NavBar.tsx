@@ -29,7 +29,7 @@ const NavBar = () => {
       className={`header sticky top-0 left-0 z-[999] 
         right-0 md:p-6 p-3 flex items-center
         justify-between bg-[#fffc]
-        backdrop-blur border-b border-[#f2f2f2]
+        backdrop-blur border-b border-gray-100
         h-[48px] transition-transform duration-300
         ${isVisiable ? "transform-none" : "-translate-y-full"}
       `}

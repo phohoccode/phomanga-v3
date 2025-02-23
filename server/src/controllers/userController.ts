@@ -34,7 +34,7 @@ export const getUserStatistical = async (
     if (!userId) {
       return res.status(500).json({
         status: "error",
-        message: "User ID là bắt buộc!",
+        message: "User ID is required!",
       });
     }
 
@@ -57,7 +57,7 @@ export const getUserRankings = async (
     if (!criterion) {
       return res.status(500).json({
         status: "error",
-        message: "Tiêu chí là bắt buộc",
+        message: "Criterion is required!",
       });
     }
 
@@ -80,7 +80,7 @@ export const findUserByEmailAndTypeAccount = async (
     if (!email || !typeAccount) {
       return res.status(500).json({
         status: "error",
-        message: "Email và typeAccount là bắt buộc",
+        message: "Email and Type Account are required!",
       });
     }
 
@@ -105,7 +105,7 @@ export const addFeedback = async (
 
     if (!userId || !title || !description) {
       return res.status(500).json({
-        message: "userId, title và description là bắt buộc",
+        message: "User ID, Title and Description are required!",
       });
     }
 

@@ -8,12 +8,13 @@ const RootModal = ({
   closeIcon,
   footer,
   width,
+  centered = false,
   onCancel,
   onOk,
 }: RootModal) => {
   return (
     <Modal
-      centered
+      centered={centered}
       destroyOnClose={true}
       title={title}
       open={isModalOpen}

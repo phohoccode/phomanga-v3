@@ -3,7 +3,7 @@
 import React from "react";
 import { type FormProps } from "antd";
 import Link from "next/link";
-import { authenticate } from "@/lib/actions";
+import { authenticate } from "@/lib/actions/auth";
 import { signIn } from "next-auth/react";
 import { Button, Divider, Flex, Form, Input, Typography, message } from "antd";
 import {

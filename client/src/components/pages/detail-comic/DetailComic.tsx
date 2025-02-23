@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import useGetQuery from "@/hooks/useGetQuery";
 import { Breadcrumb, Pagination, Skeleton } from "antd";
+import EmptyData from "@/components/common/EmptyData";
 
 const DeltailComic = () => {
   const _params = useParams();
@@ -45,6 +46,12 @@ const DeltailComic = () => {
     router.push(`?${params.toString()}`);
   };
 
+  if (items.length === 0 && !loading) {
+    return (
+      <EmptyData description="Có vẻ như thể loại truyện bạn tìm chưa xuất hiện... thử một truyện khác xem sao!" />
+    );
+  }
+
   return (
     <Layout>
       <div className="flex flex-col gap-8">
@@ -54,7 +61,11 @@ const DeltailComic = () => {
           <Breadcrumb items={breadcrumbItems} />
         )}
 
-        <ComicTitle title={titlePage} orientation="center" loading={loading} />
+        <ComicTitle
+          title={`${titlePage} - ${params?.pagination?.totalItems} truyện`}
+          orientation="center"
+          loading={loading}
+        />
 
         <ComicList data={items} loading={loading} />
 

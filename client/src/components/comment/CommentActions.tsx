@@ -91,18 +91,22 @@ const CommentActions = ({ comment }: any) => {
       });
 
       if (sesstion?.user?.id !== comment?.user_id) {
-        await dispatch(
-          createNotification({
-            title: "like-comment",
-            content: `${sesstion?.user?.name} đã thích bình luận "${comment?.content}" của bạn`,
-            type: "user",
-            userId: comment?.user_id,
-          })
-        );
+        await handleCreateNotification();
       }
 
       handleGetComments();
     }
+  };
+
+  const handleCreateNotification = async () => {
+    await dispatch(
+      createNotification({
+        title: "like-comment",
+        content: `${sesstion?.user?.name} đã thích bình luận "${comment?.content}" của bạn`,
+        type: "user",
+        userId: comment?.user_id,
+      })
+    );
   };
 
   const handleGetComments = () => {

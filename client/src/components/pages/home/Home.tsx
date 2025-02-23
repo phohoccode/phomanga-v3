@@ -19,7 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Rankings from "@/components/rankings/Rankings";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { Col, Row } from "antd";
-import Donate from "@/components/Donate";
+import Donate from "@/components/common/Donate";
 
 export default function Home() {
   const dispatch: AppDispatch = useDispatch();

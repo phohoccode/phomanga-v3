@@ -1,7 +1,7 @@
 import { Breadcrumb, Divider } from "antd";
 import Link from "next/link";
 import { auth } from "@/auth";
-import { fetchDataComic } from "@/lib/actions";
+import { fetchDataComic } from "@/lib/actions/user";
 import { Suspense } from "react";
 import Layout from "@/components/layout/Layout";
 import ComicList from "@/components/comic/ComicList";

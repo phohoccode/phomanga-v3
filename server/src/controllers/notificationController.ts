@@ -21,7 +21,7 @@ export const getAllNotifications = async (
     if (!type || !limit || !page || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "Type, limit, page, userId là bắt buộc",
+        message: "Type, Limit, Page and UserId are required!",
       });
     }
 
@@ -46,7 +46,7 @@ export const createNotification = async (
     if (!title || !content || !userId || !type) {
       return res.status(400).json({
         status: "error",
-        message: "Title, content, userId, type là bắt buộc",
+        message: "Title, Content, UserId and Type are required!",
       });
     }
 
@@ -69,7 +69,7 @@ export const deleteNotification = async (
     if (!notificationId || !userId || !role) {
       return res.status(400).json({
         status: "error",
-        message: "NotificationId, userId, role là bắt buộc",
+        message: "NotificationId, UserId and Role are required!",
       });
     }
 
@@ -95,7 +95,7 @@ export const updateNotification = async (
     if (!id || !title || !content) {
       return res.status(400).json({
         status: "error",
-        message: "NotificationId, title, content là bắt buộc",
+        message: "Comment ID, Title and Content are required!",
       });
     }
 

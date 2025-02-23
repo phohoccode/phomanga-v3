@@ -2,9 +2,9 @@
 
 import { message, Table } from "antd";
 import { formatDate } from "@/lib/utils";
-import Actions from "../Actions";
+import Actions from "./ActionsNotification";
 import { useSession } from "next-auth/react";
-import { deleteNotification } from "@/lib/actions";
+import { deleteNotification } from "@/lib/actions/admin";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -16,6 +16,7 @@ import {
   setTitle,
 } from "@/store/slices/notificationSlice";
 import { socket } from "@/lib/socket";
+import ActionsNotification from "./ActionsNotification";
 
 const TableNotification = ({ data }: { data: any }) => {
   const { data: sesstion }: any = useSession();
@@ -23,13 +24,13 @@ const TableNotification = ({ data }: { data: any }) => {
   const [loadingId, setLoadingId] = useState("");
   const dispatch: AppDispatch = useDispatch();
 
-  const dataSource = data?.map((comment: any) => {
+  const dataSource = data?.map((notification?: any) => {
     return {
-      key: comment.id,
-      id: comment.id,
-      title: comment.title,
-      content: comment.content,
-      createdAt: formatDate(comment.created_at),
+      key: notification?.id,
+      id: notification?.id,
+      title: notification?.title,
+      content: notification?.content,
+      createdAt: formatDate(notification?.created_at),
     };
   });
 
@@ -60,7 +61,7 @@ const TableNotification = ({ data }: { data: any }) => {
       key: "action",
       render: (_: any, record: any) => {
         return (
-          <Actions
+          <ActionsNotification
             loading={loadingId === record?.id}
             handleDelete={() => handleDelete(record?.id)}
             handleEdit={() => handleEdit(record)}

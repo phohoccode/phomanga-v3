@@ -5,7 +5,7 @@ import { Table } from "antd";
 import SelectChangeRole from "./SelectChangeRole";
 import SelectChangeVipLevel from "./SelectChangeVipLevel";
 import { useEffect, useState } from "react";
-import { getAllVipLevel } from "@/lib/actions";
+import { getAllVipLevel } from "@/lib/actions/user";
 
 interface TableUsersProps {
   data: {
@@ -24,14 +24,14 @@ const TableUsers = ({ data }: TableUsersProps) => {
 
   const dataSource = data?.map((user) => {
     return {
-      key: user.id,
-      id: user.id,
-      name: user.name,
-      email: user.email,
-      typeAccount: user.type_account,
-      roleName: user.role,
-      vipLevel: user.vip_level,
-      createdAt: formatDate(user.created_at),
+      key: user?.id,
+      id: user?.id,
+      name: user?.name,
+      email: user?.email,
+      typeAccount: user?.type_account,
+      roleName: user?.role,
+      vipLevel: user?.vip_level,
+      createdAt: formatDate(user?.created_at),
     };
   });
 

@@ -22,6 +22,7 @@ const DisplayNotification = ({ children }: { children: React.ReactNode }) => {
       }
 
       if (res?.userId === session?.user?.id) {
+        console.log("Có thông báo mới!");
         message.info(res?.message);
       }
     });

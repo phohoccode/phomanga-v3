@@ -32,7 +32,7 @@ const ModalComment = ({
       onCancel={onCancel}
     >
       <div className="mt-8">
-        <CommentBox isScroll={true} />
+        <CommentBox />
       </div>
     </RootModal>
   );

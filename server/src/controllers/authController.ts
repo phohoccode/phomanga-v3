@@ -22,7 +22,8 @@ const userLogin = async (req: Request, res: Response): Promise<any> => {
 
     if (!email || !password || !typeAccount) {
       return res.status(500).json({
-        message: "Email, password và typeAccount là bắt buộc",
+        status: "error",
+        message: "Email, Password and TypeAccount are required!",
       });
     }
 
@@ -42,7 +43,7 @@ const registerAccount = async (req: Request, res: Response): Promise<any> => {
     if (!email || !name || !typeAccount || !avatar) {
       return res.status(500).json({
         status: "error",
-        message: "Email, name typeAccount và avatar là bắt buộc",
+        message: "Email, Username, TypeAccount and Avatar are required!",
       });
     }
 
@@ -62,7 +63,7 @@ const resetPassword = async (req: Request, res: Response): Promise<any> => {
     if (!email || !password || !otp) {
       return res.status(500).json({
         status: "error",
-        message: "Email, password và otp là bắt buộc",
+        message: "Email, Password and OTP are required!",
       });
     }
 

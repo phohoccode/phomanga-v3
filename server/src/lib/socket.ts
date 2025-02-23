@@ -11,17 +11,36 @@ const initSocketIO = (io: Server) => {
     socket.on("new-comment", (data: CommentData) => {
       console.log("Có bình luận mới!");
       io.emit("refresh-comments", { slug: data?.slug });
+
+      io.emit("refresh-table-comments", {
+        message: "Danh sách bình luận vừa được cập nhật!",
+      });
     });
 
     socket.on("update-comment", (data: CommentData) => {
       console.log("Có bình luận vừa cập nhật!");
       io.emit("refresh-comments", { slug: data?.slug });
+
+      io.emit("refresh-table-comments", {
+        message: "Danh sách bình luận vừa được cập nhật!",
+      });
     });
 
     socket.on("delete-comment", (data: CommentData) => {
       console.log("Có bình luận vừa xóa!");
       io.emit("refresh-comments", { slug: data?.slug });
+
+      io.emit("refresh-table-comments", {
+        message: "Danh sách bình luận vừa được cập nhật!",
+      });
     });
+
+    socket.on("new-feedback", () => {
+      console.log("Có phản hồi mới!");
+      io.emit("refresh-table-feedbacks", {
+        message: "Danh sách phản hồi vừa được cập nhật!",
+      });
+    })
 
     socket.on("like-comment", (data: any) => {
       io.emit("refresh-comments", { slug: data?.slug });
@@ -102,6 +121,22 @@ const initSocketIO = (io: Server) => {
       io.emit("refresh-notifications", {
         type: "user",
       });
+    });
+
+    socket.on("mark-comment-as-spam", (data: any) => {
+      console.log("Có bình luận vừa được đánh dấu là spam!");
+      io.emit("refresh-comments", { slug: data?.slug });
+
+      if (data?.isSpam) {
+        io.emit("new-notification", {
+          userId: data?.userId,
+          message: "Bạn vừa nhận được thông báo mới!!!",
+        });
+
+        io.emit("refresh-notifications", {
+          type: "user",
+        });
+      }
     });
 
     socket.on("disconnect", () => {

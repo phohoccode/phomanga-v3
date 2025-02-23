@@ -10,7 +10,7 @@ import { setCurrentPage, setIsScroll } from "@/store/slices/commentSlice";
 import useGetQuery from "@/hooks/useGetQuery";
 import { Pagination } from "antd";
 
-const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
+const CommentList = () => {
   const { items, loading, totalItems } = useSelector(
     (state: RootState) => state.comment
   );
@@ -40,11 +40,7 @@ const CommentList = ({ isScroll = false }: { isScroll?: boolean }) => {
 
   return (
     <>
-      <ul
-        className={`flex flex-col gap-6 ${
-          isScroll ? "max-h-60 overflow-y-auto" : ""
-        }`}
-      >
+      <ul className="flex flex-col gap-6">
         {items?.map((comment, index) => (
           <li key={index} className="flex gap-4">
             <CommentItem comment={comment} />

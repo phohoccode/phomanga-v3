@@ -19,7 +19,7 @@ import { useEffect } from "react";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Breadcrumb, Col, Divider, Row } from "antd";
 import { CommentOutlined } from "@ant-design/icons";
-import Donate from "@/components/Donate";
+import Donate from "@/components/common/Donate";
 
 const InfoComic = () => {
   const params = useParams();
@@ -75,15 +75,17 @@ const InfoComic = () => {
         <Col lg={24} xl={18} md={24} sm={24} xs={24}>
           <SessionInfo data={items} />
           <SessionChapter data={items} />
+
+          <div className="mt-12">
+            <Donate />
+          </div>
+
           <div className="flex flex-col gap-2 mt-12">
             <Divider orientation="left">
               <CommentOutlined className="mr-2" />
               Bình luận
             </Divider>
             <CommentBox />
-          </div>
-          <div className="mt-12">
-            <Donate />
           </div>
         </Col>
         <Col lg={24} xl={6} md={24} sm={24} xs={24}>

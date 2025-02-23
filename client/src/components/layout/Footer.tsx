@@ -32,7 +32,7 @@ const Footer = () => {
           xs={24}
           className="flex flex-col gap-2"
         >
-          <h1 className="text-lg font-bold italic">Giới thiệu</h1>
+          <h1 className="text-lg font-bold">Giới thiệu</h1>
           <p className="text-base">
             Dự án này được xây dựng với mục tiêu mang đến một nền tảng đọc
             truyện trực tuyến phong phú, tiện lợi và thân thiện với người dùng.
@@ -49,7 +49,7 @@ const Footer = () => {
           xs={24}
           className="flex flex-col gap-2"
         >
-          <h1 className="text-lg font-bold italic">Bản quyền</h1>
+          <h1 className="text-lg font-bold">Bản quyền</h1>
           <p className="text-base">
             Tất cả nội dung của trang web này đều được tìm kiếm và thu thập trực
             tiếp trên Internet. Nếu quyền lợi của bạn bị vi phạm, hãy liên hệ
@@ -66,7 +66,7 @@ const Footer = () => {
           xs={24}
           className="flex flex-col gap-2"
         >
-          <h1 className="text-lg font-bold italic">Liên hệ với tôi</h1>
+          <h1 className="text-lg font-bold">Liên hệ với tôi</h1>
           <div className="flex flex-col gap-2 text-base">
             <a
               className="hover:text-[#13c2c2] transition-all"

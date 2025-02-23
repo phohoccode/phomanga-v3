@@ -9,6 +9,7 @@ import { createUserFeedback } from "@/store/asyncThunk/userAsyncThunk";
 import { setShowModalUserFeedback } from "@/store/slices/systemSlice";
 import { usePathname } from "next/navigation";
 import { Button, Form, Input, message, Space } from "antd";
+import { socket } from "@/lib/socket";
 
 const ModalUserFeedback = ({
   isModalOpen,
@@ -68,7 +69,13 @@ const ModalUserFeedback = ({
       message.success(
         "Phản hồi của bạn đã bay vào hệ thống! Cảm ơn bạn nhiều nha!"
       );
+
+      // reset form
       form.resetFields();
+
+      // socket
+      socket.emit("new-feedback");
+
       dispatch(setShowModalUserFeedback(false));
     } else {
       message.error("Có lỗi xảy ra! Vui lòng thử lại sau.");

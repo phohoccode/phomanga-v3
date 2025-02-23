@@ -3,7 +3,7 @@
 import { criterion, ListUserProps } from "@/lib/types";
 import { useEffect, useRef, useState } from "react";
 import ListUser from "./ListUser";
-import { getUserRankings } from "@/lib/actions";
+import { getUserRankings } from "@/lib/actions/user";
 import SkeletonRankings from "../skeleton/SkeletonRankings";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";

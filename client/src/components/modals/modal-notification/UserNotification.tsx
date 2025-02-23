@@ -96,9 +96,9 @@ const UserNotification = () => {
                 <span className="flex-1 text-base text-slate-700 ">
                   {item?.content}
                 </span>
+
                 <span className="text-xs text-gray-600">
-                  <ClockCircleOutlined />{" "}
-                  <span className="ml-1">{formatDate(item?.created_at)}</span>
+                  {formatDate(item?.created_at)}
                 </span>
               </div>
               <Tooltip title="Xoá thông báo" style={{ width: "10%" }}>

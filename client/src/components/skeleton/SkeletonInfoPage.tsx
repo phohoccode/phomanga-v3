@@ -30,11 +30,11 @@ const SkeletonInfoPage = () => {
 
             <Skeleton.Input style={{ width: "100%" }} />
 
-            <Row gutter={[16, 16]}>
-              {[...Array(36)].map((_, index) => (
+            <Row gutter={[16, 16]} className="mt-3 flex-1">
+              {[...Array(16)].map((_, index) => (
                 <Col key={index} xs={8} sm={6} md={4} lg={3} xxl={2}>
                   <Skeleton.Button
-                    style={{ width: "100%", height: "32px" }}
+                    style={{ width: "100%", height: "24px" }}
                     className="w-full h-full"
                   />
                 </Col>

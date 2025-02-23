@@ -31,6 +31,7 @@ export type RootModal = {
   children: React.ReactNode;
   closeIcon?: React.ReactNode | null;
   footer?: React.ReactNode | null;
+  centered?: boolean;
   width?: {
     xs?: string;
     sm?: string;

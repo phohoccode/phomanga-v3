@@ -70,18 +70,19 @@ const SystemNotification = () => {
         {system?.items?.map((item, index: number) => (
           <li key={index} ref={notifyRef}>
             <h3 className="lg:text-base text-sm font-semibold truncate">
-              <span className="text-[#13c2c2] mr-2">#</span>
-              {item.title}
+              <span className="text-[#13c2c2] mr-2"># {item?.title}</span>
             </h3>
-            <p className="lg:text-base text-sm mt-1">{item.content}</p>
-            <div className="flex gap-2 items-center mt-2 text-sm">
+            <p className="lg:text-base text-sm">{item.content}</p>
+            <div className="flex gap-2 justify-between items-center mt-2 text-sm">
               <span className="text-xs">
                 Đăng bởi
                 <span className="text-[#13c2c2] break-words text-xs italic ml-2">
                   {"Admin"} <CheckCircleFilled />
                 </span>
               </span>
-              ·<span>{formatDate(item?.created_at)}</span>
+              <span className="text-xs text-gray-600">
+                {formatDate(item?.created_at)}
+              </span>
             </div>
             <Divider style={{ margin: "12px 0" }} />
           </li>

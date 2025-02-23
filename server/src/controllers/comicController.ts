@@ -19,7 +19,7 @@ const getAllComic = async (req: Request, res: Response): Promise<any> => {
     if (!userId || !page || !type) {
       return res.status(500).json({
         status: "error",
-        message: "userId, page và type là bắt buộc",
+        message: "User ID, Page and Type are required!",
       });
     }
 
@@ -39,7 +39,7 @@ const saveComic = async (req: Request, res: Response): Promise<any> => {
     if (!dataComic || !userId || !username || !avatar) {
       return res.status(500).json({
         status: "error",
-        message: "dataComic, userId, username và avatar là bắt buộc",
+        message: "DataComic, User ID, Username and Avatar are required!",
       });
     }
 
@@ -59,13 +59,11 @@ const deleteComic = async (req: Request, res: Response): Promise<any> => {
     if (!comicSlug || !userId) {
       return res.status(500).json({
         status: "error",
-        message: "comicSlug và userId là bắt buộc",
+        message: "ComicSlug and User ID are required!",
       });
     }
 
     const response = await handleDeleteComic(req.query as rawDataDeleteComic);
-
-    console.log(">>> response", response);
 
     return res.status(200).json(response);
   } catch (error) {
@@ -81,7 +79,7 @@ const deleteAllComic = async (req: Request, res: Response): Promise<any> => {
     if (!userId || !type) {
       return res.status(500).json({
         status: "error",
-        message: "userId và type là bắt buộc",
+        message: "User ID and type are required!",
       });
     }
 

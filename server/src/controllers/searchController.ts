@@ -17,7 +17,7 @@ export const getSearchHistory = async (
     if (!userId || !limit || !page) {
       return res.status(400).json({
         status: "error",
-        message: "User ID là bắt buộc!",
+        message: "User ID is required!",
       });
     }
 
@@ -42,7 +42,7 @@ export const addSearchHistory = async (
     if (!userId || !keyword) {
       return res.status(400).json({
         status: "error",
-        message: "User ID và từ khóa là bắt buộc!",
+        message: "User ID and Keyword are required!",
       });
     }
 
@@ -65,7 +65,7 @@ export const deleteSearchHistory = async (
     if (!userId || !searchId) {
       return res.status(400).json({
         status: "error",
-        message: "User ID và ID tìm kiếm là bắt buộc!",
+        message: "User ID and Search ID are required!",
       });
     }
 

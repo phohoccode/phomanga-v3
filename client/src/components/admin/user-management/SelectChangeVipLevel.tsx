@@ -1,6 +1,6 @@
 "use client";
 
-import { createNotification, updateVipLevels } from "@/lib/actions";
+import { createNotification, updateVipLevels } from "@/lib/actions/admin";
 import { socket } from "@/lib/socket";
 import { message, Modal, Select } from "antd";
 import { useState } from "react";
@@ -48,7 +48,7 @@ const SelectChangeVipLevel = ({
       });
 
       await createNotification(
-        "Cập nhật cấp độ VIP",
+        "update-vip-level",
         "Cấp độ VIP của bạn vừa được cập nhật.",
         userId,
         "user"

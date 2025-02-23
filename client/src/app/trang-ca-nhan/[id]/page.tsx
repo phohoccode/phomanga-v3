@@ -2,7 +2,11 @@ import EmptyData from "@/components/common/EmptyData";
 import Layout from "@/components/layout/Layout";
 import Statistical from "@/components/pages/proflie/Statistical";
 import UserInfo from "@/components/pages/proflie/UserInfo";
-import { getAllVipLevel, getUserInfo, getUserStatistical } from "@/lib/actions";
+import {
+  getAllVipLevel,
+  getUserInfo,
+  getUserStatistical,
+} from "@/lib/actions/user";
 import Link from "next/link";
 import { Breadcrumb, Col, Row } from "antd";
 import AvatarUser from "@/components/pages/proflie/Avatar";
@@ -32,14 +36,12 @@ const Page = async ({ params }: any) => {
 
         <div className="min-h-screen">
           <div
+            className="lg:h-96 sm:h-54 md:h-72 h-48 rounded-lg mb-32"
             style={{
               position: "relative",
-              backgroundImage: "url('/images/background-profile.jpg')",
+              backgroundImage: "url('/images/background-profile-2.jpg')",
               backgroundSize: "cover",
               backgroundPosition: "center",
-              height: "260px",
-              borderRadius: "8px",
-              marginBottom: "120px",
             }}
           >
             <AvatarUser />

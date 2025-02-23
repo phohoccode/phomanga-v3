@@ -18,6 +18,7 @@ import {
 import { BankOutlined, CopyOutlined } from "@ant-design/icons";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
+import { useSession } from "next-auth/react";
 
 const handleCopy = (text: string, _message: string) => {
   copyToClipboard(text);
@@ -27,9 +28,11 @@ const handleCopy = (text: string, _message: string) => {
 const PaymentInfomation = () => {
   const currentScrollRef = useRef<HTMLDivElement | null>(null);
   const { width } = useSelector((state: RootState) => state.system);
-  const { selectedCard, loading } = useSelector(
+  const { selectedCard, vipLevels, loading } = useSelector(
     (state: RootState) => state.vipLevel
   );
+  const { data: sesstion }: any = useSession();
+  const maxLevel = vipLevels[vipLevels.length - 1]?.level;
 
   const items: DescriptionsProps["items"] = [
     {
@@ -125,6 +128,8 @@ const PaymentInfomation = () => {
       scrollToCurrentElement(currentScrollRef);
     }
   }, [selectedCard]);
+
+  if (sesstion?.user?.vip_level === maxLevel) return null;
 
   return (
     <div ref={currentScrollRef}>

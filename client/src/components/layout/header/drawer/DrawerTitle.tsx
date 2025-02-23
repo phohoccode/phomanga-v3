@@ -13,9 +13,11 @@ const DrawerTitle = () => {
         type="vip"
         showFrame={true}
       />
-      <div className="flex flex-col">
-        <span className="text-base">{session?.user?.name}</span>
-        <span className="text-sm text-gray-500">{session?.user?.email}</span>
+      <div className="flex flex-col flex-1 max-w-48">
+        <span className="text-base truncate w-full">{session?.user?.name}</span>
+        <span className="text-sm text-gray-500 truncate w-full">
+          {session?.user?.email}
+        </span>
       </div>
     </div>
   );

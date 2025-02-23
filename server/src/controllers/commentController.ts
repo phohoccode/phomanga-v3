@@ -25,7 +25,7 @@ export const getComments = async (
     if (!comicSlug || !limit || !page || !sort) {
       return res.status(400).json({
         status: "error",
-        message: "ComicSlug, limit, page và sort là bắt buộc!",
+        message: "ComicSlug, Limit, Page and Sort are required!",
       });
     }
 
@@ -43,12 +43,14 @@ export const createComment = async (
   res: Response
 ): Promise<any> => {
   try {
-    const { userId, content, comicSlug } = req.body;
+    const { userId, content, comicSlug, comicName } = req.body;
 
-    if (!userId || !content || !comicSlug) {
+    console.log(req.body);
+
+    if (!userId || !content || !comicSlug || !comicName) {
       return res.status(400).json({
         status: "error",
-        message: "userId, content, comicSlug là bắt buộc!",
+        message: "User ID, Content, ComicSlug and ComicName are required!",
       });
     }
 
@@ -71,7 +73,7 @@ export const deleteComment = async (
     if (!commentId || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "commentId và userId là bắt buộc!",
+        message: "Comment ID và User ID are required!",
       });
     }
 
@@ -97,7 +99,7 @@ export const updateComment = async (
     if (!content || !id || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "content, id và userId là bắt buộc!",
+        message: "Content, CommentID and User ID are required!",
       });
     }
 
@@ -120,7 +122,7 @@ export const likeComment = async (
     if (!commentId || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "commentId và userId là bắt buộc!",
+        message: "Comment ID and User ID are required!",
       });
     }
     const response = await handleLikeComment(req.body);
@@ -141,7 +143,7 @@ export const unlikeComment = async (
     if (!commentId || !userId) {
       return res.status(400).json({
         status: "error",
-        message: "commentId và userId là bắt buộc!",
+        message: "Comment ID and User ID are required!",
       });
     }
     const response = await handleUnlikeComment(

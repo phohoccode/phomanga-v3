@@ -25,6 +25,7 @@ const CommentInput = () => {
   const [loading, setLoading] = useState(false);
   const { sort } = useSelector((state: RootState) => state.comment);
   const { item } = useSelector((state: RootState) => state.comic.imagesComic);
+  const { items } = useSelector((state: RootState) => state.comic.comicInfo);
 
   const handleCreateComment = async () => {
     if (!sesstion?.user) {
@@ -47,6 +48,7 @@ const CommentInput = () => {
         userId: sesstion?.user?.id as string,
         content: value,
         comicSlug: params.slug as string,
+        comicName: items?.name,
         chapter: chapterName,
       })
     );
