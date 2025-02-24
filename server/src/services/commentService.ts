@@ -23,7 +23,7 @@ export const handleGetComments = async (rawData: rawDataGetComments) => {
           c.user_id,
           c.chapter,
           c.is_spam,
-          CONVERT_TZ(c.created_at, '+00:00', '+07:00') AS created_at,
+          c.created_at,
           r.name AS role_name,
           u.avatar AS user_avatar,
           u.name AS user_name,

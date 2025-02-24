@@ -45,8 +45,6 @@ export const createComment = async (
   try {
     const { userId, content, comicSlug, comicName } = req.body;
 
-    console.log(req.body);
-
     if (!userId || !content || !comicSlug || !comicName) {
       return res.status(400).json({
         status: "error",

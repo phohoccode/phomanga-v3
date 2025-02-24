@@ -20,7 +20,6 @@ export const handleGetAllNotifications = async (
       type === "system"
         ? `
           SELECT notification.*,
-          CONVERT_TZ(notification.created_at, '+00:00', '+07:00') AS created_at
           FROM notification
           WHERE type = '${type}' and is_deleted = 0
           ORDER BY notification.created_at DESC
@@ -28,7 +27,6 @@ export const handleGetAllNotifications = async (
         `
         : `
           SELECT notification.*, 
-          CONVERT_TZ(created_at, '+00:00', '+07:00') AS created_at
           FROM notification
           WHERE type = '${type}'
           AND user_id = '${userId}' and is_deleted = 0
