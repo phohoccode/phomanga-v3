@@ -69,9 +69,9 @@ const NavBarMobile = () => {
 
   return (
     <div
-      className={`z-50 fixed left-0 right-0 bottom-0
-        md:p-6 p-3 flex items-center justify-between
-        bg-[#fffc] backdrop-blur border-t border-gray-100
+      className={`z-50 fixed left-0 right-0 bottom-0 md:p-6
+        pl-3 pr-3 pt-4 pb-6 flex items-center justify-between
+      bg-[#fffc] backdrop-blur border-t border-gray-100
         h-[60px] transition-all duration-300
         ${isVisiable ? "transform-none" : "translate-y-full"}
       `}
