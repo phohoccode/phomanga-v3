@@ -19,15 +19,13 @@ export const handleGetAllNotifications = async (
     const sql_select =
       type === "system"
         ? `
-          SELECT notification.*,
-          FROM notification
+          SELECT * FROM notification
           WHERE type = '${type}' and is_deleted = 0
-          ORDER BY notification.created_at DESC
+          ORDER BY created_at DESC
           LIMIT ${limit} OFFSET ${offset};
         `
         : `
-          SELECT notification.*, 
-          FROM notification
+          SELECT * FROM notification
           WHERE type = '${type}'
           AND user_id = '${userId}' and is_deleted = 0
           ORDER BY created_at DESC
