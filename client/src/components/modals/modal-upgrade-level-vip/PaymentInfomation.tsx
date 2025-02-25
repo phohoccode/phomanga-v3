@@ -35,48 +35,53 @@ const PaymentInfomation = () => {
   const maxLevel = vipLevels[vipLevels.length - 1]?.level;
 
   const items: DescriptionsProps["items"] = [
-    {
-      key: "1",
-      label: "Cấp độ VIP ",
-      children: !loading ? (
-        <Tag color={getColorVipLevel(selectedCard?.level)}>
-          VIP {selectedCard?.level}
-        </Tag>
-      ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} />
-      ),
-    },
-    {
-      key: "2",
-      label: "Số truyện lưu trữ",
-      children: !loading ? (
-        <p>{selectedCard?.max_stories}</p>
-      ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} />
-      ),
-    },
-    {
-      key: "3",
-      label: "Biệt danh",
-      children: !loading ? (
-        <p>{selectedCard?.nickname}</p>
-      ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} />
-      ),
-    },
-    {
-      key: "4",
-      label: "Tổng số tiền",
-      children: !loading ? (
-        <p>{selectedCard?.price} VNĐ</p>
-      ) : (
-        <Skeleton.Input style={{ width: 100, height: 24 }} />
-      ),
-    },
+    // {
+    //   key: "1",
+    //   label: "Cấp độ VIP ",
+    //   children: !loading ? (
+    //     <Tag color={getColorVipLevel(selectedCard?.level)}>
+    //       VIP {selectedCard?.level}
+    //     </Tag>
+    //   ) : (
+    //     <Skeleton.Input style={{ width: 100, height: 24 }} />
+    //   ),
+    // },
+    // {
+    //   key: "2",
+    //   label: "Số truyện lưu trữ",
+    //   children: !loading ? (
+    //     <p>{selectedCard?.max_stories}</p>
+    //   ) : (
+    //     <Skeleton.Input style={{ width: 100, height: 24 }} />
+    //   ),
+    // },
+    // {
+    //   key: "3",
+    //   label: "Biệt danh",
+    //   children: !loading ? (
+    //     <p>{selectedCard?.nickname}</p>
+    //   ) : (
+    //     <Skeleton.Input style={{ width: 100, height: 24 }} />
+    //   ),
+    // },
+    // {
+    //   key: "4",
+    //   label: "Tổng số tiền",
+    //   children: !loading ? (
+    //     <p>{selectedCard?.price} VNĐ</p>
+    //   ) : (
+    //     <Skeleton.Input style={{ width: 100, height: 24 }} />
+    //   ),
+    // },
     {
       key: "5",
       label: "Ngân hàng",
-      children: "VietinkBank",
+      children: "VIETINBANK",
+    },
+    {
+      key: "7",
+      label: "Người nhận",
+      children: "NHAN QUOC VIET",
     },
     {
       key: "6",
@@ -95,15 +100,18 @@ const PaymentInfomation = () => {
       ),
     },
     {
-      key: "7",
+      key: "8",
       label: "Nội dung chuyển khoản",
       children: (
         <div className="flex gap-2 justify-between items-center">
-          <p>{selectedCard?.id}</p>
+          <p>{`Nâng cấp VIP-${selectedCard?.level} | UID:${sesstion?.user?.id} | VIP ID: ${selectedCard?.id}`}</p>
           <Button
             className="flex-shrink-0"
             onClick={() =>
-              handleCopy(selectedCard?.id, "Đã sao chép nội dung chuyển khoản")
+              handleCopy(
+                `Nâng cấp VIP-${selectedCard?.level} | UID:${sesstion?.user?.id} | VIP ID: ${selectedCard?.id}`,
+                "Đã sao chép nội dung chuyển khoản"
+              )
             }
             icon={<CopyOutlined />}
           />
@@ -111,7 +119,7 @@ const PaymentInfomation = () => {
       ),
     },
     {
-      key: "8",
+      key: "9",
       label: "Lưu ý quan trọng!!!",
       children: (
         <p className="text-red-500 font-semibold">
